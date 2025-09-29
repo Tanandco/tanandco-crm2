@@ -118,3 +118,144 @@ export type Product = typeof products.$inferSelect;
 
 export type InsertTransaction = z.infer<typeof insertTransactionSchema>;
 export type Transaction = typeof transactions.$inferSelect;
+
+// ============================================================
+// SOCIAL MEDIA AUTOMATION TABLES
+// ============================================================
+
+// Automation Settings - Global rules and thresholds
+export const automationSettings = pgTable("automation_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  settingKey: text("setting_key").notNull().unique(), // 'PAUSE_RULES', 'BUDGET_RULES', etc.
+  settingValue: jsonb("setting_value").notNull(), // JSON with all config
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Campaigns - Ad campaigns across platforms
+export const campaigns = pgTable("campaigns", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  platform: text("platform").notNull(), // 'meta', 'google', 'tiktok'
+  platformCampaignId: text("platform_campaign_id").notNull(), // External ID
+  name: text("name").notNull(),
+  goal: text("goal").notNull(), // 'leads', 'roas', 'awareness'
+  dailyBudget: decimal("daily_budget", { precision: 10, scale: 2 }).notNull(),
+  status: text("status").notNull(), // 'active', 'paused', 'ended'
+  owner: text("owner"), // Team member responsible
+  overrides: jsonb("overrides"), // Campaign-specific rules (JSON)
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Ad Sets - Groups of ads
+export const adSets = pgTable("ad_sets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  campaignId: varchar("campaign_id").notNull().references(() => campaigns.id),
+  platformAdSetId: text("platform_ad_set_id").notNull(), // External ID
+  name: text("name").notNull(),
+  targetingData: jsonb("targeting_data"), // Audience targeting (JSON)
+  budget: decimal("budget", { precision: 10, scale: 2 }),
+  status: text("status").notNull(), // 'active', 'paused'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Ads - Individual ad creatives
+export const ads = pgTable("ads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  adSetId: varchar("ad_set_id").notNull().references(() => adSets.id),
+  platformAdId: text("platform_ad_id").notNull(), // External ID
+  name: text("name").notNull(),
+  creative: jsonb("creative").notNull(), // Text, images, videos (JSON)
+  rolling7dKpis: jsonb("rolling_7d_kpis"), // Last 7 days metrics (JSON)
+  status: text("status").notNull(), // 'active', 'paused', 'testing'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Content Queue - Organic social media posts
+export const contentQueue = pgTable("content_queue", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  platform: text("platform").notNull(), // 'ig_feed', 'ig_reels', 'ig_stories', 'facebook', 'tiktok'
+  topic: text("topic").notNull(),
+  caption: text("caption").notNull(),
+  hashtags: text("hashtags"),
+  mediaUrls: text("media_urls").array(), // Array of media URLs
+  cta: text("cta"), // Call to action
+  publishAt: timestamp("publish_at").notNull(),
+  status: text("status").notNull(), // 'draft', 'needs_approval', 'approved', 'scheduled', 'published'
+  permalink: text("permalink"), // Published post URL
+  metrics: jsonb("metrics"), // Post performance metrics (JSON)
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Automation Logs - Track all automated actions
+export const automationLogs = pgTable("automation_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+  platform: text("platform").notNull(), // 'meta', 'google', 'tiktok', 'system'
+  entity: text("entity").notNull(), // 'campaign', 'adset', 'ad', 'content'
+  entityId: text("entity_id").notNull(), // ID of affected entity
+  action: text("action").notNull(), // 'pause', 'promote', 'budget_change', 'create', etc.
+  reason: text("reason").notNull(), // Why this action was taken
+  beforeState: jsonb("before_state"), // State before action (JSON)
+  afterState: jsonb("after_state"), // State after action (JSON)
+  success: boolean("success").notNull(),
+  errorMessage: text("error_message"),
+});
+
+// Create Zod schemas for automation tables
+export const insertAutomationSettingSchema = createInsertSchema(automationSettings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCampaignSchema = createInsertSchema(campaigns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAdSetSchema = createInsertSchema(adSets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAdSchema = createInsertSchema(ads).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertContentQueueSchema = createInsertSchema(contentQueue).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAutomationLogSchema = createInsertSchema(automationLogs).omit({
+  id: true,
+});
+
+// Export automation types
+export type InsertAutomationSetting = z.infer<typeof insertAutomationSettingSchema>;
+export type AutomationSetting = typeof automationSettings.$inferSelect;
+
+export type InsertCampaign = z.infer<typeof insertCampaignSchema>;
+export type Campaign = typeof campaigns.$inferSelect;
+
+export type InsertAdSet = z.infer<typeof insertAdSetSchema>;
+export type AdSet = typeof adSets.$inferSelect;
+
+export type InsertAd = z.infer<typeof insertAdSchema>;
+export type Ad = typeof ads.$inferSelect;
+
+export type InsertContentQueue = z.infer<typeof insertContentQueueSchema>;
+export type ContentQueue = typeof contentQueue.$inferSelect;
+
+export type InsertAutomationLog = z.infer<typeof insertAutomationLogSchema>;
+export type AutomationLog = typeof automationLogs.$inferSelect;
