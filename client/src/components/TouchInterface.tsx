@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { Home, Palette, Scissors, Store, Sun, Droplets, Star, Search, UserPlus, Sparkles, Settings } from 'lucide-react';
 import Logo from './Logo';
 import ServiceCard from './ServiceCard';
@@ -11,6 +12,7 @@ interface TouchInterfaceProps {
 }
 
 export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInterfaceProps) {
+  const [, navigate] = useLocation();
   // todo: remove mock functionality
   const [currentCustomer, setCurrentCustomer] = useState<any>(null);
   const [currentPath, setCurrentPath] = useState('/');
@@ -26,7 +28,13 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
   const handleServiceClick = (serviceId: string) => {
     console.log(`Service selected: ${serviceId}`);
-    onServiceSelect?.(serviceId);
+    
+    if (serviceId === 'ai-tan') {
+      // Navigate to face identification for AI customer recognition using wouter
+      navigate('/face-id');
+    } else {
+      onServiceSelect?.(serviceId);
+    }
   };
 
   const handleNavigation = (path: string) => {
@@ -147,6 +155,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         {/* Self Service Button */}
         <div className="mt-auto">
         <button
+          data-testid="button-ai-tan-face-recognition"
           className="
             group relative h-[80px] w-[280px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
@@ -166,8 +175,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
           onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-          onClick={() => handleServiceClick('self-service')}
-          data-testid="button-self-service"
+          onClick={() => handleServiceClick('ai-tan')}
         >
           <div className="relative group/star">
             {/* Multiple rotating background rings */}

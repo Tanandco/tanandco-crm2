@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import https from 'https';
 import { 
   BioStarConfig, 
   BioStarCredentials, 
@@ -19,6 +20,16 @@ export class BioStarClient {
     this.config = { ...defaultBioStarConfig, ...config };
   }
 
+  // Create HTTPS agent with configurable certificate validation
+  private createHttpsAgent(): https.Agent {
+    const allowSelfSigned = process.env.BIOSTAR_ALLOW_SELF_SIGNED === 'true';
+    
+    return new https.Agent({
+      rejectUnauthorized: !allowSelfSigned,
+      timeout: this.config.timeout
+    });
+  }
+
   // Authentication methods
   async authenticate(username: string, password: string): Promise<boolean> {
     try {
@@ -32,8 +43,7 @@ export class BioStarClient {
         },
         body: JSON.stringify({ username, password }),
         timeout: this.config.timeout,
-        // Ignore SSL errors for development (remove in production)
-        // rejectUnauthorized: false
+        agent: this.createHttpsAgent()
       });
 
       if (!response.ok) {
@@ -106,7 +116,8 @@ export class BioStarClient {
           antiSpoofing: true,
           liveDetection: true
         }),
-        timeout: this.config.timeout
+        timeout: this.config.timeout,
+        agent: this.createHttpsAgent()
       });
 
       if (!response.ok) {

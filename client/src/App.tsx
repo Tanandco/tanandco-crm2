@@ -6,7 +6,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
 // Import main components
-import TouchInterface from "@/components/TouchInterface";
+import TouchInterfaceComponent from "@/components/TouchInterface";
+import FaceIdentification from "@/pages/FaceIdentification";
+import Services from "@/pages/Services";
+import ManualEntry from "@/pages/ManualEntry";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -19,7 +22,10 @@ function Router() {
   return (
     <Switch>
       {/* Main Tan & Co CRM Interface */}
-      <Route path="/" component={TouchInterfaceExample} />
+      <Route path="/" component={() => <TouchInterfaceComponent />} />
+      <Route path="/face-id" component={FaceIdentification} />
+      <Route path="/services" component={Services} />
+      <Route path="/manual-entry" component={ManualEntry} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
@@ -38,7 +44,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-slate-900 text-white">
+        <div className="min-h-screen bg-slate-900 text-white" dir="rtl">
           <Router />
         </div>
         <Toaster />

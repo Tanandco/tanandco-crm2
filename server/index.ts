@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { bioStarStartup } from "./services/biostar-startup";
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Initialize BioStar connection
+  try {
+    console.log('Starting BioStar initialization...');
+    await bioStarStartup.initialize();
+  } catch (error) {
+    console.error('BioStar initialization failed, continuing without facial recognition:', error);
+  }
+
   registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

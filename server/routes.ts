@@ -1,5 +1,6 @@
 import express from 'express';
 import { bioStarClient } from './services/biostar-client';
+import { bioStarStartup } from './services/biostar-startup';
 import { z } from 'zod';
 
 // Validation schemas
@@ -24,30 +25,35 @@ const createUserSchema = z.object({
 });
 
 export function registerRoutes(app: express.Application) {
-  // Test BioStar connection
-  app.get('/api/biostar/test', async (req, res) => {
+  // System status endpoint
+  app.get('/api/biostar/status', async (req, res) => {
     try {
-      const isConnected = await bioStarClient.testConnection();
+      const status = await bioStarStartup.getStatus();
       
       res.json({
         success: true,
-        data: {
-          connected: isConnected,
-          timestamp: new Date().toISOString()
-        }
+        data: status
       });
     } catch (error: any) {
-      console.error('BioStar connection test failed:', error);
+      console.error('BioStar status check failed:', error);
       res.status(500).json({
         success: false,
-        error: 'Failed to test BioStar connection',
+        error: 'Failed to get BioStar status',
         details: error.message
       });
     }
   });
 
-  // Authenticate with BioStar
+  // Authenticate with BioStar (RESTRICTED - Admin only)
   app.post('/api/biostar/auth', async (req, res) => {
+    // Security: Only allow in development mode
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(403).json({
+        success: false,
+        error: 'Authentication endpoint disabled in production'
+      });
+    }
+    
     try {
       const { username, password } = req.body;
       
@@ -89,12 +95,12 @@ export function registerRoutes(app: express.Application) {
     try {
       const validatedData = identifyFaceSchema.parse(req.body);
       
-      // Check if authenticated
-      const isAuth = await bioStarClient.isAuthenticated();
-      if (!isAuth) {
-        return res.status(401).json({
+      // Ensure BioStar is ready
+      const isReady = await bioStarStartup.ensureReady();
+      if (!isReady) {
+        return res.status(503).json({
           success: false,
-          error: 'Not authenticated with BioStar'
+          error: 'BioStar system not available. Please use manual entry or contact staff.'
         });
       }
       
