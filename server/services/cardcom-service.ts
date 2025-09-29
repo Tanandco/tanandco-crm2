@@ -151,9 +151,19 @@ class CardcomService {
         .update(payload)
         .digest("hex");
 
+      // Remove 'sha256=' prefix if present
+      const cleanSignature = signature.startsWith('sha256=') 
+        ? signature.substring(7) 
+        : signature;
+
+      // Both buffers must be same length for timingSafeEqual
+      if (cleanSignature.length !== expectedSignature.length) {
+        return false;
+      }
+
       return crypto.timingSafeEqual(
-        Buffer.from(signature),
-        Buffer.from(expectedSignature)
+        Buffer.from(cleanSignature, "hex"),
+        Buffer.from(expectedSignature, "hex")
       );
     } catch (error) {
       console.error("[Cardcom] Signature verification failed:", error);
