@@ -1,4 +1,4 @@
-import { Home, Store, History, HelpCircle } from 'lucide-react';
+import { Home, Store, History, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface NavigationItem {
@@ -18,7 +18,7 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
     { icon: Home, label: 'בית', path: '/' },
     { icon: Store, label: 'חנות', path: '/store' },
     { icon: History, label: 'היסטוריה', path: '/history' },
-    { icon: HelpCircle, label: 'עזרה', path: '/help' },
+    { icon: Bot, label: 'אלין', path: '/alin' },
   ];
 
   return (
@@ -43,6 +43,7 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
                 flex flex-col items-center gap-1 p-3 min-w-[60px] h-auto
                 text-white hover:text-primary transition-all duration-300
                 ${isActive ? 'text-primary bg-primary/10' : ''}
+                ${item.label === 'אלין' ? 'text-pink-400 hover:text-pink-300' : ''}
                 hover-elevate active-elevate-2
               `}
               onClick={() => {
@@ -55,7 +56,11 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
                 size={20}
                 className={isActive ? 'drop-shadow-sm' : ''}
                 style={{
-                  filter: isActive ? 'drop-shadow(0 0 10px hsl(var(--primary)/0.5))' : 'none'
+                  filter: item.label === 'אלין' 
+                    ? 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))'
+                    : isActive 
+                      ? 'drop-shadow(0 0 10px hsl(var(--primary)/0.5))' 
+                      : 'none'
                 }}
               />
               <span className="text-xs font-hebrew">{item.label}</span>

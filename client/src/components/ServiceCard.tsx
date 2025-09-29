@@ -17,9 +17,9 @@ export default function ServiceCard({ title, icon: Icon, onClick, disabled = fal
       }}
       disabled={disabled}
       className={`
-        group relative h-[140px] w-[140px] sm:h-[160px] sm:w-[160px] 
-        bg-gradient-to-br from-slate-800 via-slate-900 to-blue-900/80
-        border border-blue-600/50 hover:border-blue-400/80 
+        group relative h-[140px] w-[140px] sm:h-[160px] sm:w-[160px] md:h-[180px] md:w-[180px]
+        bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+        border border-primary/60 hover:border-primary 
         rounded-md backdrop-blur-sm
         flex flex-col items-center justify-center gap-2
         transition-all duration-300 ease-in-out
@@ -29,7 +29,7 @@ export default function ServiceCard({ title, icon: Icon, onClick, disabled = fal
         ${className}
       `}
       style={{
-        boxShadow: '0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(59, 130, 246, 0.3)'
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
       }}
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
