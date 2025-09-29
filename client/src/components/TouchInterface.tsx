@@ -22,7 +22,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     { title: 'מספרה', icon: Scissors, id: 'hair-salon' },
     { title: 'קוסמטיקה', icon: Palette, id: 'cosmetics' },
     { title: 'החנות שלכם', icon: Store, id: 'your-store' },
-    { title: 'AI TAN', icon: 'alin', id: 'ai-tan' },
+    { title: 'AI TAN', icon: 'alin' as const, id: 'ai-tan' },
   ];
 
   const handleServiceClick = (serviceId: string) => {
@@ -53,24 +53,75 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       <div className="relative z-10 px-6 py-8 flex flex-col items-center">
         {/* Top Buttons - Search and Registration */}
         <div className="flex gap-4 mb-12 w-full justify-center">
-          <Button 
-            variant="outline"
-            className="bg-slate-800/50 border-slate-600 hover:bg-slate-700/50 text-white px-8 py-6 text-lg"
+          <button
+            className="
+              group relative h-[80px] w-[160px]
+              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+              border-2 border-gray-500 hover:border-gray-400
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center gap-3
+              transition-all duration-300 ease-in-out
+              hover:scale-105 active:scale-95
+              hover-elevate active-elevate-2
+              px-6 text-lg font-medium
+            "
+            style={{
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+            }}
             onClick={() => onNavigate?.('/search')}
             data-testid="button-search"
           >
-            <Search className="ml-2" />
-            חיפוש
-          </Button>
-          <Button 
-            variant="outline"
-            className="bg-slate-800/50 border-slate-600 hover:bg-slate-700/50 text-white px-8 py-6 text-lg"
+            <Search 
+              className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" 
+              size={24}
+              style={{
+                filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.1))'
+              }}
+            />
+            <span className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text font-hebrew group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" style={{
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1)'
+            }}>חיפוש</span>
+            
+            {/* Ripple effect */}
+            <div className="absolute inset-0 rounded-md overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-radial from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </button>
+          
+          <button
+            className="
+              group relative h-[80px] w-[160px]
+              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+              border-2 border-gray-500 hover:border-gray-400
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center gap-3
+              transition-all duration-300 ease-in-out
+              hover:scale-105 active:scale-95
+              hover-elevate active-elevate-2
+              px-6 text-lg font-medium
+            "
+            style={{
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+            }}
             onClick={() => onNavigate?.('/register')}
             data-testid="button-register"
           >
-            <UserPlus className="ml-2" />
-            הרשמה
-          </Button>
+            <UserPlus 
+              className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" 
+              size={24}
+              style={{
+                filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.1))'
+              }}
+            />
+            <span className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text font-hebrew group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" style={{
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1)'
+            }}>הרשמה</span>
+            
+            {/* Ripple effect */}
+            <div className="absolute inset-0 rounded-md overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-radial from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </button>
         </div>
 
         {/* Logo */}
@@ -89,17 +140,44 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Self Service Button */}
-        <Button 
-          className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-12 py-8 text-xl font-bold rounded-lg shadow-2xl border border-blue-400/30 relative overflow-hidden group"
+        <button
+          className="
+            group relative h-[100px] w-[300px]
+            bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+            border-2 border-primary/60 hover:border-primary
+            rounded-md backdrop-blur-sm
+            flex items-center justify-center gap-4
+            transition-all duration-300 ease-in-out
+            hover:scale-105 active:scale-95
+            hover-elevate active-elevate-2
+            px-8 text-xl font-bold
+            transform perspective-1000
+          "
+          style={{
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
+            transform: 'rotateX(5deg) rotateY(-2deg)',
+            transformStyle: 'preserve-3d'
+          }}
           onClick={() => handleServiceClick('self-service')}
           data-testid="button-self-service"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="relative flex items-center gap-3">
-            <Star className="w-8 h-8 text-cyan-300" />
-            <span className="font-hebrew">שירות עצמי 24/7</span>
+          <Star 
+            className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" 
+            size={32}
+            style={{
+              filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+            }}
+          />
+          <span className="text-white font-hebrew drop-shadow-lg">שירות עצמי 24/7</span>
+          
+          {/* Ripple effect */}
+          <div className="absolute inset-0 rounded-md overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
-        </Button>
+          
+          {/* 3D highlight */}
+          <div className="absolute inset-0 rounded-md border border-white/10 pointer-events-none" />
+        </button>
       </div>
 
       {/* Navigation */}
