@@ -161,13 +161,40 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           onClick={() => handleServiceClick('self-service')}
           data-testid="button-self-service"
         >
-          <Star 
-            className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" 
-            size={32}
-            style={{
-              filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
-            }}
-          />
+          <div className="relative">
+            <Star 
+              className="text-transparent bg-gradient-to-br from-yellow-300 via-pink-400 to-purple-500 bg-clip-text
+                         transition-all duration-500 ease-in-out group-hover:scale-110
+                         animate-pulse group-hover:animate-spin" 
+              size={36}
+              style={{
+                filter: 'drop-shadow(0 0 25px rgba(236, 72, 153, 1)) drop-shadow(0 0 50px rgba(147, 51, 234, 0.8)) drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.8))',
+                transform: 'rotateX(15deg) rotateY(-5deg)',
+                transformStyle: 'preserve-3d'
+              }}
+            />
+            {/* Rotating glow behind star */}
+            <div 
+              className="absolute inset-0 opacity-50 group-hover:opacity-80 transition-opacity duration-300"
+              style={{
+                background: 'conic-gradient(from 0deg, transparent, rgba(236, 72, 153, 0.5), transparent, rgba(147, 51, 234, 0.5), transparent)',
+                borderRadius: '50%',
+                animation: 'spin 3s linear infinite',
+                filter: 'blur(8px)',
+                transform: 'scale(1.5)'
+              }}
+            />
+            {/* Pulsing inner glow */}
+            <div 
+              className="absolute inset-0 opacity-30 group-hover:opacity-60"
+              style={{
+                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(236, 72, 153, 0.4) 50%, transparent 70%)',
+                borderRadius: '50%',
+                animation: 'pulse 2s ease-in-out infinite',
+                transform: 'scale(0.8)'
+              }}
+            />
+          </div>
           <span className="text-white font-hebrew drop-shadow-lg">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}

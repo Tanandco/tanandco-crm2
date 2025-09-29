@@ -22,7 +22,7 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
         bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
         border border-primary/60 hover:border-primary 
         rounded-md backdrop-blur-sm
-        flex flex-col items-center justify-center gap-2
+        flex flex-col items-center justify-between pb-4
         transition-all duration-300 ease-in-out
         disabled:opacity-50 disabled:cursor-not-allowed
         hover-elevate active-elevate-2
@@ -33,22 +33,24 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
       }}
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
-      {icon === 'alin' ? (
-        <Alin size={85} />
-      ) : (
-        (() => {
-          const Icon = icon as LucideIcon;
-          return (
-            <Icon 
-              size={40}
-              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-              style={{
-                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
-              }}
-            />
-          );
-        })()
-      )}
+      <div className="flex-1 flex items-center justify-center">
+        {icon === 'alin' ? (
+          <Alin size={85} />
+        ) : (
+          (() => {
+            const Icon = icon as LucideIcon;
+            return (
+              <Icon 
+                size={40}
+                className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+                }}
+              />
+            );
+          })()
+        )}
+      </div>
       <span className="text-base md:text-lg font-medium text-white text-center font-hebrew px-2">
         {title}
       </span>
