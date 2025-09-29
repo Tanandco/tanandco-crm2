@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Bot, Home, Palette, Scissors, Store, Sun, Droplets, Star, Search, UserPlus } from 'lucide-react';
+import { Home, Palette, Scissors, Store, Sun, Droplets, Star, Search, UserPlus, Sparkles } from 'lucide-react';
 import Logo from './Logo';
 import ServiceCard from './ServiceCard';
 import StatusDisplay from './StatusDisplay';
@@ -22,7 +22,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     { title: 'מספרה', icon: Scissors, id: 'hair-salon' },
     { title: 'קוסמטיקה', icon: Palette, id: 'cosmetics' },
     { title: 'החנות שלכם', icon: Store, id: 'your-store' },
-    { title: 'AI TAN', icon: Bot, id: 'ai-tan' },
+    { title: 'AI TAN', icon: Sparkles, id: 'ai-tan' },
   ];
 
   const handleServiceClick = (serviceId: string) => {

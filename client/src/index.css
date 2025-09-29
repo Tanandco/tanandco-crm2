@@ -271,4 +271,20 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+
+  /* אנימציית מיצמוץ לאלין */
+  @keyframes alin-blink {
+    0%, 90%, 100% { 
+      opacity: 1; 
+      transform: scaleY(1);
+    }
+    93%, 97% { 
+      opacity: 0.7; 
+      transform: scaleY(0.1);
+    }
+  }
+
+  .animate-alin-blink {
+    animation: alin-blink 4s ease-in-out infinite;
+  }
 }

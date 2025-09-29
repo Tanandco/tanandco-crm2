@@ -1,8 +1,9 @@
-import { Home, Store, History, Bot } from 'lucide-react';
+import { Home, Store, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Alin from './Alin';
 
 interface NavigationItem {
-  icon: React.ElementType;
+  icon: React.ElementType | 'alin';
   label: string;
   path: string;
   active?: boolean;
@@ -18,7 +19,7 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
     { icon: Home, label: 'בית', path: '/' },
     { icon: Store, label: 'חנות', path: '/store' },
     { icon: History, label: 'היסטוריה', path: '/history' },
-    { icon: Bot, label: 'אלין', path: '/alin' },
+    { icon: 'alin', label: 'אלין', path: '/alin' },
   ];
 
   return (
@@ -32,7 +33,6 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
       >
         {navItems.map((item) => {
           const isActive = currentPath === item.path;
-          const Icon = item.icon;
           
           return (
             <Button
@@ -52,17 +52,24 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
               }}
               data-testid={`nav-${item.path.replace('/', '') || 'home'}`}
             >
-              <Icon 
-                size={20}
-                className={isActive ? 'drop-shadow-sm' : ''}
-                style={{
-                  filter: item.label === 'אלין' 
-                    ? 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))'
-                    : isActive 
-                      ? 'drop-shadow(0 0 10px hsl(var(--primary)/0.5))' 
-                      : 'none'
-                }}
-              />
+              {item.icon === 'alin' ? (
+                <Alin size={20} />
+              ) : (
+                (() => {
+                  const Icon = item.icon as React.ElementType;
+                  return (
+                    <Icon 
+                      size={20}
+                      className={isActive ? 'drop-shadow-sm' : ''}
+                      style={{
+                        filter: isActive 
+                          ? 'drop-shadow(0 0 10px hsl(var(--primary)/0.5))' 
+                          : 'none'
+                      }}
+                    />
+                  );
+                })()
+              )}
               <span className="text-xs font-hebrew">{item.label}</span>
             </Button>
           );
