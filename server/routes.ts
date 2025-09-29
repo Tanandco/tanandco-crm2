@@ -976,4 +976,221 @@ export function registerRoutes(app: express.Application) {
       });
     }
   });
+
+  // ==================== AUTOMATION ROUTES ====================
+
+  // Campaigns
+  app.get('/api/automation/campaigns', async (req, res) => {
+    try {
+      const campaigns = await storage.getCampaigns();
+      res.json({ success: true, data: campaigns });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get('/api/automation/campaigns/:id', async (req, res) => {
+    try {
+      const campaign = await storage.getCampaign(req.params.id);
+      if (!campaign) {
+        return res.status(404).json({ success: false, error: 'Campaign not found' });
+      }
+      res.json({ success: true, data: campaign });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post('/api/automation/campaigns', async (req, res) => {
+    try {
+      const campaign = await storage.createCampaign(req.body);
+      res.json({ success: true, data: campaign });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put('/api/automation/campaigns/:id', async (req, res) => {
+    try {
+      const campaign = await storage.updateCampaign(req.params.id, req.body);
+      if (!campaign) {
+        return res.status(404).json({ success: false, error: 'Campaign not found' });
+      }
+      res.json({ success: true, data: campaign });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete('/api/automation/campaigns/:id', async (req, res) => {
+    try {
+      await storage.deleteCampaign(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // AdSets
+  app.get('/api/automation/adsets', async (req, res) => {
+    try {
+      const { campaignId } = req.query;
+      const adSets = campaignId 
+        ? await storage.getAdSetsByCampaign(campaignId as string)
+        : await storage.getAdSets();
+      res.json({ success: true, data: adSets });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post('/api/automation/adsets', async (req, res) => {
+    try {
+      const adSet = await storage.createAdSet(req.body);
+      res.json({ success: true, data: adSet });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put('/api/automation/adsets/:id', async (req, res) => {
+    try {
+      const adSet = await storage.updateAdSet(req.params.id, req.body);
+      if (!adSet) {
+        return res.status(404).json({ success: false, error: 'AdSet not found' });
+      }
+      res.json({ success: true, data: adSet });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Ads
+  app.get('/api/automation/ads', async (req, res) => {
+    try {
+      const { adSetId } = req.query;
+      const ads = adSetId 
+        ? await storage.getAdsByAdSet(adSetId as string)
+        : await storage.getAds();
+      res.json({ success: true, data: ads });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post('/api/automation/ads', async (req, res) => {
+    try {
+      const ad = await storage.createAd(req.body);
+      res.json({ success: true, data: ad });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put('/api/automation/ads/:id', async (req, res) => {
+    try {
+      const ad = await storage.updateAd(req.params.id, req.body);
+      if (!ad) {
+        return res.status(404).json({ success: false, error: 'Ad not found' });
+      }
+      res.json({ success: true, data: ad });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Settings
+  app.get('/api/automation/settings', async (req, res) => {
+    try {
+      const settings = await storage.getAutomationSettings();
+      res.json({ success: true, data: settings });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get('/api/automation/settings/:key', async (req, res) => {
+    try {
+      const setting = await storage.getAutomationSetting(req.params.key);
+      if (!setting) {
+        return res.status(404).json({ success: false, error: 'Setting not found' });
+      }
+      res.json({ success: true, data: setting });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post('/api/automation/settings', async (req, res) => {
+    try {
+      const setting = await storage.createAutomationSetting(req.body);
+      res.json({ success: true, data: setting });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put('/api/automation/settings/:key', async (req, res) => {
+    try {
+      const setting = await storage.updateAutomationSetting(req.params.key, req.body);
+      if (!setting) {
+        return res.status(404).json({ success: false, error: 'Setting not found' });
+      }
+      res.json({ success: true, data: setting });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Logs
+  app.get('/api/automation/logs', async (req, res) => {
+    try {
+      const { platform, limit } = req.query;
+      const logs = platform 
+        ? await storage.getAutomationLogsByPlatform(platform as string, limit ? parseInt(limit as string) : undefined)
+        : await storage.getAutomationLogs(limit ? parseInt(limit as string) : undefined);
+      res.json({ success: true, data: logs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Content Queue
+  app.get('/api/automation/content-queue', async (req, res) => {
+    try {
+      const { status, platform } = req.query;
+      let queue;
+      if (status) {
+        queue = await storage.getContentQueueByStatus(status as string);
+      } else if (platform) {
+        queue = await storage.getContentQueueByPlatform(platform as string);
+      } else {
+        queue = await storage.getContentQueue();
+      }
+      res.json({ success: true, data: queue });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post('/api/automation/content-queue', async (req, res) => {
+    try {
+      const item = await storage.createContentQueueItem(req.body);
+      res.json({ success: true, data: item });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put('/api/automation/content-queue/:id', async (req, res) => {
+    try {
+      const item = await storage.updateContentQueueItem(req.params.id, req.body);
+      if (!item) {
+        return res.status(404).json({ success: false, error: 'Content item not found' });
+      }
+      res.json({ success: true, data: item });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
 }
