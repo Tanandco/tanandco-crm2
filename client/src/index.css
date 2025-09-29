@@ -272,15 +272,13 @@
     inset: -1px;
   }
 
-  /* אנימציית מיצמוץ לאלין */
+  /* אנימציית מיצמוץ לאלין - רק על העיניים */
   @keyframes alin-blink {
     0%, 90%, 100% { 
-      opacity: 1; 
-      transform: scaleY(1);
+      clip-path: inset(0 0 0 0);
     }
     93%, 97% { 
-      opacity: 0.7; 
-      transform: scaleY(0.1);
+      clip-path: inset(35% 20% 45% 20%);
     }
   }
 

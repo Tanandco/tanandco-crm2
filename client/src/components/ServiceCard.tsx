@@ -1,14 +1,15 @@
 import { LucideIcon } from 'lucide-react';
+import Alin from './Alin';
 
 interface ServiceCardProps {
   title: string;
-  icon: LucideIcon;
+  icon: LucideIcon | 'alin';
   onClick: () => void;
   disabled?: boolean;
   className?: string;
 }
 
-export default function ServiceCard({ title, icon: Icon, onClick, disabled = false, className = "" }: ServiceCardProps) {
+export default function ServiceCard({ title, icon, onClick, disabled = false, className = "" }: ServiceCardProps) {
   return (
     <button
       onClick={() => {
@@ -33,13 +34,22 @@ export default function ServiceCard({ title, icon: Icon, onClick, disabled = fal
       }}
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
-      <Icon 
-        size={48}
-        className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-        style={{
-          filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
-        }}
-      />
+      {icon === 'alin' ? (
+        <Alin size={64} />
+      ) : (
+        (() => {
+          const Icon = icon as LucideIcon;
+          return (
+            <Icon 
+              size={48}
+              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+              }}
+            />
+          );
+        })()
+      )}
       <span className="text-sm font-medium text-white text-center font-hebrew px-2">
         {title}
       </span>

@@ -22,7 +22,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     { title: 'מספרה', icon: Scissors, id: 'hair-salon' },
     { title: 'קוסמטיקה', icon: Palette, id: 'cosmetics' },
     { title: 'החנות שלכם', icon: Store, id: 'your-store' },
-    { title: 'AI TAN', icon: Sparkles, id: 'ai-tan' },
+    { title: 'AI TAN', icon: 'alin', id: 'ai-tan' },
   ];
 
   const handleServiceClick = (serviceId: string) => {
