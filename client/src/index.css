@@ -272,17 +272,19 @@
     inset: -1px;
   }
 
-  /* אנימציית מיצמוץ לאלין - רק על העיניים */
+  /* אנימציית מיצמוץ לאלין - נקודות פשוטות */
   @keyframes alin-blink {
     0%, 90%, 100% { 
-      clip-path: inset(0 0 0 0);
+      opacity: 1;
+      transform: scaleY(1);
     }
     93%, 97% { 
-      clip-path: inset(35% 20% 45% 20%);
+      opacity: 0.3;
+      transform: scaleY(0.1);
     }
   }
 
   .animate-alin-blink {
-    animation: alin-blink 4s ease-in-out infinite;
+    animation: alin-blink 3s ease-in-out infinite;
   }
 }
