@@ -63,13 +63,26 @@ Preferred communication style: Simple, everyday language.
 - **@hookform/resolvers**: Form validation resolvers
 - **zod**: Runtime type validation and schema definition
 
-### Planned Integrations (Based on Design Docs)
-- **Airtable**: Primary data storage for customer records and business data
-- **Cardcom**: Payment processing for purchases and subscriptions
-- **WhatsApp Business API**: Automated messaging and notifications
-- **BioStar 2**: Facial recognition and access control system
-- **Jotform**: Digital forms and signature collection
-- **Make/n8n**: Workflow automation and service orchestration
+### Active Integrations
+- **WhatsApp Business API** ✅: Complete automated messaging system
+  - Template-based messages (Hebrew support)
+  - Inbound/outbound webhooks configured
+  - Customer engagement workflow automation
+  - Purchase options, payment confirmations, onboarding links
+- **Cardcom Payment Gateway** ✅: Full payment processing integration
+  - Low Profile API for hosted payment pages
+  - Webhook support for transaction notifications
+  - Automatic membership and transaction updates
+  - Invoice generation capabilities
+- **BioStar 2** ✅: Facial recognition and access control
+  - Face identification for customer check-in
+  - Face registration during onboarding
+  - Integration with customer management system
+
+### Planned Integrations
+- **Jotform**: Digital health forms and signature collection
+- **Airtable**: Optional extended data storage
+- **Make/n8n**: Advanced workflow automation
 
 ### Styling & Animation
 - **Tailwind CSS**: Utility-first styling with custom color palette

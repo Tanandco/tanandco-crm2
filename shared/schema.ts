@@ -27,6 +27,10 @@ export const customers = pgTable("customers", {
   healthFormSigned: boolean("health_form_signed").default(false).notNull(),
   faceRecognitionId: text("face_recognition_id"),
   notes: text("notes"),
+  // WhatsApp workflow fields
+  stage: text("stage").default("lead_inbound").notNull(), // Customer journey stage
+  waOptIn: boolean("wa_opt_in").default(true).notNull(), // WhatsApp marketing consent
+  lastWhatsAppMsgAt: timestamp("last_whatsapp_msg_at"), // Last WhatsApp message timestamp
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

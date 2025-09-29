@@ -4,6 +4,9 @@ import { bioStarStartup } from './services/biostar-startup';
 import { storage } from './storage';
 import { insertCustomerSchema, insertMembershipSchema } from '@shared/schema';
 import { z } from 'zod';
+import { whatsappService } from './services/whatsapp-service';
+import { cardcomService } from './services/cardcom-service';
+import { WorkflowService } from './services/workflow-service';
 
 // Validation schemas
 const identifyFaceSchema = z.object({
@@ -642,6 +645,332 @@ export function registerRoutes(app: express.Application) {
       res.status(500).json({
         success: false,
         error: 'Failed to delete customer',
+        details: error.message
+      });
+    }
+  });
+
+  // ============================================================
+  // WhatsApp Business Integration Endpoints
+  // ============================================================
+
+  // Initialize workflow service
+  const workflowService = new WorkflowService(storage);
+
+  // WhatsApp webhook verification (GET)
+  app.get('/api/webhooks/whatsapp', (req, res) => {
+    const mode = req.query['hub.mode'];
+    const token = req.query['hub.verify_token'];
+    const challenge = req.query['hub.challenge'];
+    
+    const verifyToken = process.env.WEBHOOK_VERIFICATION_TOKEN;
+    
+    if (!verifyToken) {
+      console.error('[WhatsApp Webhook] WEBHOOK_VERIFICATION_TOKEN not configured');
+      return res.sendStatus(403);
+    }
+    
+    if (mode === 'subscribe' && token === verifyToken) {
+      console.log('[WhatsApp Webhook] Verified');
+      res.status(200).send(challenge);
+    } else {
+      console.warn('[WhatsApp Webhook] Verification failed');
+      res.sendStatus(403);
+    }
+  });
+
+  // WhatsApp webhook for incoming messages (POST)
+  app.post('/api/webhooks/whatsapp', async (req, res) => {
+    try {
+      // Verify webhook signature
+      const signature = req.headers['x-hub-signature-256'] as string;
+      const appSecret = process.env.WA_APP_SECRET;
+      
+      if (!appSecret) {
+        console.error('[WhatsApp Webhook] WA_APP_SECRET not configured');
+        return res.sendStatus(500);
+      }
+      
+      if (signature) {
+        const crypto = await import('crypto');
+        const expectedSignature = 'sha256=' + crypto
+          .createHmac('sha256', appSecret)
+          .update(JSON.stringify(req.body))
+          .digest('hex');
+        
+        if (signature !== expectedSignature) {
+          console.error('[WhatsApp Webhook] Invalid signature');
+          return res.sendStatus(403);
+        }
+      } else {
+        console.warn('[WhatsApp Webhook] No signature provided');
+        return res.sendStatus(403);
+      }
+      
+      const body = req.body;
+      
+      // Acknowledge receipt immediately
+      res.sendStatus(200);
+      
+      // Process webhook asynchronously
+      if (body.entry?.[0]?.changes?.[0]?.value?.messages) {
+        const message = body.entry[0].changes[0].value.messages[0];
+        const from = message.from;
+        const text = message.text?.body || '';
+        
+        console.log(`[WhatsApp] Message from ${from}: ${text}`);
+        
+        // Handle inbound message
+        await workflowService.handleInboundWhatsAppMessage(from, text);
+      }
+    } catch (error: any) {
+      console.error('[WhatsApp Webhook] Error:', error);
+    }
+  });
+
+  // Send WhatsApp text message
+  app.post('/api/whatsapp/send-text', async (req, res) => {
+    try {
+      const { to, message } = req.body;
+      
+      if (!to || !message) {
+        return res.status(400).json({
+          success: false,
+          error: 'Missing required fields: to, message'
+        });
+      }
+      
+      const sent = await whatsappService.sendTextMessage(to, message);
+      
+      res.json({
+        success: sent,
+        message: sent ? 'Message sent successfully' : 'Failed to send message'
+      });
+    } catch (error: any) {
+      console.error('[WhatsApp] Send text failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to send message',
+        details: error.message
+      });
+    }
+  });
+
+  // ============================================================
+  // Cardcom Payment Integration Endpoints
+  // ============================================================
+
+  // Create payment session
+  app.post('/api/payments/cardcom/session', async (req, res) => {
+    try {
+      const { customerId, packageId } = req.body;
+      
+      if (!customerId || !packageId) {
+        return res.status(400).json({
+          success: false,
+          error: 'Missing required fields: customerId, packageId'
+        });
+      }
+      
+      const customer = await storage.getCustomer(customerId);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      
+      const baseUrl = process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000';
+      const protocol = baseUrl.includes('localhost') ? 'http' : 'https';
+      
+      const session = await cardcomService.createPaymentSession({
+        customerId,
+        customerName: customer.fullName,
+        customerPhone: customer.phone,
+        customerEmail: customer.email || undefined,
+        packageId,
+        successUrl: `${protocol}://${baseUrl}/payment/success?customerId=${customerId}&packageId=${packageId}`,
+        errorUrl: `${protocol}://${baseUrl}/payment/error?customerId=${customerId}`,
+        indicatorUrl: `${protocol}://${baseUrl}/api/webhooks/cardcom/payment`,
+      });
+      
+      if (!session) {
+        return res.status(500).json({
+          success: false,
+          error: 'Failed to create payment session'
+        });
+      }
+      
+      res.json({
+        success: true,
+        data: session
+      });
+    } catch (error: any) {
+      console.error('[Cardcom] Create session failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to create payment session',
+        details: error.message
+      });
+    }
+  });
+
+  // Cardcom payment webhook
+  app.post('/api/webhooks/cardcom/payment', async (req, res) => {
+    try {
+      // Acknowledge receipt immediately
+      res.sendStatus(200);
+      
+      // Parse webhook data
+      const webhookData = cardcomService.parseWebhookData(req.body);
+      
+      if (!webhookData) {
+        console.error('[Cardcom] Invalid webhook data');
+        return;
+      }
+      
+      console.log('[Cardcom] Webhook received:', webhookData);
+      
+      // Check for idempotency - prevent duplicate processing
+      const existingTransactions = await storage.getTransactionsByCustomer(webhookData.customerId);
+      const alreadyProcessed = existingTransactions.some(
+        (t) => t.cardcomTransactionId === webhookData.cardcomTransactionId
+      );
+      
+      if (alreadyProcessed) {
+        console.warn('[Cardcom] Transaction already processed:', webhookData.cardcomTransactionId);
+        return;
+      }
+      
+      if (webhookData.status === 'success') {
+        // Handle successful payment
+        await workflowService.handlePaymentSuccess(
+          webhookData.customerId,
+          webhookData.packageId,
+          webhookData.cardcomTransactionId,
+          webhookData.amount
+        );
+      }
+    } catch (error: any) {
+      console.error('[Cardcom Webhook] Error:', error);
+    }
+  });
+
+  // ============================================================
+  // Onboarding Endpoints
+  // ============================================================
+
+  // Health form completion webhook
+  app.post('/api/webhooks/jotform/health-form', async (req, res) => {
+    try {
+      // Acknowledge receipt
+      res.sendStatus(200);
+      
+      const { customerId } = req.body;
+      
+      if (customerId) {
+        await workflowService.handleHealthFormComplete(customerId);
+      }
+    } catch (error: any) {
+      console.error('[Health Form Webhook] Error:', error);
+    }
+  });
+
+  // Get face registration link
+  app.get('/api/onboarding/face-link', async (req, res) => {
+    try {
+      const { customerId } = req.query;
+      
+      if (!customerId) {
+        return res.status(400).json({
+          success: false,
+          error: 'Missing customerId parameter'
+        });
+      }
+      
+      const baseUrl = process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000';
+      const protocol = baseUrl.includes('localhost') ? 'http' : 'https';
+      const url = `${protocol}://${baseUrl}/face-registration/${customerId}`;
+      
+      res.json({
+        success: true,
+        url
+      });
+    } catch (error: any) {
+      console.error('[Face Link] Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to generate face registration link',
+        details: error.message
+      });
+    }
+  });
+
+  // Register face for customer
+  app.post('/api/onboarding/face-register', async (req, res) => {
+    try {
+      const { customerId, image } = req.body;
+      
+      if (!customerId || !image) {
+        return res.status(400).json({
+          success: false,
+          error: 'Missing required fields: customerId, image'
+        });
+      }
+      
+      const customer = await storage.getCustomer(customerId);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      
+      // Register face with BioStar
+      const faceResult = await bioStarClient.registerFace(customerId, image);
+      
+      if (!faceResult) {
+        return res.status(500).json({
+          success: false,
+          error: 'Failed to register face'
+        });
+      }
+      
+      // Update workflow
+      await workflowService.handleFaceRegistrationComplete(
+        customerId,
+        faceResult.id || customerId
+      );
+      
+      res.json({
+        success: true,
+        data: faceResult
+      });
+    } catch (error: any) {
+      console.error('[Face Register] Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to register face',
+        details: error.message
+      });
+    }
+  });
+
+  // Get packages catalog
+  app.get('/api/packages', async (req, res) => {
+    try {
+      const { getAllPackages } = await import('./config/packages');
+      const packages = getAllPackages();
+      
+      res.json({
+        success: true,
+        data: packages
+      });
+    } catch (error: any) {
+      console.error('[Packages] Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get packages',
         details: error.message
       });
     }
