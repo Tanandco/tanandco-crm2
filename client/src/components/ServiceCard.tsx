@@ -18,7 +18,7 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
       }}
       disabled={disabled}
       className={`
-        group relative h-[140px] w-[140px] sm:h-[160px] sm:w-[160px] md:h-[180px] md:w-[180px]
+        group relative h-[130px] w-[130px] sm:h-[140px] sm:w-[140px] md:h-[150px] md:w-[150px]
         bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
         border border-primary/60 hover:border-primary 
         rounded-md backdrop-blur-sm
@@ -34,13 +34,13 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
       {icon === 'alin' ? (
-        <Alin size={104} />
+        <Alin size={85} />
       ) : (
         (() => {
           const Icon = icon as LucideIcon;
           return (
             <Icon 
-              size={48}
+              size={40}
               className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
