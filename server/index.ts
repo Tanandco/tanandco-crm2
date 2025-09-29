@@ -4,6 +4,11 @@ import { setupVite, serveStatic, log } from "./vite";
 import { bioStarStartup } from "./services/biostar-startup";
 
 const app = express();
+
+// Raw body middleware for WhatsApp webhook signature verification
+app.use('/api/webhooks/whatsapp', express.raw({ type: 'application/json' }));
+
+// JSON middleware for all other routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
