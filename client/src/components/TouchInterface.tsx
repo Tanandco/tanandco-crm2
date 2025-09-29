@@ -161,37 +161,104 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           onClick={() => handleServiceClick('self-service')}
           data-testid="button-self-service"
         >
-          <div className="relative">
-            <Star 
-              className="text-transparent bg-gradient-to-br from-yellow-300 via-pink-400 to-purple-500 bg-clip-text
-                         transition-all duration-500 ease-in-out group-hover:scale-110
-                         animate-pulse group-hover:animate-spin" 
-              size={36}
+          <div className="relative group/star">
+            {/* Multiple rotating background rings */}
+            <div 
+              className="absolute inset-0 opacity-40 group-hover/star:opacity-70"
               style={{
-                filter: 'drop-shadow(0 0 25px rgba(236, 72, 153, 1)) drop-shadow(0 0 50px rgba(147, 51, 234, 0.8)) drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.8))',
-                transform: 'rotateX(15deg) rotateY(-5deg)',
-                transformStyle: 'preserve-3d'
+                background: 'conic-gradient(from 0deg, #ff0080, #ff8000, #ffff00, #80ff00, #00ff80, #0080ff, #8000ff, #ff0080)',
+                borderRadius: '50%',
+                animation: 'spin 4s linear infinite',
+                filter: 'blur(15px)',
+                transform: 'scale(2.5)'
               }}
             />
-            {/* Rotating glow behind star */}
             <div 
-              className="absolute inset-0 opacity-50 group-hover:opacity-80 transition-opacity duration-300"
+              className="absolute inset-0 opacity-30 group-hover/star:opacity-60"
               style={{
-                background: 'conic-gradient(from 0deg, transparent, rgba(236, 72, 153, 0.5), transparent, rgba(147, 51, 234, 0.5), transparent)',
+                background: 'conic-gradient(from 180deg, transparent, rgba(255, 0, 128, 0.8), transparent, rgba(128, 0, 255, 0.8), transparent)',
                 borderRadius: '50%',
-                animation: 'spin 3s linear infinite',
-                filter: 'blur(8px)',
+                animation: 'spin 2s linear infinite reverse',
+                filter: 'blur(10px)',
+                transform: 'scale(2)'
+              }}
+            />
+            
+            {/* Floating particles */}
+            <div 
+              className="absolute inset-0 opacity-60 group-hover/star:opacity-90"
+              style={{
+                background: `
+                  radial-gradient(2px 2px at 20px 30px, #ff0080, transparent),
+                  radial-gradient(2px 2px at 40px 70px, #00ff80, transparent),
+                  radial-gradient(1px 1px at 90px 40px, #ffff00, transparent),
+                  radial-gradient(1px 1px at 130px 80px, #8000ff, transparent),
+                  radial-gradient(2px 2px at 160px 30px, #ff8000, transparent)
+                `,
+                animation: 'float 3s ease-in-out infinite',
+                transform: 'scale(1.8)'
+              }}
+            />
+            
+            {/* Holographic effect */}
+            <div 
+              className="absolute inset-0 opacity-20 group-hover/star:opacity-40"
+              style={{
+                background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%)',
+                animation: 'holographic 2s ease-in-out infinite',
+                borderRadius: '50%',
                 transform: 'scale(1.5)'
               }}
             />
-            {/* Pulsing inner glow */}
-            <div 
-              className="absolute inset-0 opacity-30 group-hover:opacity-60"
+            
+            {/* Main star with enhanced effects */}
+            <Star 
+              className="relative z-10 text-transparent animate-pulse group-hover/star:animate-bounce" 
+              size={40}
               style={{
-                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(236, 72, 153, 0.4) 50%, transparent 70%)',
+                background: 'linear-gradient(45deg, #ffff00, #ff8000, #ff0080, #8000ff, #0080ff, #00ff80, #ffff00)',
+                backgroundSize: '400% 400%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                filter: `
+                  drop-shadow(0 0 30px rgba(255, 255, 0, 1))
+                  drop-shadow(0 0 60px rgba(255, 0, 128, 0.8))
+                  drop-shadow(0 0 90px rgba(128, 0, 255, 0.6))
+                  drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.9))
+                `,
+                transform: 'rotateX(20deg) rotateY(-10deg) rotateZ(0deg)',
+                transformStyle: 'preserve-3d',
+                animation: 'rainbow 3s ease-in-out infinite, rotate3d 6s linear infinite'
+              }}
+            />
+            
+            {/* Energy burst effect */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover/star:opacity-100 transition-opacity duration-500"
+              style={{
+                background: `
+                  conic-gradient(from 0deg, transparent, rgba(255, 255, 0, 0.8), transparent, rgba(255, 0, 128, 0.8), transparent),
+                  radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%)
+                `,
                 borderRadius: '50%',
-                animation: 'pulse 2s ease-in-out infinite',
-                transform: 'scale(0.8)'
+                animation: 'energyBurst 0.8s ease-out infinite',
+                transform: 'scale(3)',
+                filter: 'blur(5px)'
+              }}
+            />
+            
+            {/* Sparkle effects */}
+            <div 
+              className="absolute inset-0 opacity-50 group-hover/star:opacity-80"
+              style={{
+                background: `
+                  radial-gradient(1px 1px at 15px 25px, white, transparent),
+                  radial-gradient(1px 1px at 35px 65px, white, transparent),
+                  radial-gradient(1px 1px at 85px 35px, white, transparent),
+                  radial-gradient(1px 1px at 125px 75px, white, transparent)
+                `,
+                animation: 'sparkle 1.5s ease-in-out infinite',
+                transform: 'scale(2)'
               }}
             />
           </div>
