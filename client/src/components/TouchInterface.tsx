@@ -63,6 +63,44 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           <button
             className="
               group relative h-[60px] w-[120px]
+              bg-gradient-to-br from-pink-900/90 via-pink-800/80 to-purple-800/90
+              border hover:border-2
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center gap-2
+              transition-all duration-300 ease-in-out
+              hover-elevate active-elevate-2
+              px-4 text-sm font-medium
+            "
+            style={{
+              borderColor: 'rgba(236, 72, 153, 0.8)',
+              boxShadow: '0 4px 12px rgba(236, 72, 153, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.8)'}
+
+            onClick={() => navigate('/customers')}
+            data-testid="button-customer-management"
+          >
+            <UserPlus 
+              className="text-transparent bg-gradient-to-r from-pink-200 to-white bg-clip-text group-hover:from-pink-100 group-hover:to-gray-100 transition-all duration-300" 
+              size={18}
+              style={{
+                filter: 'drop-shadow(2px 2px 4px rgba(236, 72, 153, 0.8)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.1))'
+              }}
+            />
+            <span className="text-transparent bg-gradient-to-r from-pink-200 to-white bg-clip-text font-hebrew group-hover:from-pink-100 group-hover:to-gray-100 transition-all duration-300" style={{
+              textShadow: '2px 2px 4px rgba(236, 72, 153, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1)'
+            }}>לקוחות</span>
+            
+            {/* Ripple effect */}
+            <div className="absolute inset-0 rounded-md overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-radial from-pink-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </button>
+
+          <button
+            className="
+              group relative h-[60px] w-[120px]
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border hover:border-2
               rounded-md backdrop-blur-sm

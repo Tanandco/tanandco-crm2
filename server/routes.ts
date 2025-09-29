@@ -1,6 +1,8 @@
 import express from 'express';
 import { bioStarClient } from './services/biostar-client';
 import { bioStarStartup } from './services/biostar-startup';
+import { storage } from './storage';
+import { insertCustomerSchema, insertMembershipSchema } from '@shared/schema';
 import { z } from 'zod';
 
 // Validation schemas
@@ -286,6 +288,360 @@ export function registerRoutes(app: express.Application) {
       res.status(500).json({
         success: false,
         error: 'Failed to get access logs',
+        details: error.message
+      });
+    }
+  });
+
+  // CRM Customer Management Endpoints
+
+  // Get all customers
+  app.get('/api/customers', async (req, res) => {
+    try {
+      const customers = await storage.getCustomers();
+      res.json({
+        success: true,
+        data: customers
+      });
+    } catch (error: any) {
+      console.error('Get customers failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get customers',
+        details: error.message
+      });
+    }
+  });
+
+  // Get customer by ID
+  app.get('/api/customers/:id', async (req, res) => {
+    try {
+      const customer = await storage.getCustomer(req.params.id);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      res.json({
+        success: true,
+        data: customer
+      });
+    } catch (error: any) {
+      console.error('Get customer failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get customer',
+        details: error.message
+      });
+    }
+  });
+
+  // Search customers
+  app.get('/api/customers/search/:query', async (req, res) => {
+    try {
+      const customers = await storage.searchCustomers(req.params.query);
+      res.json({
+        success: true,
+        data: customers
+      });
+    } catch (error: any) {
+      console.error('Search customers failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to search customers',
+        details: error.message
+      });
+    }
+  });
+
+  // Create new customer
+  app.post('/api/customers', async (req, res) => {
+    try {
+      const validatedData = insertCustomerSchema.parse(req.body);
+      
+      // Check if customer with this phone already exists
+      const existingCustomer = await storage.getCustomerByPhone(validatedData.phone);
+      if (existingCustomer) {
+        return res.status(409).json({
+          success: false,
+          error: 'לקוח עם מספר טלפון זה כבר קיים במערכת'
+        });
+      }
+      
+      const customer = await storage.createCustomer(validatedData);
+      res.status(201).json({
+        success: true,
+        data: customer
+      });
+    } catch (error: any) {
+      console.error('Create customer failed:', error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid customer data',
+          details: error.errors
+        });
+      }
+      res.status(500).json({
+        success: false,
+        error: 'Failed to create customer',
+        details: error.message
+      });
+    }
+  });
+
+  // Update customer
+  app.put('/api/customers/:id', async (req, res) => {
+    try {
+      const validatedData = insertCustomerSchema.partial().parse(req.body);
+      const customer = await storage.updateCustomer(req.params.id, validatedData);
+      
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      
+      res.json({
+        success: true,
+        data: customer
+      });
+    } catch (error: any) {
+      console.error('Update customer failed:', error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid customer data',
+          details: error.errors
+        });
+      }
+      res.status(500).json({
+        success: false,
+        error: 'Failed to update customer',
+        details: error.message
+      });
+    }
+  });
+
+  // Delete customer
+  app.delete('/api/customers/:id', async (req, res) => {
+    try {
+      const customer = await storage.getCustomer(req.params.id);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      
+      await storage.deleteCustomer(req.params.id);
+      res.json({
+        success: true,
+        message: 'Customer deleted successfully'
+      });
+    } catch (error: any) {
+      console.error('Delete customer failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to delete customer',
+        details: error.message
+      });
+    }
+  });
+
+  // Get customer memberships
+  app.get('/api/customers/:id/memberships', async (req, res) => {
+    try {
+      const memberships = await storage.getMembershipsByCustomer(req.params.id);
+      res.json({
+        success: true,
+        data: memberships
+      });
+    } catch (error: any) {
+      console.error('Get customer memberships failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get customer memberships',
+        details: error.message
+      });
+    }
+  });
+
+  // Create membership for customer
+  app.post('/api/customers/:id/memberships', async (req, res) => {
+    try {
+      const membershipData = { ...req.body, customerId: req.params.id };
+      const validatedData = insertMembershipSchema.parse(membershipData);
+      
+      const membership = await storage.createMembership(validatedData);
+      res.status(201).json({
+        success: true,
+        data: membership
+      });
+    } catch (error: any) {
+      console.error('Create membership failed:', error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid membership data',
+          details: error.errors
+        });
+      }
+      res.status(500).json({
+        success: false,
+        error: 'Failed to create membership',
+        details: error.message
+      });
+    }
+  });
+
+  // Integrate with BioStar face recognition for customer identification
+  app.post('/api/customers/identify-by-face', async (req, res) => {
+    try {
+      const { image } = identifyFaceSchema.parse(req.body);
+      
+      // Check if BioStar is ready
+      if (!bioStarStartup.ensureReady()) {
+        return res.status(503).json({
+          success: false,
+          error: 'BioStar system not available',
+          message: 'Please try again later or use manual entry'
+        });
+      }
+      
+      // Identify face using BioStar
+      const faceResult = await bioStarClient.identifyFace(image);
+      
+      if (faceResult && faceResult.userId) {
+        // Find customer by face recognition ID
+        const customer = await storage.getCustomerByFaceId(faceResult.userId);
+        
+        if (customer) {
+          // Get customer memberships as well
+          const memberships = await storage.getMembershipsByCustomer(customer.id);
+          
+          res.json({
+            success: true,
+            data: {
+              customer,
+              memberships,
+              confidence: faceResult.confidence || 0
+            }
+          });
+        } else {
+          res.status(404).json({
+            success: false,
+            error: 'Customer not found in CRM system',
+            biostarUserId: faceResult.userId
+          });
+        }
+      } else {
+        res.status(404).json({
+          success: false,
+          error: 'Face not recognized',
+          message: 'Please try again or use manual entry'
+        });
+      }
+    } catch (error: any) {
+      console.error('Face identification failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Face identification failed',
+        details: error.message
+      });
+    }
+  });
+
+  // Identify customer by face and return customer data
+  app.post('/api/customers/identify-by-face', async (req, res) => {
+    try {
+      // For testing purposes, simulate successful identification
+      // In production, this would call biostarClient.identify()
+      const mockFaceId = 'test-face-id-123';
+      
+      // Find customer by face recognition ID
+      const customer = await storage.getCustomerByFaceId(mockFaceId);
+      
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found for this face ID',
+          faceId: mockFaceId
+        });
+      }
+
+      res.json({
+        success: true,
+        data: customer,
+        faceId: mockFaceId
+      });
+    } catch (error: any) {
+      console.error('Face identification failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Face identification failed',
+        details: error.message
+      });
+    }
+  });
+
+  // Associate face ID with existing customer
+  app.post('/api/customers/:id/associate-face', async (req, res) => {
+    try {
+      const customer = await storage.getCustomer(req.params.id);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+
+      // For testing purposes, simulate successful face registration
+      const mockFaceId = `face-${req.params.id}-${Date.now()}`;
+
+      // Update customer with face recognition ID
+      const updatedCustomer = await storage.updateCustomer(req.params.id, {
+        faceRecognitionId: mockFaceId
+      });
+
+      res.json({
+        success: true,
+        data: updatedCustomer,
+        faceId: mockFaceId
+      });
+    } catch (error: any) {
+      console.error('Face association failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Face association failed',
+        details: error.message
+      });
+    }
+  });
+
+  // Explicit DELETE endpoint for customers
+  app.delete('/api/customers/:id', async (req, res) => {
+    try {
+      const customer = await storage.getCustomer(req.params.id);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+      
+      await storage.deleteCustomer(req.params.id);
+      res.json({
+        success: true,
+        message: 'Customer deleted successfully'
+      });
+    } catch (error: any) {
+      console.error('Delete customer failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to delete customer',
         details: error.message
       });
     }

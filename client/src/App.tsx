@@ -10,6 +10,7 @@ import TouchInterfaceComponent from "@/components/TouchInterface";
 import FaceIdentification from "@/pages/FaceIdentification";
 import Services from "@/pages/Services";
 import ManualEntry from "@/pages/ManualEntry";
+import CustomerManagement from "@/pages/CustomerManagement";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/face-id" component={FaceIdentification} />
       <Route path="/services" component={Services} />
       <Route path="/manual-entry" component={ManualEntry} />
+      <Route path="/customers" component={CustomerManagement} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
