@@ -46,24 +46,24 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
   return (
     <div 
-      className="min-h-screen bg-black text-white font-hebrew relative overflow-hidden"
+      className="h-screen bg-black text-white font-hebrew relative overflow-hidden flex"
       data-testid="touch-interface"
     >
       {/* Main Content */}
-      <div className="relative z-10 px-6 py-8 flex flex-col items-center">
+      <div className="relative z-10 px-6 py-4 flex flex-col items-center justify-center flex-1">
         {/* Top Buttons - Search and Registration */}
-        <div className="flex gap-4 mb-12 w-full justify-center">
+        <div className="flex gap-3 mb-4 w-full justify-center">
           <button
             className="
-              group relative h-[80px] w-[160px]
+              group relative h-[60px] w-[120px]
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border-2 border-gray-500 hover:border-gray-400
               rounded-md backdrop-blur-sm
-              flex items-center justify-center gap-3
+              flex items-center justify-center gap-2
               transition-all duration-300 ease-in-out
               hover:scale-105 active:scale-95
               hover-elevate active-elevate-2
-              px-6 text-lg font-medium
+              px-4 text-sm font-medium
             "
             style={{
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
@@ -73,7 +73,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           >
             <Search 
               className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" 
-              size={24}
+              size={18}
               style={{
                 filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.1))'
               }}
@@ -90,15 +90,15 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           
           <button
             className="
-              group relative h-[80px] w-[160px]
+              group relative h-[60px] w-[120px]
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border-2 border-gray-500 hover:border-gray-400
               rounded-md backdrop-blur-sm
-              flex items-center justify-center gap-3
+              flex items-center justify-center gap-2
               transition-all duration-300 ease-in-out
               hover:scale-105 active:scale-95
               hover-elevate active-elevate-2
-              px-6 text-lg font-medium
+              px-4 text-sm font-medium
             "
             style={{
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
@@ -108,7 +108,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           >
             <UserPlus 
               className="text-transparent bg-gradient-to-r from-gray-200 to-white bg-clip-text group-hover:from-gray-300 group-hover:to-gray-100 transition-all duration-300" 
-              size={24}
+              size={18}
               style={{
                 filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.1))'
               }}
@@ -125,10 +125,10 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Logo */}
-        <Logo className="mb-16" showGlow={true} showUnderline={true} />
+        <Logo className="mb-6" showGlow={true} showUnderline={true} />
 
         {/* Service Cards - 6 in one row */}
-        <div className="flex gap-6 mb-16 justify-center flex-wrap">
+        <div className="flex gap-3 mb-6 justify-center flex-wrap">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
@@ -142,7 +142,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         {/* Self Service Button */}
         <button
           className="
-            group relative h-[100px] w-[300px]
+            group relative h-[80px] w-[280px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
             border-2 border-primary/60 hover:border-primary
             rounded-md backdrop-blur-sm
