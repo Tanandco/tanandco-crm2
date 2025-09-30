@@ -115,9 +115,7 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           modifier: 1,
           slideShadows: true,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={false}
         navigation={true}
         modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
         className="zen-carousel"
