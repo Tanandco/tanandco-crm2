@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import ProductCarousel3D from '@/components/ProductCarousel3D';
+import ZenCarousel from '@/components/ZenCarousel';
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Package, Settings } from 'lucide-react';
@@ -113,7 +113,7 @@ export default function Shop() {
       <section className="relative pt-2 pb-8">
         <div className="container mx-auto">
           {featuredProducts.length > 0 ? (
-            <ProductCarousel3D 
+            <ZenCarousel 
               products={featuredProducts} 
               onAddToCart={handleAddToCart}
             />
