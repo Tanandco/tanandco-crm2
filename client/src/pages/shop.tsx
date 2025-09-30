@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ProductCarousel3D from '@/components/ProductCarousel3D';
+import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Package, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -75,15 +76,7 @@ export default function Shop() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-                <Package className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  Tan & Co Shop
-                </h1>
-                <p className="text-sm text-muted-foreground">חנות היופי שלך</p>
-              </div>
+              <Logo size="header" showGlow={false} showUnderline={false} />
             </div>
 
             <div className="flex gap-2">

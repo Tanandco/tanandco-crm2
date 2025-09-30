@@ -4,6 +4,7 @@ import { ChevronRight, ChevronLeft, ShoppingCart, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Logo from '@/components/Logo';
 
 const CAROUSEL_STYLES = `
   @keyframes shimmer {
@@ -112,7 +113,10 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
           </h2>
           <Sparkles className="w-6 h-6 text-pink-500 animate-pulse" />
         </div>
-        <p className="text-muted-foreground">גלי את המוצרים המובילים של Tan & Co</p>
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-muted-foreground">גלי את המוצרים המובילים של</p>
+          <Logo size="small" showGlow={false} showUnderline={false} />
+        </div>
       </div>
 
       {/* Carousel Container */}

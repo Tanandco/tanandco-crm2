@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Package, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
+import Logo from '@/components/Logo';
 
 const productFormSchema = z.object({
   productType: z.enum(['product', 'service']).default('product'),
@@ -196,10 +197,8 @@ export default function ProductManagement() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-              <Package className="w-6 h-6 text-white" />
-            </div>
+          <div className="flex items-center gap-4">
+            <Logo size="header" showGlow={false} showUnderline={false} />
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
                 ניהול מוצרים
