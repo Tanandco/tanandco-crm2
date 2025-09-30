@@ -5,6 +5,35 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
+const CAROUSEL_STYLES = `
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-card,
+    .shimmer-effect,
+    .gradient-animation {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+`;
+
 interface Product {
   id: string;
   name: string;
@@ -48,6 +77,29 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
   }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!emblaApi) return;
+      
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        scrollPrev();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        scrollNext();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        emblaApi.scrollTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        emblaApi.scrollTo(products.length - 1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [emblaApi, scrollPrev, scrollNext, products.length]);
 
   return (
     <div className="relative w-full py-12" dir="rtl">
