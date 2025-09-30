@@ -1,8 +1,18 @@
 import { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -153,19 +163,51 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
             >
               ₪{product.price}
             </p>
-            <Button
-              size="sm"
-              className="relative bg-[rgba(40,30,60,0.6)] text-pink-200 border-0 text-xs h-8 px-4
-                shadow-[-3px_-3px_6px_rgba(80,60,100,0.4),3px_3px_6px_rgba(10,5,20,0.8)]
-                hover:shadow-[-2px_-2px_4px_rgba(80,60,100,0.3),2px_2px_4px_rgba(10,5,20,0.6)]
-                active:shadow-[inset_2px_2px_6px_rgba(10,5,20,0.9),inset_-2px_-2px_4px_rgba(80,60,100,0.3)]
-                transition-all duration-200 ease-in-out"
-              onClick={() => onAddToCart?.(product.id)}
-              data-testid={`zen-cart-btn-${product.id}`}
-            >
-              <ShoppingCart className="w-3 h-3 ml-1" />
-              הוסף
-            </Button>
+            <div className="flex gap-2 w-full">
+              <Button
+                size="sm"
+                className="flex-1 relative bg-[rgba(40,30,60,0.6)] text-pink-200 border-0 text-xs h-8 px-4
+                  shadow-[-3px_-3px_6px_rgba(80,60,100,0.4),3px_3px_6px_rgba(10,5,20,0.8)]
+                  hover:shadow-[-2px_-2px_4px_rgba(80,60,100,0.3),2px_2px_4px_rgba(10,5,20,0.6)]
+                  active:shadow-[inset_2px_2px_6px_rgba(10,5,20,0.9),inset_-2px_-2px_4px_rgba(80,60,100,0.3)]
+                  transition-all duration-200 ease-in-out"
+                onClick={() => onAddToCart?.(product.id)}
+                data-testid={`zen-cart-btn-${product.id}`}
+              >
+                <ShoppingCart className="w-3 h-3 ml-1" />
+                הוסף
+              </Button>
+              {product.description && (
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button 
+                      size="sm"
+                      className="relative bg-[rgba(40,30,60,0.6)] text-pink-200 border-0 text-xs h-8 px-3
+                        shadow-[-3px_-3px_6px_rgba(80,60,100,0.4),3px_3px_6px_rgba(10,5,20,0.8)]
+                        hover:shadow-[-2px_-2px_4px_rgba(80,60,100,0.3),2px_2px_4px_rgba(10,5,20,0.6)]
+                        active:shadow-[inset_2px_2px_6px_rgba(10,5,20,0.9),inset_-2px_-2px_4px_rgba(80,60,100,0.3)]
+                        transition-all duration-200 ease-in-out"
+                      data-testid={`zen-info-${product.id}`}
+                    >
+                      <Info className="w-3 h-3" />
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle className="text-center text-pink-200">{product.name}</DrawerTitle>
+                      <DrawerDescription className="text-center">
+                        {product.description}
+                      </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                      <DrawerClose asChild>
+                        <Button variant="outline">סגור</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+              )}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
