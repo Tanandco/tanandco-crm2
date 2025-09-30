@@ -1193,4 +1193,79 @@ export function registerRoutes(app: express.Application) {
       res.status(500).json({ success: false, error: error.message });
     }
   });
+
+  // ============================================================
+  // PRODUCT MANAGEMENT API ROUTES
+  // ============================================================
+
+  // Get all products (with optional filtering)
+  app.get('/api/products', async (req, res) => {
+    try {
+      const { category, brand, featured } = req.query;
+      let products;
+      
+      if (category || brand || featured) {
+        // Get all products and filter
+        const allProducts = await storage.getProducts();
+        products = allProducts.filter((p: any) => {
+          if (category && p.category !== category) return false;
+          if (brand && p.brand !== brand) return false;
+          if (featured === 'true' && !p.isFeatured) return false;
+          return true;
+        });
+      } else {
+        products = await storage.getProducts();
+      }
+      
+      res.json(products);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get single product by ID
+  app.get('/api/products/:id', async (req, res) => {
+    try {
+      const product = await storage.getProduct(req.params.id);
+      if (!product) {
+        return res.status(404).json({ success: false, error: 'Product not found' });
+      }
+      res.json(product);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Create new product
+  app.post('/api/products', async (req, res) => {
+    try {
+      const product = await storage.createProduct(req.body);
+      res.status(201).json(product);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Update product
+  app.patch('/api/products/:id', async (req, res) => {
+    try {
+      const product = await storage.updateProduct(req.params.id, req.body);
+      if (!product) {
+        return res.status(404).json({ success: false, error: 'Product not found' });
+      }
+      res.json(product);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Delete product
+  app.delete('/api/products/:id', async (req, res) => {
+    try {
+      await storage.deleteProduct(req.params.id);
+      res.json({ success: true, message: 'Product deleted successfully' });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
 }

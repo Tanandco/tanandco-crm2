@@ -1,62 +1,46 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import ProductCarousel3D from '@/components/ProductCarousel3D';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Package } from 'lucide-react';
+import { ShoppingCart, Package, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Link } from 'wouter';
 
 export default function Shop() {
   const { toast } = useToast();
   const [cartCount, setCartCount] = useState(0);
 
-  // Demo products - in production these would come from the database
-  const featuredProducts = [
-    {
-      id: '1',
-      name: 'ברונזר פרימיום',
-      price: 189,
-      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=500&q=80',
-      category: 'שיזוף',
-      badge: 'הכי נמכר',
+  // Fetch featured products from database
+  const { data: products, isLoading } = useQuery<any[]>({
+    queryKey: ['/api/products', { featured: 'true' }],
+    queryFn: async () => {
+      const res = await fetch('/api/products?featured=true');
+      if (!res.ok) throw new Error('Failed to fetch products');
+      return res.json();
     },
-    {
-      id: '2',
-      name: 'תכשיר שיזוף ביתי',
-      price: 159,
-      image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500&q=80',
-      category: 'שיזוף',
-      badge: 'חדש',
-    },
-    {
-      id: '3',
-      name: 'קרם לחות מועשר',
-      price: 129,
-      image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
-      category: 'קוסמטיקה',
-    },
-    {
-      id: '4',
-      name: 'משקפי שמש מעצבים',
-      price: 299,
-      image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&q=80',
-      category: 'אביזרים',
-      badge: 'מבצע',
-    },
-    {
-      id: '5',
-      name: 'ערכת טיפוח שיער',
-      price: 249,
-      image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&q=80',
-      category: 'טיפוח שיער',
-    },
-    {
-      id: '6',
-      name: 'תכשיטי זהב עדינים',
-      price: 399,
-      image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=80',
-      category: 'תכשיטים',
-      badge: 'יוקרתי',
-    },
-  ];
+  });
+
+  // Transform database products to carousel format
+  const featuredProducts = products?.map((p) => ({
+    id: p.id,
+    name: p.nameHe || p.name,
+    price: parseFloat(p.salePrice || p.price),
+    image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
+    category: p.brand || getCategoryLabel(p.category),
+    badge: p.badge,
+  })) || [];
+
+  function getCategoryLabel(category: string): string {
+    const labels: Record<string, string> = {
+      tanning: 'שיזוף',
+      cosmetics: 'קוסמטיקה',
+      accessories: 'אביזרים',
+      hair: 'טיפוח שיער',
+      jewelry: 'תכשיטים',
+      sunglasses: 'משקפי שמש',
+    };
+    return labels[category] || category;
+  }
 
   const handleAddToCart = (productId: string) => {
     const product = featuredProducts.find(p => p.id === productId);
@@ -68,6 +52,14 @@ export default function Shop() {
       duration: 2000,
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" dir="rtl">
+        <Package className="w-12 h-12 animate-spin text-pink-500" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" dir="rtl">
@@ -87,19 +79,32 @@ export default function Shop() {
               </div>
             </div>
 
-            <Button 
-              variant="outline" 
-              className="relative border-pink-500/50 hover:border-pink-500"
-              data-testid="button-cart"
-            >
-              <ShoppingCart className="w-5 h-5 ml-2" />
-              עגלה
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -left-2 w-6 h-6 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
+            <div className="flex gap-2">
+              <Link href="/products">
+                <Button 
+                  variant="outline" 
+                  size="icon"
+                  className="border-pink-500/50 hover:border-pink-500"
+                  data-testid="button-manage-products"
+                >
+                  <Settings className="w-5 h-5" />
+                </Button>
+              </Link>
+              
+              <Button 
+                variant="outline" 
+                className="relative border-pink-500/50 hover:border-pink-500"
+                data-testid="button-cart"
+              >
+                <ShoppingCart className="w-5 h-5 ml-2" />
+                עגלה
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -left-2 w-6 h-6 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -119,10 +124,26 @@ export default function Shop() {
         </div>
 
         {/* 3D Carousel */}
-        <ProductCarousel3D 
-          products={featuredProducts} 
-          onAddToCart={handleAddToCart}
-        />
+        {featuredProducts.length > 0 ? (
+          <ProductCarousel3D 
+            products={featuredProducts} 
+            onAddToCart={handleAddToCart}
+          />
+        ) : (
+          <div className="text-center py-20">
+            <Package className="w-20 h-20 mx-auto mb-6 text-muted-foreground" />
+            <h3 className="text-2xl font-bold mb-3">עדיין אין מוצרים מומלצים</h3>
+            <p className="text-muted-foreground mb-6">
+              התחל להוסיף מוצרים ולסמן אותם כמומלצים כדי שיופיעו בקרוסלה
+            </p>
+            <Link href="/products">
+              <Button className="bg-gradient-to-r from-pink-500 to-purple-500">
+                <Settings className="w-4 h-4 ml-2" />
+                נהל מוצרים
+              </Button>
+            </Link>
+          </div>
+        )}
 
         {/* Categories Section */}
         <div className="mt-20">

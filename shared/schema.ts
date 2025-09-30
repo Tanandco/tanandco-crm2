@@ -56,10 +56,17 @@ export const products = pgTable("products", {
   description: text("description"),
   descriptionHe: text("description_he"), // Hebrew description
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
-  category: text("category").notNull(), // 'cosmetics', 'accessories', etc.
+  salePrice: decimal("sale_price", { precision: 10, scale: 2 }), // Optional sale price
+  category: text("category").notNull(), // 'tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses'
+  brand: text("brand"), // 'Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER'
+  sku: text("sku"), // Product SKU/code
   stock: integer("stock").default(0).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
-  imageUrl: text("image_url"),
+  isFeatured: boolean("is_featured").default(false).notNull(), // Show in featured carousel
+  badge: text("badge"), // 'new', 'bestseller', 'sale', 'limited'
+  images: text("images").array(), // Array of image URLs
+  features: text("features").array(), // Product features/highlights
+  weight: decimal("weight", { precision: 10, scale: 2 }), // Product weight in kg
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -99,6 +106,12 @@ export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  nameHe: z.string().min(2, "שם המוצר בעברית חייב להכיל לפחות 2 תווים"),
+  price: z.string().or(z.number()).transform(val => typeof val === 'string' ? parseFloat(val) : val),
+  salePrice: z.string().or(z.number()).transform(val => typeof val === 'string' ? parseFloat(val) : val).optional().nullable(),
+  category: z.enum(['tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses']),
+  brand: z.enum(['Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER', 'OTHER']).optional().nullable(),
 });
 
 export const insertTransactionSchema = createInsertSchema(transactions).omit({
