@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Logo from '@/components/Logo';
+import ReflectBackground from '@/components/ui/reflect-background';
 
 const CAROUSEL_STYLES = `
   @keyframes shimmer {
