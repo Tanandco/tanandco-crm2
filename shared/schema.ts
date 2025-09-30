@@ -68,6 +68,10 @@ export const products = pgTable("products", {
   
   brand: text("brand"), // 'Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER'
   sku: text("sku"), // Product SKU/code
+  
+  // Tanning product classification
+  tanningType: text("tanning_type"), // 'bed-bronzer' (למיטות שיזוף) or 'self-tanning' (שיזוף עצמי ביתי)
+  
   stock: integer("stock").default(0).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
   isFeatured: boolean("is_featured").default(false).notNull(), // Show in featured carousel

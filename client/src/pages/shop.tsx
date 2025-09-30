@@ -11,18 +11,28 @@ export default function Shop() {
   const { toast } = useToast();
   const [cartCount, setCartCount] = useState(0);
 
-  // Fetch featured products from database
-  const { data: products, isLoading } = useQuery<any[]>({
-    queryKey: ['/api/products', { featured: 'true' }],
+  // Fetch bed bronzer products
+  const { data: bedBronzers, isLoading: loadingBedBronzers } = useQuery<any[]>({
+    queryKey: ['/api/products', { tanningType: 'bed-bronzer' }],
     queryFn: async () => {
-      const res = await fetch('/api/products?featured=true');
-      if (!res.ok) throw new Error('Failed to fetch products');
+      const res = await fetch('/api/products?tanningType=bed-bronzer');
+      if (!res.ok) throw new Error('Failed to fetch bed bronzers');
       return res.json();
     },
   });
 
-  // Transform database products to carousel format
-  const featuredProducts = products?.map((p) => ({
+  // Fetch self-tanning products
+  const { data: selfTanningProducts, isLoading: loadingSelfTanning } = useQuery<any[]>({
+    queryKey: ['/api/products', { tanningType: 'self-tanning' }],
+    queryFn: async () => {
+      const res = await fetch('/api/products?tanningType=self-tanning');
+      if (!res.ok) throw new Error('Failed to fetch self-tanning products');
+      return res.json();
+    },
+  });
+
+  // Transform bed bronzer products
+  const bedBronzerProducts = bedBronzers?.filter(p => p.isFeatured).map((p) => ({
     id: p.id,
     name: p.nameHe || p.name,
     price: parseFloat(p.salePrice || p.price),
@@ -30,6 +40,18 @@ export default function Shop() {
     category: p.brand || getCategoryLabel(p.category),
     badge: p.badge,
   })) || [];
+
+  // Transform self-tanning products
+  const selfTanningItems = selfTanningProducts?.filter(p => p.isFeatured).map((p) => ({
+    id: p.id,
+    name: p.nameHe || p.name,
+    price: parseFloat(p.salePrice || p.price),
+    image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
+    category: p.brand || getCategoryLabel(p.category),
+    badge: p.badge,
+  })) || [];
+
+  const isLoading = loadingBedBronzers || loadingSelfTanning;
 
   function getCategoryLabel(category: string): string {
     const labels: Record<string, string> = {
@@ -51,7 +73,8 @@ export default function Shop() {
   }
 
   const handleAddToCart = (productId: string) => {
-    const product = featuredProducts.find(p => p.id === productId);
+    const allProducts = [...bedBronzerProducts, ...selfTanningItems];
+    const product = allProducts.find(p => p.id === productId);
     setCartCount(prev => prev + 1);
     
     toast({
@@ -109,27 +132,41 @@ export default function Shop() {
         </div>
       </header>
 
-      {/* Featured Products Carousel - Hero */}
-      <section className="relative pt-2 pb-8">
+      {/* Bed Bronzers Carousel */}
+      <section className="relative pt-2 pb-4">
         <div className="container mx-auto">
-          {featuredProducts.length > 0 ? (
+          <h2 className="text-2xl font-bold text-center mb-4 text-pink-400">
+            ברונזרים למיטות שיזוף
+          </h2>
+          {bedBronzerProducts.length > 0 ? (
             <ZenCarousel 
-              products={featuredProducts} 
+              products={bedBronzerProducts} 
               onAddToCart={handleAddToCart}
             />
           ) : (
-            <div className="text-center py-20">
-              <Package className="w-20 h-20 mx-auto mb-6 text-muted-foreground" />
-              <h3 className="text-2xl font-bold mb-3">עדיין אין מוצרים מומלצים</h3>
-              <p className="text-muted-foreground mb-6">
-                התחל להוסיף מוצרים ולסמן אותם כמומלצים כדי שיופיעו בקרוסלה
-              </p>
-              <Link href="/products">
-                <Button className="bg-gradient-to-r from-pink-500 to-purple-500">
-                  <Settings className="w-4 h-4 ml-2" />
-                  נהל מוצרים
-                </Button>
-              </Link>
+            <div className="text-center py-12">
+              <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">אין ברונזרים זמינים</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Self-Tanning Products Carousel */}
+      <section className="relative pt-4 pb-8">
+        <div className="container mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-4 text-purple-400">
+            מוצרי שיזוף עצמי ביתיים
+          </h2>
+          {selfTanningItems.length > 0 ? (
+            <ZenCarousel 
+              products={selfTanningItems} 
+              onAddToCart={handleAddToCart}
+            />
+          ) : (
+            <div className="text-center py-12">
+              <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">אין מוצרי שיזוף עצמי זמינים</p>
             </div>
           )}
         </div>
