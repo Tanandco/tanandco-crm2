@@ -185,24 +185,24 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                     )}
 
                     {/* Product Image */}
-                    <div 
-                      className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900"
-                      style={{
-                        backgroundImage: `url(${product.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                      }}
-                    >
+                    <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center p-8">
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="w-full h-full object-contain"
+                        data-testid={`image-${product.id}`}
+                      />
+                      
                       {/* Glow Effect */}
                       <div 
-                        className={`absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-transparent transition-opacity duration-500 ${
+                        className={`absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-transparent transition-opacity duration-500 pointer-events-none ${
                           isActive ? 'opacity-100' : 'opacity-0'
                         }`}
                       />
                       
                       {/* Shimmer Effect */}
                       <div 
-                        className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 ${
+                        className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 pointer-events-none ${
                           isActive ? 'translate-x-full' : '-translate-x-full'
                         }`}
                         style={{
