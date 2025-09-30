@@ -34,7 +34,7 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          padding: 16px;
+          padding: 12px;
           border-radius: 16px;
           background: linear-gradient(135deg, rgba(51, 65, 85, 0.6), rgba(15, 23, 42, 0.6));
           backdrop-filter: blur(10px);
@@ -54,17 +54,17 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
         }
 
         .zen-carousel .swiper-slide img {
-          width: 180px;
-          height: 220px;
+          width: 220px;
+          height: 280px;
           object-fit: contain;
-          margin-bottom: 12px;
+          margin-bottom: 6px;
           filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
           transition: transform 0.3s ease;
         }
 
         .zen-carousel .swiper-slide img[src*="tingle-bell"] {
-          width: 220px;
-          height: 260px;
+          width: 250px;
+          height: 310px;
         }
 
         .zen-carousel .swiper-slide-active img {
