@@ -28,13 +28,13 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
     <div className="relative w-full py-4" dir="rtl">
       <style>{`
         .zen-carousel .swiper-slide {
-          width: 200px !important;
-          height: 280px !important;
+          width: 280px !important;
+          height: 380px !important;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          padding: 12px;
+          padding: 16px;
           border-radius: 16px;
           background: rgba(30, 20, 50, 0.4);
           backdrop-filter: blur(10px);
@@ -49,10 +49,10 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
         }
 
         .zen-carousel .swiper-slide img {
-          width: 120px;
-          height: 150px;
+          width: 180px;
+          height: 220px;
           object-fit: contain;
-          margin-bottom: 8px;
+          margin-bottom: 12px;
           filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
           transition: transform 0.3s ease;
         }
