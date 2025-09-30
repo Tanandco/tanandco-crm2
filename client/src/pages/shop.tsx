@@ -109,22 +109,23 @@ export default function Shop() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        {/* Hero Section with Carousel */}
-        <div className="mb-8">
-          <div className="text-center py-8 mb-8">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
-                גלי את עולם היופי
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              מוצרי פרימיום לשיזוף, קוסמטיקה, אביזרים ועוד - הכל במקום אחד
-            </p>
-          </div>
+      {/* Hero Section */}
+      <section className="relative py-20 px-4">
+        <div className="container mx-auto text-center">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8">
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+              גלי את עולם היופי
+            </span>
+          </h1>
+          <p className="text-2xl md:text-3xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            מוצרי פרימיום לשיזוף, קוסמטיקה, אביזרים ועוד - הכל במקום אחד
+          </p>
+        </div>
+      </section>
 
-          {/* 3D Carousel */}
+      {/* Featured Products Carousel */}
+      <section className="relative py-8 bg-slate-900/30">
+        <div className="container mx-auto">
           {featuredProducts.length > 0 ? (
             <ProductCarousel3D 
               products={featuredProducts} 
@@ -146,6 +147,10 @@ export default function Shop() {
             </div>
           )}
         </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
 
         {/* Categories Section */}
         <div className="mt-20">
