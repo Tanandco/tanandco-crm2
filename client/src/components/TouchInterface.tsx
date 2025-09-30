@@ -30,8 +30,11 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     console.log(`Service selected: ${serviceId}`);
     
     if (serviceId === 'ai-tan') {
-      // Navigate to face identification for AI customer recognition using wouter
-      navigate('/face-id');
+      // Open AI TAN external link in new tab
+      window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');
+    } else if (serviceId === 'your-store') {
+      // Navigate to shop page
+      navigate('/shop');
     } else {
       onServiceSelect?.(serviceId);
     }

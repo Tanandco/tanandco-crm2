@@ -48,7 +48,7 @@ export const memberships = pgTable("memberships", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-// Products table for store management
+// Products table for store management (includes both physical products and services)
 export const products = pgTable("products", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
@@ -57,7 +57,15 @@ export const products = pgTable("products", {
   descriptionHe: text("description_he"), // Hebrew description
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   salePrice: decimal("sale_price", { precision: 10, scale: 2 }), // Optional sale price
-  category: text("category").notNull(), // 'tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses'
+  
+  // Product Type: 'product' or 'service'
+  productType: text("product_type").default("product").notNull(), // 'product' or 'service'
+  
+  // Categories for both products and services
+  // Products: 'tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses'
+  // Services: 'sun-beds', 'spray-tan', 'hair-salon', 'massage', 'facial'
+  category: text("category").notNull(),
+  
   brand: text("brand"), // 'Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER'
   sku: text("sku"), // Product SKU/code
   stock: integer("stock").default(0).notNull(),
@@ -67,6 +75,11 @@ export const products = pgTable("products", {
   images: text("images").array(), // Array of image URLs
   features: text("features").array(), // Product features/highlights
   weight: decimal("weight", { precision: 10, scale: 2 }), // Product weight in kg
+  
+  // Service-specific fields
+  duration: integer("duration"), // Service duration in minutes
+  sessions: integer("sessions"), // Number of sessions in package (null for single session)
+  
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -110,7 +123,13 @@ export const insertProductSchema = createInsertSchema(products).omit({
   nameHe: z.string().min(2, "שם המוצר בעברית חייב להכיל לפחות 2 תווים"),
   price: z.string().or(z.number()).transform(val => typeof val === 'string' ? parseFloat(val) : val),
   salePrice: z.string().or(z.number()).transform(val => typeof val === 'string' ? parseFloat(val) : val).optional().nullable(),
-  category: z.enum(['tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses']),
+  productType: z.enum(['product', 'service']).default('product'),
+  category: z.enum([
+    // Physical products
+    'tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses',
+    // Services
+    'sun-beds', 'spray-tan', 'hair-salon', 'massage', 'facial'
+  ]),
   brand: z.enum(['Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER', 'OTHER']).optional().nullable(),
 });
 

@@ -32,6 +32,14 @@ Preferred communication style: Simple, everyday language.
 
 ### Database Schema
 - **Users Table**: Basic authentication with username/password
+- **Products Table**: Unified system for both physical products and services
+  - Physical Products: Thatso, BALIBODY, AUSTRALIAN GOLD, PAS TOUCHER brands
+  - Services: Sun beds, spray tan, hair salon, massage, facial treatments
+  - Support for product type differentiation (product/service)
+  - Service-specific fields: duration (minutes), sessions (package count)
+  - Product-specific fields: stock, weight, SKU
+  - Categories: Both product categories and service categories
+  - Featured products shown in 3D carousel on shop page
 - **PostgreSQL**: Primary database with UUID generation
 - **Drizzle Kit**: Schema migrations and database management
 

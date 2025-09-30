@@ -32,12 +32,19 @@ export default function Shop() {
 
   function getCategoryLabel(category: string): string {
     const labels: Record<string, string> = {
-      tanning: 'שיזוף',
+      // Physical products
+      tanning: 'מוצרי שיזוף',
       cosmetics: 'קוסמטיקה',
       accessories: 'אביזרים',
-      hair: 'טיפוח שיער',
+      hair: 'מוצרי שיער',
       jewelry: 'תכשיטים',
       sunglasses: 'משקפי שמש',
+      // Services
+      'sun-beds': 'מיטות שיזוף',
+      'spray-tan': 'שיזוף בהתזה',
+      'hair-salon': 'שירותי מספרה',
+      'massage': 'עיסויים',
+      'facial': 'טיפולי פנים',
     };
     return labels[category] || category;
   }

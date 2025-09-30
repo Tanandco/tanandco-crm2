@@ -17,13 +17,19 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 
 const productFormSchema = z.object({
-  nameHe: z.string().min(2, 'שם המוצר חייב להכיל לפחות 2 תווים'),
-  name: z.string().min(2, 'Product name must be at least 2 characters'),
+  productType: z.enum(['product', 'service']).default('product'),
+  nameHe: z.string().min(2, 'שם המוצר/שירות חייב להכיל לפחות 2 תווים'),
+  name: z.string().min(2, 'Product/Service name must be at least 2 characters'),
   descriptionHe: z.string().optional(),
   description: z.string().optional(),
   price: z.string().min(1, 'חובה להזין מחיר'),
   salePrice: z.string().optional(),
-  category: z.enum(['tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses']),
+  category: z.enum([
+    // Physical products
+    'tanning', 'cosmetics', 'accessories', 'hair', 'jewelry', 'sunglasses',
+    // Services
+    'sun-beds', 'spray-tan', 'hair-salon', 'massage', 'facial'
+  ]),
   brand: z.enum(['Thatso', 'BALIBODY', 'AUSTRALIAN GOLD', 'PAS TOUCHER', 'OTHER']).optional(),
   sku: z.string().optional(),
   stock: z.string().default('0'),
@@ -33,17 +39,27 @@ const productFormSchema = z.object({
   images: z.string().optional(),
   features: z.string().optional(),
   weight: z.string().optional(),
+  // Service-specific fields
+  duration: z.string().optional(), // in minutes
+  sessions: z.string().optional(), // number of sessions in package
 });
 
 type ProductFormValues = z.infer<typeof productFormSchema>;
 
 const CATEGORY_LABELS: Record<string, string> = {
-  tanning: 'שיזוף',
+  // Physical products
+  tanning: 'מוצרי שיזוף',
   cosmetics: 'קוסמטיקה',
   accessories: 'אביזרים',
-  hair: 'טיפוח שיער',
+  hair: 'מוצרי שיער',
   jewelry: 'תכשיטים',
   sunglasses: 'משקפי שמש',
+  // Services
+  'sun-beds': 'מיטות שיזוף',
+  'spray-tan': 'שיזוף בהתזה',
+  'hair-salon': 'שירותי מספרה',
+  'massage': 'עיסויים',
+  'facial': 'טיפולי פנים',
 };
 
 const BRAND_LABELS: Record<string, string> = {
@@ -66,6 +82,7 @@ export default function ProductManagement() {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
+      productType: 'product',
       nameHe: '',
       name: '',
       descriptionHe: '',
@@ -82,8 +99,13 @@ export default function ProductManagement() {
       images: '',
       features: '',
       weight: '',
+      duration: '',
+      sessions: '',
     },
   });
+
+  // Watch productType to show/hide relevant fields
+  const productType = form.watch('productType');
 
   const createMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -93,6 +115,8 @@ export default function ProductManagement() {
         salePrice: data.salePrice ? parseFloat(data.salePrice) : null,
         stock: parseInt(data.stock),
         weight: data.weight ? parseFloat(data.weight) : null,
+        duration: data.duration ? parseInt(data.duration) : null,
+        sessions: data.sessions ? parseInt(data.sessions) : null,
         images: data.images ? data.images.split('\n').filter(Boolean) : [],
         features: data.features ? data.features.split('\n').filter(Boolean) : [],
       };
@@ -138,6 +162,7 @@ export default function ProductManagement() {
   const handleEdit = (product: any) => {
     setEditingProduct(product);
     form.reset({
+      productType: product.productType || 'product',
       nameHe: product.nameHe || '',
       name: product.name || '',
       descriptionHe: product.descriptionHe || '',
@@ -154,6 +179,8 @@ export default function ProductManagement() {
       images: product.images?.join('\n') || '',
       features: product.features?.join('\n') || '',
       weight: product.weight?.toString() || '',
+      duration: product.duration?.toString() || '',
+      sessions: product.sessions?.toString() || '',
     });
     setIsDialogOpen(true);
   };
@@ -201,6 +228,29 @@ export default function ProductManagement() {
 
               <Form {...form}>
                 <form onSubmit={form.handleSubmit((data) => createMutation.mutate(data))} className="space-y-4">
+                  {/* Product Type Selection */}
+                  <FormField
+                    control={form.control}
+                    name="productType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>סוג *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger data-testid="select-productType">
+                              <SelectValue />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="product">מוצר פיזי</SelectItem>
+                            <SelectItem value="service">שירות</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <div className="grid grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
@@ -312,35 +362,72 @@ export default function ProductManagement() {
                       )}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name="stock"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>מלאי</FormLabel>
-                          <FormControl>
-                            <Input type="number" {...field} data-testid="input-stock" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    {productType === 'product' && (
+                      <FormField
+                        control={form.control}
+                        name="stock"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>מלאי</FormLabel>
+                            <FormControl>
+                              <Input type="number" {...field} data-testid="input-stock" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
                   </div>
 
+                  {/* Service-specific fields */}
+                  {productType === 'service' && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="duration"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>משך זמן (דקות)</FormLabel>
+                            <FormControl>
+                              <Input type="number" {...field} data-testid="input-duration" placeholder="לדוגמה: 30" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="sessions"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>מספר כניסות בחבילה</FormLabel>
+                            <FormControl>
+                              <Input type="number" {...field} data-testid="input-sessions" placeholder="לדוגמה: 10" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="sku"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>קוד מוצר (SKU)</FormLabel>
-                          <FormControl>
-                            <Input {...field} data-testid="input-sku" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    {productType === 'product' && (
+                      <FormField
+                        control={form.control}
+                        name="sku"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>קוד מוצר (SKU)</FormLabel>
+                            <FormControl>
+                              <Input {...field} data-testid="input-sku" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
 
                     <FormField
                       control={form.control}
@@ -516,6 +603,12 @@ export default function ProductManagement() {
                   
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
+                      <span className="text-muted-foreground">סוג:</span>
+                      <Badge variant={product.productType === 'service' ? 'default' : 'secondary'}>
+                        {product.productType === 'service' ? 'שירות' : 'מוצר'}
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between">
                       <span className="text-muted-foreground">מחיר:</span>
                       <span className="font-semibold">
                         {product.salePrice ? (
@@ -528,10 +621,27 @@ export default function ProductManagement() {
                         )}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">מלאי:</span>
-                      <span>{product.stock}</span>
-                    </div>
+                    {product.productType === 'product' ? (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">מלאי:</span>
+                        <span>{product.stock}</span>
+                      </div>
+                    ) : (
+                      <>
+                        {product.duration && (
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">משך זמן:</span>
+                            <span>{product.duration} דקות</span>
+                          </div>
+                        )}
+                        {product.sessions && (
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">כניסות בחבילה:</span>
+                            <span>{product.sessions}</span>
+                          </div>
+                        )}
+                      </>
+                    )}
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">קטגוריה:</span>
                       <span>{CATEGORY_LABELS[product.category as keyof typeof CATEGORY_LABELS]}</span>
