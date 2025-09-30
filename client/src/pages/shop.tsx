@@ -135,9 +135,6 @@ export default function Shop() {
       {/* Bed Bronzers Carousel */}
       <section className="relative pt-2 pb-4">
         <div className="container mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-4 text-pink-400">
-            ברונזרים למיטות שיזוף
-          </h2>
           {bedBronzerProducts.length > 0 ? (
             <ZenCarousel 
               products={bedBronzerProducts} 
@@ -155,9 +152,6 @@ export default function Shop() {
       {/* Self-Tanning Products Carousel */}
       <section className="relative pt-4 pb-8">
         <div className="container mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-4 text-purple-400">
-            מוצרי שיזוף עצמי ביתיים
-          </h2>
           {selfTanningItems.length > 0 ? (
             <ZenCarousel 
               products={selfTanningItems} 
