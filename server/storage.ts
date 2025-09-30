@@ -20,9 +20,12 @@ import {
   type ContentQueue,
   type InsertContentQueue,
   type AutomationLog,
-  type InsertAutomationLog
+  type InsertAutomationLog,
+  products as productsTable
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from './db';
+import { eq } from 'drizzle-orm';
 
 // modify the interface with any CRUD methods
 // you might need
@@ -266,56 +269,37 @@ export class MemStorage implements IStorage {
     this.memberships.delete(id);
   }
 
-  // Product operations
+  // Product operations - Using PostgreSQL
   async getProducts(): Promise<Product[]> {
-    return Array.from(this.products.values());
+    const result = await db.select().from(productsTable);
+    return result as Product[];
   }
 
   async getProduct(id: string): Promise<Product | undefined> {
-    return this.products.get(id);
+    const result = await db.select().from(productsTable).where(eq(productsTable.id, id));
+    return result[0] as Product | undefined;
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const id = randomUUID();
-    const product: Product = { 
-      name: insertProduct.name,
-      nameHe: insertProduct.nameHe,
-      description: insertProduct.description || null,
-      descriptionHe: insertProduct.descriptionHe || null,
-      price: insertProduct.price,
-      category: insertProduct.category,
-      stock: insertProduct.stock ?? 0,
-      isActive: insertProduct.isActive ?? true,
-      imageUrl: insertProduct.imageUrl || null,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.products.set(id, product);
-    return product;
+    const result = await db.insert(productsTable).values(insertProduct).returning();
+    return result[0] as Product;
   }
 
   async updateProduct(id: string, updates: Partial<InsertProduct>): Promise<Product | undefined> {
-    const product = this.products.get(id);
-    if (!product) return undefined;
-    
-    const updated = { 
-      ...product, 
-      ...updates, 
-      updatedAt: new Date() 
-    };
-    this.products.set(id, updated);
-    return updated;
+    const result = await db.update(productsTable)
+      .set(updates)
+      .where(eq(productsTable.id, id))
+      .returning();
+    return result[0] as Product | undefined;
   }
 
   async deleteProduct(id: string): Promise<void> {
-    this.products.delete(id);
+    await db.delete(productsTable).where(eq(productsTable.id, id));
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(
-      (product) => product.category === category
-    );
+    const result = await db.select().from(productsTable).where(eq(productsTable.category, category));
+    return result as Product[];
   }
 
   // Transaction operations

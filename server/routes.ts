@@ -1210,7 +1210,7 @@ export function registerRoutes(app: express.Application) {
         products = allProducts.filter((p: any) => {
           if (category && p.category !== category) return false;
           if (brand && p.brand !== brand) return false;
-          if (featured === 'true' && !p.isFeatured) return false;
+          if (featured === 'true' && !p.is_featured && !p.isFeatured) return false;
           return true;
         });
       } else {
