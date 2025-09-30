@@ -20,8 +20,13 @@ export class BioStarClient {
     this.config = { ...defaultBioStarConfig, ...config };
   }
 
-  // Create HTTPS agent with configurable certificate validation
-  private createHttpsAgent(): https.Agent {
+  // Create HTTPS agent with configurable certificate validation (only for HTTPS URLs)
+  private createHttpsAgent(): https.Agent | undefined {
+    // Only use HTTPS agent for HTTPS URLs
+    if (!this.config.serverUrl.startsWith('https://')) {
+      return undefined;
+    }
+    
     const allowSelfSigned = process.env.BIOSTAR_ALLOW_SELF_SIGNED === 'true';
     
     return new https.Agent({
