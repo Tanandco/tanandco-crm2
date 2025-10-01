@@ -70,7 +70,7 @@ export class BioStarClient {
       }
 
       // BioStar 2 returns session ID in headers
-      const sessionId = response.headers.get('be-session-id');
+      const sessionId = response.headers.get('bs-session-id');
       
       if (this.config.debug) {
         console.log('BioStar login response headers:', {
