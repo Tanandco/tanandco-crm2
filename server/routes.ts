@@ -1707,4 +1707,173 @@ export function registerRoutes(app: express.Application) {
       res.sendStatus(403);
     }
   });
+
+  // ============================================================
+  // HEALTH FORMS & SESSION USAGE ROUTES
+  // ============================================================
+
+  // Create health form
+  app.post('/api/health-forms', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { healthForms, insertHealthFormSchema } = await import('@shared/schema');
+      
+      const validatedData = insertHealthFormSchema.parse(req.body);
+      
+      const [healthForm] = await db.insert(healthForms).values({
+        ...validatedData,
+        ipAddress: req.ip || req.socket.remoteAddress
+      }).returning();
+
+      res.json({
+        success: true,
+        data: healthForm
+      });
+    } catch (error: any) {
+      console.error('Create health form error:', error);
+      res.status(400).json({
+        success: false,
+        error: error.message
+      });
+    }
+  });
+
+  // Get health form by customer
+  app.get('/api/health-forms/:customerId', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { healthForms } = await import('@shared/schema');
+      const { eq } = await import('drizzle-orm');
+      
+      const [healthForm] = await db
+        .select()
+        .from(healthForms)
+        .where(eq(healthForms.customerId, req.params.customerId))
+        .limit(1);
+
+      res.json({
+        success: true,
+        data: healthForm || null
+      });
+    } catch (error: any) {
+      console.error('Get health form error:', error);
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  });
+
+  // Create session usage
+  app.post('/api/session-usage', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { sessionUsage, memberships, insertSessionUsageSchema } = await import('@shared/schema');
+      const { eq } = await import('drizzle-orm');
+      
+      const validatedData = insertSessionUsageSchema.parse(req.body);
+      const sessionsUsed = validatedData.sessionsUsed || 1;
+      
+      // Deduct session from membership
+      const [membership] = await db
+        .select()
+        .from(memberships)
+        .where(eq(memberships.id, validatedData.membershipId))
+        .limit(1);
+
+      if (!membership) {
+        return res.status(404).json({
+          success: false,
+          error: 'Membership not found'
+        });
+      }
+
+      if (membership.balance < sessionsUsed) {
+        return res.status(400).json({
+          success: false,
+          error: 'Insufficient session balance'
+        });
+      }
+
+      // Update membership balance
+      const newBalance = membership.balance - sessionsUsed;
+      await db
+        .update(memberships)
+        .set({ 
+          balance: newBalance,
+          updatedAt: new Date()
+        })
+        .where(eq(memberships.id, validatedData.membershipId));
+
+      // Create usage record
+      const [usage] = await db.insert(sessionUsage).values(validatedData).returning();
+
+      res.json({
+        success: true,
+        data: {
+          usage,
+          newBalance
+        }
+      });
+    } catch (error: any) {
+      console.error('Create session usage error:', error);
+      res.status(400).json({
+        success: false,
+        error: error.message
+      });
+    }
+  });
+
+  // Get session usage by customer
+  app.get('/api/session-usage/customer/:customerId', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { sessionUsage } = await import('@shared/schema');
+      const { eq, desc } = await import('drizzle-orm');
+      
+      const usage = await db
+        .select()
+        .from(sessionUsage)
+        .where(eq(sessionUsage.customerId, req.params.customerId))
+        .orderBy(desc(sessionUsage.createdAt))
+        .limit(50);
+
+      res.json({
+        success: true,
+        data: usage
+      });
+    } catch (error: any) {
+      console.error('Get session usage error:', error);
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  });
+
+  // Get session usage by membership
+  app.get('/api/session-usage/membership/:membershipId', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { sessionUsage } = await import('@shared/schema');
+      const { eq, desc } = await import('drizzle-orm');
+      
+      const usage = await db
+        .select()
+        .from(sessionUsage)
+        .where(eq(sessionUsage.membershipId, req.params.membershipId))
+        .orderBy(desc(sessionUsage.createdAt));
+
+      res.json({
+        success: true,
+        data: usage
+      });
+    } catch (error: any) {
+      console.error('Get session usage error:', error);
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  });
 }

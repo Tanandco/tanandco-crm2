@@ -320,3 +320,77 @@ export type ContentQueue = typeof contentQueue.$inferSelect;
 
 export type InsertAutomationLog = z.infer<typeof insertAutomationLogSchema>;
 export type AutomationLog = typeof automationLogs.$inferSelect;
+
+// ============================================================
+// HEALTH FORMS & SESSION USAGE TABLES
+// ============================================================
+
+// Health Forms - Digital health questionnaire responses
+export const healthForms = pgTable("health_forms", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").notNull().references(() => customers.id),
+  
+  // Medical Questions
+  hasAllergies: boolean("has_allergies").default(false).notNull(),
+  allergiesDetails: text("allergies_details"),
+  hasSkinConditions: boolean("has_skin_conditions").default(false).notNull(),
+  skinConditionsDetails: text("skin_conditions_details"),
+  takesMedications: boolean("takes_medications").default(false).notNull(),
+  medicationsDetails: text("medications_details"),
+  hasPregnancy: boolean("has_pregnancy").default(false).notNull(),
+  
+  // Tanning-specific questions
+  skinType: text("skin_type").notNull(), // '1-very-fair', '2-fair', '3-medium', '4-olive', '5-dark', '6-very-dark'
+  previousTanningExperience: boolean("previous_tanning_experience").default(false).notNull(),
+  
+  // Signature & Consent
+  hasConsent: boolean("has_consent").default(true).notNull(),
+  signatureData: text("signature_data"), // Base64 signature image
+  ipAddress: text("ip_address"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Session Usage - Track customer service usage
+export const sessionUsage = pgTable("session_usage", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").notNull().references(() => customers.id),
+  membershipId: varchar("membership_id").notNull().references(() => memberships.id),
+  
+  serviceType: text("service_type").notNull(), // 'sun-beds', 'spray-tan', 'hair-salon', etc.
+  sessionsUsed: integer("sessions_used").default(1).notNull(), // Number of sessions deducted
+  
+  // Access details
+  entryMethod: text("entry_method").notNull(), // 'face_recognition', 'manual', 'staff'
+  doorId: text("door_id"), // Which door was used
+  faceMatchConfidence: decimal("face_match_confidence", { precision: 5, scale: 2 }), // Face recognition confidence %
+  
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Create Zod schemas
+export const insertHealthFormSchema = createInsertSchema(healthForms).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  customerId: z.string().uuid(),
+  skinType: z.enum(['1-very-fair', '2-fair', '3-medium', '4-olive', '5-dark', '6-very-dark']),
+});
+
+export const insertSessionUsageSchema = createInsertSchema(sessionUsage).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  customerId: z.string().uuid(),
+  membershipId: z.string().uuid(),
+  serviceType: z.string().min(1),
+  entryMethod: z.enum(['face_recognition', 'manual', 'staff']),
+});
+
+// Export types
+export type InsertHealthForm = z.infer<typeof insertHealthFormSchema>;
+export type HealthForm = typeof healthForms.$inferSelect;
+
+export type InsertSessionUsage = z.infer<typeof insertSessionUsageSchema>;
+export type SessionUsage = typeof sessionUsage.$inferSelect;

@@ -23,6 +23,10 @@ import {
   type InsertContentQueue,
   type AutomationLog,
   type InsertAutomationLog,
+  type HealthForm,
+  type InsertHealthForm,
+  type SessionUsage,
+  type InsertSessionUsage,
   products as productsTable
 } from "@shared/schema";
 import { randomUUID } from "crypto";
@@ -120,6 +124,15 @@ export interface IStorage {
   getAutomationLogsByPlatform(platform: string, limit?: number): Promise<AutomationLog[]>;
   getAutomationLogsByEntity(entity: string, entityId: string): Promise<AutomationLog[]>;
   createAutomationLog(log: InsertAutomationLog): Promise<AutomationLog>;
+
+  // Health Form operations
+  getHealthFormByCustomer(customerId: string): Promise<HealthForm | undefined>;
+  createHealthForm(form: InsertHealthForm): Promise<HealthForm>;
+
+  // Session Usage operations
+  getSessionUsageByCustomer(customerId: string): Promise<SessionUsage[]>;
+  getSessionUsageByMembership(membershipId: string): Promise<SessionUsage[]>;
+  createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage>;
 }
 
 export class MemStorage implements IStorage {
@@ -658,6 +671,28 @@ export class MemStorage implements IStorage {
     }
     
     return log;
+  }
+
+  // Health Form operations
+  async getHealthFormByCustomer(customerId: string): Promise<HealthForm | undefined> {
+    return undefined; // MemStorage not implemented - use DBStorage
+  }
+
+  async createHealthForm(form: InsertHealthForm): Promise<HealthForm> {
+    throw new Error("MemStorage not supported for health forms - use DBStorage");
+  }
+
+  // Session Usage operations
+  async getSessionUsageByCustomer(customerId: string): Promise<SessionUsage[]> {
+    return []; // MemStorage not implemented - use DBStorage
+  }
+
+  async getSessionUsageByMembership(membershipId: string): Promise<SessionUsage[]> {
+    return []; // MemStorage not implemented - use DBStorage
+  }
+
+  async createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage> {
+    throw new Error("MemStorage not supported for session usage - use DBStorage");
   }
 }
 
