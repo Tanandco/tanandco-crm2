@@ -2,6 +2,7 @@ import express from 'express';
 import crypto from 'crypto';
 import { bioStarClient } from './services/biostar-client';
 import { bioStarStartup } from './services/biostar-startup';
+import { requireLocalAccess, rateLimit } from './middleware/auth';
 import { storage } from './storage';
 import { insertCustomerSchema, insertMembershipSchema } from '@shared/schema';
 import { z } from 'zod';
@@ -188,14 +189,32 @@ export function registerRoutes(app: express.Application) {
     }
   });
 
-  // Door control endpoint
-  app.post('/api/biostar/open-door', async (req, res) => {
+  // Door control endpoint (Protected: local access + rate limited)
+  // SECURITY: Server MUST run on localhost (127.0.0.1) only, NOT on 0.0.0.0
+  app.post('/api/biostar/open-door', requireLocalAccess, rateLimit, async (req, res) => {
+    const startTime = Date.now();
+    let success = false;
+    let errorMessage: string | undefined;
+    
     try {
       const { doorId = '1' } = req.body;
       
       // Check if BioStar is ready
       const isReady = await bioStarStartup.ensureReady();
       if (!isReady) {
+        errorMessage = 'BioStar system not available';
+        
+        // Log failed attempt
+        await storage.createDoorAccessLog({
+          doorId,
+          doorName: doorId === '1' ? 'Main Entrance' : `Door ${doorId}`,
+          actionType: 'remote_open',
+          success: false,
+          errorMessage,
+          ipAddress: req.ip,
+          userAgent: req.get('user-agent')
+        });
+        
         return res.status(503).json({
           success: false,
           error: 'BioStar system not available. Cannot open door remotely.'
@@ -203,6 +222,21 @@ export function registerRoutes(app: express.Application) {
       }
       
       const result = await bioStarClient.openDoor(doorId);
+      success = result;
+      
+      // Log the door access
+      await storage.createDoorAccessLog({
+        doorId,
+        doorName: doorId === '1' ? 'Main Entrance' : `Door ${doorId}`,
+        actionType: 'remote_open',
+        success: result,
+        errorMessage: result ? undefined : 'BioStar returned false',
+        ipAddress: req.ip,
+        userAgent: req.get('user-agent'),
+        metadata: {
+          responseTime: Date.now() - startTime
+        }
+      });
       
       if (result) {
         res.json({
@@ -217,9 +251,55 @@ export function registerRoutes(app: express.Application) {
       }
     } catch (error: any) {
       console.error('Open door failed:', error);
+      errorMessage = error.message;
+      
+      // Log failed attempt
+      const { doorId = '1' } = req.body;
+      await storage.createDoorAccessLog({
+        doorId,
+        doorName: doorId === '1' ? 'Main Entrance' : `Door ${doorId}`,
+        actionType: 'remote_open',
+        success: false,
+        errorMessage,
+        ipAddress: req.ip,
+        userAgent: req.get('user-agent'),
+        metadata: {
+          responseTime: Date.now() - startTime,
+          error: error.stack
+        }
+      });
+      
       res.status(500).json({
         success: false,
         error: 'Door control error',
+        details: error.message
+      });
+    }
+  });
+
+  // Door access logs endpoint (Protected: local access)
+  // SECURITY: Server MUST run on localhost (127.0.0.1) only, NOT on 0.0.0.0
+  app.get('/api/biostar/door-logs', requireLocalAccess, async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 50;
+      const doorId = req.query.doorId as string | undefined;
+      
+      let logs;
+      if (doorId) {
+        logs = await storage.getDoorAccessLogsByDoor(doorId, limit);
+      } else {
+        logs = await storage.getDoorAccessLogs(limit);
+      }
+      
+      res.json({
+        success: true,
+        data: logs
+      });
+    } catch (error: any) {
+      console.error('Get door logs failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get door logs',
         details: error.message
       });
     }

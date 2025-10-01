@@ -9,6 +9,8 @@ import {
   type InsertProduct,
   type Transaction,
   type InsertTransaction,
+  type DoorAccessLog,
+  type InsertDoorAccessLog,
   type AutomationSetting,
   type InsertAutomationSetting,
   type Campaign,
@@ -68,6 +70,11 @@ export interface IStorage {
   createTransaction(transaction: InsertTransaction): Promise<Transaction>;
   updateTransaction(id: string, transaction: Partial<InsertTransaction>): Promise<Transaction | undefined>;
 
+  // Door Access Log operations
+  getDoorAccessLogs(limit?: number): Promise<DoorAccessLog[]>;
+  getDoorAccessLogsByDoor(doorId: string, limit?: number): Promise<DoorAccessLog[]>;
+  createDoorAccessLog(log: InsertDoorAccessLog): Promise<DoorAccessLog>;
+
   // Automation Settings operations
   getAutomationSettings(): Promise<AutomationSetting[]>;
   getAutomationSetting(settingKey: string): Promise<AutomationSetting | undefined>;
@@ -126,6 +133,7 @@ export class MemStorage implements IStorage {
   private ads: Map<string, Ad>;
   private contentQueue: Map<string, ContentQueue>;
   private automationLogs: AutomationLog[];
+  private doorAccessLogs: DoorAccessLog[];
 
   constructor() {
     this.users = new Map();
@@ -139,6 +147,7 @@ export class MemStorage implements IStorage {
     this.ads = new Map();
     this.contentQueue = new Map();
     this.automationLogs = [];
+    this.doorAccessLogs = [];
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -583,6 +592,38 @@ export class MemStorage implements IStorage {
     // Keep only last 10000 logs in memory
     if (this.automationLogs.length > 10000) {
       this.automationLogs = this.automationLogs.slice(-10000);
+    }
+    
+    return log;
+  }
+
+  // Door Access Log operations
+  async getDoorAccessLogs(limit?: number): Promise<DoorAccessLog[]> {
+    const logs = [...this.doorAccessLogs].sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+    return limit ? logs.slice(0, limit) : logs;
+  }
+
+  async getDoorAccessLogsByDoor(doorId: string, limit?: number): Promise<DoorAccessLog[]> {
+    const logs = this.doorAccessLogs
+      .filter(l => l.doorId === doorId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return limit ? logs.slice(0, limit) : logs;
+  }
+
+  async createDoorAccessLog(insertLog: InsertDoorAccessLog): Promise<DoorAccessLog> {
+    const id = randomUUID();
+    const log: DoorAccessLog = {
+      ...insertLog,
+      id,
+      createdAt: new Date()
+    };
+    this.doorAccessLogs.push(log);
+    
+    // Keep only last 5000 logs in memory
+    if (this.doorAccessLogs.length > 5000) {
+      this.doorAccessLogs = this.doorAccessLogs.slice(-5000);
     }
     
     return log;

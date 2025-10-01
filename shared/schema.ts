@@ -155,6 +155,30 @@ export type Product = typeof products.$inferSelect;
 export type InsertTransaction = z.infer<typeof insertTransactionSchema>;
 export type Transaction = typeof transactions.$inferSelect;
 
+// Door Access Logs table - Track all door openings
+export const doorAccessLogs = pgTable("door_access_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  doorId: text("door_id").notNull(), // '1', '2', 'main', 'back', etc.
+  doorName: text("door_name"), // 'Main Entrance', 'Staff Door', etc.
+  actionType: text("action_type").default("remote_open").notNull(), // 'remote_open', 'auto_open', 'face_recognition'
+  userId: varchar("user_id"), // Optional: who initiated the action
+  customerId: varchar("customer_id"), // Optional: if triggered by customer face recognition
+  success: boolean("success").default(true).notNull(),
+  errorMessage: text("error_message"), // If failed, why?
+  ipAddress: text("ip_address"), // IP of who triggered
+  userAgent: text("user_agent"), // Browser/device info
+  metadata: jsonb("metadata"), // Additional data (BioStar response, etc.)
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertDoorAccessLogSchema = createInsertSchema(doorAccessLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertDoorAccessLog = z.infer<typeof insertDoorAccessLogSchema>;
+export type DoorAccessLog = typeof doorAccessLogs.$inferSelect;
+
 // ============================================================
 // SOCIAL MEDIA AUTOMATION TABLES
 // ============================================================

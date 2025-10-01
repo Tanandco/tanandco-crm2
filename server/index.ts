@@ -65,8 +65,9 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   const port = parseInt(process.env.PORT || '5000', 10);
-  const server = app.listen(port, "0.0.0.0", () => {
-    log(`serving on port ${port}`);
+  const server = app.listen(port, "127.0.0.1", () => {
+    log(`serving on port ${port} (localhost only - secure mode)`);
+    console.log('[Security] Server bound to localhost (127.0.0.1) only - door control endpoints protected');
   });
   
   if (app.get("env") === "development") {

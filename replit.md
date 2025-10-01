@@ -94,12 +94,21 @@ Preferred communication style: Simple, everyday language.
 - **BioStar 2** ✅: Facial recognition and access control
   - Face identification for customer check-in
   - Face registration during onboarding
+  - Remote door control with comprehensive logging
+  - Door access history tracking (IP, timestamp, success/failure)
+  - Multi-door support (future-ready architecture)
   - Integration with customer management system
   - **Required Environment Variables:**
     - `BIOSTAR_SERVER_URL` (e.g., http://localhost:5000 or https://IP:8443)
     - `BIOSTAR_USERNAME` (admin username)
     - `BIOSTAR_PASSWORD` (admin password)
   - Optional: `BIOSTAR_ALLOW_SELF_SIGNED=true` for self-signed certificates
+  - **Remote Control UI:** `/remote-door` - Touch-optimized interface for door opening with real-time logs
+  - **Security Model:** 
+    - ⚠️ **CRITICAL**: Server must bind to localhost (127.0.0.1) ONLY, never 0.0.0.0
+    - IP validation: Only localhost requests allowed
+    - Rate limiting: 10 requests/minute per IP
+    - Comprehensive logging: All attempts tracked with IP, timestamp, success/failure
 
 ### Social Media Automation ✅
 - **Meta Marketing API** (Facebook/Instagram Ads): Full automation suite
