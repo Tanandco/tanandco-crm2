@@ -164,16 +164,16 @@ export default function Shop() {
       </div>
 
       {/* Hero Logo Section */}
-      <div className="relative py-16">
+      <div className="relative py-8">
         <div className="container mx-auto px-4">
           {/* Centered Logo with Neon Glow */}
-          <div className="flex justify-center mb-12">
-            <div className="relative p-8">
+          <div className="flex justify-center mb-4">
+            <div className="relative p-4">
               {/* Outer Glow Background */}
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 blur-[100px] opacity-40 animate-pulse"></div>
               
               {/* Inner Glow */}
-              <div className="absolute inset-4 bg-gradient-to-br from-pink-400/20 via-purple-500/20 to-pink-400/20 blur-2xl"></div>
+              <div className="absolute inset-2 bg-gradient-to-br from-pink-400/20 via-purple-500/20 to-pink-400/20 blur-2xl"></div>
               
               {/* Logo Container - 2x size */}
               <div className="relative scale-[2] transform-gpu">
@@ -183,7 +183,7 @@ export default function Shop() {
           </div>
 
           {/* Carousel Title */}
-          <h2 className="text-xl md:text-2xl font-semibold text-center mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
             ברונזרים למיטות שיזוף
           </h2>
         </div>
