@@ -159,7 +159,7 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                   }}
                 >
                   <Card
-                    className={`relative overflow-hidden transition-all duration-700 hover-elevate ${
+                    className={`relative overflow-hidden transition-all duration-700 shadow-none ${
                       isActive 
                         ? 'scale-110 border-pink-500/50' 
                         : 'scale-95 opacity-60'
@@ -186,7 +186,7 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                     )}
 
                     {/* Product Image */}
-                    <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center p-8">
+                    <div className="relative w-full aspect-square overflow-hidden bg-black flex items-center justify-center p-8">
                       <img 
                         src={product.image} 
                         alt={product.name}
