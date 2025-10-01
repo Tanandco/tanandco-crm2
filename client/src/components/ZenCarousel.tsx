@@ -37,7 +37,7 @@ interface ZenCarouselProps {
 
 export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps) {
   return (
-    <div className="relative w-full py-4" dir="rtl">
+    <div className="relative w-full py-4 -mt-8" dir="rtl">
       <style>{`
         @keyframes flow-gradient {
           0% {
@@ -129,9 +129,17 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           transition: transform 0.3s ease;
         }
 
+        .zen-carousel .swiper-slide img[src*="jet-black"] {
+          transform: translateX(15px);
+        }
+
+        .zen-carousel .swiper-slide-active img[src*="jet-black"] {
+          transform: translateX(15px) scale(1.05);
+        }
+
         .zen-carousel .swiper-slide img[src*="tingle-bell"] {
-          width: 280px;
-          height: 360px;
+          width: 336px;
+          height: 432px;
         }
 
         .zen-carousel .swiper-slide-active img {
