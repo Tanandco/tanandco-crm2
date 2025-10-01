@@ -1559,8 +1559,18 @@ export function registerRoutes(app: express.Application) {
     chatClients.push(res);
     console.log(`[Chat SSE] New client connected. Total clients: ${chatClients.length}`);
 
+    // Send heartbeat every 20 seconds to keep connection alive
+    const heartbeatInterval = setInterval(() => {
+      try {
+        res.write(':heartbeat\n\n');
+      } catch (error) {
+        clearInterval(heartbeatInterval);
+      }
+    }, 20000);
+
     // Remove client on disconnect
     req.on('close', () => {
+      clearInterval(heartbeatInterval);
       const index = chatClients.indexOf(res);
       if (index !== -1) {
         chatClients.splice(index, 1);
@@ -1582,8 +1592,8 @@ export function registerRoutes(app: express.Application) {
     console.log(`[Chat SSE] Broadcasted message to ${chatClients.length} clients`);
   }
 
-  // Send WhatsApp message
-  app.post('/api/chat/send-message', async (req, res) => {
+  // Send WhatsApp message (local access only for security)
+  app.post('/api/chat/send-message', requireLocalAccess, rateLimit, async (req, res) => {
     try {
       const { recipient, message } = req.body;
       
@@ -1620,18 +1630,37 @@ export function registerRoutes(app: express.Application) {
   // WhatsApp webhook for receiving messages
   app.post('/api/webhooks/whatsapp', async (req, res) => {
     try {
-      const body = req.body;
+      // req.body is raw Buffer due to express.raw() middleware
+      const rawBody = req.body;
       
-      // Verify webhook (for initial setup)
-      if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token']) {
-        const verifyToken = process.env.WA_VERIFY_TOKEN || 'tan_and_co_verify_token';
-        if (req.query['hub.verify_token'] === verifyToken) {
-          console.log('[WhatsApp Webhook] Verified webhook');
-          return res.status(200).send(req.query['hub.challenge']);
-        } else {
-          return res.status(403).send('Verification token mismatch');
+      // Verify signature (required if app secret is configured)
+      const signature = req.get('X-Hub-Signature-256');
+      if (process.env.WHATSAPP_APP_SECRET) {
+        if (!signature) {
+          console.error('[WhatsApp Webhook] Missing signature header');
+          return res.sendStatus(403);
+        }
+        
+        const expectedSignature = crypto
+          .createHmac('sha256', process.env.WHATSAPP_APP_SECRET)
+          .update(rawBody)
+          .digest('hex');
+        
+        // Remove 'sha256=' prefix from signature
+        const receivedSignature = signature.replace('sha256=', '');
+        
+        // Use timing-safe comparison to prevent timing attacks
+        if (!crypto.timingSafeEqual(
+          Buffer.from(expectedSignature, 'hex'),
+          Buffer.from(receivedSignature, 'hex')
+        )) {
+          console.error('[WhatsApp Webhook] Invalid signature');
+          return res.sendStatus(403);
         }
       }
+
+      // Parse the body after verification
+      const body = JSON.parse(rawBody.toString());
 
       // Process incoming message
       if (body.object === 'whatsapp_business_account') {
