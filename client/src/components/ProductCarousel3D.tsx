@@ -176,7 +176,9 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                       border: 'none',
                       outline: 'none',
                       filter: 'none',
-                    }}
+                      backdropFilter: 'none',
+                      WebkitBackdropFilter: 'none',
+                    } as React.CSSProperties}
                     data-testid={`product-card-${product.id}`}
                   >
                     {/* Badge */}
