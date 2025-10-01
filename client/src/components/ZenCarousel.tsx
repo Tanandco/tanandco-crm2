@@ -49,13 +49,14 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           background: #000000;
           backdrop-filter: none;
           border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: none;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .zen-carousel .swiper-slide-active {
           background: #000000;
-          box-shadow: none;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
           transform: scale(1.1);
         }
 
