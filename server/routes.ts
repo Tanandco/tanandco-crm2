@@ -188,6 +188,43 @@ export function registerRoutes(app: express.Application) {
     }
   });
 
+  // Door control endpoint
+  app.post('/api/biostar/open-door', async (req, res) => {
+    try {
+      const { doorId = '1' } = req.body;
+      
+      // Check if BioStar is ready
+      const isReady = await bioStarStartup.ensureReady();
+      if (!isReady) {
+        return res.status(503).json({
+          success: false,
+          error: 'BioStar system not available. Cannot open door remotely.'
+        });
+      }
+      
+      const result = await bioStarClient.openDoor(doorId);
+      
+      if (result) {
+        res.json({
+          success: true,
+          message: 'Door opened successfully'
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          error: 'Failed to open door'
+        });
+      }
+    } catch (error: any) {
+      console.error('Open door failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Door control error',
+        details: error.message
+      });
+    }
+  });
+
   // User management endpoints
   app.get('/api/biostar/users/:id', async (req, res) => {
     try {

@@ -18,11 +18,18 @@ class BioStarStartupService {
     if (this.isInitialized) return true;
     if (this.isInitializing) return false;
 
+    // Check if BioStar is disabled
+    if (process.env.BIOSTAR_DISABLED === 'true') {
+      console.log('BioStar integration is disabled via BIOSTAR_DISABLED environment variable');
+      this.isInitializing = false;
+      return false;
+    }
+
     this.isInitializing = true;
     this.config = {
-      autoRetry: true,
+      autoRetry: false, // Disabled by default to avoid spam
       retryInterval: 5000,
-      maxRetries: 5,
+      maxRetries: 0,
       ...config
     };
 
@@ -30,9 +37,10 @@ class BioStarStartupService {
       // Get credentials from environment variables
       const username = config.username || process.env.BIOSTAR_USERNAME;
       const password = config.password || process.env.BIOSTAR_PASSWORD;
+      const serverUrl = process.env.BIOSTAR_SERVER_URL;
 
-      if (!username || !password) {
-        console.warn('BioStar credentials not provided. Manual authentication required.');
+      if (!username || !password || !serverUrl) {
+        console.log('BioStar not configured - integration disabled. System will work without face recognition.');
         this.isInitializing = false;
         return false;
       }
@@ -42,27 +50,32 @@ class BioStarStartupService {
       // Test connection first
       const isConnected = await bioStarClient.testConnection();
       if (!isConnected) {
-        throw new Error('Unable to reach BioStar server');
+        console.warn('BioStar server not reachable. Face recognition will be unavailable.');
+        this.isInitializing = false;
+        return false;
       }
 
       // Authenticate
       const authenticated = await bioStarClient.authenticate(username, password);
       if (!authenticated) {
-        throw new Error('BioStar authentication failed');
+        console.warn('BioStar authentication failed. Face recognition will be unavailable.');
+        this.isInitializing = false;
+        return false;
       }
 
       this.isInitialized = true;
       this.retryCount = 0;
-      console.log('BioStar connection initialized successfully');
+      console.log('✅ BioStar connection initialized successfully');
       
       // Setup periodic refresh
       this.setupPeriodicRefresh();
       
       return true;
     } catch (error) {
-      console.error('BioStar initialization failed:', error);
+      console.warn('BioStar initialization error:', error instanceof Error ? error.message : error);
+      console.log('System will continue without face recognition.');
       
-      if (this.config.autoRetry && this.retryCount < (this.config.maxRetries || 5)) {
+      if (this.config.autoRetry && this.retryCount < (this.config.maxRetries || 0)) {
         this.retryCount++;
         console.log(`Retrying BioStar initialization in ${this.config.retryInterval}ms (attempt ${this.retryCount})`);
         

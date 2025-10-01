@@ -308,6 +308,39 @@ export class BioStarClient {
     }
   }
 
+  // Door control methods
+  async openDoor(doorId: string = '1'): Promise<boolean> {
+    if (!await this.isAuthenticated()) {
+      throw new Error('Not authenticated');
+    }
+
+    try {
+      const url = `${this.config.serverUrl}${BIOSTAR_ENDPOINTS.DOORS.OPEN.replace(':id', doorId)}`;
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'Accept': 'application/json'
+        },
+        timeout: this.config.timeout,
+        agent: this.createHttpsAgent()
+      });
+
+      if (!response.ok) {
+        throw new Error(`Open door failed: ${response.statusText}`);
+      }
+
+      const result: BioStarResponse = await response.json();
+      return result.success || false;
+    } catch (error) {
+      if (this.config.debug) {
+        console.error('Open door error:', error);
+      }
+      throw error;
+    }
+  }
+
   disconnect(): void {
     this.credentials = null;
   }

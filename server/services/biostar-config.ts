@@ -70,6 +70,12 @@ export const BIOSTAR_ENDPOINTS = {
   ACCESS: {
     LOGS: '/api/access-logs',
     GROUPS: '/api/access-groups'
+  },
+  DOORS: {
+    LIST: '/api/doors',
+    OPEN: '/api/doors/:id/open',
+    CLOSE: '/api/doors/:id/close',
+    STATUS: '/api/doors/:id/status'
   }
 } as const;
 

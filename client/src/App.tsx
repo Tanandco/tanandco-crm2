@@ -15,6 +15,7 @@ import AutomationDashboard from "@/pages/automation-dashboard";
 import Shop from "@/pages/shop";
 import ProductManagement from "@/pages/product-management";
 import BioStarTest from "@/pages/biostar-test";
+import RemoteDoor from "@/pages/remote-door";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -36,6 +37,7 @@ function Router() {
       <Route path="/shop" component={Shop} />
       <Route path="/products" component={ProductManagement} />
       <Route path="/biostar-test" component={BioStarTest} />
+      <Route path="/remote-door" component={RemoteDoor} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
