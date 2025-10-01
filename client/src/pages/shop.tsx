@@ -187,6 +187,11 @@ export default function Shop() {
             </div>
           )}
         </div>
+        
+        {/* Mirror Reflection Effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none">
+          <div className="h-full bg-gradient-to-b from-purple-950/40 via-purple-950/20 to-transparent"></div>
+        </div>
       </section>
 
       {/* Additional Products - Compact Grid */}
