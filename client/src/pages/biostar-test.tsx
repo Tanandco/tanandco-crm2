@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, XCircle, RefreshCw, Loader2 } from 'lucide-react';
 
 export default function BioStarTest() {
-  const { data, isLoading, refetch, error } = useQuery({
+  const { data, isLoading, refetch, error } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/biostar/status'],
     retry: false,
   });

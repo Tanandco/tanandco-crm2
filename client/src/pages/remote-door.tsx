@@ -19,13 +19,7 @@ export default function RemoteDoor() {
 
   const openDoorMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest('/api/biostar/open-door', {
-        method: 'POST',
-        body: JSON.stringify({ doorId: '1' }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      return await apiRequest('POST', '/api/biostar/open-door', { doorId: '1' });
     },
     onSuccess: () => {
       setLastOpened(new Date());

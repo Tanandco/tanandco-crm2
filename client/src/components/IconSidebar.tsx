@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { MessageCircle, DoorOpen, Zap, UserPlus, Activity } from 'lucide-react';
+import { MessageCircle, DoorOpen, BarChart3, UserPlus, Fingerprint } from 'lucide-react';
 
 export default function IconSidebar() {
   const [location] = useLocation();
@@ -9,31 +9,71 @@ export default function IconSidebar() {
       icon: UserPlus,
       path: '/face-registration',
       label: 'הרשמה',
-      testId: 'nav-registration'
+      testId: 'nav-registration',
+      iconColor: 'text-pink-400',
+      iconHover: 'group-hover:text-pink-300',
+      activeBg: 'bg-gradient-to-br from-pink-500/30 to-pink-500/20',
+      activeBorder: 'border-pink-500/60',
+      hoverBorder: 'hover:border-pink-500/40',
+      tooltipBorder: 'border-pink-500/30',
+      tooltipText: 'text-pink-200',
+      indicator: 'bg-gradient-to-b from-pink-500 to-pink-600'
     },
     {
       icon: MessageCircle,
       path: '/chat',
       label: 'WhatsApp',
-      testId: 'nav-whatsapp'
+      testId: 'nav-whatsapp',
+      iconColor: 'text-green-400',
+      iconHover: 'group-hover:text-green-300',
+      activeBg: 'bg-gradient-to-br from-green-500/30 to-green-500/20',
+      activeBorder: 'border-green-500/60',
+      hoverBorder: 'hover:border-green-500/40',
+      tooltipBorder: 'border-green-500/30',
+      tooltipText: 'text-green-200',
+      indicator: 'bg-gradient-to-b from-green-500 to-green-600'
     },
     {
       icon: DoorOpen,
       path: '/remote-door',
       label: 'פתיחת דלת',
-      testId: 'nav-door'
+      testId: 'nav-door',
+      iconColor: 'text-blue-400',
+      iconHover: 'group-hover:text-blue-300',
+      activeBg: 'bg-gradient-to-br from-blue-500/30 to-blue-500/20',
+      activeBorder: 'border-blue-500/60',
+      hoverBorder: 'hover:border-blue-500/40',
+      tooltipBorder: 'border-blue-500/30',
+      tooltipText: 'text-blue-200',
+      indicator: 'bg-gradient-to-b from-blue-500 to-blue-600'
     },
     {
-      icon: Zap,
+      icon: BarChart3,
       path: '/automation-dashboard',
       label: 'אוטומציה',
-      testId: 'nav-automation'
+      testId: 'nav-automation',
+      iconColor: 'text-purple-400',
+      iconHover: 'group-hover:text-purple-300',
+      activeBg: 'bg-gradient-to-br from-purple-500/30 to-purple-500/20',
+      activeBorder: 'border-purple-500/60',
+      hoverBorder: 'hover:border-purple-500/40',
+      tooltipBorder: 'border-purple-500/30',
+      tooltipText: 'text-purple-200',
+      indicator: 'bg-gradient-to-b from-purple-500 to-purple-600'
     },
     {
-      icon: Activity,
+      icon: Fingerprint,
       path: '/biostar-test',
       label: 'BioStar',
-      testId: 'nav-biostar'
+      testId: 'nav-biostar',
+      iconColor: 'text-amber-400',
+      iconHover: 'group-hover:text-amber-300',
+      activeBg: 'bg-gradient-to-br from-amber-500/30 to-amber-500/20',
+      activeBorder: 'border-amber-500/60',
+      hoverBorder: 'hover:border-amber-500/40',
+      tooltipBorder: 'border-amber-500/30',
+      tooltipText: 'text-amber-200',
+      indicator: 'bg-gradient-to-b from-amber-500 to-amber-600'
     },
   ];
 
@@ -51,25 +91,25 @@ export default function IconSidebar() {
                 relative w-12 h-12 rounded-xl flex items-center justify-center
                 transition-all duration-300 group
                 ${isActive 
-                  ? 'bg-gradient-to-br from-pink-500/30 to-purple-500/20 border border-pink-500/60' 
-                  : 'bg-slate-900/40 border border-slate-700/50 hover:border-pink-500/40'
+                  ? `${item.activeBg} border ${item.activeBorder}` 
+                  : `bg-slate-900/40 border border-slate-700/50 ${item.hoverBorder}`
                 }
               `}
             >
               <Icon 
                 className={`w-6 h-6 transition-colors ${
-                  isActive ? 'text-pink-400' : 'text-slate-400 group-hover:text-pink-300'
+                  isActive ? item.iconColor : `text-slate-400 ${item.iconHover}`
                 }`} 
               />
               
               {/* Tooltip */}
-              <div className="absolute left-full ml-3 px-3 py-1.5 bg-slate-900/95 backdrop-blur-sm border border-pink-500/30 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                <span className="text-sm text-pink-200">{item.label}</span>
+              <div className={`absolute left-full ml-3 px-3 py-1.5 bg-slate-900/95 backdrop-blur-sm border ${item.tooltipBorder} rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap`}>
+                <span className={`text-sm ${item.tooltipText}`}>{item.label}</span>
               </div>
 
               {/* Active indicator */}
               {isActive && (
-                <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-pink-500 to-purple-500 rounded-r-full" />
+                <div className={`absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 ${item.indicator} rounded-r-full`} />
               )}
             </button>
           </Link>
