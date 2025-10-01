@@ -37,6 +37,15 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
   return (
     <div className="relative w-full py-4" dir="rtl">
       <style>{`
+        @keyframes rotate-gradient {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
         .zen-carousel .swiper-slide {
           width: 280px !important;
           height: 380px !important;
@@ -46,16 +55,54 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           justify-content: flex-start;
           padding: 12px;
           border-radius: 16px;
-          background: #0a0a0a;
+          background: rgba(10, 10, 10, 0.85);
+          backdrop-filter: blur(10px);
           border: 0;
-          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+          position: relative;
           transition: all 0.25s ease;
+          overflow: visible;
+        }
+
+        .zen-carousel .swiper-slide::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 16px;
+          padding: 2px;
+          background: conic-gradient(
+            from 0deg,
+            rgba(192, 192, 192, 0.3),
+            rgba(255, 255, 255, 0.5),
+            rgba(160, 160, 160, 0.3),
+            rgba(80, 80, 80, 0.2),
+            rgba(0, 0, 0, 0.1),
+            rgba(192, 192, 192, 0.3)
+          );
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          z-index: -1;
+          animation: rotate-gradient 4s linear infinite;
         }
 
         .zen-carousel .swiper-slide-active {
-          background: #0a0a0a;
-          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.35);
+          background: rgba(10, 10, 10, 0.9);
+          backdrop-filter: blur(12px);
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
           transform: scale(1.02);
+        }
+
+        .zen-carousel .swiper-slide-active::before {
+          background: conic-gradient(
+            from 0deg,
+            rgba(220, 220, 220, 0.5),
+            rgba(255, 255, 255, 0.7),
+            rgba(200, 200, 200, 0.5),
+            rgba(120, 120, 120, 0.3),
+            rgba(40, 40, 40, 0.2),
+            rgba(220, 220, 220, 0.5)
+          );
+          animation: rotate-gradient 3s linear infinite;
         }
 
         .zen-carousel .swiper-slide img {
