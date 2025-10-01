@@ -23,67 +23,70 @@ export default function Shop() {
 
   // Fetch bed bronzer products
   const { data: bedBronzers, isLoading: loadingBedBronzers } = useQuery<any[]>({
-    queryKey: ['/api/products', { tanningType: 'bed-bronzer' }],
+    queryKey: ['/api/products', { tanning_type: 'bed-bronzer', _ts: Date.now() }],
     queryFn: async () => {
-      const res = await fetch('/api/products?tanningType=bed-bronzer');
+      const res = await fetch(`/api/products?tanning_type=bed-bronzer&_ts=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to fetch bed bronzers');
       return res.json();
     },
+    staleTime: 0,
   });
 
   // Fetch self-tanning products (featured only for main display)
   const { data: selfTanningProducts, isLoading: loadingSelfTanning } = useQuery<any[]>({
-    queryKey: ['/api/products', { tanningType: 'self-tanning', isFeatured: true }],
+    queryKey: ['/api/products', { tanning_type: 'self-tanning', is_featured: true, _ts: Date.now() }],
     queryFn: async () => {
-      const res = await fetch('/api/products?tanningType=self-tanning&isFeatured=true');
+      const res = await fetch(`/api/products?tanning_type=self-tanning&is_featured=true&_ts=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to fetch self-tanning products');
       return res.json();
     },
+    staleTime: 0,
   });
 
   // Fetch all non-featured products for additional section
   const { data: additionalProducts, isLoading: loadingAdditional } = useQuery<any[]>({
-    queryKey: ['/api/products', { isFeatured: false }],
+    queryKey: ['/api/products', { is_featured: false, _ts: Date.now() }],
     queryFn: async () => {
-      const res = await fetch('/api/products?isFeatured=false');
+      const res = await fetch(`/api/products?is_featured=false&_ts=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to fetch additional products');
       return res.json();
     },
+    staleTime: 0,
   });
 
   // Transform bed bronzer products
-  const bedBronzerProducts = bedBronzers?.filter(p => p.isFeatured).map((p) => ({
+  const bedBronzerProducts = bedBronzers?.filter(p => p.is_featured || p.isFeatured).map((p) => ({
     id: p.id,
-    name: p.nameHe || p.name,
-    price: parseFloat(p.salePrice || p.price),
+    name: p.name_he || p.nameHe || p.name,
+    price: parseFloat(p.sale_price || p.salePrice || p.price),
     image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
     category: (p.brand && p.brand !== 'OTHER') ? p.brand : getCategoryLabel(p.category),
-    description: p.descriptionHe || p.description,
+    description: p.description_he || p.descriptionHe || p.description,
     badge: p.badge,
-    bronzerStrength: p.bronzerStrength || p.bronzer_strength,
+    bronzerStrength: p.bronzer_strength || p.bronzerStrength,
   })) || [];
 
   // Transform self-tanning products
   const selfTanningItems = selfTanningProducts?.map((p) => ({
     id: p.id,
-    name: p.nameHe || p.name,
-    price: parseFloat(p.salePrice || p.price),
+    name: p.name_he || p.nameHe || p.name,
+    price: parseFloat(p.sale_price || p.salePrice || p.price),
     image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
     category: (p.brand && p.brand !== 'OTHER') ? p.brand : getCategoryLabel(p.category),
-    description: p.descriptionHe || p.description,
+    description: p.description_he || p.descriptionHe || p.description,
     badge: p.badge,
   })) || [];
 
   // Transform additional products - exclude bed-bronzer products (they're in carousel)
   const additionalItems = additionalProducts
-    ?.filter(p => p.tanningType !== 'bed-bronzer' && p.tanning_type !== 'bed-bronzer')
+    ?.filter(p => p.tanning_type !== 'bed-bronzer' && p.tanningType !== 'bed-bronzer')
     .map((p) => ({
       id: p.id,
-      name: p.nameHe || p.name,
-      price: parseFloat(p.salePrice || p.price),
+      name: p.name_he || p.nameHe || p.name,
+      price: parseFloat(p.sale_price || p.salePrice || p.price),
       image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
       category: (p.brand && p.brand !== 'OTHER') ? p.brand : getCategoryLabel(p.category),
-      description: p.descriptionHe || p.description,
+      description: p.description_he || p.descriptionHe || p.description,
       badge: p.badge,
     })) || [];
 
