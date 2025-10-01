@@ -24,6 +24,7 @@ interface Product {
   name: string;
   price: number;
   image: string;
+  images?: string[]; // All product images including sachets
   category: string;
   description?: string;
   bronzerStrength?: number;
@@ -248,6 +249,33 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
                         {product.description}
                       </DrawerDescription>
                     </DrawerHeader>
+                    
+                    {/* Show all product images including sachets */}
+                    {product.images && product.images.length > 1 && (
+                      <div className="px-4 pb-4">
+                        <h4 className="text-sm font-semibold mb-3 text-center text-muted-foreground">
+                          אפשרויות זמינות
+                        </h4>
+                        <div className="grid grid-cols-2 gap-4">
+                          {product.images.map((img, idx) => (
+                            <div 
+                              key={idx} 
+                              className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50"
+                            >
+                              <img 
+                                src={img} 
+                                alt={`${product.name} - ${idx === 0 ? 'טיובה' : 'שקית חד פעמית'}`}
+                                className="w-full h-40 object-contain mb-2"
+                              />
+                              <p className="text-xs text-center text-pink-200 font-medium">
+                                {idx === 0 ? '🧴 טיובה' : '📦 שקית חד פעמית'}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
                     <DrawerFooter>
                       <DrawerClose asChild>
                         <Button variant="outline">סגור</Button>

@@ -57,6 +57,7 @@ export default function Shop() {
     name: p.name_he || p.nameHe || p.name,
     price: parseFloat(p.sale_price || p.salePrice || p.price),
     image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
+    images: p.images || [], // Include all images including sachets
     category: (p.brand && p.brand !== 'OTHER') ? p.brand : getCategoryLabel(p.category),
     description: p.description_he || p.descriptionHe || p.description,
     badge: p.badge,
