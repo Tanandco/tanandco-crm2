@@ -32,6 +32,8 @@ Preferred communication style: Simple, everyday language.
 
 ### Database Schema
 - **Users Table**: Basic authentication with username/password
+- **Health Forms Table**: Digital health questionnaires with skin type, allergies, medications, pregnancy status, and digital signatures
+- **Session Usage Table**: Tracks customer service usage, membership balance deductions, entry method (face recognition/manual), and door access details
 - **Products Table**: Unified system for both physical products and services
   - Physical Products: Thatso, BALIBODY, AUSTRALIAN GOLD, PAS TOUCHER brands
   - Services: Sun beds, spray tan, hair salon, massage, facial treatments

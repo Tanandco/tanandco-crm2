@@ -1,23 +1,35 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'wouter';
-import { CheckCircle, FileText, AlertCircle } from 'lucide-react';
+import { CheckCircle, FileText, AlertCircle, Loader2, User, Phone, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
+import { useQuery } from '@tanstack/react-query';
 
 export default function HealthForm() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  const signatureCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [hasSignature, setHasSignature] = useState(false);
   
-  // Get customer ID from URL path
-  const pathname = window.location.pathname;
-  const customerId = pathname.split('/').pop() || null;
+  // Get customer ID from URL params
+  const params = new URLSearchParams(window.location.search);
+  const customerId = params.get('customerId');
+
+  // Fetch customer data
+  const { data: customer, isLoading: isLoadingCustomer } = useQuery<any>({
+    queryKey: [`/api/customers/${customerId}`],
+    enabled: !!customerId,
+  });
 
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [skinType, setSkinType] = useState<string>('3-medium');
   const [healthDeclarations, setHealthDeclarations] = useState({
+    noAllergies: false,
     noSkinConditions: false,
     noMedications: false,
     noPregnancy: false,
@@ -25,40 +37,117 @@ export default function HealthForm() {
   });
 
   const allChecked = agreedToTerms && 
+    healthDeclarations.noAllergies &&
     healthDeclarations.noSkinConditions &&
     healthDeclarations.noMedications &&
     healthDeclarations.noPregnancy &&
-    healthDeclarations.understandsRisks;
+    healthDeclarations.understandsRisks &&
+    hasSignature;
+
+  // Signature canvas handlers
+  const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    const canvas = signatureCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    setIsDrawing(true);
+    ctx.beginPath();
+    
+    const x = 'touches' in e ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = 'touches' in e ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+    ctx.moveTo(x, y);
+  };
+
+  const draw = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    const canvas = signatureCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const x = 'touches' in e ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = 'touches' in e ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+    
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = '#ec4899'; // pink-500
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    
+    setHasSignature(true);
+  };
+
+  const stopDrawing = () => {
+    setIsDrawing(false);
+  };
+
+  const paintBackground = () => {
+    const canvas = signatureCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.fillStyle = '#1e293b'; // slate-800
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  };
+
+  const clearSignature = () => {
+    const canvas = signatureCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    paintBackground(); // Repaint background
+    setHasSignature(false);
+  };
+
+  useEffect(() => {
+    paintBackground();
+  }, []);
 
   const handleSubmit = async () => {
-    if (!allChecked || !customerId) return;
+    if (!allChecked || !customerId || !customer) return;
+    
+    const canvas = signatureCanvasRef.current;
+    if (!canvas) return;
+    const signatureData = canvas.toDataURL('image/png');
     
     setFormState('submitting');
     
     try {
-      await fetch('/api/webhooks/jotform/health-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customerId,
-          declarations: healthDeclarations,
-          agreedToTerms,
-          timestamp: new Date().toISOString(),
-        }),
+      // Save health form with signature
+      await apiRequest('POST', '/api/health-forms', {
+        customerId,
+        hasAllergies: !healthDeclarations.noAllergies,
+        hasSkinConditions: !healthDeclarations.noSkinConditions,
+        takesMedications: !healthDeclarations.noMedications,
+        hasPregnancy: !healthDeclarations.noPregnancy,
+        skinType,
+        previousTanningExperience: healthDeclarations.understandsRisks,
+        hasConsent: agreedToTerms,
+        signatureData,
+      });
+
+      // Update customer health form status
+      await apiRequest('PATCH', `/api/customers/${customerId}`, {
+        healthFormSigned: true,
       });
 
       setFormState('success');
       toast({
-        title: "טופס נשלח בהצלחה! ✅",
-        description: "תודה על השלמת הטופס",
+        title: "✅ טופס נשמר בהצלחה!",
+        description: "עכשיו נעבור לרישום הפנים שלך",
       });
       
-      // Redirect after 3 seconds
+      // Navigate to face registration
       setTimeout(() => {
-        navigate('/');
-      }, 3000);
+        navigate(`/face-registration?customerId=${customerId}`);
+      }, 2000);
     } catch (error: any) {
       console.error('Health form submission error:', error);
       setFormState('error');
@@ -72,8 +161,8 @@ export default function HealthForm() {
 
   if (!customerId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6" dir="rtl">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
+        <Card className="max-w-md border-pink-500/20">
           <CardHeader>
             <CardTitle className="text-red-500 flex items-center gap-2">
               <AlertCircle className="w-6 h-6" />
@@ -88,19 +177,73 @@ export default function HealthForm() {
     );
   }
 
+  if (isLoadingCustomer) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
+        <Card className="max-w-md border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
+          <CardContent className="p-8 text-center">
+            <Loader2 className="w-12 h-12 text-pink-500 mx-auto mb-4 animate-spin" />
+            <p className="text-white">טוען פרטים...</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!customer) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
+        <Card className="max-w-md border-pink-500/20">
+          <CardHeader>
+            <CardTitle className="text-red-500 flex items-center gap-2">
+              <AlertCircle className="w-6 h-6" />
+              שגיאה
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>לקוח לא נמצא במערכת</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6" dir="rtl">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 p-6" dir="rtl">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <FileText className="w-16 h-16 text-pink-500 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold bg-gradient-to-l from-pink-400 to-purple-400 bg-clip-text text-transparent mb-4">
             הצהרת בריאות
           </h1>
-          <p className="text-lg text-gray-300">
-            אנא קרא בעיון וסמן את כל ההצהרות
+          <p className="text-lg text-slate-300">
+            אנא קרא/י בעיון וסמן/י את כל ההצהרות
           </p>
         </div>
+
+        {/* Customer Info Card */}
+        <Card className="mb-6 border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
+          <CardHeader>
+            <CardTitle className="text-xl text-white">פרטי הלקוח</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center gap-3 text-slate-300">
+              <User className="w-5 h-5 text-pink-500" />
+              <span className="font-medium">{customer.fullName}</span>
+            </div>
+            <div className="flex items-center gap-3 text-slate-300">
+              <Phone className="w-5 h-5 text-pink-500" />
+              <span className="font-medium">{customer.phone}</span>
+            </div>
+            {customer.email && (
+              <div className="flex items-center gap-3 text-slate-300">
+                <Mail className="w-5 h-5 text-pink-500" />
+                <span className="font-medium">{customer.email}</span>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <Card className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2"
               style={{
@@ -129,8 +272,45 @@ export default function HealthForm() {
               </div>
             ) : (
               <>
+                {/* Skin Type Selection */}
+                <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                  <h3 className="text-lg font-semibold text-white mb-3">🌞 סוג העור שלך</h3>
+                  <select
+                    value={skinType}
+                    onChange={(e) => setSkinType(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-slate-800 border border-pink-500/30 text-white focus:ring-2 focus:ring-pink-500"
+                    data-testid="select-skin-type"
+                  >
+                    <option value="1-very-fair">1 - עור בהיר מאוד (נוטה לכוויות)</option>
+                    <option value="2-fair">2 - עור בהיר (נוטה לכוויות)</option>
+                    <option value="3-medium">3 - עור בינוני (משתזף בקלות)</option>
+                    <option value="4-olive">4 - עור זית (משתזף בקלות)</option>
+                    <option value="5-dark">5 - עור כהה</option>
+                    <option value="6-very-dark">6 - עור כהה מאוד</option>
+                  </select>
+                </div>
+
                 {/* Health Declarations */}
                 <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white">✅ הצהרות רפואיות</h3>
+                  
+                  <div className="flex items-start space-x-3 space-x-reverse">
+                    <Checkbox
+                      id="no-allergies"
+                      checked={healthDeclarations.noAllergies}
+                      onCheckedChange={(checked) => 
+                        setHealthDeclarations(prev => ({ ...prev, noAllergies: checked as boolean }))
+                      }
+                      data-testid="checkbox-allergies"
+                    />
+                    <label
+                      htmlFor="no-allergies"
+                      className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    >
+                      אני מצהיר/ה כי אין לי אלרגיות לחומרי שיזוף או מוצרי קוסמטיקה
+                    </label>
+                  </div>
+
                   <div className="flex items-start space-x-3 space-x-reverse">
                     <Checkbox
                       id="no-skin-conditions"
@@ -218,23 +398,68 @@ export default function HealthForm() {
                   </div>
                 </div>
 
+                {/* Digital Signature */}
+                <div className="border-t border-pink-500/20 pt-6">
+                  <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    ✍️ חתימה דיגיטלית
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-4">
+                    אנא חתום/חתמי במסגרת למטה באמצעות העכבר או המגע
+                  </p>
+                  <div className="relative">
+                    <canvas
+                      ref={signatureCanvasRef}
+                      width={600}
+                      height={200}
+                      className="w-full border-2 border-pink-500/30 rounded-lg cursor-crosshair touch-none"
+                      onMouseDown={startDrawing}
+                      onMouseMove={draw}
+                      onMouseUp={stopDrawing}
+                      onMouseLeave={stopDrawing}
+                      onTouchStart={startDrawing}
+                      onTouchMove={draw}
+                      onTouchEnd={stopDrawing}
+                      data-testid="canvas-signature"
+                    />
+                    {!hasSignature && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-slate-500 text-lg">חתום/חתמי כאן</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={clearSignature}
+                      disabled={!hasSignature}
+                      className="border-pink-500/30"
+                      data-testid="button-clear-signature"
+                    >
+                      נקה חתימה
+                    </Button>
+                  </div>
+                </div>
+
                 {/* Submit Button */}
-                <div className="flex justify-center pt-4">
+                <div className="flex justify-center pt-6">
                   <Button
                     size="lg"
                     onClick={handleSubmit}
                     disabled={!allChecked || formState === 'submitting'}
+                    className="bg-gradient-to-l from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-lg px-12"
                     data-testid="button-submit"
                   >
                     {formState === 'submitting' ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin ml-2" />
-                        שולח...
+                        <Loader2 className="w-5 h-5 ml-2 animate-spin" />
+                        שומר...
                       </>
                     ) : (
                       <>
                         <CheckCircle className="w-5 h-5 ml-2" />
-                        שלח טופס
+                        אשר והמשך
                       </>
                     )}
                   </Button>
