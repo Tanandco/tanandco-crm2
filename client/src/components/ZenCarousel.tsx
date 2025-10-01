@@ -130,11 +130,11 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
         }
 
         .zen-carousel .swiper-slide img[src*="jet-black"] {
-          transform: translateX(15px);
+          transform: translateX(30px);
         }
 
         .zen-carousel .swiper-slide-active img[src*="jet-black"] {
-          transform: translateX(15px) scale(1.05);
+          transform: translateX(30px) scale(1.05);
         }
 
         .zen-carousel .swiper-slide img[src*="tingle-bell"] {
