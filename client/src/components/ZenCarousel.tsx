@@ -55,18 +55,17 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          padding: 12px;
-          border-radius: 16px;
+          padding: 16px;
+          border-radius: 20px;
           background: linear-gradient(135deg, 
-            rgba(20, 20, 25, 0.95) 0%,
-            rgba(15, 15, 20, 0.95) 25%,
-            rgba(10, 10, 15, 0.95) 50%,
-            rgba(15, 15, 20, 0.95) 75%,
-            rgba(20, 20, 25, 0.95) 100%);
-          backdrop-filter: blur(10px);
-          border: 0;
+            rgba(236, 72, 153, 0.2) 0%,
+            rgba(168, 85, 247, 0.15) 50%,
+            rgba(236, 72, 153, 0.1) 100%);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(236, 72, 153, 0.6);
+          box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.2);
           position: relative;
-          transition: all 0.25s ease;
+          transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
           overflow: visible;
         }
 
@@ -74,17 +73,15 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           content: '';
           position: absolute;
           inset: -2px;
-          border-radius: 16px;
+          border-radius: 20px;
           padding: 2px;
           background: linear-gradient(
             135deg,
-            rgba(192, 192, 192, 0.5),
-            rgba(220, 220, 220, 0.4),
-            rgba(169, 169, 169, 0.5),
-            rgba(128, 128, 128, 0.3),
-            rgba(80, 80, 80, 0.2),
-            rgba(192, 192, 192, 0.5),
-            rgba(220, 220, 220, 0.4)
+            rgba(236, 72, 153, 0.8),
+            rgba(168, 85, 247, 0.6),
+            rgba(139, 92, 246, 0.8),
+            rgba(236, 72, 153, 0.6),
+            rgba(168, 85, 247, 0.8)
           );
           background-size: 200% 200%;
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -92,33 +89,33 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
           mask-composite: exclude;
           z-index: -1;
           animation: flow-gradient 4s linear infinite;
+          opacity: 0.7;
         }
 
         .zen-carousel .swiper-slide-active {
           background: linear-gradient(135deg, 
-            rgba(25, 25, 30, 0.98) 0%,
-            rgba(20, 20, 25, 0.98) 25%,
-            rgba(15, 15, 20, 0.98) 50%,
-            rgba(20, 20, 25, 0.98) 75%,
-            rgba(25, 25, 30, 0.98) 100%);
-          backdrop-filter: blur(12px);
-          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-          transform: scale(1.02);
+            rgba(236, 72, 153, 0.3) 0%,
+            rgba(168, 85, 247, 0.2) 50%,
+            rgba(236, 72, 153, 0.15) 100%);
+          backdrop-filter: blur(16px);
+          box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.4),
+                      0 0 30px rgba(236, 72, 153, 0.3);
+          transform: scale(1.05);
+          border-color: rgba(236, 72, 153, 0.8);
         }
 
         .zen-carousel .swiper-slide-active::before {
           background: linear-gradient(
             135deg,
-            rgba(192, 192, 192, 0.6),
-            rgba(220, 220, 220, 0.5),
-            rgba(169, 169, 169, 0.6),
-            rgba(128, 128, 128, 0.4),
-            rgba(100, 100, 100, 0.3),
-            rgba(192, 192, 192, 0.6),
-            rgba(220, 220, 220, 0.5)
+            rgba(236, 72, 153, 1),
+            rgba(168, 85, 247, 0.8),
+            rgba(139, 92, 246, 1),
+            rgba(236, 72, 153, 0.8),
+            rgba(168, 85, 247, 1)
           );
           background-size: 200% 200%;
           animation: flow-gradient 3s linear infinite;
+          opacity: 1;
         }
 
         .zen-carousel .swiper-slide img {
@@ -268,14 +265,14 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
                           {product.images.map((img, idx) => (
                             <div 
                               key={idx} 
-                              className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50"
+                              className="bg-gradient-to-br from-pink-500/20 to-purple-500/10 backdrop-blur-md rounded-xl p-4 border border-pink-500/60 shadow-xl shadow-pink-500/20 hover:from-pink-500/30 hover:to-purple-500/15 hover:shadow-2xl hover:shadow-pink-500/40 hover:scale-105 transition-all duration-500 cursor-pointer"
                             >
                               <img 
                                 src={img} 
                                 alt={`${product.name} - ${idx === 0 ? 'טיובה' : 'שקית חד פעמית'}`}
-                                className="w-full h-40 object-contain mb-2"
+                                className="w-full h-40 object-contain mb-2 transition-transform duration-300"
                               />
-                              <p className="text-xs text-center text-pink-200 font-medium">
+                              <p className="text-xs text-center text-pink-200 font-medium hover:bg-pink-500/10 hover:px-2 border-b border-pink-500/20 transition-all duration-300 py-1">
                                 {idx === 0 ? '🧴 טיובה' : '📦 שקית חד פעמית'}
                               </p>
                             </div>
