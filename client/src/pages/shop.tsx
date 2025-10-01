@@ -164,7 +164,7 @@ export default function Shop() {
       </div>
 
       {/* Hero Logo Section */}
-      <div className="relative py-8">
+      <div className="relative py-4">
         <div className="container mx-auto px-4">
           {/* Centered Logo with Neon Glow */}
           <div className="flex justify-center mb-4">
