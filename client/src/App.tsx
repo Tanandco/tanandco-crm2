@@ -21,6 +21,7 @@ import FaceRegistration from "@/pages/face-registration";
 import HealthForm from "@/pages/health-form";
 import Chat from "@/pages/chat";
 import Onboarding from "@/pages/onboarding";
+import SelfService from "@/pages/self-service";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -48,6 +49,7 @@ function Router() {
       <Route path="/face-registration" component={FaceRegistration} />
       <Route path="/health-form/:customerId" component={HealthForm} />
       <Route path="/chat" component={Chat} />
+      <Route path="/self-service" component={SelfService} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />

@@ -13,7 +13,7 @@ export default function SelfService() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950" dir="rtl">
       {/* Header with Back Button */}
-      <div className="absolute top-4 right-4 z-50">
+      <div className="absolute top-4 right-4 z-[100]">
         <Button
           variant="outline"
           onClick={() => navigate('/')}
