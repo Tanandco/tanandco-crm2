@@ -183,7 +183,7 @@ export default function Shop() {
           </div>
 
           {/* Carousel Title */}
-          <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-xl md:text-2xl font-semibold text-center mt-6 mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
             ברונזרים למיטות שיזוף
           </h2>
         </div>
