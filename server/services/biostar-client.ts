@@ -43,31 +43,54 @@ export class BioStarClient {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          User: {
+            login_id: username,
+            password: password
+          }
+        }),
         timeout: this.config.timeout,
         agent: this.createHttpsAgent()
       });
 
       if (!response.ok) {
-        throw new Error(`Authentication failed: ${response.statusText}`);
+        const errorText = await response.text();
+        if (this.config.debug) {
+          console.error('BioStar auth failed:', {
+            status: response.status,
+            statusText: response.statusText,
+            body: errorText
+          });
+        }
+        throw new Error(`Authentication failed: ${response.statusText} (${response.status})`);
       }
 
-      const result: BioStarResponse = await response.json();
+      // BioStar 2 returns session ID in headers
+      const sessionId = response.headers.get('be-session-id');
       
-      if (result.success && result.data?.sessionToken) {
+      if (this.config.debug) {
+        console.log('BioStar login response headers:', {
+          sessionId,
+          allHeaders: Object.fromEntries(response.headers.entries())
+        });
+      }
+      
+      if (sessionId) {
         this.credentials = {
           username,
           password,
-          sessionToken: result.data.sessionToken,
+          sessionToken: sessionId,
           expiresAt: new Date(Date.now() + (24 * 60 * 60 * 1000)) // 24 hours
         };
+        console.log('✅ BioStar authentication successful');
         return true;
       }
 
-      throw new Error(result.error || 'Authentication failed');
+      throw new Error('No session ID received');
     } catch (error) {
       if (this.config.debug) {
         console.error('BioStar authentication error:', error);
