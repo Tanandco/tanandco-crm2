@@ -59,6 +59,9 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     } else if (serviceId === 'your-store') {
       // Navigate to shop page
       navigate('/shop');
+    } else if (serviceId === 'sun-beds') {
+      // Navigate to sun beds page
+      navigate('/sun-beds');
     } else {
       onServiceSelect?.(serviceId);
     }

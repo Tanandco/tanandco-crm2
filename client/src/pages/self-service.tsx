@@ -48,6 +48,8 @@ export default function SelfService() {
       window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');
     } else if (serviceId === 'your-store') {
       navigate('/shop');
+    } else if (serviceId === 'sun-beds') {
+      navigate('/sun-beds');
     }
   };
 
