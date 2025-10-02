@@ -159,7 +159,7 @@ export default function SunBeds() {
       <div className="absolute top-4 right-4 z-[100]">
         <Button
           variant="outline"
-          onClick={() => navigate('/self-service')}
+          onClick={() => window.history.back()}
           className="border-pink-500/50 hover:border-pink-500 gap-2"
           data-testid="button-back"
         >
