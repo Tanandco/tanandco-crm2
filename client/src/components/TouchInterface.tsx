@@ -4,6 +4,7 @@ import { Home, Star, Search, UserPlus, Sparkles, Settings, Users, Sun, Droplets,
 import Logo from './Logo';
 import ServiceCard from './ServiceCard';
 import StatusDisplay from './StatusDisplay';
+import SunBedsDialog from './SunBedsDialog';
 import Alin from './Alin';
 
 interface TouchInterfaceProps {
@@ -16,6 +17,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   // todo: remove mock functionality
   const [currentCustomer, setCurrentCustomer] = useState<any>(null);
   const [currentPath, setCurrentPath] = useState('/');
+  const [sunBedsDialogOpen, setSunBedsDialogOpen] = useState(false);
 
   const services = [
     { 
@@ -60,8 +62,8 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       // Navigate to shop page
       navigate('/shop');
     } else if (serviceId === 'sun-beds') {
-      // Navigate to sun beds page
-      navigate('/sun-beds');
+      // Open sun beds dialog
+      setSunBedsDialogOpen(true);
     } else {
       onServiceSelect?.(serviceId);
     }
@@ -533,6 +535,12 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           />
         </button>
       </div>
+
+      {/* Sun Beds Dialog */}
+      <SunBedsDialog 
+        open={sunBedsDialogOpen} 
+        onOpenChange={setSunBedsDialogOpen}
+      />
     </div>
   );
 }

@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import Logo from '@/components/Logo';
 import ServiceCard from '@/components/ServiceCard';
+import SunBedsDialog from '@/components/SunBedsDialog';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sun, Droplets, Scissors, Palette, Store } from 'lucide-react';
 import { useLocation } from 'wouter';
@@ -7,6 +9,7 @@ import Alin from '@/components/Alin';
 
 export default function SelfService() {
   const [, navigate] = useLocation();
+  const [sunBedsDialogOpen, setSunBedsDialogOpen] = useState(false);
 
   const services = [
     { 
@@ -49,7 +52,7 @@ export default function SelfService() {
     } else if (serviceId === 'your-store') {
       navigate('/shop');
     } else if (serviceId === 'sun-beds') {
-      navigate('/sun-beds');
+      setSunBedsDialogOpen(true);
     }
   };
 
@@ -197,6 +200,12 @@ export default function SelfService() {
           </div>
         </div>
       </div>
+
+      {/* Sun Beds Dialog */}
+      <SunBedsDialog 
+        open={sunBedsDialogOpen} 
+        onOpenChange={setSunBedsDialogOpen}
+      />
     </div>
   );
 }

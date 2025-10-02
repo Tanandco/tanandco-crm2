@@ -22,7 +22,6 @@ import HealthForm from "@/pages/health-form";
 import Chat from "@/pages/chat";
 import Onboarding from "@/pages/onboarding";
 import SelfService from "@/pages/self-service";
-import SunBeds from "@/pages/sun-beds";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -51,7 +50,6 @@ function Router() {
       <Route path="/health-form/:customerId" component={HealthForm} />
       <Route path="/chat" component={Chat} />
       <Route path="/self-service" component={SelfService} />
-      <Route path="/sun-beds" component={SunBeds} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
