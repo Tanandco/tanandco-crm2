@@ -185,8 +185,13 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (October 2025)
 
-### Sun Beds Page (`/sun-beds`) ✅
-- **Comprehensive Information Hub**: Complete page for sun tanning services
+### Sun Beds Dialog Component ✅
+- **Kiosk-Optimized Dialog**: Converted from full page to overlay dialog to comply with no-scrolling requirement
+  - Opens as overlay from TouchInterface (staff screen) and SelfService (customer screen)
+  - Internal scrolling within dialog - all content accessible without page scroll
+  - Smart navigation: closes for outbound actions (onboarding, 24/7 registration), stays open for internal actions (scroll to packages)
+  - Full accessibility support with DialogTitle and DialogDescription (sr-only)
+- **Content Features**:
   - Animated introduction with multiple effects (glow pulse, shimmer, bouncing icons) to draw attention to safety information
   - Safety guidelines: 6 do's (green-tinted) and 6 don'ts (red-tinted)
   - 4 action buttons: New customer registration, search existing customer, 24/7 registration, purchase/renewal packages
@@ -194,5 +199,6 @@ Preferred communication style: Simple, everyday language.
   - Bronzer products carousel (3D carousel displaying bed-bronzer products)
 - **Navigation**: Accessible from home page and self-service page via "מיטות שיזוף" service card
 - **Design Philosophy**: Eye-catching animations encourage users to read important safety information before proceeding
+- **Architecture**: SunBedsDialog component with local state management; /sun-beds route removed
 
 The architecture supports a premium salon experience with automated customer identification, self-service capabilities, and integrated business operations through external service connections.

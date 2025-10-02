@@ -2,7 +2,7 @@ import Logo from '@/components/Logo';
 import ZenCarousel from '@/components/ZenCarousel';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Sun, AlertTriangle, CheckCircle, XCircle, UserPlus, Search, Shield, ShoppingCart, Sparkles, Clock } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
@@ -146,6 +146,10 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950 border-pink-500/30 overflow-hidden"
         data-testid="sun-beds-dialog"
       >
+        <DialogTitle className="sr-only">מיטות שיזוף - מידע, מחירים וחבילות</DialogTitle>
+        <DialogDescription className="sr-only">
+          מידע על שירותי מיטות השיזוף, הנחיות בטיחות, מחירי חבילות אישיות ומשפחתיות, ומוצרי ברונזר
+        </DialogDescription>
         <div className="h-full overflow-y-auto overflow-x-hidden" dir="rtl">
           <div className="container mx-auto px-6 py-6 max-w-6xl">
             {/* Logo */}
