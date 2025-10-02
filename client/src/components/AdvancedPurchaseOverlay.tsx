@@ -127,15 +127,15 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex flex-col p-2 space-y-3 overflow-y-auto z-10">
+        <div className="relative flex-1 flex flex-col p-3 space-y-2 overflow-hidden z-10">
           {/* Packages Section */}
           <div className="w-full">
-            <h3 className="text-base font-bold text-white mb-2 text-center font-hebrew">חבילות שיזוף</h3>
-            <div className="grid grid-cols-7 gap-3 pb-4 px-2" style={{ minHeight: '280px' }}>
+            <h3 className="text-sm font-bold text-white mb-1.5 text-center font-hebrew">חבילות שיזוף</h3>
+            <div className="grid grid-cols-7 gap-2 px-2" style={{ height: '200px' }}>
               {packages.map(pkg => (
                 <div
                   key={pkg.id}
-                  className="bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-xl p-3 hover:border-primary transition-all duration-300 group hover:scale-[1.05] flex flex-col w-full shadow-2xl hover:shadow-primary/50 relative overflow-hidden"
+                  className="bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-lg p-2 hover:border-primary transition-all duration-300 group hover:scale-[1.05] flex flex-col w-full shadow-2xl hover:shadow-primary/50 relative overflow-hidden"
                   style={{
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
                     backdropFilter: 'blur(8px)',
@@ -145,19 +145,19 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
                   data-testid={`package-${pkg.id}`}
                 >
                   {/* Enhanced inner glow effect */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/2 via-primary/2 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/2 via-primary/2 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
-                  <div className="text-center mb-1 flex-1">
-                    <h4 className="text-xs font-bold text-white mb-0.5 relative z-10 font-hebrew">{pkg.name}</h4>
-                    <div className="text-primary text-2xl font-bold mb-0.5 relative z-10">₪{pkg.price}</div>
+                  <div className="text-center mb-0.5 flex-1">
+                    <h4 className="text-[10px] font-bold text-white mb-0.5 relative z-10 font-hebrew leading-tight">{pkg.name}</h4>
+                    <div className="text-primary text-xl font-bold mb-0.5 relative z-10">₪{pkg.price}</div>
                     {pkg.sessions > 1 && pkg.sessions < 999 && (
-                      <p className="text-gray-300 text-xs relative z-10 font-hebrew">{pkg.sessions} כניסות</p>
+                      <p className="text-gray-300 text-[9px] relative z-10 font-hebrew">{pkg.sessions} כניסות</p>
                     )}
                   </div>
 
-                  <div className="space-y-0.5 mb-1 flex-1 relative z-10">
-                    {pkg.benefits.slice(0, 2).map((benefit, index) => (
-                      <div key={index} className="flex items-center gap-1 text-[10px] text-gray-300 font-hebrew">
+                  <div className="space-y-0.5 mb-0.5 flex-1 relative z-10">
+                    {pkg.benefits.slice(0, 1).map((benefit, index) => (
+                      <div key={index} className="flex items-center gap-1 text-[9px] text-gray-300 font-hebrew justify-center">
                         <div className="w-0.5 h-0.5 bg-primary rounded-full flex-shrink-0" />
                         {benefit}
                       </div>
@@ -166,7 +166,7 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
                   <div className="flex items-center justify-center relative z-10">
                     <Button
-                      className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold px-3 py-2.5 text-xs w-full transition-all duration-300 hover:scale-105 font-hebrew"
+                      className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold px-2 py-1.5 text-[10px] w-full transition-all duration-300 hover:scale-105 font-hebrew"
                       style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))' }}
                       onClick={() => {
                         console.log(`רכישת חבילה: ${pkg.name}`);
@@ -181,7 +181,7 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
               {/* Build Your Tan Package */}
               <div
-                className="bg-gradient-to-br from-background via-background/95 to-purple-500/10 backdrop-blur-sm border-2 border-purple-400/60 rounded-xl p-3 hover:border-purple-400 transition-all duration-300 group hover:scale-[1.05] flex flex-col w-full shadow-2xl hover:shadow-purple-500/50 relative overflow-hidden"
+                className="bg-gradient-to-br from-background via-background/95 to-purple-500/10 backdrop-blur-sm border-2 border-purple-400/60 rounded-lg p-2 hover:border-purple-400 transition-all duration-300 group hover:scale-[1.05] flex flex-col w-full shadow-2xl hover:shadow-purple-500/50 relative overflow-hidden"
                 style={{
                   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
                   backdropFilter: 'blur(8px)',
@@ -191,53 +191,45 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
                 data-testid="package-custom"
               >
                 {/* Enhanced inner glow effect - purple variant */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/2 via-purple-500/3 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/2 via-purple-500/3 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
-                <div className="text-center mb-1 relative z-10">
-                  <h4 className="text-xs font-bold text-white mb-0.5 font-hebrew">בנה את השיזוף שלך</h4>
+                <div className="text-center mb-0.5 relative z-10">
+                  <h4 className="text-[10px] font-bold text-white mb-0.5 font-hebrew leading-tight">בנה את השיזוף שלך</h4>
                   <div className="text-purple-400 text-lg font-bold mb-0.5">₪{customTanSessions * 40}</div>
-                  <p className="text-gray-300 text-[10px] font-hebrew">{customTanSessions} כניסות - ₪40 לכניסה</p>
+                  <p className="text-gray-300 text-[9px] font-hebrew">{customTanSessions} כניסות - ₪40 לכניסה</p>
                 </div>
 
-                <div className="flex items-center justify-center mb-1 relative z-10">
-                  <div className="flex items-center space-x-2 bg-black/50 rounded-lg px-2 py-1">
+                <div className="flex items-center justify-center mb-0.5 relative z-10">
+                  <div className="flex items-center space-x-2 bg-black/50 rounded-lg px-1.5 py-0.5">
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                      className="h-4 w-4 p-0 text-white hover:bg-white/20"
                       onClick={() => setCustomTanSessions(Math.max(4, customTanSessions - 1))}
                       data-testid="button-decrease-sessions"
                     >
-                      <Minus className="h-2.5 w-2.5" />
+                      <Minus className="h-2 w-2" />
                     </Button>
 
-                    <span className="text-white font-bold text-sm min-w-[1.5rem] text-center">
+                    <span className="text-white font-bold text-xs min-w-[1.2rem] text-center">
                       {customTanSessions}
                     </span>
 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                      className="h-4 w-4 p-0 text-white hover:bg-white/20"
                       onClick={() => setCustomTanSessions(Math.min(20, customTanSessions + 1))}
                       data-testid="button-increase-sessions"
                     >
-                      <Plus className="h-2.5 w-2.5" />
+                      <Plus className="h-2 w-2" />
                     </Button>
                   </div>
                 </div>
 
-                <div className="space-y-0.5 mb-1 flex-1 relative z-10">
-                  <div className="flex items-center gap-1 text-[10px] text-gray-300 font-hebrew">
-                    <div className="w-0.5 h-0.5 bg-purple-400 rounded-full flex-shrink-0" />
-                    מינימום 4 כניסות
-                  </div>
-                  <div className="flex items-center gap-1 text-[10px] text-gray-300 font-hebrew">
-                    <div className="w-0.5 h-0.5 bg-purple-400 rounded-full flex-shrink-0" />
-                    ניתן לשיתוף
-                  </div>
+                <div className="space-y-0.5 mb-0.5 flex-1 relative z-10">
                   {customTanSessions >= 10 && (
-                    <div className="flex items-center gap-1 text-[10px] text-green-400 animate-pulse font-hebrew">
+                    <div className="flex items-center gap-1 text-[9px] text-green-400 animate-pulse font-hebrew justify-center">
                       <div className="w-0.5 h-0.5 bg-green-400 rounded-full flex-shrink-0" />
                       🎁 ברונזר במתנה!
                     </div>
@@ -245,7 +237,7 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
                 </div>
 
                 <Button
-                  className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-bold px-3 py-1.5 text-xs w-full transition-all duration-300 hover:scale-105 relative z-10 font-hebrew"
+                  className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-bold px-2 py-1.5 text-[10px] w-full transition-all duration-300 hover:scale-105 relative z-10 font-hebrew"
                   style={{ filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.7))' }}
                   onClick={() => {
                     console.log(`Build your tan: ${customTanSessions} sessions for ₪${customTanSessions * 40}`);
@@ -259,8 +251,11 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
           </div>
 
           {/* Tanning Products Carousel Section */}
-          <div className="flex-1 max-h-[500px]">
-            <TanningProductCarousel onAddToCart={(productId) => updateCart(productId, 1)} />
+          <div className="w-full" style={{ height: 'calc(100vh - 340px)' }}>
+            <h3 className="text-sm font-bold text-white mb-1.5 text-center font-hebrew">מוצרי שיזוף</h3>
+            <div className="h-[calc(100%-2rem)]">
+              <TanningProductCarousel onAddToCart={(productId) => updateCart(productId, 1)} />
+            </div>
           </div>
         </div>
 
