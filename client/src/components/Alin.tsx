@@ -1,4 +1,4 @@
-import alinImage from '@assets/עיצוב ללא שם (1)_1759411870414.gif';
+import alinImage from '@assets/עיצוב ללא שם (2)_1759412492561.gif';
 
 interface AlinProps {
   className?: string;
