@@ -44,7 +44,7 @@ export default function SelfService() {
     },
     { 
       title: 'AI TAN', 
-      icon: <Alin size={80} />, 
+      icon: <Alin size={96} />, 
       id: 'ai-tan' 
     },
   ];
