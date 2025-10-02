@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Plus, Minus, CreditCard, ShoppingCart } from 'lucide-react';
-import ProductCarousel3D from './ProductCarousel3D';
+import { useQuery } from '@tanstack/react-query';
+import { useToast } from '@/hooks/use-toast';
+import ZenCarousel from './ZenCarousel';
 
 interface AdvancedPurchaseOverlayProps {
   open: boolean;
@@ -20,54 +22,30 @@ interface Package {
 export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverlayProps) {
   const [customTanSessions, setCustomTanSessions] = useState(4);
   const [cart, setCart] = useState<{ [key: string]: number }>({});
+  const { toast } = useToast();
 
-  // Bronzer products for carousel
-  const bronzerProducts = [
-    {
-      id: 'bronzer-1',
-      name: 'Australian Gold',
-      price: 120,
-      image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300&q=80',
-      category: 'ברונזר',
-      badge: 'מבצע'
+  // Fetch bed bronzer products from database (same as shop page)
+  const { data: bedBronzers } = useQuery<any[]>({
+    queryKey: ['/api/products', { tanningType: 'bed-bronzer' }],
+    queryFn: async () => {
+      const res = await fetch(`/api/products?tanningType=bed-bronzer`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to fetch bed bronzers');
+      return res.json();
     },
-    {
-      id: 'bronzer-2',
-      name: 'Devoted Creations',
-      price: 150,
-      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80',
-      category: 'ברונזר'
-    },
-    {
-      id: 'bronzer-3',
-      name: 'Designer Skin',
-      price: 180,
-      image: 'https://images.unsplash.com/photo-1556228841-d9d2f9c3c1cc?w=300&q=80',
-      category: 'ברונזר',
-      badge: 'חדש'
-    },
-    {
-      id: 'bronzer-4',
-      name: 'Swedish Beauty',
-      price: 140,
-      image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80',
-      category: 'ברונזר'
-    },
-    {
-      id: 'bronzer-5',
-      name: 'Supre Tan',
-      price: 130,
-      image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=300&q=80',
-      category: 'ברונזר'
-    },
-    {
-      id: 'bronzer-6',
-      name: 'Millennium Tanning',
-      price: 110,
-      image: 'https://images.unsplash.com/photo-1556228852-80b4f32e4da7?w=300&q=80',
-      category: 'ברונזר'
-    }
-  ];
+  });
+
+  // Transform bed bronzer products (same transformation as shop page)
+  const bronzerProducts = bedBronzers?.filter(p => p.is_featured || p.isFeatured).map((p) => ({
+    id: p.id,
+    name: p.name_he || p.nameHe || p.name,
+    price: parseFloat(p.sale_price || p.salePrice || p.price),
+    image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
+    images: p.images || [],
+    category: (p.brand && p.brand !== 'OTHER') ? p.brand : 'ברונזר',
+    description: p.description_he || p.descriptionHe || p.description,
+    badge: p.badge,
+    bronzerStrength: p.bronzer_strength || p.bronzerStrength,
+  })) || [];
 
   const packages: Package[] = [
     {
@@ -307,13 +285,23 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
             </div>
           </div>
 
-          {/* Bronzer Products 3D Carousel */}
-          <div className="w-full">
-            <ProductCarousel3D 
-              products={bronzerProducts}
-              onAddToCart={(productId) => updateCart(productId, 1)}
-            />
-          </div>
+          {/* Bronzer Products Carousel */}
+          {bronzerProducts.length > 0 && (
+            <div className="w-full">
+              <ZenCarousel 
+                products={bronzerProducts}
+                onAddToCart={(productId) => {
+                  updateCart(productId, 1);
+                  const product = bronzerProducts.find(p => p.id === productId);
+                  toast({
+                    title: '✨ נוסף לסל!',
+                    description: `${product?.name} נוסף בהצלחה`,
+                    duration: 2000,
+                  });
+                }}
+              />
+            </div>
+          )}
 
         </div>
 
