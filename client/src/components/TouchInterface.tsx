@@ -11,6 +11,7 @@ import sprayTanIcon from '@assets/freepik__spray-tan-variation-b-modern-flatbadg
 import hairSalonIcon from '@assets/freepik__3d-neon-pink-icon-of-a-hair-salon-symbol-stylized-__47719_1759413079154.png';
 import cosmeticsIcon from '@assets/עיצוב ללא שם (31)_1759413948155.png';
 import storeIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759413103497.png';
+import selfServiceIcon from '@assets/עיצוב ללא שם (32)_1759414540774.png';
 
 interface TouchInterfaceProps {
   onServiceSelect?: (service: string) => void;
@@ -368,109 +369,14 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
           onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-          onClick={() => handleServiceClick('ai-tan')}
+          onClick={() => navigate('/self-service')}
         >
-          <div className="relative group/star">
-            {/* Multiple rotating background rings */}
-            <div 
-              className="absolute inset-0 opacity-40 group-hover/star:opacity-70"
-              style={{
-                background: 'conic-gradient(from 0deg, #ff0080, #ff8000, #ffff00, #80ff00, #00ff80, #0080ff, #8000ff, #ff0080)',
-                borderRadius: '50%',
-                animation: 'spin 4s linear infinite',
-                filter: 'blur(15px)',
-                transform: 'scale(2.5)'
-              }}
-            />
-            <div 
-              className="absolute inset-0 opacity-30 group-hover/star:opacity-60"
-              style={{
-                background: 'conic-gradient(from 180deg, transparent, rgba(255, 0, 128, 0.8), transparent, rgba(128, 0, 255, 0.8), transparent)',
-                borderRadius: '50%',
-                animation: 'spin 2s linear infinite reverse',
-                filter: 'blur(10px)',
-                transform: 'scale(2)'
-              }}
-            />
-            
-            {/* Floating particles */}
-            <div 
-              className="absolute inset-0 opacity-60 group-hover/star:opacity-90"
-              style={{
-                background: `
-                  radial-gradient(2px 2px at 20px 30px, #ff0080, transparent),
-                  radial-gradient(2px 2px at 40px 70px, #00ff80, transparent),
-                  radial-gradient(1px 1px at 90px 40px, #ffff00, transparent),
-                  radial-gradient(1px 1px at 130px 80px, #8000ff, transparent),
-                  radial-gradient(2px 2px at 160px 30px, #ff8000, transparent)
-                `,
-                animation: 'float 3s ease-in-out infinite',
-                transform: 'scale(1.8)'
-              }}
-            />
-            
-            {/* Holographic effect */}
-            <div 
-              className="absolute inset-0 opacity-20 group-hover/star:opacity-40"
-              style={{
-                background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%)',
-                animation: 'holographic 2s ease-in-out infinite',
-                borderRadius: '50%',
-                transform: 'scale(1.5)'
-              }}
-            />
-            
-            {/* Main star with enhanced effects */}
-            <Star 
-              className="relative z-10 text-transparent animate-pulse group-hover/star:animate-bounce" 
-              size={40}
-              style={{
-                background: 'linear-gradient(45deg, #ffff00, #ff8000, #ff0080, #8000ff, #0080ff, #00ff80, #ffff00)',
-                backgroundSize: '400% 400%',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                filter: `
-                  drop-shadow(0 0 30px rgba(255, 255, 0, 1))
-                  drop-shadow(0 0 60px rgba(255, 0, 128, 0.8))
-                  drop-shadow(0 0 90px rgba(128, 0, 255, 0.6))
-                  drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.9))
-                `,
-                transform: 'rotateX(20deg) rotateY(-10deg) rotateZ(0deg)',
-                transformStyle: 'preserve-3d',
-                animation: 'rainbow 3s ease-in-out infinite, rotate3d 6s linear infinite'
-              }}
-            />
-            
-            {/* Energy burst effect */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover/star:opacity-100 transition-opacity duration-500"
-              style={{
-                background: `
-                  conic-gradient(from 0deg, transparent, rgba(255, 255, 0, 0.8), transparent, rgba(255, 0, 128, 0.8), transparent),
-                  radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%)
-                `,
-                borderRadius: '50%',
-                animation: 'energyBurst 0.8s ease-out infinite',
-                transform: 'scale(3)',
-                filter: 'blur(5px)'
-              }}
-            />
-            
-            {/* Sparkle effects */}
-            <div 
-              className="absolute inset-0 opacity-50 group-hover/star:opacity-80"
-              style={{
-                background: `
-                  radial-gradient(1px 1px at 15px 25px, white, transparent),
-                  radial-gradient(1px 1px at 35px 65px, white, transparent),
-                  radial-gradient(1px 1px at 85px 35px, white, transparent),
-                  radial-gradient(1px 1px at 125px 75px, white, transparent)
-                `,
-                animation: 'sparkle 1.5s ease-in-out infinite',
-                transform: 'scale(2)'
-              }}
-            />
-          </div>
+          <img 
+            src={selfServiceIcon} 
+            alt="שירות עצמי" 
+            className="w-28 h-28 object-contain"
+            style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+          />
           <span className="text-white font-hebrew drop-shadow-lg">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}
