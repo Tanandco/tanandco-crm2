@@ -52,7 +52,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     },
     { 
       title: '', 
-      icon: <Alin size={120} />, 
+      icon: <Alin size={135} />, 
       id: 'ai-tan' 
     },
   ];
