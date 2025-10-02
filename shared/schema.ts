@@ -23,6 +23,7 @@ export const customers = pgTable("customers", {
   fullName: text("full_name").notNull(),
   phone: text("phone").notNull().unique(),
   email: text("email"),
+  dateOfBirth: text("date_of_birth"), // Date of birth in YYYY-MM-DD format
   isNewClient: boolean("is_new_client").default(true).notNull(),
   healthFormSigned: boolean("health_form_signed").default(false).notNull(),
   faceRecognitionId: text("face_recognition_id"),
@@ -109,9 +110,20 @@ export const insertCustomerSchema = createInsertSchema(customers).omit({
   createdAt: true,
   updatedAt: true,
 }).extend({
-  phone: z.string().min(10, "מספר טלפון חייב להכיל לפחות 10 ספרות"),
+  phone: z.string()
+    .min(10, "מספר טלפון חייב להכיל לפחות 10 ספרות")
+    .regex(/^(972|05)\d{8,9}$|^\+?972\d{8,9}$|^05\d{1}-?\d{7}$/, "מספר הטלפון חייב להיות תקין עבור WhatsApp (פורמט: 972XXXXXXXXX או 05X-XXXXXXX)"),
   fullName: z.string().min(2, "שם מלא חייב להכיל לפחות 2 תווים"),
-  email: z.string().email("כתובת אימייל לא תקינה").optional(),
+  email: z.string().email("כתובת אימייל לא תקינה").optional().nullable(),
+  dateOfBirth: z.string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "תאריך לידה חייב להיות בפורמט YYYY-MM-DD")
+    .refine((date) => {
+      const birthDate = new Date(date);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      return age >= 16 && age <= 120;
+    }, "גיל חייב להיות בין 16 ל-120")
+    .optional().nullable(),
 });
 
 export const insertMembershipSchema = createInsertSchema(memberships).omit({

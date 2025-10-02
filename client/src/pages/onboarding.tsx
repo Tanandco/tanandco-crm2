@@ -18,6 +18,8 @@ export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState<number>(existingCustomerId ? 2 : 1);
   const [customerId, setCustomerId] = useState<string>(existingCustomerId || '');
   const [customerPhone, setCustomerPhone] = useState<string>('');
+  const [customerName, setCustomerName] = useState<string>('');
+  const [dateOfBirth, setDateOfBirth] = useState<string>('');
 
   const steps = [
     {
@@ -56,11 +58,35 @@ export default function Onboarding() {
 
   const handleStepAction = () => {
     if (currentStep === 1) {
-      // Navigate to payment/shop
-      if (!customerPhone) {
+      // Validate all required fields
+      if (!customerName || !customerPhone || !dateOfBirth) {
         toast({
           title: "שגיאה",
-          description: "נא להזין מספר טלפון",
+          description: "נא למלא את כל השדות הנדרשים",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate WhatsApp phone number format
+      const phoneRegex = /^(972|05)\d{8,9}$|^\+?972\d{8,9}$|^05\d{1}-?\d{7}$/;
+      if (!phoneRegex.test(customerPhone)) {
+        toast({
+          title: "שגיאה",
+          description: "מספר הטלפון חייב להיות תקין עבור WhatsApp (פורמט: 972XXXXXXXXX או 05X-XXXXXXX)",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate age (16-120)
+      const birthDate = new Date(dateOfBirth);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      if (age < 16 || age > 120) {
+        toast({
+          title: "שגיאה",
+          description: "גיל חייב להיות בין 16 ל-120",
           variant: "destructive",
         });
         return;
@@ -227,15 +253,49 @@ export default function Onboarding() {
 
                   {/* Manual Entry */}
                   <div className="space-y-4">
-                    <label className="text-white font-medium">מספר טלפון:</label>
-                    <Input
-                      type="tel"
-                      placeholder="050-1234567"
-                      value={customerPhone}
-                      onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="text-lg bg-slate-800 border-pink-500/30"
-                      data-testid="input-phone"
-                    />
+                    <div>
+                      <label className="text-white font-medium block mb-2">שם מלא:</label>
+                      <Input
+                        type="text"
+                        placeholder="שם פרטי ושם משפחה"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        className="text-lg bg-slate-800 border-pink-500/30"
+                        data-testid="input-name"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="text-white font-medium block mb-2">מספר טלפון (WhatsApp):</label>
+                      <Input
+                        type="tel"
+                        placeholder="972XXXXXXXXX או 05X-XXXXXXX"
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value)}
+                        className="text-lg bg-slate-800 border-pink-500/30"
+                        data-testid="input-phone"
+                      />
+                      <p className="text-xs text-gray-400 mt-1">
+                        הזן מספר תקין עבור WhatsApp (פורמט: 972XXXXXXXXX)
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <label className="text-white font-medium block mb-2">תאריך לידה:</label>
+                      <Input
+                        type="date"
+                        value={dateOfBirth}
+                        onChange={(e) => setDateOfBirth(e.target.value)}
+                        max={new Date(new Date().setFullYear(new Date().getFullYear() - 16)).toISOString().split('T')[0]}
+                        min={new Date(new Date().setFullYear(new Date().getFullYear() - 120)).toISOString().split('T')[0]}
+                        className="text-lg bg-slate-800 border-pink-500/30"
+                        data-testid="input-date-of-birth"
+                      />
+                      <p className="text-xs text-gray-400 mt-1">
+                        גיל מינימלי: 16 שנים
+                      </p>
+                    </div>
+                    
                     <Button
                       onClick={handleStepAction}
                       size="lg"
