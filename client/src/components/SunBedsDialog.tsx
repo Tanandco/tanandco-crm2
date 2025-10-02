@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, UserPlus, CreditCard, X, Sparkles, Search, ScanFace, Droplets } from 'lucide-react';
+import { ArrowLeft, UserPlus, CreditCard, X, Sparkles, Search, ScanFace, Droplets, Lightbulb } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AlinChatBox from "@/components/AlinChatBox";
@@ -89,7 +89,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           onClick={() => onOpenChange(false)} 
           variant="outline" 
           size="lg" 
-          className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+          className="bg-white/10 border-white/20 text-white backdrop-blur-sm"
           data-testid="button-back-to-self-service"
         >
           <ArrowLeft className="w-5 h-5 ml-2" />
@@ -144,15 +144,14 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
       {/* Content Container - positioned lower to avoid overlap */}
       <div 
-        className="relative w-full max-w-4xl flex items-center justify-center" 
-        style={{ marginTop: '320px' }}
+        className="relative w-full max-w-4xl flex items-center justify-center mt-80"
       >
         {/* Close Button */}
         <Button 
           onClick={() => onOpenChange(false)} 
           variant="ghost" 
           size="icon" 
-          className="absolute top-4 left-4 text-white hover:bg-white/20 z-10"
+          className="absolute top-4 left-4 text-white z-10"
           data-testid="button-close-sun-beds"
         >
           <X className="w-6 h-6" />
@@ -184,7 +183,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 data-testid={`action-tile-${index}`}
               >
                 <div 
-                  className="w-full aspect-square p-8 rounded-md border-2 flex flex-col items-center justify-center transition-all duration-300 backdrop-blur-sm overflow-visible relative bg-gradient-to-br from-background via-background/95 to-primary/5 border-primary/50 hover:scale-105 hover:bg-white/20 group-hover:border-primary"
+                  className="h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px] pb-4 rounded-md border-2 flex flex-col items-center justify-between transition-all duration-300 backdrop-blur-sm overflow-visible relative bg-gradient-to-br from-background via-background/95 to-primary/5 border-primary/50 group-hover:border-primary"
                   style={{
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
                     backdropFilter: 'blur(8px)',
@@ -213,8 +212,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   
                   {/* Icon Label - Enhanced */}
                   {option.title && (
-                    <div className="text-center mt-4 px-2">
-                      <span className="text-white text-base font-hebrew font-medium opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight group-hover:scale-105">
+                    <div className="text-center px-2">
+                      <span className="text-sm font-medium text-white font-hebrew opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight">
                         {option.title}
                       </span>
                     </div>
@@ -229,7 +228,10 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       {/* Safety reminder */}
       <div className="fixed bottom-4 left-4 z-20 max-w-xs">
         <div className="bg-gray-900/80 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-3 text-xs">
-          <p className="text-cyan-200 font-hebrew text-right mb-1">💡 זכרו:</p>
+          <p className="text-cyan-200 font-hebrew text-right mb-1 flex items-center justify-end gap-1">
+            <span>זכרו</span>
+            <Lightbulb className="w-4 h-4" />
+          </p>
           <p className="text-gray-300 font-hebrew text-right leading-relaxed">
             שיזוף בטוח מתחיל בזיהוי סוג העור ומנוחה של 48 שעות בין סשנים
           </p>
@@ -263,7 +265,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               onClick={() => setShowProductCarousel(false)} 
               variant="outline" 
               size="lg" 
-              className="absolute top-4 right-4 z-10 bg-white/10 border-white/20 text-white hover:bg-white/20"
+              className="absolute top-4 right-4 z-10 bg-white/10 border-white/20 text-white"
               data-testid="button-close-carousel"
             >
               <X className="w-6 h-6 ml-2" />
@@ -288,7 +290,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               onClick={() => setShowFaceRecognitionDialog(false)} 
               variant="ghost" 
               size="icon" 
-              className="absolute top-4 right-4 text-white hover:bg-white/10"
+              className="absolute top-4 right-4 text-white"
               data-testid="button-close-face-recognition"
             >
               <X className="w-6 h-6" />
@@ -325,7 +327,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               </div>
               
               <Button 
-                className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
+                className="w-full bg-primary text-white font-bold"
                 data-testid="button-start-registration"
               >
                 התחל הרשמה
