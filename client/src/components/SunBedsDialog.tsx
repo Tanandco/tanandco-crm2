@@ -70,14 +70,6 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       onClick: () => {
         window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');
       }
-    },
-    {
-      icon: null,
-      title: "",
-      isFunction: true,
-      onClick: () => {
-        setShowProductCarousel(true);
-      }
     }
   ];
 
@@ -168,7 +160,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
         {/* Service Fields with Larger Design */}
         <div className="w-full max-w-full mx-auto px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 animate-scale-in">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 animate-scale-in">
             {tanningOptions.map((option, index) => (
               <div 
                 key={index} 
@@ -182,13 +174,13 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 }}
                 onMouseLeave={(e) => {
                   if (window.innerWidth >= 768) {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1.2)';
                     e.currentTarget.style.filter = 'brightness(1) saturate(1)';
                   }
                 }}
                 style={{
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  minWidth: '180px'
+                  transform: 'scale(1.2)'
                 }}
                 data-testid={`action-tile-${index}`}
               >
@@ -214,7 +206,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     >
                       {option.icon && !option.isFunction && (
                         <option.icon 
-                          className="w-12 h-12 text-primary group-hover:text-white transition-all duration-300"
+                          className="w-10 h-10 text-primary group-hover:text-white transition-all duration-300"
                           strokeWidth={1.5}
                         />
                       )}
@@ -223,8 +215,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   
                   {/* Icon Label - only show if title exists */}
                   {option.title && (
-                    <div className="text-center mt-5 px-2">
-                      <span className="text-white text-sm font-hebrew font-medium opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight whitespace-nowrap overflow-hidden text-ellipsis group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
+                    <div className="text-center mt-6 px-2">
+                      <span className="text-white text-xs font-hebrew font-medium opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight whitespace-nowrap overflow-hidden text-ellipsis group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
                         {option.title}
                       </span>
                     </div>
