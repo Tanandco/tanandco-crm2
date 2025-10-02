@@ -12,8 +12,8 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
       <div 
         className="absolute left-1/2 -translate-x-1/2 bg-white rounded-full"
         style={{
-          width: `${size * 0.5}px`,
-          height: `${size * 0.5}px`,
+          width: `${size * 0.4}px`,
+          height: `${size * 0.4}px`,
           top: `${size * 0.15}px`,
           zIndex: 0
         }}
