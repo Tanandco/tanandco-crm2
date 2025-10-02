@@ -14,7 +14,7 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
         style={{
           width: `${size * 0.4}px`,
           height: `${size * 0.4}px`,
-          top: `${size * 0.15}px`,
+          top: `${size * 0.1}px`,
           zIndex: 0
         }}
       />
