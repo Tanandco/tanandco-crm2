@@ -127,11 +127,11 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex flex-col p-3 space-y-2 overflow-hidden z-10">
+        <div className="relative flex-1 flex flex-col p-2 space-y-1.5 overflow-hidden z-10">
           {/* Packages Section */}
           <div className="w-full">
-            <h3 className="text-sm font-bold text-white mb-1.5 text-center font-hebrew">חבילות שיזוף</h3>
-            <div className="grid grid-cols-7 gap-2 px-2" style={{ height: '200px' }}>
+            <h3 className="text-xs font-bold text-white mb-1 text-center font-hebrew">חבילות שיזוף</h3>
+            <div className="grid grid-cols-7 gap-2 px-2" style={{ height: '160px' }}>
               {packages.map(pkg => (
                 <div
                   key={pkg.id}
@@ -251,9 +251,9 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
           </div>
 
           {/* Tanning Products Carousel Section */}
-          <div className="w-full" style={{ height: '220px' }}>
-            <h3 className="text-sm font-bold text-white mb-1.5 text-center font-hebrew">מוצרי שיזוף</h3>
-            <div className="h-[calc(100%-2rem)]">
+          <div className="w-full" style={{ height: '180px' }}>
+            <h3 className="text-xs font-bold text-white mb-1 text-center font-hebrew">מוצרי שיזוף</h3>
+            <div className="h-[calc(100%-1.5rem)]">
               <TanningProductCarouselCompact onAddToCart={(productId) => updateCart(productId, 1)} />
             </div>
           </div>

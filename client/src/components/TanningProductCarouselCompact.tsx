@@ -62,11 +62,11 @@ export default function TanningProductCarouselCompact({ onAddToCart }: TanningPr
 
   return (
     <div className="w-full h-full overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent">
-      <div className="flex gap-3 px-4 h-full">
+      <div className="flex gap-2 px-2 h-full items-center">
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex-shrink-0 w-[160px] bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-lg p-2 hover:border-primary transition-all duration-300 group hover:scale-[1.03] shadow-2xl hover:shadow-primary/50 relative overflow-hidden"
+            className="flex-shrink-0 w-[140px] h-[150px] bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-lg p-2 hover:border-primary transition-all duration-300 group hover:scale-[1.03] shadow-2xl hover:shadow-primary/50 relative overflow-hidden"
             style={{
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
               backdropFilter: 'blur(8px)',
@@ -78,9 +78,9 @@ export default function TanningProductCarouselCompact({ onAddToCart }: TanningPr
             {/* Enhanced inner glow effect */}
             <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/2 via-primary/2 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
-            <div className="relative z-10 flex flex-col h-full">
+            <div className="relative z-10 flex flex-col h-full justify-between">
               {/* Product Image */}
-              <div className="relative w-full h-24 mb-2 rounded-md overflow-hidden">
+              <div className="relative w-full h-16 mb-1 rounded-md overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -92,24 +92,24 @@ export default function TanningProductCarouselCompact({ onAddToCart }: TanningPr
               </div>
 
               {/* Product Info */}
-              <div className="flex-1 flex flex-col">
-                <h4 className="text-[10px] font-bold text-white mb-1 font-hebrew leading-tight line-clamp-2">
+              <div className="flex flex-col">
+                <h4 className="text-[9px] font-bold text-white mb-0.5 font-hebrew leading-tight line-clamp-1">
                   {product.name}
                 </h4>
                 
-                <div className="text-primary text-lg font-bold mb-2">
+                <div className="text-primary text-base font-bold mb-1">
                   ₪{product.price}
                 </div>
 
                 {/* Add to Cart Button */}
                 <Button
                   onClick={() => onAddToCart?.(product.id)}
-                  className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold px-2 py-1.5 text-[10px] transition-all duration-300 hover:scale-105 font-hebrew"
+                  className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-bold px-1.5 py-1 text-[9px] transition-all duration-300 hover:scale-105 font-hebrew"
                   style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))' }}
                   data-testid={`button-add-product-${product.id}`}
                 >
-                  <ShoppingCart className="w-3 h-3 ml-1" />
-                  הוסף לסל
+                  <ShoppingCart className="w-2.5 h-2.5 ml-0.5" />
+                  הוסף
                 </Button>
               </div>
             </div>
