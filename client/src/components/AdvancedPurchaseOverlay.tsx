@@ -91,7 +91,7 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
-      <DialogContent className="max-w-none w-screen h-screen border-none overflow-hidden p-0 m-0 relative">
+      <DialogContent className="max-w-none w-screen h-screen border-none overflow-hidden p-0 m-0 relative flex flex-col items-start justify-start !top-0 !translate-y-0 !translate-x-0 !left-0">
         {/* Purple Neon Overlay Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-purple-500/50 backdrop-blur-sm" />
@@ -103,23 +103,23 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
         {/* Header */}
         <div 
-          className="relative bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-b border-primary/40 p-2 shadow-lg z-10"
+          className="relative bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-b border-primary/40 px-3 py-1.5 shadow-lg z-10"
           style={{ filter: 'drop-shadow(0 2px 8px hsl(var(--primary) / 0.3))' }}
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-white flex items-center gap-2 font-hebrew">
+            <h2 className="text-sm font-bold text-white flex items-center gap-2 font-hebrew">
               <CreditCard 
-                className="w-4 h-4 text-primary" 
+                className="w-3.5 h-3.5 text-primary" 
                 style={{ filter: 'drop-shadow(0 0 10px hsl(var(--primary)))' }}
               />
               רכישת כרטיסיות ומוצרים
             </h2>
             <div className="flex items-center gap-4">
               {getTotalItems() > 0 && (
-                <div className="flex items-center gap-2 bg-primary/20 px-3 py-1 rounded-full">
-                  <ShoppingCart className="w-4 h-4 text-primary" />
-                  <span className="text-white font-bold">{getTotalItems()}</span>
-                  <span className="text-primary font-bold">₪{getTotalPrice()}</span>
+                <div className="flex items-center gap-2 bg-primary/20 px-2 py-0.5 rounded-full">
+                  <ShoppingCart className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-white font-bold text-sm">{getTotalItems()}</span>
+                  <span className="text-primary font-bold text-sm">₪{getTotalPrice()}</span>
                 </div>
               )}
             </div>
@@ -127,11 +127,11 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
         </div>
 
         {/* Content */}
-        <div className="relative flex-1 flex flex-col p-2 space-y-1.5 overflow-hidden z-10">
+        <div className="relative flex-1 flex flex-col pt-2 pb-1 px-2 space-y-1 overflow-hidden z-10">
           {/* Packages Section */}
           <div className="w-full">
-            <h3 className="text-xs font-bold text-white mb-1 text-center font-hebrew">חבילות שיזוף</h3>
-            <div className="grid grid-cols-7 gap-2 px-2" style={{ height: '160px' }}>
+            <h3 className="text-xs font-bold text-white mb-0.5 text-center font-hebrew">חבילות שיזוף</h3>
+            <div className="grid grid-cols-7 gap-2 px-1" style={{ height: '160px' }}>
               {packages.map(pkg => (
                 <div
                   key={pkg.id}
@@ -252,20 +252,20 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
           {/* Tanning Products Carousel Section */}
           <div className="w-full" style={{ height: '180px' }}>
-            <h3 className="text-xs font-bold text-white mb-1 text-center font-hebrew">מוצרי שיזוף</h3>
-            <div className="h-[calc(100%-1.5rem)]">
+            <h3 className="text-xs font-bold text-white mb-0.5 text-center font-hebrew">מוצרי שיזוף</h3>
+            <div className="h-[calc(100%-1.25rem)]">
               <TanningProductCarouselCompact onAddToCart={(productId) => updateCart(productId, 1)} />
             </div>
           </div>
         </div>
 
         {/* Footer - Checkout */}
-        <div className="relative bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-t border-primary/40 p-3 shadow-lg z-10">
+        <div className="relative bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-t border-primary/40 px-3 py-2 shadow-lg z-10">
           <div className="flex items-center justify-between">
             <Button
               variant="outline"
               onClick={onClose}
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20 font-hebrew"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 font-hebrew text-sm h-9"
               data-testid="button-close-overlay"
             >
               סגור
@@ -273,11 +273,11 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
 
             {getTotalItems() > 0 && (
               <Button
-                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold px-6 py-3 font-hebrew"
+                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold px-4 py-2 text-sm font-hebrew h-9"
                 style={{ filter: 'drop-shadow(0 0 10px rgba(34, 197, 94, 0.7))' }}
                 data-testid="button-checkout"
               >
-                <CreditCard className="w-4 h-4 ml-2" />
+                <CreditCard className="w-3.5 h-3.5 ml-2" />
                 לתשלום (₪{getTotalPrice()})
               </Button>
             )}
