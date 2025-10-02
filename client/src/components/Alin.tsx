@@ -11,7 +11,7 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
       <img 
         src={alinImage}
         alt="אלין הצ'טבוט"
-        className="object-contain animate-alin-blink"
+        className="object-contain"
         style={{
           width: `${size}px`,
           height: `${size}px`,
