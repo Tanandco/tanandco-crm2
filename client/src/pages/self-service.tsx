@@ -3,10 +3,14 @@ import Logo from '@/components/Logo';
 import ServiceCard from '@/components/ServiceCard';
 import SunBedsDialog from '@/components/SunBedsDialog';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sun, Droplets, Scissors, Palette, Store } from 'lucide-react';
+import { ArrowRight, Palette } from 'lucide-react';
 import { useLocation } from 'wouter';
 import Alin from '@/components/Alin';
 import PageLayout from '@/components/PageLayout';
+import tanningBoothIcon from '@assets/freepik__uv-tanning-booth-variation-a-elegant-3d-neon-pink-__47715_1759394305008.png';
+import sprayTanIcon from '@assets/freepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717_1759394325900.png';
+import hairSalonIcon from '@assets/freepik__3d-neon-pink-icon-of-a-hair-salon-symbol-stylized-__47719_1759394333413.png';
+import shopIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759394339729.png';
 
 export default function SelfService() {
   const [, navigate] = useLocation();
@@ -15,17 +19,17 @@ export default function SelfService() {
   const services = [
     { 
       title: 'מיטות שיזוף', 
-      icon: <Sun size={40} className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={tanningBoothIcon} alt="מיטות שיזוף" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
       id: 'sun-beds' 
     },
     { 
       title: 'שיזוף בהתזה', 
-      icon: <Droplets size={40} className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
       id: 'spray-tan' 
     },
     { 
       title: 'מספרה', 
-      icon: <Scissors size={40} className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
       id: 'hair-salon' 
     },
     { 
@@ -35,7 +39,7 @@ export default function SelfService() {
     },
     { 
       title: 'החנות שלכם', 
-      icon: <Store size={40} className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={shopIcon} alt="החנות שלכם" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
       id: 'your-store' 
     },
     { 
@@ -46,7 +50,6 @@ export default function SelfService() {
   ];
 
   const handleServiceClick = (serviceId: string) => {
-    console.log(`Service selected: ${serviceId}`);
     
     if (serviceId === 'ai-tan') {
       window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');

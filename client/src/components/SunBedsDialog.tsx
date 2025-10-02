@@ -34,7 +34,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       title: "חיפוש משתזף קיים",
       testId: "action-tile-search-customer",
       onClick: () => {
-        console.log("Open existing customer search");
+        // Search existing customer
       }
     },
     {
@@ -66,7 +66,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       title: "AI TAN",
       testId: "action-tile-ai-tan",
       onClick: () => {
-        console.log("Navigate to AI TAN");
+        // Navigate to AI TAN
       }
     }
   ];
@@ -290,7 +290,6 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
             <div className="h-full overflow-y-auto">
               <TanningProductCarousel
                 onAddToCart={(productId) => {
-                  console.log("Added to cart:", productId);
                   // Add your cart logic here
                 }}
               />

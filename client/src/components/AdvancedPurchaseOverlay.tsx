@@ -37,7 +37,6 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
   ];
 
   const handlePurchase = (packageId: string) => {
-    console.log('Purchase package:', packageId);
     // TODO: Implement payment flow
     onClose();
   };

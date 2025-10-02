@@ -11,10 +11,7 @@ interface ServiceCardProps {
 export default function ServiceCard({ title, icon, onClick, disabled = false, className = "" }: ServiceCardProps) {
   return (
     <button
-      onClick={() => {
-        console.log(`${title} service clicked`);
-        onClick();
-      }}
+      onClick={onClick}
       disabled={disabled}
       className={`
         group relative h-[130px] w-[130px] sm:h-[140px] sm:w-[140px] md:h-[150px] md:w-[150px]
