@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Plus, Minus, CreditCard, ShoppingCart } from 'lucide-react';
-import TanningProductCarousel from './TanningProductCarousel';
+import TanningProductCarouselCompact from './TanningProductCarouselCompact';
 
 interface AdvancedPurchaseOverlayProps {
   open: boolean;
@@ -251,10 +251,10 @@ export function AdvancedPurchaseOverlay({ open, onClose }: AdvancedPurchaseOverl
           </div>
 
           {/* Tanning Products Carousel Section */}
-          <div className="w-full" style={{ height: 'calc(100vh - 340px)' }}>
+          <div className="w-full" style={{ height: '220px' }}>
             <h3 className="text-sm font-bold text-white mb-1.5 text-center font-hebrew">מוצרי שיזוף</h3>
             <div className="h-[calc(100%-2rem)]">
-              <TanningProductCarousel onAddToCart={(productId) => updateCart(productId, 1)} />
+              <TanningProductCarouselCompact onAddToCart={(productId) => updateCart(productId, 1)} />
             </div>
           </div>
         </div>
