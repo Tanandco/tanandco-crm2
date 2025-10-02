@@ -1,12 +1,12 @@
-import Logo from '@/components/Logo';
-import AnimatedBook from '@/components/AnimatedBook';
-import ZenCarousel from '@/components/ZenCarousel';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Sun, AlertTriangle, CheckCircle, XCircle, UserPlus, Search, Shield, ShoppingCart, Sparkles, Clock, Store, Bot } from 'lucide-react';
+import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft, UserPlus, CreditCard, X, Sparkles, Search, ScanFace, Lightbulb } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import AlinChatBox from "@/components/AlinChatBox";
+import { NewClientDialog } from "@/components/NewClientDialog";
+import { AdvancedPurchaseOverlay } from "@/components/AdvancedPurchaseOverlay";
+import TanningProductCarousel from "@/components/TanningProductCarousel";
 
 interface SunBedsDialogProps {
   open: boolean;
@@ -15,469 +15,350 @@ interface SunBedsDialogProps {
 
 export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps) {
   const [, navigate] = useLocation();
+  const [showPricingOverlay, setShowPricingOverlay] = useState(false);
+  const [showNewClientDialog, setShowNewClientDialog] = useState(false);
+  const [showProductCarousel, setShowProductCarousel] = useState(false);
+  const [showFaceRecognitionDialog, setShowFaceRecognitionDialog] = useState(false);
 
-  // Fetch bed bronzer products
-  const { data: bedBronzers } = useQuery<any[]>({
-    queryKey: ['/api/products', { tanningType: 'bed-bronzer' }],
-    queryFn: async () => {
-      const res = await fetch(`/api/products?tanningType=bed-bronzer`, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Failed to fetch bed bronzers');
-      return res.json();
-    },
-    enabled: open,
-  });
-
-  // Transform bed bronzer products for carousel
-  const bronzerProducts = bedBronzers?.filter(p => p.is_featured || p.isFeatured).map((p) => ({
-    id: p.id,
-    name: p.name_he || p.nameHe || p.name,
-    price: parseFloat(p.sale_price || p.salePrice || p.price),
-    image: p.images?.[0] || 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80',
-    images: p.images || [],
-    category: p.brand && p.brand !== 'OTHER' ? p.brand : 'ברונזר',
-    description: p.description_he || p.descriptionHe || p.description,
-    badge: p.badge,
-    bronzerStrength: p.bronzer_strength || p.bronzerStrength,
-  })) || [];
-
-  const packages = [
+  const tanningOptions = [
     {
-      id: 'single',
-      title: 'כניסה בודדת',
-      subtitle: 'כניסה אחת',
-      price: 70,
-      pricePerSession: null,
-      features: [],
-      isPersonal: true,
-      testId: 'package-single'
+      icon: UserPlus,
+      title: "לקוח חדש - הרשמה",
+      testId: "action-tile-new-customer",
+      onClick: () => {
+        setShowNewClientDialog(true);
+      }
     },
     {
-      id: '8-sessions',
-      title: 'כרטיסיית 8 כניסות',
-      subtitle: '',
-      price: 220,
-      pricePerSession: 27.5,
-      features: [],
-      isPersonal: true,
-      testId: 'package-8'
+      icon: Search,
+      title: "חיפוש משתזף קיים",
+      testId: "action-tile-search-customer",
+      onClick: () => {
+        console.log("Open existing customer search");
+      }
     },
     {
-      id: 'home',
-      title: 'כרטיסיית הבית',
-      subtitle: 'החבילה המשתלמת ביותר!',
-      price: 300,
-      pricePerSession: 15,
-      features: ['20 כניסות', 'כולל ברונזר בית', 'תוקף 12 חודשים'],
-      isPersonal: true,
-      isHighlighted: true,
-      testId: 'package-home'
-    },
-  ];
-
-  const sharedPackages = [
-    {
-      id: 'small-shared',
-      title: 'ככה בקטנה',
-      subtitle: '8 כניסות',
-      price: 220,
-      pricePerSession: 27.5,
-      features: ['ניתן לשיתוף', 'תוקף 12 חודשים'],
-      testId: 'package-small-shared'
+      icon: ScanFace,
+      title: "הרשמה לשירותי 24/7",
+      testId: "action-tile-register-247",
+      onClick: () => {
+        setShowFaceRecognitionDialog(true);
+      }
     },
     {
-      id: 'beginners',
-      title: 'בול למתחילים',
-      subtitle: '12 כניסות',
-      price: 360,
-      pricePerSession: 30,
-      features: ['ניתן לשיתוף', 'תוקף 12 חודשים'],
-      testId: 'package-beginners'
+      icon: CreditCard,
+      title: "רכישת ברונזרים",
+      testId: "action-tile-buy-bronzers",
+      onClick: () => {
+        setShowProductCarousel(true);
+      }
     },
     {
-      id: 'best-value',
-      title: 'הולכים על בטוח',
-      subtitle: '20 כניסות',
-      price: 400,
-      pricePerSession: 20,
-      features: ['ניתן לשיתוף', 'תוקף 12 חודשים', 'המחיר הכי משתלם לכניסה'],
-      isHighlighted: true,
-      testId: 'package-best-value'
+      icon: CreditCard,
+      title: "רכישת כרטיסיה",
+      testId: "action-tile-buy-packages",
+      onClick: () => {
+        setShowPricingOverlay(true);
+      }
     },
-  ];
-
-  const dos = [
-    'להתחיל עם זמני חשיפה קצרים ולהגדיל בהדרגה',
-    'להשתמש בקרם הגנה מתאים לסוג העור שלכם',
-    'להסיר תכשיטים וקוסמטיקה לפני השיזוף',
-    'להשתמש במשקפי מגן מיוחדים',
-    'לשתות הרבה מים לפני ואחרי השיזוף',
-    'להקפיד על הפסקה של 48 שעות בין שיזופים',
-  ];
-
-  const donts = [
-    'לא להיחשף לשמש באותו יום בו עושים שיזוף מלאכותי',
-    'לא להשתזף אם אתם נוטלים תרופות רגישות לאור',
-    'לא להשתזף במהלך הריון או הנקה',
-    'לא להסיר את משקפי המגן במהלך השיזוף',
-    'לא להשתזף אם יש לכם פצעים או כוויות פתוחות',
-    'לא להגזים בזמני החשיפה',
-  ];
-
-  const handleActionClick = (action: string) => {
-    if (action === 'new-customer') {
-      onOpenChange(false);
-      navigate('/onboarding');
-    } else if (action === 'search-customer') {
-      // TODO: implement search
-      console.log('Search customer clicked');
-    } else if (action === 'register-247') {
-      onOpenChange(false);
-      navigate('/face-registration');
-    } else if (action === 'purchase-packages') {
-      // Scroll to packages section - keep dialog open
-      setTimeout(() => {
-        document.getElementById('packages-section')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else if (action === 'shop') {
-      onOpenChange(false);
-      navigate('/shop');
-    } else if (action === 'ai-tan') {
-      // TODO: implement AI TAN
-      console.log('AI TAN clicked');
+    {
+      icon: Sparkles,
+      title: "AI TAN",
+      testId: "action-tile-ai-tan",
+      onClick: () => {
+        console.log("Navigate to AI TAN");
+      }
     }
-  };
+  ];
+
+  if (!open) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent 
-        className="max-w-[95vw] w-full h-[95vh] max-h-[95vh] p-0 bg-black border-pink-500/30 overflow-hidden"
-        data-testid="sun-beds-dialog"
-      >
-        <DialogTitle className="sr-only">מיטות שיזוף - מידע, מחירים וחבילות</DialogTitle>
-        <DialogDescription className="sr-only">
-          מידע על שירותי מיטות השיזוף, הנחיות בטיחות, מחירי חבילות אישיות ומשפחתיות, ומוצרי ברונזר
-        </DialogDescription>
-        <div className="h-full overflow-y-auto overflow-x-hidden relative" dir="rtl">
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-purple-500/5 pointer-events-none" />
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[120px] pointer-events-none"
-            style={{ 
-              animation: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-            }}
-          />
-          
-          <div className="container mx-auto px-6 py-6 max-w-6xl relative z-10">
-            {/* Logo */}
-            <div className="mb-4">
-              <Logo size="small" showGlow={true} showUnderline={false} />
-            </div>
-            
-            {/* Navigation Buttons */}
-            <div className="fixed top-6 left-6 right-6 z-50 flex justify-between pointer-events-none">
-              {/* Back Button */}
-              <button
-                className="
-                  pointer-events-auto
-                  group relative w-12 h-12
-                  bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                  border border-gray-500/60 hover:border-gray-400/80
-                  rounded-lg backdrop-blur-sm
-                  flex items-center justify-center
-                  transition-all duration-300 ease-in-out
-                  hover:scale-105 active:scale-95
-                  hover-elevate active-elevate-2
-                "
-                style={{
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
-                }}
-                onClick={() => onOpenChange(false)}
-                data-testid="button-back-nav"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  className="text-white group-hover:text-pink-400 transition-colors duration-300"
-                  style={{
-                    filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'
-                  }}
-                >
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-              </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Purple Neon Overlay Background */}
+      <div className="absolute inset-0">
+        {/* Purple background */}
+        <div className="absolute inset-0 bg-purple-500/50 backdrop-blur-sm" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 opacity-70" />
+      </div>
 
-              {/* Home Button */}
-              <button
-                className="
-                  pointer-events-auto
-                  group relative w-12 h-12
-                  bg-gradient-to-br from-pink-900/90 via-purple-900/80 to-pink-900/90
-                  border border-pink-500/60 hover:border-pink-400/80
-                  rounded-lg backdrop-blur-sm
-                  flex items-center justify-center
-                  transition-all duration-300 ease-in-out
-                  hover:scale-105 active:scale-95
-                  hover-elevate active-elevate-2
-                "
-                style={{
-                  boxShadow: '0 4px 12px rgba(236, 72, 153, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
-                }}
-                onClick={() => {
-                  onOpenChange(false);
-                  navigate('/');
-                }}
-                data-testid="button-home-nav"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  className="text-white group-hover:text-pink-300 transition-colors duration-300"
-                  style={{
-                    filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.5))'
-                  }}
-                >
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              </button>
-            </div>
+      {/* Back to Self Service Button - moved to top corner */}
+      <div className="absolute top-6 right-6 z-30">
+        <Button
+          onClick={() => {
+            onOpenChange(false);
+            navigate('/');
+          }}
+          variant="outline"
+          size="lg"
+          className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+          data-testid="button-back-to-home"
+        >
+          <ArrowLeft className="w-5 h-5 ml-2" />
+          חזרה לשירות עצמי
+        </Button>
+      </div>
 
-            {/* Main Title */}
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-3">
-                <Sun className="w-10 h-10 text-pink-400" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />
-                <h1 
-                  className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-                  data-testid="title-sun-beds"
-                >
-                  מיטות שיזוף
-                </h1>
-              </div>
-            </div>
-
-            {/* Animated Book */}
-            <AnimatedBook />
-
-            {/* Action Buttons */}
-            <div className="mb-8">
-              <h2 
-                className="text-2xl font-bold text-center mb-4 text-pink-300"
-                data-testid="title-actions"
-              >
-                בחרו את הפעולה המתאימה
-              </h2>
-
-              <div className="grid grid-cols-3 gap-3 max-w-5xl mx-auto">
-                <Button
-                  onClick={() => handleActionClick('new-customer')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border border-pink-500/50 flex flex-col gap-2"
-                  data-testid="button-new-customer"
-                >
-                  <UserPlus className="w-6 h-6" />
-                  <span className="text-sm font-medium">לקוח חדש - הרשמה</span>
-                </Button>
-
-                <Button
-                  onClick={() => handleActionClick('search-customer')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 border border-blue-500/50 flex flex-col gap-2"
-                  data-testid="button-search-customer"
-                >
-                  <Search className="w-6 h-6" />
-                  <span className="text-sm font-medium">חיפוש משתזף קיים</span>
-                </Button>
-
-                <Button
-                  onClick={() => handleActionClick('register-247')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 border border-purple-500/50 flex flex-col gap-2"
-                  data-testid="button-register-247"
-                >
-                  <Clock className="w-6 h-6" />
-                  <span className="text-sm font-medium">הרשמה לשירותי 24/7</span>
-                </Button>
-
-                <Button
-                  onClick={() => handleActionClick('purchase-packages')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 border border-amber-500/50 flex flex-col gap-2"
-                  data-testid="button-purchase-packages"
-                >
-                  <ShoppingCart className="w-6 h-6" />
-                  <span className="text-sm font-medium">רכישה / חידוש חבילות</span>
-                </Button>
-
-                <Button
-                  onClick={() => handleActionClick('shop')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 border border-emerald-500/50 flex flex-col gap-2"
-                  data-testid="button-shop"
-                >
-                  <Store className="w-6 h-6" />
-                  <span className="text-sm font-medium">החנות שלכם</span>
-                </Button>
-
-                <Button
-                  onClick={() => handleActionClick('ai-tan')}
-                  className="h-auto py-4 px-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 border border-violet-500/50 flex flex-col gap-2"
-                  data-testid="button-ai-tan"
-                >
-                  <Bot className="w-6 h-6" />
-                  <span className="text-sm font-medium">AI TAN</span>
-                </Button>
-              </div>
-            </div>
-
-            {/* Packages Section */}
-            <div id="packages-section" className="mb-8">
-              <h2 
-                className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-                data-testid="title-packages"
-              >
-                מחירון כרטיסיות
-              </h2>
-
-              {/* Personal Packages */}
-              <div className="mb-6">
-                <h3 
-                  className="text-xl font-bold text-pink-300 mb-3 text-center"
-                  data-testid="title-personal-packages"
-                >
-                  חבילות אישיות (לא ניתן להעברה)
-                </h3>
-                
-                <div className="grid md:grid-cols-3 gap-3 max-w-4xl mx-auto mb-3">
-                  {packages.map((pkg) => (
-                    <Card 
-                      key={pkg.id}
-                      className={`p-4 ${pkg.isHighlighted 
-                        ? 'bg-gradient-to-br from-pink-900/40 to-purple-900/40 border-pink-500/50 ring-2 ring-pink-500/30' 
-                        : 'bg-slate-900/60 border-slate-700/50'
-                      }`}
-                      data-testid={pkg.testId}
-                    >
-                      <h4 className="text-lg font-bold text-pink-200 mb-1">{pkg.title}</h4>
-                      {pkg.subtitle && (
-                        <p className="text-xs text-pink-300/70 mb-2">{pkg.subtitle}</p>
-                      )}
-                      <div className="text-2xl font-bold text-white mb-2">₪{pkg.price}</div>
-                      {pkg.pricePerSession && (
-                        <div className="text-sm text-pink-200/70 mb-2">
-                          (₪{pkg.pricePerSession} לכניסה)
-                        </div>
-                      )}
-                      {pkg.features.length > 0 && (
-                        <ul className="space-y-1">
-                          {pkg.features.map((feature, idx) => (
-                            <li key={idx} className="text-xs text-pink-100/80 flex items-start gap-1">
-                              <span className="text-pink-400">•</span>
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </Card>
-                  ))}
-                </div>
-
-                <p className="text-xs text-pink-200/60 text-center max-w-2xl mx-auto" data-testid="personal-package-note">
-                  * כרטיסיות אישיות בתוקף 12 חודשים מיום הרכישה ואינן ניתנות להעברה לאדם אחר
-                </p>
-              </div>
-
-              {/* Shared Packages */}
-              <div>
-                <h3 
-                  className="text-xl font-bold text-cyan-300 mb-3 text-center"
-                  data-testid="title-shared-packages"
-                >
-                  חבילות לשיתוף (ניתן להעברה)
-                </h3>
-                
-                <div className="grid md:grid-cols-3 gap-3 max-w-4xl mx-auto mb-3">
-                  {sharedPackages.map((pkg) => (
-                    <Card 
-                      key={pkg.id}
-                      className={`p-4 ${pkg.isHighlighted 
-                        ? 'bg-gradient-to-br from-cyan-900/40 to-blue-900/40 border-cyan-500/50 ring-2 ring-cyan-500/30' 
-                        : 'bg-slate-900/60 border-slate-700/50'
-                      }`}
-                      data-testid={pkg.testId}
-                    >
-                      <h4 className="text-lg font-bold text-cyan-200 mb-1">{pkg.title}</h4>
-                      {pkg.subtitle && (
-                        <p className="text-xs text-cyan-300/70 mb-2">{pkg.subtitle}</p>
-                      )}
-                      <div className="text-2xl font-bold text-white mb-2">₪{pkg.price}</div>
-                      {pkg.pricePerSession && (
-                        <div className="text-sm text-cyan-200/70 mb-2">
-                          (₪{pkg.pricePerSession} לכניסה)
-                        </div>
-                      )}
-                      {pkg.features.length > 0 && (
-                        <ul className="space-y-1">
-                          {pkg.features.map((feature, idx) => (
-                            <li key={idx} className="text-xs text-cyan-100/80 flex items-start gap-1">
-                              <span className="text-cyan-400">•</span>
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </Card>
-                  ))}
-                </div>
-
-                <p className="text-xs text-cyan-200/60 text-center max-w-2xl mx-auto" data-testid="shared-package-note">
-                  * חבילות משותפות ניתנות להעברה בין בני משפחה וחברים
-                </p>
-              </div>
-            </div>
-
-            {/* Bronzers Carousel */}
-            {bronzerProducts.length > 0 && (
-              <div className="mb-8">
-                <h2 
-                  className="text-2xl font-bold text-center mb-4 text-pink-300"
-                  data-testid="title-bronzers"
-                >
-                  הברונזרים שלנו
-                </h2>
-                <div data-testid="bronzers-carousel">
-                  <ZenCarousel products={bronzerProducts} />
-                </div>
-              </div>
-            )}
-
-            {/* Important Notice */}
-            <div 
-              className="max-w-3xl mx-auto p-4 rounded-lg bg-gradient-to-r from-orange-500/10 via-red-500/10 to-orange-500/10 border border-orange-500/30"
-              data-testid="important-notice"
+      {/* Welcome Header - מיקום מאוזן במרכז העליון */}
+      <div className="absolute top-16 left-0 right-0 z-20">
+        <div className="text-center space-y-4 px-4">
+          <div className="flex items-center justify-center mb-1">
+            <h1
+              className="text-xl font-bold text-white font-varela tracking-wide"
+              style={{
+                fontFamily: "'Varela Round', sans-serif !important"
+              }}
+              data-testid="title-welcome"
             >
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-6 h-6 text-orange-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="text-base font-bold text-orange-300 mb-1">חשוב לדעת</h3>
-                  <p className="text-sm text-orange-100/90 leading-relaxed">
-                    לפני השימוש הראשון במיטת השיזוף, חשוב לעבור ייעוץ אישי עם אחד מאנשי הצוות המקצועי שלנו. 
-                    נקבע יחד את תוכנית השיזוף המתאימה לך ונוודא שאת/ה מקבל/ת את התוצאות הטובות ביותר בצורה בטוחה.
-                  </p>
-                </div>
-              </div>
+              ברוכים הבאים לעולם המחר של תעשיית השיזוף
+            </h1>
+          </div>
+
+          {/* Pink Neon Separator */}
+          <div className="relative py-1 flex justify-center">
+            <div
+              className="w-1/2 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent animate-pulse"
+              style={{
+                filter:
+                  'drop-shadow(0 0 16px rgba(255, 20, 147, 1)) drop-shadow(0 0 32px rgba(236, 72, 153, 1)) drop-shadow(0 0 48px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 64px rgba(255, 20, 147, 0.6))',
+                boxShadow:
+                  '0 0 35px rgba(255, 20, 147, 1), 0 0 60px rgba(236, 72, 153, 0.8), 0 0 80px rgba(255, 20, 147, 0.6), inset 0 0 20px rgba(255, 20, 147, 0.5)'
+              }}
+            ></div>
+            <div className="absolute inset-0 flex justify-center">
+              <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent opacity-80 blur-sm animate-pulse"></div>
+            </div>
+          </div>
+
+          {/* About Us Section - טקסט מלא */}
+          <div className="px-2 mx-[9px]">
+            <p className="text-sm font-semibold text-white mb-3 text-center font-varela">
+              גאים להוביל את המודל ההייברידי של עולם השיזוף
+            </p>
+            <div className="text-gray-300 space-y-1 text-sm" dir="rtl">
+              <p>• ללא צורך בתיאום מראש או קביעת תורים</p>
+              <p>• כניסה עצמאית בכל שעה של היום ובכל שעה של הלילה</p>
+              <p>• מיטות השיזוף זמינות 24/7 ללקוחות הבוטיק</p>
+              <p>• הכניסה למתחם השיזוף לאחר שעות הפעילות כרוך בהרשמה למערכת זיהוי פנים מתקדמת</p>
+              <p>• צוות מקצועי ומנוסה שיעניק לכם שירות ברמה הגבוהה ביותר</p>
+              <p>• שעות פעילות: 10:00-19:00, ימי שישי 10:00-14:00, ימי שבת סגור</p>
+              <p className="text-xs text-gray-400 mr-2">* בשירות עצמי לאחר שעות הפעילות</p>
+              <p>• שירות לקוחות זמין 24/7 • סביבה נקיה, בטוחה ומקצועית</p>
             </div>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+
+      {/* Content Container - positioned lower to avoid overlap */}
+      <div
+        className="relative w-full max-w-4xl flex items-center justify-center"
+        style={{
+          marginTop: '320px'
+        }}
+      >
+        {/* Close Button - back to self service */}
+        <Button
+          onClick={() => {
+            onOpenChange(false);
+            navigate('/');
+          }}
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4 text-white hover:bg-white/20 z-10"
+          data-testid="button-close-dialog"
+        >
+          <X className="w-6 h-6" />
+        </Button>
+
+        {/* Service Fields with Larger Design */}
+        <div className="w-full max-w-full mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-3 lg:gap-4 animate-scale-in">
+            {tanningOptions.map((option, index) => (
+              <div
+                key={index}
+                className="group cursor-pointer transform-gpu transition-all duration-300 hover:animate-magnetic-hover"
+                onClick={option.onClick}
+                data-testid={option.testId}
+                onMouseEnter={(e) => {
+                  if (window.innerWidth >= 768) {
+                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+                    e.currentTarget.style.filter = 'brightness(1.2) saturate(1.3)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (window.innerWidth >= 768) {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.filter = 'brightness(1) saturate(1)';
+                  }
+                }}
+                style={
+                  {
+                    '--icon-color': 'hsl(var(--primary))',
+                    '--icon-hover-color': 'white',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  } as any
+                }
+              >
+                <div
+                  className="w-full aspect-square p-4 md:p-6 lg:p-8 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 backdrop-blur-sm hover:scale-105 overflow-hidden relative bg-gradient-to-br from-background via-background/95 to-primary/5 border-primary/50 shadow-2xl"
+                  style={{
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                    backdropFilter: 'blur(8px)',
+                    transform: 'translateZ(0)',
+                    filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.4))'
+                  }}
+                >
+                  {/* Enhanced inner glow effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/2 via-primary/2 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+                  {/* Icon Container */}
+                  <div className="relative z-10 transform transition-all duration-300 group-hover:scale-105 flex-1 flex items-center justify-center">
+                    <span
+                      style={{
+                        filter:
+                          'drop-shadow(0 0 20px hsl(var(--primary) / 1)) drop-shadow(0 0 40px hsl(var(--primary) / 0.5))'
+                      }}
+                      className="transition-all duration-300 w-full"
+                    >
+                      {typeof option.icon === 'function' ? (
+                        <option.icon />
+                      ) : (
+                        // @ts-ignore - Lucide icon component
+                        <option.icon className="w-12 h-12 text-primary group-hover:text-white transition-all duration-300" strokeWidth={1.5} />
+                      )}
+                    </span>
+                  </div>
+
+                  {/* Icon Label - only show if title exists */}
+                  {option.title && (
+                    <div className="text-center mt-2">
+                      <span className="text-white text-xs md:text-sm font-hebrew font-medium opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
+                        {option.title}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Safety reminder - subtle and non-intrusive */}
+      <div className="fixed bottom-4 left-4 z-20 max-w-xs" data-testid="safety-reminder">
+        <div className="bg-gray-900/80 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-3 text-xs">
+          <div className="flex items-center gap-2 mb-1">
+            <Lightbulb className="w-4 h-4 text-cyan-400" />
+            <p className="text-cyan-200 font-hebrew text-right">זכרו:</p>
+          </div>
+          <p className="text-gray-300 font-hebrew text-right leading-relaxed">
+            שיזוף בטוח מתחיל בזיהוי סוג העור ומנוחה של 48 שעות בין סשנים
+          </p>
+        </div>
+      </div>
+
+      {/* Alin Chat Box */}
+      <div className="fixed top-80 right-6 z-30">
+        <AlinChatBox
+          isSelfServicePage={true}
+          contextMessage="היי אני אלין, פה איתכם במיטות השיזוף, אני אלווה אתכם בכל תהליך ההרשמה 24/7"
+        />
+      </div>
+
+      {/* New Client Dialog */}
+      <NewClientDialog open={showNewClientDialog} onOpenChange={setShowNewClientDialog} />
+
+      {/* Advanced Purchase Overlay */}
+      {showPricingOverlay && (
+        <AdvancedPurchaseOverlay open={showPricingOverlay} onClose={() => setShowPricingOverlay(false)} />
+      )}
+
+      {/* Product Carousel */}
+      {showProductCarousel && (
+        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 overflow-auto">
+          <div className="relative w-full max-w-5xl max-h-[80vh]">
+            <Button
+              onClick={() => setShowProductCarousel(false)}
+              variant="outline"
+              size="lg"
+              className="absolute top-4 right-4 z-10 bg-white/10 border-white/20 text-white hover:bg-white/20"
+            >
+              <X className="w-6 h-6 ml-2" />
+              סגור
+            </Button>
+            <div className="h-full overflow-y-auto">
+              <TanningProductCarousel
+                onAddToCart={(productId) => {
+                  console.log("Added to cart:", productId);
+                  // Add your cart logic here
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Face Recognition Registration Dialog */}
+      {showFaceRecognitionDialog && (
+        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4" data-testid="dialog-face-recognition">
+          <div className="relative bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 rounded-xl border border-primary/30 p-8 max-w-md w-full">
+            <Button
+              onClick={() => setShowFaceRecognitionDialog(false)}
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 text-white hover:bg-white/10"
+              data-testid="button-close-face-recognition"
+            >
+              <X className="w-6 h-6" />
+            </Button>
+
+            <div className="text-center space-y-6">
+              <div className="w-20 h-20 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
+                <ScanFace className="w-10 h-10 text-primary" />
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">הרשמה לשירותי 24/7</h3>
+                <p className="text-gray-300 text-sm">
+                  הרשמה למערכת זיהוי פנים לכניסה עצמאית לאחר שעות הפעילות
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <Input 
+                  placeholder="שם מלא" 
+                  className="bg-black/50 border-primary/30 text-white" 
+                  data-testid="input-face-recognition-name"
+                />
+                <Input 
+                  placeholder="מספר טלפון" 
+                  className="bg-black/50 border-primary/30 text-white" 
+                  data-testid="input-face-recognition-phone"
+                />
+                <Input 
+                  placeholder="כתובת אימייל" 
+                  className="bg-black/50 border-primary/30 text-white" 
+                  data-testid="input-face-recognition-email"
+                />
+              </div>
+
+              <Button
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
+                onClick={() => {
+                  setShowFaceRecognitionDialog(false);
+                  navigate('/face-registration');
+                }}
+                data-testid="button-start-face-registration"
+              >
+                התחל הרשמה
+              </Button>
+
+              <p className="text-xs text-gray-400 text-center">ההרשמה כוללת צילום תמונה ואימות זהות</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
