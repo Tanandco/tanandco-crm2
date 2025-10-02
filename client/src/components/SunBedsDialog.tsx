@@ -168,7 +168,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
         {/* Service Fields with Larger Design */}
         <div className="w-full max-w-full mx-auto px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 animate-scale-in">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 animate-scale-in">
             {tanningOptions.map((option, index) => (
               <div 
                 key={index} 
@@ -223,7 +223,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   
                   {/* Icon Label - only show if title exists */}
                   {option.title && (
-                    <div className="text-center mt-3 px-2">
+                    <div className="text-center mt-5 px-2">
                       <span className="text-white text-sm font-hebrew font-medium opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight whitespace-nowrap overflow-hidden text-ellipsis group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
                         {option.title}
                       </span>
