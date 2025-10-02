@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useQuery } from '@tanstack/react-query';
+import PageLayout from '@/components/PageLayout';
 
 export default function HealthForm() {
   const [, navigate] = useLocation();
@@ -161,56 +162,61 @@ export default function HealthForm() {
 
   if (!customerId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
-        <Card className="max-w-md border-pink-500/20">
-          <CardHeader>
-            <CardTitle className="text-red-500 flex items-center gap-2">
-              <AlertCircle className="w-6 h-6" />
-              שגיאה
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>לא נמצא מזהה לקוח. אנא פנה לתמיכה.</p>
-          </CardContent>
-        </Card>
-      </div>
+      <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Card className="max-w-md border-pink-500/20">
+            <CardHeader>
+              <CardTitle className="text-red-500 flex items-center gap-2">
+                <AlertCircle className="w-6 h-6" />
+                שגיאה
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>לא נמצא מזהה לקוח. אנא פנה לתמיכה.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </PageLayout>
     );
   }
 
   if (isLoadingCustomer) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
-        <Card className="max-w-md border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
-          <CardContent className="p-8 text-center">
-            <Loader2 className="w-12 h-12 text-pink-500 mx-auto mb-4 animate-spin" />
-            <p className="text-white">טוען פרטים...</p>
-          </CardContent>
-        </Card>
-      </div>
+      <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Card className="max-w-md border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
+            <CardContent className="p-8 text-center">
+              <Loader2 className="w-12 h-12 text-pink-500 mx-auto mb-4 animate-spin" />
+              <p className="text-white">טוען פרטים...</p>
+            </CardContent>
+          </Card>
+        </div>
+      </PageLayout>
     );
   }
 
   if (!customer) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 flex items-center justify-center p-6" dir="rtl">
-        <Card className="max-w-md border-pink-500/20">
-          <CardHeader>
-            <CardTitle className="text-red-500 flex items-center gap-2">
-              <AlertCircle className="w-6 h-6" />
-              שגיאה
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>לקוח לא נמצא במערכת</p>
-          </CardContent>
-        </Card>
-      </div>
+      <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Card className="max-w-md border-pink-500/20">
+            <CardHeader>
+              <CardTitle className="text-red-500 flex items-center gap-2">
+                <AlertCircle className="w-6 h-6" />
+                שגיאה
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>לקוח לא נמצא במערכת</p>
+            </CardContent>
+          </Card>
+        </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 p-6" dir="rtl">
-      <div className="max-w-4xl mx-auto">
+    <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true} maxWidth="max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <FileText className="w-16 h-16 text-pink-500 mx-auto mb-4" />
@@ -479,7 +485,6 @@ export default function HealthForm() {
             )}
           </CardContent>
         </Card>
-      </div>
-    </div>
+    </PageLayout>
   );
 }

@@ -185,6 +185,26 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (October 2025)
 
+### Unified Page Design System ✅
+- **PageLayout Component**: Created shared layout component for consistent design across all pages
+  - Black background (bg-black) matching main interface
+  - Optional logo display at top
+  - Fixed navigation buttons in corners (Home, Back)
+  - Configurable max-width for different page types
+  - RTL support with Hebrew font
+  - No overflow restrictions - allows natural scrolling
+- **Updated Pages**:
+  - onboarding.tsx - Registration flow
+  - face-registration.tsx - Face ID registration
+  - health-form.tsx - Health declaration form
+  - self-service.tsx - Self-service interface
+- **Design Consistency**: All pages now share:
+  - Same black background as main screen
+  - Consistent Tan & Co logo placement
+  - Unified navigation pattern with Home/Back buttons
+  - Matching glow effects and hover states
+  - Proper scrolling behavior for long forms
+
 ### Sun Beds Dialog Component ✅
 - **Kiosk-Optimized Dialog**: Converted from full page to overlay dialog to comply with no-scrolling requirement
   - Opens as overlay from TouchInterface (staff screen) and SelfService (customer screen)

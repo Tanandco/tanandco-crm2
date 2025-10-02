@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useQuery } from '@tanstack/react-query';
+import PageLayout from '@/components/PageLayout';
 
 export default function FaceRegistration() {
   const [, navigate] = useLocation();
@@ -181,33 +182,36 @@ export default function FaceRegistration() {
 
   if (!customerId || (!loadingCustomer && !customer)) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6" dir="rtl">
-        <Card className="max-w-md">
-          <CardHeader>
-            <CardTitle className="text-red-500 flex items-center gap-2">
-              <XCircle className="w-6 h-6" />
-              שגיאה
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>לא נמצא מזהה לקוח. אנא פנה לתמיכה.</p>
-          </CardContent>
-        </Card>
-      </div>
+      <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Card className="max-w-md border-pink-500/20">
+            <CardHeader>
+              <CardTitle className="text-red-500 flex items-center gap-2">
+                <XCircle className="w-6 h-6" />
+                שגיאה
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>לא נמצא מזהה לקוח. אנא פנה לתמיכה.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </PageLayout>
     );
   }
 
   if (loadingCustomer) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6" dir="rtl">
-        <Loader2 className="w-12 h-12 text-pink-500 animate-spin" />
-      </div>
+      <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <Loader2 className="w-12 h-12 text-pink-500 animate-spin" />
+        </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6" dir="rtl">
-      <div className="max-w-4xl mx-auto">
+    <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true} maxWidth="max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-4">
@@ -409,7 +413,6 @@ export default function FaceRegistration() {
             )}
           </CardContent>
         </Card>
-      </div>
-    </div>
+    </PageLayout>
   );
 }

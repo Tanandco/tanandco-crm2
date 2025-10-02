@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Sun, Droplets, Scissors, Palette, Store } from 'lucide-react';
 import { useLocation } from 'wouter';
 import Alin from '@/components/Alin';
+import PageLayout from '@/components/PageLayout';
 
 export default function SelfService() {
   const [, navigate] = useLocation();
@@ -57,26 +58,17 @@ export default function SelfService() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950 overflow-auto" dir="rtl">
-      {/* Header with Back Button */}
-      <div className="absolute top-4 right-4 z-[100]">
-        <Button
-          variant="outline"
-          onClick={() => navigate('/')}
-          className="border-pink-500/50 hover:border-pink-500 gap-2"
-          data-testid="button-back"
-        >
-          <ArrowRight className="w-4 h-4" />
-          חזרה
-        </Button>
+    <PageLayout 
+      showBackButton={true} 
+      showHomeButton={true} 
+      showSettingsButton={true}
+      showLogo={false}
+      maxWidth="max-w-5xl"
+    >
+      {/* Logo */}
+      <div className="mb-8">
+        <Logo size="medium" showGlow={true} showUnderline={true} />
       </div>
-
-      {/* Main Content Container */}
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
-        {/* Logo */}
-        <div className="mb-8">
-          <Logo size="medium" showGlow={true} showUnderline={true} />
-        </div>
 
         {/* Welcome Section */}
         <div className="text-center mb-12 space-y-6">
@@ -199,14 +191,13 @@ export default function SelfService() {
             ))}
           </div>
         </div>
-      </div>
 
       {/* Sun Beds Dialog */}
       <SunBedsDialog 
         open={sunBedsDialogOpen} 
         onOpenChange={setSunBedsDialogOpen}
       />
-    </div>
+    </PageLayout>
   );
 }
 

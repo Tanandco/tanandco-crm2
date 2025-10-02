@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import PageLayout from '@/components/PageLayout';
 
 export default function Onboarding() {
   const [, navigate] = useLocation();
@@ -118,10 +119,9 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6" dir="rtl">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
+    <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
+      {/* Header */}
+      <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
             ברוכים הבאים ל-Tan & Co
           </h1>
@@ -378,7 +378,6 @@ export default function Onboarding() {
             </a>
           </p>
         </div>
-      </div>
-    </div>
+    </PageLayout>
   );
 }
