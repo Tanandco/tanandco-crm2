@@ -42,7 +42,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
         <Button
           onClick={() => setIsOpen(true)}
           className="
-            w-14 h-14 rounded-full 
+            w-[67px] h-[67px] rounded-full 
             bg-gradient-to-r from-pink-600 to-purple-600 
             hover:from-pink-700 hover:to-purple-700
             shadow-lg hover:shadow-xl
@@ -50,7 +50,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
           "
           data-testid="button-chat"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-[29px] h-[29px]" />
         </Button>
       )}
 
