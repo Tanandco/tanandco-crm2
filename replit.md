@@ -222,4 +222,22 @@ Preferred communication style: Simple, everyday language.
 - **Design Philosophy**: Eye-catching animations encourage users to read important safety information before proceeding
 - **Architecture**: SunBedsDialog component with local state management; /sun-beds route removed
 
+### Customer Registration Enhancement & Database Integration ✅
+- **Date of Birth Field**: Added dateOfBirth to customers table and registration form
+  - Format: YYYY-MM-DD
+  - Age validation: 16-120 years (precise calculation with month/day)
+  - Required field in onboarding flow
+- **WhatsApp Phone Validation**: Enforced Israeli mobile format for WhatsApp integration
+  - Regex: `/^(972|05)\d{8,9}$|^\+?972\d{8,9}$|^05\d{1}-?\d{7}$/`
+  - Accepts: 972XXXXXXXXX, 05XXXXXXXX, +972XXXXXXXXX formats
+- **Critical Database Migration** ✅:
+  - **Fixed Storage Bug**: Replaced MemStorage with direct PostgreSQL integration
+  - POST /api/customers: Now uses `db.insert(customers).values().returning()` (Drizzle ORM)
+  - GET /api/customers/:id: Now uses `db.select().from(customers).where(eq(customers.id, id))`
+  - Customers are now persisted to PostgreSQL database (previously in-memory only!)
+  - Full end-to-end onboarding flow validated: registration → database → health form
+- **Route Fix**: Changed /health-form/:customerId to /health-form (uses query param ?customerId=...)
+- **User Experience**: Added loading state to registration button ("שומר..." while saving)
+- **Architect-Approved**: All changes reviewed and validated with successful e2e testing
+
 The architecture supports a premium salon experience with automated customer identification, self-service capabilities, and integrated business operations through external service connections.
