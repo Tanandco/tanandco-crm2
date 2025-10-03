@@ -137,13 +137,13 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
 
         {/* Header */}
         <div 
-          className="bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-b border-primary/40 px-6 py-4 shadow-lg"
+          className="bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 backdrop-blur-lg border-b border-primary/40 px-6 py-2 shadow-lg"
           style={{ filter: 'drop-shadow(0 2px 8px hsl(var(--primary) / 0.3))' }}
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-white flex items-center gap-3 font-hebrew">
+            <h2 className="text-lg font-semibold text-white flex items-center gap-2 font-hebrew">
               <CreditCard 
-                className="w-7 h-7 text-primary" 
+                className="w-5 h-5 text-primary" 
                 style={{ filter: 'drop-shadow(0 0 10px hsl(var(--primary)))' }}
               />
               רכישת כרטיסיה
@@ -152,10 +152,10 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="text-white hover:bg-white/10"
+              className="text-white hover:bg-white/10 h-8 w-8"
               data-testid="button-close-purchase"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </Button>
           </div>
         </div>
