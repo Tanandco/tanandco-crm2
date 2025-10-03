@@ -145,7 +145,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
       <DialogContent 
         className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col backdrop-blur-xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(192, 132, 252, 0.15) 0%, rgba(192, 132, 252, 0.05) 25%, rgba(192, 132, 252, 0.10) 50%, rgba(192, 132, 252, 0.05) 75%, rgba(192, 132, 252, 0.15) 100%)',
+          background: 'rgba(192, 132, 252, 0.10)',
           boxShadow: '0 0 80px rgba(192, 132, 252, 0.3) inset, 0 0 40px rgba(192, 132, 252, 0.2) inset'
         }}
       >
