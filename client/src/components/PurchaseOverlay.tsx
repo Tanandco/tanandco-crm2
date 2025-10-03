@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CreditCard, X, Check, Loader2, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
+import { CreditCard, X, Check, Loader2, ArrowRight, ArrowLeft, Sparkles, Plus, Minus } from 'lucide-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -32,6 +32,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
+  const [customTanSessions, setCustomTanSessions] = useState(4); // Custom "Build Your Tan" sessions
   const { toast } = useToast();
 
   const { data: packagesResponse, isLoading } = useQuery({
@@ -43,7 +44,18 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
     ? packagesResponse 
     : (packagesResponse as any)?.data ?? (packagesResponse as any)?.packages ?? [];
 
-  const selectedPackage = packages.find(pkg => pkg.id === selectedPackageId);
+  // Handle custom package selection
+  const selectedPackage = selectedPackageId === 'custom-tan' 
+    ? {
+        id: 'custom-tan',
+        nameHe: 'בנה את השיזוף שלך',
+        nameEn: 'Build Your Tan',
+        type: 'sun-beds',
+        sessions: customTanSessions,
+        price: customTanSessions * 40,
+        currency: 'ILS',
+      }
+    : packages.find(pkg => pkg.id === selectedPackageId);
 
   useEffect(() => {
     if (!open) {
@@ -68,6 +80,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
         successUrl: `${window.location.origin}/payment-success`,
         errorUrl: `${window.location.origin}/payment-error`,
         indicatorUrl: `${window.location.origin}/api/webhooks/cardcom/payment`,
+        ...(selectedPackageId === 'custom-tan' && { customTanSessions }),
       });
       return response;
     },
@@ -174,11 +187,9 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   <Loader2 className="w-16 h-16 animate-spin text-primary" />
                 </div>
               ) : (
-                <div className="flex w-full justify-between items-start">
-                  {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg, index) => (
-                    <>
-                    {index === 1 && <div className="w-16" />}
-                    {index === 3 && <div className="w-16" />}
+                <div className="flex w-full items-start gap-3">
+                  {/* Category 1: Single Entry */}
+                  {packages.filter(pkg => pkg.id === 'single-entry').map((pkg) => (
                     <div
                       key={pkg.id}
                       className={`
@@ -187,6 +198,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         border-2 rounded-lg
                         flex flex-col
                         h-[280px]
+                        flex-1
                         ${selectedPackageId === pkg.id 
                           ? 'border-primary shadow-lg shadow-primary/50' 
                           : 'border-primary/30 hover:border-primary/60'
@@ -196,7 +208,6 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         animate-fade-in
                       `}
                       style={{
-                        animationDelay: `${index * 50}ms`,
                         background: selectedPackageId === pkg.id
                           ? 'linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--background)) 100%)'
                           : 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.05) 100%)',
@@ -317,8 +328,366 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         {selectedPackageId === pkg.id ? 'נבחר' : 'בחר'}
                       </Button>
                     </div>
-                    </>
                   ))}
+                  
+                  {/* Spacing after Category 1 */}
+                  <div className="w-6" />
+                  
+                  {/* Category 2: Personal Packages (8, 13) */}
+                  {packages.filter(pkg => pkg.id === '8-entries' || pkg.id === 'home-package').map((pkg) => (
+                    <div
+                      key={pkg.id}
+                      className={`
+                        relative p-3 cursor-pointer transition-all duration-300
+                        hover:scale-105 hover:shadow-2xl
+                        border-2 rounded-lg
+                        flex flex-col
+                        h-[280px]
+                        flex-1
+                        ${selectedPackageId === pkg.id 
+                          ? 'border-primary shadow-lg shadow-primary/50' 
+                          : 'border-primary/30 hover:border-primary/60'
+                        }
+                        ${pkg.popular ? 'ring-2 ring-primary ring-offset-2 ring-offset-slate-950' : ''}
+                        backdrop-blur-sm
+                        animate-fade-in
+                      `}
+                      style={{
+                        background: selectedPackageId === pkg.id
+                          ? 'linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--background)) 100%)'
+                          : 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.05) 100%)',
+                        filter: pkg.popular 
+                          ? 'drop-shadow(0 0 20px hsl(var(--primary) / 0.5))' 
+                          : 'drop-shadow(0 0 15px hsl(var(--primary) / 0.2))',
+                        boxShadow: selectedPackageId === pkg.id 
+                          ? '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)' 
+                          : undefined
+                      }}
+                      onClick={() => handleSelectPackage(pkg.id)}
+                      data-testid={`package-card-${pkg.id}`}
+                    >
+                      {pkg.popular && (
+                        <div 
+                          className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
+                          style={{
+                            filter: 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
+                            boxShadow: '0 0 20px hsl(var(--primary) / 0.6)'
+                          }}
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          פופולרי
+                        </div>
+                      )}
+                      <h3 className="text-sm font-bold text-foreground mb-1 text-center font-hebrew leading-tight h-8 flex items-center justify-center">
+                        {pkg.nameHe}
+                      </h3>
+                      <div className="text-center mb-2">
+                        <div className="flex items-center justify-center gap-1">
+                          <span 
+                            className="text-2xl font-bold text-primary"
+                            style={{
+                              filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))',
+                              textShadow: '0 0 10px hsl(var(--primary) / 0.5)'
+                            }}
+                          >
+                            {pkg.sessions}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
+                          </span>
+                        </div>
+                        {(pkg as any).hasBronzer && (
+                          <div className="text-xs text-primary font-semibold mt-0.5">
+                            + ברונזר
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-center mb-2 h-16 flex flex-col justify-center">
+                        <div className="h-4">
+                          {pkg.originalPrice ? (
+                            <div className="text-xs text-muted-foreground line-through">
+                              ₪{pkg.originalPrice}
+                            </div>
+                          ) : (
+                            <div className="h-4"></div>
+                          )}
+                        </div>
+                        <div 
+                          className="text-xl font-bold text-foreground"
+                          style={{
+                            filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.3))'
+                          }}
+                        >
+                          ₪{pkg.price}
+                        </div>
+                        <div className="h-4">
+                          {pkg.sessions > 1 && !(pkg as any).hasBronzer ? (
+                            <div className="text-xs text-muted-foreground">
+                              (₪{(pkg.price / pkg.sessions).toFixed(1)} לכניסה)
+                            </div>
+                          ) : (
+                            <div className="h-4"></div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex-1 mb-2 min-h-12 overflow-hidden">
+                        {pkg.benefits && pkg.benefits.length > 0 ? (
+                          <div className="space-y-1">
+                            {pkg.benefits.slice(0, 3).map((benefit, i) => (
+                              <div key={i} className="flex items-start gap-1">
+                                <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                                <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="min-h-12"></div>
+                        )}
+                      </div>
+                      <Button
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectPackage(pkg.id);
+                        }}
+                        className={`
+                          w-full h-7 text-xs transition-all duration-300 mt-auto
+                          ${selectedPackageId === pkg.id 
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground'
+                          }
+                        `}
+                        data-testid={`button-select-package-${pkg.id}`}
+                      >
+                        {selectedPackageId === pkg.id ? 'נבחר' : 'בחר'}
+                      </Button>
+                    </div>
+                  ))}
+                  
+                  {/* Spacing after Category 2 */}
+                  <div className="w-6" />
+                  
+                  {/* Category 3: Shareable Packages with Bronzer (3, 6, 10) */}
+                  {packages.filter(pkg => pkg.id === 'small-touch' || pkg.id === 'beginners-package' || pkg.id === 'most-profitable').map((pkg) => (
+                    <div
+                      key={pkg.id}
+                      className={`
+                        relative p-3 cursor-pointer transition-all duration-300
+                        hover:scale-105 hover:shadow-2xl
+                        border-2 rounded-lg
+                        flex flex-col
+                        h-[280px]
+                        flex-1
+                        ${selectedPackageId === pkg.id 
+                          ? 'border-primary shadow-lg shadow-primary/50' 
+                          : 'border-primary/30 hover:border-primary/60'
+                        }
+                        backdrop-blur-sm
+                        animate-fade-in
+                      `}
+                      style={{
+                        background: selectedPackageId === pkg.id
+                          ? 'linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--background)) 100%)'
+                          : 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.05) 100%)',
+                        filter: 'drop-shadow(0 0 15px hsl(var(--primary) / 0.2))',
+                        boxShadow: selectedPackageId === pkg.id 
+                          ? '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)' 
+                          : undefined
+                      }}
+                      onClick={() => handleSelectPackage(pkg.id)}
+                      data-testid={`package-card-${pkg.id}`}
+                    >
+                      <h3 className="text-sm font-bold text-foreground mb-1 text-center font-hebrew leading-tight h-8 flex items-center justify-center">
+                        {pkg.nameHe}
+                      </h3>
+                      <div className="text-center mb-2">
+                        <div className="flex items-center justify-center gap-1">
+                          <span 
+                            className="text-2xl font-bold text-primary"
+                            style={{
+                              filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))',
+                              textShadow: '0 0 10px hsl(var(--primary) / 0.5)'
+                            }}
+                          >
+                            {pkg.sessions}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
+                          </span>
+                        </div>
+                        {(pkg as any).hasBronzer && (
+                          <div className="text-xs text-primary font-semibold mt-0.5">
+                            + ברונזר
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-center mb-2 h-16 flex flex-col justify-center">
+                        <div className="h-4">
+                          {pkg.originalPrice ? (
+                            <div className="text-xs text-muted-foreground line-through">
+                              ₪{pkg.originalPrice}
+                            </div>
+                          ) : (
+                            <div className="h-4"></div>
+                          )}
+                        </div>
+                        <div 
+                          className="text-xl font-bold text-foreground"
+                          style={{
+                            filter: 'drop-shadow(0 0 6px hsl(var(--primary) / 0.3))'
+                          }}
+                        >
+                          ₪{pkg.price}
+                        </div>
+                        <div className="h-4"></div>
+                      </div>
+                      <div className="flex-1 mb-2 min-h-12 overflow-hidden">
+                        {pkg.benefits && pkg.benefits.length > 0 ? (
+                          <div className="space-y-1">
+                            {pkg.benefits.slice(0, 3).map((benefit, i) => (
+                              <div key={i} className="flex items-start gap-1">
+                                <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                                <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="min-h-12"></div>
+                        )}
+                      </div>
+                      <Button
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectPackage(pkg.id);
+                        }}
+                        className={`
+                          w-full h-7 text-xs transition-all duration-300 mt-auto
+                          ${selectedPackageId === pkg.id 
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground'
+                          }
+                        `}
+                        data-testid={`button-select-package-${pkg.id}`}
+                      >
+                        {selectedPackageId === pkg.id ? 'נבחר' : 'בחר'}
+                      </Button>
+                    </div>
+                  ))}
+                  
+                  {/* Spacing after Category 3 */}
+                  <div className="w-6" />
+                  
+                  {/* Custom "Build Your Tan" Package */}
+                  <div
+                    className={`
+                      relative p-3 cursor-pointer transition-all duration-300
+                      hover:scale-105 hover:shadow-2xl
+                      border-2 rounded-lg
+                      flex flex-col
+                      h-[280px]
+                      flex-1
+                      ${selectedPackageId === 'custom-tan' 
+                        ? 'border-purple-500 shadow-lg shadow-purple-500/50' 
+                        : 'border-purple-500/30 hover:border-purple-500/60'
+                      }
+                      backdrop-blur-sm
+                      animate-fade-in
+                    `}
+                    style={{
+                      background: selectedPackageId === 'custom-tan'
+                        ? 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, hsl(var(--background)) 100%)'
+                        : 'linear-gradient(135deg, hsl(var(--background)) 0%, rgba(147, 51, 234, 0.05) 100%)',
+                      filter: 'drop-shadow(0 0 15px rgba(147, 51, 234, 0.2))',
+                      boxShadow: selectedPackageId === 'custom-tan' 
+                        ? '0 0 30px rgba(147, 51, 234, 0.4), 0 0 60px rgba(147, 51, 234, 0.2)' 
+                        : undefined
+                    }}
+                    onClick={() => handleSelectPackage('custom-tan')}
+                    data-testid="package-card-custom-tan"
+                  >
+                    {/* Package Name */}
+                    <h3 className="text-xs font-bold text-white mb-0.5 text-center font-hebrew leading-tight h-8 flex items-center justify-center">
+                      בנה את השיזוף שלך
+                    </h3>
+
+                    {/* Counter */}
+                    <div className="flex items-center justify-center mb-1 relative z-10">
+                      <div className="flex items-center space-x-2 bg-black/50 rounded-lg px-2 py-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCustomTanSessions(Math.max(4, customTanSessions - 1));
+                          }}
+                          data-testid="button-decrease-sessions"
+                        >
+                          <Minus className="h-2.5 w-2.5" />
+                        </Button>
+                        <span className="text-white font-bold text-sm min-w-[1.5rem] text-center">
+                          {customTanSessions}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCustomTanSessions(Math.min(20, customTanSessions + 1));
+                          }}
+                          data-testid="button-increase-sessions"
+                        >
+                          <Plus className="h-2.5 w-2.5" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Price */}
+                    <div className="text-center mb-2">
+                      <div className="text-purple-400 text-lg font-bold mb-0.5">
+                        ₪{customTanSessions * 40}
+                      </div>
+                      <div className="text-gray-300 text-[10px]">
+                        {customTanSessions} כניסות - ₪40 לכניסה
+                      </div>
+                    </div>
+
+                    {/* Benefits */}
+                    <div className="space-y-0.5 mb-1 flex-1 relative z-10">
+                      <div className="flex items-start gap-1">
+                        <div className="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-xs text-muted-foreground font-hebrew leading-tight">מינימום 4 כניסות</span>
+                      </div>
+                      <div className="flex items-start gap-1">
+                        <div className="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-xs text-muted-foreground font-hebrew leading-tight">ניתן לשיתוף</span>
+                      </div>
+                      {customTanSessions >= 10 && (
+                        <div className="flex items-start gap-1">
+                          <div className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0 mt-0.5 animate-pulse" />
+                          <span className="text-xs text-green-400 font-hebrew leading-tight animate-pulse">🎁 ברונזר במתנה!</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Select Button */}
+                    <Button
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectPackage('custom-tan');
+                      }}
+                      className="w-full h-7 text-xs transition-all duration-300 mt-auto text-white font-bold px-3 py-1.5 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 relative z-10"
+                      style={{
+                        filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.7))'
+                      }}
+                      data-testid="button-select-package-custom-tan"
+                    >
+                      {selectedPackageId === 'custom-tan' ? 'נבחר' : 'בחר'}
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>

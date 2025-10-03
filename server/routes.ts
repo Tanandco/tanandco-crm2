@@ -1040,7 +1040,7 @@ export function registerRoutes(app: express.Application) {
   // Create payment session
   app.post('/api/payments/cardcom/session', async (req, res) => {
     try {
-      const { customerId, packageId, customerName, customerPhone, customerEmail, successUrl, errorUrl, indicatorUrl } = req.body;
+      const { customerId, packageId, customerName, customerPhone, customerEmail, successUrl, errorUrl, indicatorUrl, customTanSessions } = req.body;
       
       if (!packageId) {
         return res.status(400).json({
@@ -1087,6 +1087,7 @@ export function registerRoutes(app: express.Application) {
         customerPhone: finalCustomerPhone,
         customerEmail: finalCustomerEmail,
         packageId,
+        customTanSessions: customTanSessions,
         successUrl: successUrl || `${protocol}://${baseUrl}/payment/success?customerId=${finalCustomerId}&packageId=${packageId}`,
         errorUrl: errorUrl || `${protocol}://${baseUrl}/payment/error?customerId=${finalCustomerId}`,
         indicatorUrl: indicatorUrl || `${protocol}://${baseUrl}/api/webhooks/cardcom/payment`,

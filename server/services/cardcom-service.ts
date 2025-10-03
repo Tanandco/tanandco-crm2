@@ -14,6 +14,7 @@ interface CreateSessionParams {
   customerPhone: string;
   customerEmail?: string;
   packageId: string;
+  customTanSessions?: number; // For custom "Build Your Tan" package
   successUrl: string;
   errorUrl: string;
   indicatorUrl?: string; // Webhook URL
@@ -69,9 +70,26 @@ class CardcomService {
     }
 
     try {
-      const pkg = getPackageById(params.packageId);
-      if (!pkg) {
-        throw new Error(`Package not found: ${params.packageId}`);
+      // Handle custom "Build Your Tan" package
+      let pkg;
+      if (params.packageId === 'custom-tan') {
+        if (!params.customTanSessions || params.customTanSessions < 4 || params.customTanSessions > 20) {
+          throw new Error('Invalid customTanSessions for custom-tan package');
+        }
+        pkg = {
+          id: 'custom-tan',
+          nameHe: `בנה את השיזוף שלך - ${params.customTanSessions} כניסות`,
+          nameEn: 'Build Your Tan',
+          type: 'sun-beds',
+          sessions: params.customTanSessions,
+          price: params.customTanSessions * 40,
+          currency: 'ILS',
+        };
+      } else {
+        pkg = getPackageById(params.packageId);
+        if (!pkg) {
+          throw new Error(`Package not found: ${params.packageId}`);
+        }
       }
 
       // Build form data for Low Profile API
