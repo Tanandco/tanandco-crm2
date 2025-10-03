@@ -143,7 +143,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
       <DialogContent 
-        className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950"
+        className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col bg-gradient-to-br from-white/2 via-purple-500/3 to-white/2 backdrop-blur-xl"
       >
         <DialogTitle className="sr-only">רכישת חבילות שיזוף</DialogTitle>
         <DialogDescription className="sr-only">בחר חבילה והמשך לתשלום</DialogDescription>
