@@ -24,7 +24,8 @@ export const packagesCatalog: Record<string, Package> = {
     sessions: 1,
     price: 70,
     currency: "ILS",
-    cardcomItemCode: "SINGLE"
+    cardcomItemCode: "SINGLE",
+    benefits: ['באופן זמני מתאפשר להנות מהשירות 24/7']
   },
   "8-entries": {
     id: "8-entries",
