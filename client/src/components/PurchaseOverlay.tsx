@@ -614,6 +614,18 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     onClick={() => handleSelectPackage('custom-tan')}
                     data-testid="package-card-custom-tan"
                   >
+                    {/* New Badge */}
+                    <div 
+                      className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
+                      style={{
+                        filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.8)) drop-shadow(0 0 20px rgba(147, 51, 234, 0.6))',
+                        boxShadow: '0 0 20px rgba(147, 51, 234, 0.8)'
+                      }}
+                    >
+                      <Sparkles className="w-3 h-3" />
+                      חדש
+                    </div>
+
                     {/* Package Name */}
                     <h3 className="text-xs font-bold text-white mb-0.5 text-center font-hebrew leading-tight h-8 flex items-center justify-center">
                       בנה את השיזוף שלך
