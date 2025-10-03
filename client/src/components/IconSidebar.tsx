@@ -99,11 +99,15 @@ export default function IconSidebar() {
               <Icon 
                 className={`w-6 h-6 transition-colors ${item.iconColor}`}
                 style={{
-                  filter: `drop-shadow(0 0 8px ${item.iconColor.includes('pink') ? 'rgba(236, 72, 153, 0.8)' : 
-                                                 item.iconColor.includes('green') ? 'rgba(34, 197, 94, 0.8)' :
-                                                 item.iconColor.includes('blue') ? 'rgba(59, 130, 246, 0.8)' :
-                                                 item.iconColor.includes('purple') ? 'rgba(168, 85, 247, 0.8)' :
-                                                 'rgba(251, 146, 60, 0.8)'})`
+                  filter: `drop-shadow(0 0 12px ${item.iconColor.includes('pink') ? 'rgba(236, 72, 153, 1)' : 
+                                                 item.iconColor.includes('green') ? 'rgba(34, 197, 94, 1)' :
+                                                 item.iconColor.includes('blue') ? 'rgba(59, 130, 246, 1)' :
+                                                 item.iconColor.includes('purple') ? 'rgba(168, 85, 247, 1)' :
+                                                 'rgba(251, 146, 60, 1)'}) drop-shadow(0 0 20px ${item.iconColor.includes('pink') ? 'rgba(236, 72, 153, 0.6)' : 
+                                                 item.iconColor.includes('green') ? 'rgba(34, 197, 94, 0.6)' :
+                                                 item.iconColor.includes('blue') ? 'rgba(59, 130, 246, 0.6)' :
+                                                 item.iconColor.includes('purple') ? 'rgba(168, 85, 247, 0.6)' :
+                                                 'rgba(251, 146, 60, 0.6)'})`
                 }}
               />
               
