@@ -97,9 +97,7 @@ export default function IconSidebar() {
               `}
             >
               <Icon 
-                className={`w-6 h-6 transition-colors ${
-                  isActive ? item.iconColor : `text-slate-400 ${item.iconHover}`
-                }`} 
+                className={`w-6 h-6 transition-colors ${item.iconColor}`} 
               />
               
               {/* Tooltip */}
