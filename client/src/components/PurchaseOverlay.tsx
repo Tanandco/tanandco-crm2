@@ -145,8 +145,8 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
       <DialogContent 
         className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col backdrop-blur-xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.15) 0%, rgba(168, 85, 247, 0.05) 25%, rgba(192, 132, 252, 0.08) 50%, rgba(168, 85, 247, 0.05) 75%, rgba(147, 51, 234, 0.15) 100%)',
-          boxShadow: '0 0 80px rgba(147, 51, 234, 0.3) inset, 0 0 40px rgba(168, 85, 247, 0.2) inset'
+          background: 'linear-gradient(135deg, rgba(192, 132, 252, 0.15) 0%, rgba(192, 132, 252, 0.05) 25%, rgba(192, 132, 252, 0.10) 50%, rgba(192, 132, 252, 0.05) 75%, rgba(192, 132, 252, 0.15) 100%)',
+          boxShadow: '0 0 80px rgba(192, 132, 252, 0.3) inset, 0 0 40px rgba(192, 132, 252, 0.2) inset'
         }}
       >
         <DialogTitle className="sr-only">רכישת חבילות שיזוף</DialogTitle>
