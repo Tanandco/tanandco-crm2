@@ -41,15 +41,14 @@ export const packagesCatalog: Record<string, Package> = {
   },
   "home-package": {
     id: "home-package",
-    nameHe: "חבילה בול",
-    nameEn: "Bull's Eye Package",
+    nameHe: "כרטיסיית הבית",
+    nameEn: "Home Package",
     type: "sun-beds",
     sessions: 13,
     price: 300,
     currency: "ILS",
     cardcomItemCode: "HOME",
-    benefits: ['10 כניסות + 3 במתנה', 'חבילה אישית - לא ניתן לשיתוף או העברה'],
-    popular: true
+    benefits: ['10 כניסות + 3 במתנה', 'חבילה אישית - לא ניתן לשיתוף או העברה']
   },
   "small-touch": {
     id: "small-touch",
@@ -77,15 +76,16 @@ export const packagesCatalog: Record<string, Package> = {
   },
   "most-profitable": {
     id: "most-profitable",
-    nameHe: "⭐ הכי משתלם!",
-    nameEn: "⭐ Best Deal!",
+    nameHe: "חבילה בול",
+    nameEn: "Bull's Eye Package",
     type: "sun-beds",
     sessions: 10,
     price: 500,
     currency: "ILS",
     cardcomItemCode: "BEST",
     hasBronzer: true,
-    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף']
+    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף'],
+    popular: true
   },
 };
 

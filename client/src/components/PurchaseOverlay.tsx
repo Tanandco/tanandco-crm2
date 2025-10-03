@@ -495,7 +495,9 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         background: selectedPackageId === pkg.id
                           ? 'linear-gradient(135deg, hsl(var(--primary) / 0.2) 0%, hsl(var(--background) / 0.8) 100%)'
                           : 'linear-gradient(135deg, hsl(var(--background) / 0.6) 0%, hsl(var(--primary) / 0.1) 100%)',
-                        filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.3))',
+                        filter: pkg.popular 
+                          ? 'drop-shadow(0 0 30px hsl(var(--primary) / 0.8)) drop-shadow(0 0 50px hsl(var(--primary) / 0.4))' 
+                          : 'drop-shadow(0 0 20px hsl(var(--primary) / 0.3))',
                         boxShadow: selectedPackageId === pkg.id 
                           ? '0 0 40px hsl(var(--primary) / 0.6), 0 0 80px hsl(var(--primary) / 0.3), inset 0 0 20px hsl(var(--primary) / 0.1)' 
                           : '0 0 15px hsl(var(--primary) / 0.2)'
@@ -503,6 +505,20 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       onClick={() => handleSelectPackage(pkg.id)}
                       data-testid={`package-card-${pkg.id}`}
                     >
+                      {/* Best Deal Badge */}
+                      {pkg.popular && (
+                        <div 
+                          className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
+                          style={{
+                            filter: 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
+                            boxShadow: '0 0 20px hsl(var(--primary) / 0.6)'
+                          }}
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          הכי משתלם
+                        </div>
+                      )}
+
                       <h3 className="text-sm font-bold text-foreground mb-1 text-center font-hebrew leading-tight h-8 flex items-center justify-center">
                         {pkg.nameHe}
                       </h3>
