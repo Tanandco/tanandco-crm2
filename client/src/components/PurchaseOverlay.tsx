@@ -166,7 +166,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
             <div className="h-full flex flex-col">
               <div className="text-center mb-4">
                 <h3 className="text-xl font-bold text-white mb-1 font-hebrew">בחר חבילה</h3>
-                <p className="text-gray-300 text-sm">כל החבילות כוללות גישה למיטות השיזוף המתקדמות ביותר</p>
+                <p className="text-gray-300 text-sm">כל החבילות כוללות גישה למיטות השיזוף 24/7 בכל שעות היום ובכל שעות הלילה</p>
               </div>
 
               {isLoading ? (
