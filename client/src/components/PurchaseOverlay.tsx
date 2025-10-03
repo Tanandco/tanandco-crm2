@@ -143,7 +143,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
       <DialogContent 
-        className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col backdrop-blur-xl"
+        className="w-[98vw] max-w-[98vw] max-h-[95vh] border-none overflow-hidden p-0 flex flex-col backdrop-blur-xl"
         style={{
           background: 'rgba(192, 132, 252, 0.10)',
           boxShadow: '0 0 80px rgba(192, 132, 252, 0.3) inset, 0 0 40px rgba(192, 132, 252, 0.2) inset'
