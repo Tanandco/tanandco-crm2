@@ -135,7 +135,7 @@ export class BioStarClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         body: JSON.stringify({
@@ -181,7 +181,7 @@ export class BioStarClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         body: JSON.stringify({
@@ -223,7 +223,7 @@ export class BioStarClient {
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         agent: this.createHttpsAgent()
@@ -256,7 +256,7 @@ export class BioStarClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         body: JSON.stringify(userData),
@@ -289,7 +289,7 @@ export class BioStarClient {
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         agent: this.createHttpsAgent()
@@ -341,7 +341,7 @@ export class BioStarClient {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.credentials!.sessionToken}`,
+          'bs-session-id': this.credentials!.sessionToken,
           'Accept': 'application/json'
         },
         agent: this.createHttpsAgent()
