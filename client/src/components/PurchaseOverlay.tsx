@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CreditCard, X, Check, Loader2 } from 'lucide-react';
+import { CreditCard, X, Check, Loader2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -24,23 +24,40 @@ interface Package {
 }
 
 export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
-  const [step, setStep] = useState<'customer' | 'packages'>('customer');
+  const [step, setStep] = useState<'packages' | 'customer' | 'processing'>('packages');
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(null);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const { toast } = useToast();
 
-  const { data: packagesData, isLoading } = useQuery<Package[]>({
+  const { data: packagesResponse, isLoading } = useQuery({
     queryKey: ['/api/packages'],
-    enabled: step === 'packages',
+    enabled: open,
   });
 
-  const packages = packagesData || [];
+  const packages: Package[] = Array.isArray(packagesResponse) 
+    ? packagesResponse 
+    : (packagesResponse as any)?.data ?? (packagesResponse as any)?.packages ?? [];
+
+  const selectedPackage = packages.find(pkg => pkg.id === selectedPackageId);
+
+  useEffect(() => {
+    if (!open) {
+      setStep('packages');
+      setSelectedPackageId(null);
+      setCustomerName('');
+      setCustomerPhone('');
+      setCustomerEmail('');
+    }
+  }, [open]);
 
   const purchaseMutation = useMutation({
-    mutationFn: async ({ packageId }: { packageId: string }) => {
+    mutationFn: async () => {
+      if (!selectedPackageId) throw new Error('No package selected');
+      
       const response = await apiRequest('POST', '/api/payments/cardcom/session', {
-        packageId,
+        packageId: selectedPackageId,
         customerName,
         customerPhone,
         customerEmail,
@@ -52,14 +69,15 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
       return response;
     },
     onSuccess: (data: any) => {
-      if (data.paymentUrl) {
-        window.location.href = data.paymentUrl;
+      if (data?.data?.paymentUrl) {
+        window.location.href = data.data.paymentUrl;
       } else {
         toast({
           title: '❌ שגיאה',
           description: 'לא ניתן ליצור סשן תשלום',
           variant: 'destructive'
         });
+        setStep('customer');
       }
     },
     onError: (error: any) => {
@@ -68,10 +86,16 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
         description: error.message || 'שגיאה בתהליך התשלום',
         variant: 'destructive'
       });
+      setStep('customer');
     }
   });
 
-  const handleContinue = () => {
+  const handleSelectPackage = (packageId: string) => {
+    setSelectedPackageId(packageId);
+    setStep('customer');
+  };
+
+  const handleContinueToPayment = () => {
     if (!customerName.trim() || !customerPhone.trim()) {
       toast({
         title: '⚠️ שדות חובה',
@@ -80,17 +104,30 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
       });
       return;
     }
-    setStep('packages');
+
+    const phoneRegex = /^(972|05)\d{8,9}$|^\+?972\d{8,9}$|^05\d{1}-?\d{7}$/;
+    if (!phoneRegex.test(customerPhone)) {
+      toast({
+        title: '⚠️ מספר טלפון לא תקין',
+        description: 'אנא הכנס מספר טלפון ישראלי תקין',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    setStep('processing');
+    purchaseMutation.mutate();
   };
 
-  const handlePurchase = (packageId: string) => {
-    purchaseMutation.mutate({ packageId });
+  const handleBackToPackages = () => {
+    setStep('packages');
+    setSelectedPackageId(null);
   };
 
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
       <DialogContent 
-        className="max-w-4xl max-h-[90vh] border-none overflow-hidden p-0 flex flex-col"
+        className="max-w-6xl max-h-[90vh] border-none overflow-hidden p-0 flex flex-col"
       >
         <DialogTitle className="sr-only">רכישת חבילות שיזוף</DialogTitle>
         <DialogDescription className="sr-only">בחר חבילה והמשך לתשלום</DialogDescription>
@@ -101,9 +138,9 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
           style={{ filter: 'drop-shadow(0 2px 8px hsl(var(--primary) / 0.3))' }}
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-white flex items-center gap-3 font-hebrew">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3 font-hebrew">
               <CreditCard 
-                className="w-6 h-6 text-primary" 
+                className="w-7 h-7 text-primary" 
                 style={{ filter: 'drop-shadow(0 0 10px hsl(var(--primary)))' }}
               />
               רכישת כרטיסיה
@@ -121,137 +158,155 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950">
-          {step === 'customer' ? (
-            <div className="max-w-md mx-auto space-y-6">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">פרטי לקוח</h3>
-                <p className="text-gray-300">אנא מלא את הפרטים שלך להמשך התשלום</p>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-white mb-2 font-hebrew">שם מלא *</label>
-                  <Input 
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="הכנס שם מלא" 
-                    className="bg-black/50 border-primary/30 text-white h-12 text-lg"
-                    data-testid="input-customer-name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-white mb-2 font-hebrew">טלפון *</label>
-                  <Input 
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
-                    placeholder="05XXXXXXXX" 
-                    className="bg-black/50 border-primary/30 text-white h-12 text-lg"
-                    data-testid="input-customer-phone"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-white mb-2 font-hebrew">אימייל (אופציונלי)</label>
-                  <Input 
-                    value={customerEmail}
-                    onChange={(e) => setCustomerEmail(e.target.value)}
-                    placeholder="email@example.com" 
-                    className="bg-black/50 border-primary/30 text-white h-12 text-lg"
-                    data-testid="input-customer-email"
-                  />
-                </div>
-              </div>
-
-              <Button
-                onClick={handleContinue}
-                className="w-full h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
-                data-testid="button-continue-to-packages"
-              >
-                המשך לבחירת חבילה
-              </Button>
-            </div>
-          ) : (
+        <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950">
+          {step === 'packages' && (
             <div>
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">בחר חבילה</h3>
-                <p className="text-gray-300">כל החבילות כוללות גישה למיטות השיזוף המתקדמות ביותר</p>
+                <h3 className="text-3xl font-bold text-white mb-3 font-hebrew">בחר חבילה</h3>
+                <p className="text-gray-300 text-lg">כל החבילות כוללות גישה למיטות השיזוף המתקדמות ביותר</p>
               </div>
 
               {isLoading ? (
-                <div className="flex items-center justify-center py-12">
-                  <Loader2 className="w-12 h-12 animate-spin text-primary" />
+                <div className="flex items-center justify-center py-20">
+                  <Loader2 className="w-16 h-16 animate-spin text-primary" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                   {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg) => (
                     <div
                       key={pkg.id}
-                      className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border-2 border-primary/40 rounded-2xl p-6 hover:border-primary transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-primary/50"
+                      className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border-2 border-primary/40 rounded-2xl p-8 hover:border-primary transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-primary/50 cursor-pointer"
                       style={{
                         filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.3))'
                       }}
+                      onClick={() => handleSelectPackage(pkg.id)}
                       data-testid={`package-card-${pkg.id}`}
                     >
                       {/* Package Info */}
                       <div className="text-center mb-6">
-                        <h4 className="text-xl font-bold text-white mb-2 font-hebrew">{pkg.nameHe}</h4>
+                        <h4 className="text-2xl font-bold text-white mb-3 font-hebrew">{pkg.nameHe}</h4>
                         {pkg.descriptionHe && (
-                          <p className="text-gray-300 text-sm mb-4 font-hebrew">{pkg.descriptionHe}</p>
+                          <p className="text-gray-300 text-base mb-4 font-hebrew">{pkg.descriptionHe}</p>
                         )}
                         
                         {/* Sessions */}
-                        <div className="flex items-center justify-center gap-2 mb-4">
-                          <div className="bg-primary/20 px-4 py-2 rounded-lg">
-                            <span className="text-primary font-bold text-lg">{pkg.sessions}</span>
-                            <span className="text-white text-sm mr-2">כניסות</span>
+                        <div className="flex items-center justify-center gap-2 mb-6">
+                          <div className="bg-primary/20 px-6 py-3 rounded-lg">
+                            <span className="text-primary font-bold text-2xl">{pkg.sessions}</span>
+                            <span className="text-white text-lg mr-2">כניסות</span>
                           </div>
                         </div>
 
                         {/* Price */}
-                        <div className="text-center">
-                          <div className="text-4xl font-bold text-primary mb-1">₪{pkg.price}</div>
+                        <div className="text-center mb-6">
+                          <div className="text-5xl font-bold text-primary mb-2">₪{pkg.price}</div>
                           {pkg.sessions > 1 && pkg.sessions < 999 && (
-                            <p className="text-gray-400 text-sm">₪{Math.round(pkg.price / pkg.sessions)} לכניסה</p>
+                            <p className="text-gray-400 text-base">₪{Math.round(pkg.price / pkg.sessions)} לכניסה</p>
                           )}
                         </div>
                       </div>
 
-                      {/* Purchase Button */}
+                      {/* Select Button */}
                       <Button
-                        onClick={() => handlePurchase(pkg.id)}
-                        disabled={purchaseMutation.isPending}
-                        className="w-full h-12 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
-                        data-testid={`button-purchase-${pkg.id}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectPackage(pkg.id);
+                        }}
+                        className="w-full h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
+                        data-testid={`button-select-package-${pkg.id}`}
                       >
-                        {purchaseMutation.isPending ? (
-                          <>
-                            <Loader2 className="w-5 h-5 ml-2 animate-spin" />
-                            מעביר לתשלום...
-                          </>
-                        ) : (
-                          <>
-                            <Check className="w-5 h-5 ml-2" />
-                            רכוש עכשיו
-                          </>
-                        )}
+                        <Check className="w-6 h-6 ml-2" />
+                        בחר חבילה זו
                       </Button>
                     </div>
                   ))}
                 </div>
               )}
+            </div>
+          )}
 
-              <div className="mt-8 text-center">
+          {step === 'customer' && selectedPackage && (
+            <div className="max-w-2xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-bold text-white mb-3 font-hebrew">פרטי לקוח</h3>
+                <p className="text-gray-300 text-lg mb-6">אנא מלא את הפרטים שלך להמשך התשלום</p>
+                
+                {/* Selected Package Summary */}
+                <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 mb-8">
+                  <p className="text-gray-400 text-sm mb-2">חבילה נבחרת:</p>
+                  <h4 className="text-2xl font-bold text-primary mb-2">{selectedPackage.nameHe}</h4>
+                  <div className="flex items-center justify-center gap-6 text-white">
+                    <span className="text-lg">{selectedPackage.sessions} כניסות</span>
+                    <span className="text-gray-400">•</span>
+                    <span className="text-2xl font-bold">₪{selectedPackage.price}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-white text-lg mb-3 font-hebrew">שם מלא *</label>
+                  <Input 
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="הכנס שם מלא" 
+                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    data-testid="input-customer-name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white text-lg mb-3 font-hebrew">טלפון *</label>
+                  <Input 
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    placeholder="05XXXXXXXX" 
+                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    data-testid="input-customer-phone"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white text-lg mb-3 font-hebrew">אימייל (אופציונלי)</label>
+                  <Input 
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    placeholder="email@example.com" 
+                    type="email"
+                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    data-testid="input-customer-email"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4 mt-8">
                 <Button
                   variant="outline"
-                  onClick={() => setStep('customer')}
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-                  data-testid="button-back-to-customer"
+                  onClick={handleBackToPackages}
+                  className="flex-1 h-14 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  data-testid="button-back-to-packages"
                 >
-                  חזור לעריכת פרטים
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                  חזור לבחירת חבילה
+                </Button>
+                
+                <Button
+                  onClick={handleContinueToPayment}
+                  className="flex-1 h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
+                  data-testid="button-continue-to-payment"
+                >
+                  המשך לתשלום
+                  <ArrowLeft className="w-5 h-5 mr-2" />
                 </Button>
               </div>
+            </div>
+          )}
+
+          {step === 'processing' && (
+            <div className="flex flex-col items-center justify-center py-20">
+              <Loader2 className="w-20 h-20 animate-spin text-primary mb-6" />
+              <h3 className="text-2xl font-bold text-white mb-3">מעביר לתשלום מאובטח...</h3>
+              <p className="text-gray-300 text-lg">אנא המתן, מעביר אותך לעמוד התשלום של Cardcom</p>
             </div>
           )}
         </div>

@@ -59,6 +59,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       icon: CreditCard,
       title: "רכישת כרטיסיה",
       isFunction: false,
+      testId: "button-purchase-overlay",
       onClick: () => {
         setShowPricingOverlay(true);
       }
@@ -180,7 +181,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 style={{
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
-                data-testid={`action-tile-${index}`}
+                data-testid={(option as any).testId || `action-tile-${index}`}
               >
                 <div 
                   className="h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px] pb-4 rounded-md border-2 flex flex-col items-center justify-between transition-all duration-300 backdrop-blur-sm overflow-visible relative bg-gradient-to-br from-background via-background/95 to-primary/5 border-primary/50 group-hover:border-primary"
