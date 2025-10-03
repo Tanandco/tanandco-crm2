@@ -78,7 +78,7 @@ export const packagesCatalog: Record<string, Package> = {
     nameEn: "⭐ Best Deal!",
     type: "sun-beds",
     sessions: 10,
-    price: 400,
+    price: 500,
     currency: "ILS",
     cardcomItemCode: "BEST",
     benefits: ['חבילת 10 כניסות', '10 כניסות + ברונזר איכותי']
