@@ -30,7 +30,14 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
   if (!open) return null;
 
-  const tanningOptions = [
+  const tanningOptions: Array<{
+    icon: string | any;
+    iconType: 'image' | 'component' | 'lucide';
+    title: string;
+    isFunction: boolean;
+    testId?: string;
+    onClick: () => void;
+  }> = [
     {
       icon: newCustomerIcon,
       iconType: 'image' as const,
@@ -172,9 +179,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           <X className="w-6 h-6" />
         </Button>
 
-        {/* Service Fields - Same as Main Screen */}
-        <div className="w-full max-w-5xl mx-auto px-6">
-          <div className="flex gap-3 justify-center flex-wrap animate-scale-in">
+        {/* Service Fields - All in one row */}
+        <div className="w-full max-w-6xl mx-auto px-4">
+          <div className="flex gap-2 justify-center flex-nowrap animate-scale-in overflow-x-auto">
             {tanningOptions.map((option, index) => (
               <button
                 key={index}
@@ -201,12 +208,16 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     <img 
                       src={option.icon as string}
                       alt={option.title}
-                      className="w-24 h-24 object-contain"
+                      className={`${
+                        option.title === "רכישת ברונזרים" || option.title === "חיפוש משתזף קיים"
+                          ? "w-20 h-20"
+                          : "w-24 h-24"
+                      } object-contain`}
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   ) : option.iconType === 'component' ? (
-                    <div className="-mt-4">
-                      <option.icon size={120} />
+                    <div className="-mt-6">
+                      <option.icon size={160} />
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
