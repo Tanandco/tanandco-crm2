@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { CheckCircle, Circle, ArrowRight, CreditCard, FileText, Camera, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,6 +22,23 @@ export default function Onboarding() {
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
   const [dateOfBirth, setDateOfBirth] = useState<string>('');
+
+  // Load pending customer data from localStorage (from NewClientDialog)
+  useEffect(() => {
+    const savedData = localStorage.getItem('pendingCustomerData');
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+        if (data.fullName) setCustomerName(data.fullName);
+        if (data.phone) setCustomerPhone(data.phone);
+        if (data.dateOfBirth) setDateOfBirth(data.dateOfBirth);
+        // Clear the data after loading
+        localStorage.removeItem('pendingCustomerData');
+      } catch (error) {
+        console.error('Failed to parse customer data from localStorage', error);
+      }
+    }
+  }, []);
 
   // Mutation to create customer
   const createCustomerMutation = useMutation({

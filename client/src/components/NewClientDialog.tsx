@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/compone
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserPlus } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useLocation } from 'wouter';
 
 interface NewClientDialogProps {
@@ -15,10 +15,37 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    email: ''
+    email: '',
+    dateOfBirth: ''
   });
 
+  // Calculate age automatically
+  const calculatedAge = useMemo(() => {
+    if (!formData.dateOfBirth) return null;
+    
+    const birthDate = new Date(formData.dateOfBirth);
+    const today = new Date();
+    
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    return age;
+  }, [formData.dateOfBirth]);
+
   const handleSubmit = () => {
+    // Validate age
+    if (calculatedAge !== null && calculatedAge < 16) {
+      alert('הגיל המינימלי להרשמה הוא 16 שנים');
+      return;
+    }
+
+    // Save form data to localStorage for onboarding page
+    localStorage.setItem('pendingCustomerData', JSON.stringify(formData));
+    
     // Navigate to onboarding page
     onOpenChange(false);
     navigate('/onboarding');
@@ -62,6 +89,26 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
               className="bg-black/50 border-pink-500/30 text-white"
               data-testid="input-email"
             />
+            <div className="space-y-2">
+              <Input
+                type="date"
+                placeholder="תאריך לידה"
+                value={formData.dateOfBirth}
+                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                className="bg-black/50 border-pink-500/30 text-white"
+                data-testid="input-date-of-birth"
+              />
+              {calculatedAge !== null && calculatedAge >= 0 && (
+                <p className="text-sm text-pink-400 text-center">
+                  גיל: {calculatedAge} שנים
+                </p>
+              )}
+              {calculatedAge !== null && calculatedAge < 16 && (
+                <p className="text-xs text-red-400 text-center">
+                  הגיל המינימלי להרשמה הוא 16 שנים
+                </p>
+              )}
+            </div>
           </div>
 
           <Button

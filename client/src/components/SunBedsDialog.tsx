@@ -171,81 +171,54 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           <X className="w-6 h-6" />
         </Button>
 
-        {/* Service Fields with Enhanced Visual Effects System */}
-        <div className="w-full max-w-full mx-auto px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 animate-scale-in">
+        {/* Service Fields - Same as Main Screen */}
+        <div className="w-full max-w-5xl mx-auto px-6">
+          <div className="flex gap-3 justify-center flex-wrap animate-scale-in">
             {tanningOptions.map((option, index) => (
-              <div 
-                key={index} 
-                className="group cursor-pointer transform-gpu transition-all duration-300" 
+              <button
+                key={index}
                 onClick={option.onClick}
-                onMouseEnter={(e) => {
-                  if (window.innerWidth >= 768) {
-                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
-                    e.currentTarget.style.filter = 'brightness(1.2) saturate(1.3)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (window.innerWidth >= 768) {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.filter = 'brightness(1) saturate(1)';
-                  }
-                }}
+                className="
+                  group relative h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px]
+                  bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                  border hover:border-2
+                  rounded-md backdrop-blur-sm
+                  flex flex-col items-center justify-between pb-4
+                  transition-all duration-300 ease-in-out
+                  hover-elevate active-elevate-2
+                "
                 style={{
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  borderColor: 'rgba(236, 72, 153, 0.6)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                 data-testid={(option as any).testId || `action-tile-${index}`}
               >
-                <div 
-                  className="h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px] pb-4 rounded-md border-2 flex flex-col items-center justify-between transition-all duration-300 backdrop-blur-sm overflow-visible relative bg-gradient-to-br from-background via-background/95 to-primary/5 border-primary/50 group-hover:border-primary"
-                  style={{
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                    backdropFilter: 'blur(8px)',
-                    filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.4))'
-                  }}
-                >
-                  {/* Enhanced inner glow effect on hover */}
-                  <div className="absolute inset-0 rounded-md bg-gradient-to-br from-white/2 via-primary/2 to-white/2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                  
-                  {/* Icon Container */}
-                  <div className="relative z-10 transform transition-all duration-300 group-hover:scale-105 flex-1 flex items-center justify-center">
-                    <span 
-                      style={{
-                        filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 1)) drop-shadow(0 0 40px hsl(var(--primary) / 0.5))'
-                      }}
-                      className="transition-all duration-300"
-                    >
-                      {option.iconType === 'image' ? (
-                        <img 
-                          src={option.icon as string}
-                          alt={option.title}
-                          className={`${
-                            option.title === "רכישת חבילה" 
-                              ? "w-32 h-32"
-                              : option.title === "הרשמה לשירותי 24/7"
-                              ? "w-28 h-28" 
-                              : "w-24 h-24"
-                          } object-contain transition-all duration-300 group-hover:scale-110`}
-                        />
-                      ) : option.icon && !option.isFunction && (
-                        <option.icon 
-                          className="w-16 h-16 text-primary group-hover:text-white transition-all duration-300 group-hover:opacity-100"
-                          strokeWidth={1.5}
-                        />
-                      )}
-                    </span>
-                  </div>
-                  
-                  {/* Icon Label - Enhanced */}
-                  {option.title && (
-                    <div className="text-center px-2">
-                      <span className="text-sm font-medium text-white font-hebrew opacity-90 group-hover:opacity-100 transition-all duration-300 block leading-tight">
-                        {option.title}
-                      </span>
-                    </div>
+                <div className="flex-1 flex items-center justify-center">
+                  {option.iconType === 'image' ? (
+                    <img 
+                      src={option.icon as string}
+                      alt={option.title}
+                      className="w-24 h-24 object-contain"
+                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                    />
+                  ) : option.icon && !option.isFunction && (
+                    <option.icon 
+                      className="w-24 h-24 text-pink-400"
+                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                    />
                   )}
                 </div>
-              </div>
+                <span className="text-sm font-medium text-white text-center font-hebrew px-2">
+                  {option.title}
+                </span>
+                
+                {/* Ripple effect */}
+                <div className="absolute inset-0 rounded-md overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </button>
             ))}
           </div>
         </div>
