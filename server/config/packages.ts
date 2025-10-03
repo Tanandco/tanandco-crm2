@@ -10,6 +10,8 @@ export interface Package {
   description?: string;
   descriptionHe?: string;
   benefits?: string[]; // Package benefits
+  originalPrice?: number; // Original price for discount display
+  popular?: boolean; // Popular package badge
 }
 
 export const packagesCatalog: Record<string, Package> = {
@@ -45,7 +47,8 @@ export const packagesCatalog: Record<string, Package> = {
     price: 300,
     currency: "ILS",
     cardcomItemCode: "HOME",
-    benefits: ['10 כניסות + 3 במתנה', '₪23 לכניסה + ברונזר']
+    benefits: ['10 כניסות + 3 במתנה', '₪23 לכניסה + ברונזר'],
+    popular: true
   },
   "small-touch": {
     id: "small-touch",

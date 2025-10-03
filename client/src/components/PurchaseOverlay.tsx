@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CreditCard, X, Check, Loader2, ArrowRight, ArrowLeft } from 'lucide-react';
+import { CreditCard, X, Check, Loader2, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -22,6 +22,8 @@ interface Package {
   currency: string;
   descriptionHe?: string;
   benefits?: string[];
+  originalPrice?: number;
+  popular?: boolean;
 }
 
 export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
@@ -128,7 +130,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
       <DialogContent 
-        className="max-w-6xl max-h-[90vh] border-none overflow-hidden p-0 flex flex-col"
+        className="max-w-6xl max-h-[95vh] border-none overflow-hidden p-0 flex flex-col bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950"
       >
         <DialogTitle className="sr-only">רכישת חבילות שיזוף</DialogTitle>
         <DialogDescription className="sr-only">בחר חבילה והמשך לתשלום</DialogDescription>
@@ -159,7 +161,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950">
+        <div className="flex-1 overflow-hidden p-8">
           {step === 'packages' && (
             <div>
               <div className="text-center mb-8">
@@ -172,33 +174,78 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   <Loader2 className="w-16 h-16 animate-spin text-primary" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                  {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                  {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg, index) => (
                     <div
                       key={pkg.id}
-                      className="bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-primary/50 cursor-pointer group"
+                      className={`
+                        relative p-6 cursor-pointer transition-all duration-300
+                        hover:scale-105 hover:shadow-2xl
+                        border-2 rounded-xl
+                        ${selectedPackageId === pkg.id 
+                          ? 'border-primary shadow-lg shadow-primary/50' 
+                          : 'border-primary/30 hover:border-primary/60'
+                        }
+                        ${pkg.popular ? 'ring-2 ring-primary ring-offset-2 ring-offset-slate-950' : ''}
+                        backdrop-blur-sm
+                        animate-fade-in
+                      `}
                       style={{
-                        filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.3))'
+                        animationDelay: `${index * 100}ms`,
+                        background: selectedPackageId === pkg.id
+                          ? 'linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--background)) 100%)'
+                          : 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.05) 100%)'
                       }}
                       onClick={() => handleSelectPackage(pkg.id)}
                       data-testid={`package-card-${pkg.id}`}
                     >
-                      {/* Package Info */}
+                      {/* Popular Badge */}
+                      {pkg.popular && (
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1 shadow-lg">
+                          <Sparkles className="w-4 h-4" />
+                          הכי פופולרי
+                        </div>
+                      )}
+
+                      {/* Package Name */}
+                      <h3 className="text-2xl font-bold text-foreground mb-2 text-center font-hebrew">
+                        {pkg.nameHe}
+                      </h3>
+
+                      {/* Sessions Count */}
                       <div className="text-center mb-4">
-                        <h4 className="text-xl font-bold text-white mb-3 font-hebrew">{pkg.nameHe}</h4>
-                        <div className="text-primary text-4xl font-bold mb-2">₪{pkg.price}</div>
+                        <span className="text-5xl font-bold text-primary">
+                          {pkg.sessions}
+                        </span>
+                        <span className="text-lg text-muted-foreground mr-2">
+                          {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
+                        </span>
+                      </div>
+
+                      {/* Price */}
+                      <div className="text-center mb-6">
+                        {pkg.originalPrice && (
+                          <div className="text-sm text-muted-foreground line-through mb-1">
+                            ₪{pkg.originalPrice}
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-foreground">
+                          ₪{pkg.price}
+                        </div>
                         {pkg.sessions > 1 && (
-                          <p className="text-gray-300 text-sm mb-3">{pkg.sessions} כניסות</p>
+                          <div className="text-sm text-muted-foreground mt-1">
+                            (₪{(pkg.price / pkg.sessions).toFixed(1)} לכניסה)
+                          </div>
                         )}
                       </div>
 
                       {/* Benefits */}
                       {pkg.benefits && pkg.benefits.length > 0 && (
-                        <div className="space-y-2 mb-6">
-                          {pkg.benefits.slice(0, 2).map((benefit, index) => (
-                            <div key={index} className="flex items-center gap-2 text-sm text-gray-300 font-hebrew">
-                              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                              {benefit}
+                        <div className="space-y-3 mb-6">
+                          {pkg.benefits.map((benefit, i) => (
+                            <div key={i} className="flex items-start gap-2">
+                              <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                              <span className="text-sm text-muted-foreground font-hebrew">{benefit}</span>
                             </div>
                           ))}
                         </div>
@@ -210,11 +257,16 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           e.stopPropagation();
                           handleSelectPackage(pkg.id);
                         }}
-                        className="w-full h-12 text-base bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
+                        className={`
+                          w-full transition-all duration-300
+                          ${selectedPackageId === pkg.id 
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground'
+                          }
+                        `}
                         data-testid={`button-select-package-${pkg.id}`}
                       >
-                        <Check className="w-5 h-5 ml-2" />
-                        רכוש עכשיו
+                        {selectedPackageId === pkg.id ? 'נבחר' : 'בחר חבילה'}
                       </Button>
                     </div>
                   ))}
