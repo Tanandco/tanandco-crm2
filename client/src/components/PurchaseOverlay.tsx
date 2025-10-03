@@ -174,8 +174,11 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   <Loader2 className="w-16 h-16 animate-spin text-primary" />
                 </div>
               ) : (
-                <div className="grid grid-cols-6 gap-3 w-full">
+                <div className="flex w-full justify-between items-start">
                   {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg, index) => (
+                    <>
+                    {index === 1 && <div className="w-16" />}
+                    {index === 3 && <div className="w-16" />}
                     <div
                       key={pkg.id}
                       className={`
@@ -228,18 +231,25 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
 
                       {/* Sessions Count */}
                       <div className="text-center mb-2">
-                        <span 
-                          className="text-2xl font-bold text-primary"
-                          style={{
-                            filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))',
-                            textShadow: '0 0 10px hsl(var(--primary) / 0.5)'
-                          }}
-                        >
-                          {pkg.sessions}
-                        </span>
-                        <span className="text-xs text-muted-foreground mr-1">
-                          {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
-                        </span>
+                        <div className="flex items-center justify-center gap-1">
+                          <span 
+                            className="text-2xl font-bold text-primary"
+                            style={{
+                              filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))',
+                              textShadow: '0 0 10px hsl(var(--primary) / 0.5)'
+                            }}
+                          >
+                            {pkg.sessions}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
+                          </span>
+                        </div>
+                        {(pkg as any).hasBronzer && (
+                          <div className="text-xs text-primary font-semibold mt-0.5">
+                            + ברונזר
+                          </div>
+                        )}
                       </div>
 
                       {/* Price - Fixed Height */}
@@ -262,7 +272,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           ₪{pkg.price}
                         </div>
                         <div className="h-4">
-                          {pkg.sessions > 1 ? (
+                          {pkg.sessions > 1 && !(pkg as any).hasBronzer ? (
                             <div className="text-xs text-muted-foreground">
                               (₪{(pkg.price / pkg.sessions).toFixed(1)} לכניסה)
                             </div>
@@ -307,6 +317,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         {selectedPackageId === pkg.id ? 'נבחר' : 'בחר'}
                       </Button>
                     </div>
+                    </>
                   ))}
                 </div>
               )}

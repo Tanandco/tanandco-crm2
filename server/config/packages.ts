@@ -12,6 +12,7 @@ export interface Package {
   benefits?: string[]; // Package benefits
   originalPrice?: number; // Original price for discount display
   popular?: boolean; // Popular package badge
+  hasBronzer?: boolean; // Includes bronzer product
 }
 
 export const packagesCatalog: Record<string, Package> = {
@@ -36,7 +37,7 @@ export const packagesCatalog: Record<string, Package> = {
     price: 220,
     currency: "ILS",
     cardcomItemCode: "CARD8",
-    benefits: ['8 כניסות', '₪27.5 לכניסה', 'חבילה אישית - לא ניתן לשיתוף או העברה']
+    benefits: ['חבילה אישית - לא ניתן לשיתוף או העברה']
   },
   "home-package": {
     id: "home-package",
@@ -47,7 +48,7 @@ export const packagesCatalog: Record<string, Package> = {
     price: 300,
     currency: "ILS",
     cardcomItemCode: "HOME",
-    benefits: ['10 כניסות + 3 במתנה', '₪23 לכניסה', 'חבילה אישית - לא ניתן לשיתוף או העברה'],
+    benefits: ['10 כניסות + 3 במתנה', 'חבילה אישית - לא ניתן לשיתוף או העברה'],
     popular: true
   },
   "small-touch": {
@@ -59,7 +60,8 @@ export const packagesCatalog: Record<string, Package> = {
     price: 220,
     currency: "ILS",
     cardcomItemCode: "SMALL",
-    benefits: ['3 כניסות + ברונזר']
+    hasBronzer: true,
+    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף']
   },
   "beginners-package": {
     id: "beginners-package",
@@ -70,7 +72,8 @@ export const packagesCatalog: Record<string, Package> = {
     price: 360,
     currency: "ILS",
     cardcomItemCode: "BEGIN",
-    benefits: ['6 כניסות + ברונזר איכותי']
+    hasBronzer: true,
+    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף']
   },
   "most-profitable": {
     id: "most-profitable",
@@ -81,7 +84,8 @@ export const packagesCatalog: Record<string, Package> = {
     price: 500,
     currency: "ILS",
     cardcomItemCode: "BEST",
-    benefits: ['חבילת 10 כניסות', '10 כניסות + ברונזר איכותי']
+    hasBronzer: true,
+    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף']
   },
 };
 
