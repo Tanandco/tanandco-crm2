@@ -4,6 +4,7 @@ import { ArrowLeft, X, Lightbulb } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AlinChatBox from "@/components/AlinChatBox";
+import Alin from "@/components/Alin";
 import { NewClientDialog } from "@/components/NewClientDialog";
 import { PurchaseOverlay } from "@/components/PurchaseOverlay";
 import TanningProductCarousel from "@/components/TanningProductCarousel";
@@ -81,6 +82,15 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       testId: "button-purchase-overlay",
       onClick: () => {
         setShowPricingOverlay(true);
+      }
+    },
+    {
+      icon: Alin,
+      iconType: 'component' as const,
+      title: "AI TAN",
+      isFunction: false,
+      onClick: () => {
+        window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');
       }
     }
   ];
