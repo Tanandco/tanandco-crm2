@@ -163,10 +163,10 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
         {/* Content */}
         <div className="flex-1 overflow-hidden p-8">
           {step === 'packages' && (
-            <div>
-              <div className="text-center mb-8">
-                <h3 className="text-3xl font-bold text-white mb-3 font-hebrew">בחר חבילה</h3>
-                <p className="text-gray-300 text-lg">כל החבילות כוללות גישה למיטות השיזוף המתקדמות ביותר</p>
+            <div className="h-full flex flex-col">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-white mb-1 font-hebrew">בחר חבילה</h3>
+                <p className="text-gray-300 text-sm">כל החבילות כוללות גישה למיטות השיזוף המתקדמות ביותר</p>
               </div>
 
               {isLoading ? (
@@ -174,24 +174,24 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   <Loader2 className="w-16 h-16 animate-spin text-primary" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <div className="grid grid-cols-6 gap-3 w-full">
                   {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg, index) => (
                     <div
                       key={pkg.id}
                       className={`
-                        relative p-6 cursor-pointer transition-all duration-300
+                        relative p-3 cursor-pointer transition-all duration-300
                         hover:scale-105 hover:shadow-2xl
-                        border-2 rounded-xl
+                        border-2 rounded-lg
                         ${selectedPackageId === pkg.id 
                           ? 'border-primary shadow-lg shadow-primary/50' 
                           : 'border-primary/30 hover:border-primary/60'
                         }
-                        ${pkg.popular ? 'ring-2 ring-primary ring-offset-2 ring-offset-slate-950' : ''}
+                        ${pkg.popular ? 'ring-1 ring-primary ring-offset-1 ring-offset-slate-950' : ''}
                         backdrop-blur-sm
                         animate-fade-in
                       `}
                       style={{
-                        animationDelay: `${index * 100}ms`,
+                        animationDelay: `${index * 50}ms`,
                         background: selectedPackageId === pkg.id
                           ? 'linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--background)) 100%)'
                           : 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.05) 100%)'
@@ -201,39 +201,39 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     >
                       {/* Popular Badge */}
                       {pkg.popular && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1 shadow-lg">
-                          <Sparkles className="w-4 h-4" />
-                          הכי פופולרי
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg">
+                          <Sparkles className="w-3 h-3" />
+                          פופולרי
                         </div>
                       )}
 
                       {/* Package Name */}
-                      <h3 className="text-2xl font-bold text-foreground mb-2 text-center font-hebrew">
+                      <h3 className="text-sm font-bold text-foreground mb-1 text-center font-hebrew leading-tight">
                         {pkg.nameHe}
                       </h3>
 
                       {/* Sessions Count */}
-                      <div className="text-center mb-4">
-                        <span className="text-5xl font-bold text-primary">
+                      <div className="text-center mb-2">
+                        <span className="text-2xl font-bold text-primary">
                           {pkg.sessions}
                         </span>
-                        <span className="text-lg text-muted-foreground mr-2">
+                        <span className="text-xs text-muted-foreground mr-1">
                           {pkg.sessions === 1 ? 'כניסה' : 'כניסות'}
                         </span>
                       </div>
 
                       {/* Price */}
-                      <div className="text-center mb-6">
+                      <div className="text-center mb-2">
                         {pkg.originalPrice && (
-                          <div className="text-sm text-muted-foreground line-through mb-1">
+                          <div className="text-xs text-muted-foreground line-through">
                             ₪{pkg.originalPrice}
                           </div>
                         )}
-                        <div className="text-3xl font-bold text-foreground">
+                        <div className="text-xl font-bold text-foreground">
                           ₪{pkg.price}
                         </div>
                         {pkg.sessions > 1 && (
-                          <div className="text-sm text-muted-foreground mt-1">
+                          <div className="text-xs text-muted-foreground">
                             (₪{(pkg.price / pkg.sessions).toFixed(1)} לכניסה)
                           </div>
                         )}
@@ -241,11 +241,11 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
 
                       {/* Benefits */}
                       {pkg.benefits && pkg.benefits.length > 0 && (
-                        <div className="space-y-3 mb-6">
-                          {pkg.benefits.map((benefit, i) => (
-                            <div key={i} className="flex items-start gap-2">
-                              <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                              <span className="text-sm text-muted-foreground font-hebrew">{benefit}</span>
+                        <div className="space-y-1 mb-2">
+                          {pkg.benefits.slice(0, 2).map((benefit, i) => (
+                            <div key={i} className="flex items-start gap-1">
+                              <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                              <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
                             </div>
                           ))}
                         </div>
@@ -253,12 +253,13 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
 
                       {/* Select Button */}
                       <Button
+                        size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleSelectPackage(pkg.id);
                         }}
                         className={`
-                          w-full transition-all duration-300
+                          w-full h-7 text-xs transition-all duration-300
                           ${selectedPackageId === pkg.id 
                             ? 'bg-primary text-primary-foreground' 
                             : 'bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground'
@@ -266,7 +267,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         `}
                         data-testid={`button-select-package-${pkg.id}`}
                       >
-                        {selectedPackageId === pkg.id ? 'נבחר' : 'בחר חבילה'}
+                        {selectedPackageId === pkg.id ? 'נבחר' : 'בחר'}
                       </Button>
                     </div>
                   ))}
