@@ -21,6 +21,7 @@ interface Package {
   price: number;
   currency: string;
   descriptionHe?: string;
+  benefits?: string[];
 }
 
 export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
@@ -175,7 +176,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   {packages.filter(pkg => pkg.type === 'sun-beds').map((pkg) => (
                     <div
                       key={pkg.id}
-                      className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border-2 border-primary/40 rounded-2xl p-8 hover:border-primary transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-primary/50 cursor-pointer"
+                      className="bg-gradient-to-br from-background via-background/95 to-primary/5 backdrop-blur-sm border-2 border-primary/50 rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-primary/50 cursor-pointer group"
                       style={{
                         filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.3))'
                       }}
@@ -183,28 +184,25 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       data-testid={`package-card-${pkg.id}`}
                     >
                       {/* Package Info */}
-                      <div className="text-center mb-6">
-                        <h4 className="text-2xl font-bold text-white mb-3 font-hebrew">{pkg.nameHe}</h4>
-                        {pkg.descriptionHe && (
-                          <p className="text-gray-300 text-base mb-4 font-hebrew">{pkg.descriptionHe}</p>
+                      <div className="text-center mb-4">
+                        <h4 className="text-xl font-bold text-white mb-3 font-hebrew">{pkg.nameHe}</h4>
+                        <div className="text-primary text-4xl font-bold mb-2">₪{pkg.price}</div>
+                        {pkg.sessions > 1 && (
+                          <p className="text-gray-300 text-sm mb-3">{pkg.sessions} כניסות</p>
                         )}
-                        
-                        {/* Sessions */}
-                        <div className="flex items-center justify-center gap-2 mb-6">
-                          <div className="bg-primary/20 px-6 py-3 rounded-lg">
-                            <span className="text-primary font-bold text-2xl">{pkg.sessions}</span>
-                            <span className="text-white text-lg mr-2">כניסות</span>
-                          </div>
-                        </div>
-
-                        {/* Price */}
-                        <div className="text-center mb-6">
-                          <div className="text-5xl font-bold text-primary mb-2">₪{pkg.price}</div>
-                          {pkg.sessions > 1 && pkg.sessions < 999 && (
-                            <p className="text-gray-400 text-base">₪{Math.round(pkg.price / pkg.sessions)} לכניסה</p>
-                          )}
-                        </div>
                       </div>
+
+                      {/* Benefits */}
+                      {pkg.benefits && pkg.benefits.length > 0 && (
+                        <div className="space-y-2 mb-6">
+                          {pkg.benefits.slice(0, 2).map((benefit, index) => (
+                            <div key={index} className="flex items-center gap-2 text-sm text-gray-300 font-hebrew">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                              {benefit}
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
                       {/* Select Button */}
                       <Button
@@ -212,11 +210,11 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           e.stopPropagation();
                           handleSelectPackage(pkg.id);
                         }}
-                        className="w-full h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
+                        className="w-full h-12 text-base bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
                         data-testid={`button-select-package-${pkg.id}`}
                       >
-                        <Check className="w-6 h-6 ml-2" />
-                        בחר חבילה זו
+                        <Check className="w-5 h-5 ml-2" />
+                        רכוש עכשיו
                       </Button>
                     </div>
                   ))}
