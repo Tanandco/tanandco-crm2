@@ -220,7 +220,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                           src={option.icon as string}
                           alt={option.title}
                           className={`${
-                            option.title === "הרשמה לשירותי 24/7" || option.title === "רכישת חבילה" 
+                            option.title === "רכישת חבילה" 
+                              ? "w-32 h-32"
+                              : option.title === "הרשמה לשירותי 24/7"
                               ? "w-28 h-28" 
                               : "w-24 h-24"
                           } object-contain transition-all duration-300 group-hover:scale-110`}
