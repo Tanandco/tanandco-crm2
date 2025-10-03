@@ -754,77 +754,77 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
           )}
 
           {step === 'customer' && selectedPackage && (
-            <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-8">
-                <h3 className="text-3xl font-bold text-white mb-3 font-hebrew">פרטי לקוח</h3>
-                <p className="text-gray-300 text-lg mb-6">אנא מלא את הפרטים שלך להמשך התשלום</p>
+            <div className="max-w-xl mx-auto">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-white mb-2 font-hebrew">פרטי לקוח</h3>
+                <p className="text-gray-300 text-sm mb-4">אנא מלא את הפרטים שלך להמשך התשלום</p>
                 
                 {/* Selected Package Summary */}
-                <div className="bg-primary/10 border border-primary/30 rounded-xl p-6 mb-8">
-                  <p className="text-gray-400 text-sm mb-2">חבילה נבחרת:</p>
-                  <h4 className="text-2xl font-bold text-primary mb-2">{selectedPackage.nameHe}</h4>
-                  <div className="flex items-center justify-center gap-6 text-white">
-                    <span className="text-lg">{selectedPackage.sessions} כניסות</span>
+                <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 mb-4">
+                  <p className="text-gray-400 text-xs mb-1">חבילה נבחרת:</p>
+                  <h4 className="text-lg font-bold text-primary mb-1">{selectedPackage.nameHe}</h4>
+                  <div className="flex items-center justify-center gap-4 text-white">
+                    <span className="text-sm">{selectedPackage.sessions} כניסות</span>
                     <span className="text-gray-400">•</span>
-                    <span className="text-2xl font-bold">₪{selectedPackage.price}</span>
+                    <span className="text-lg font-bold">₪{selectedPackage.price}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-3">
                 <div>
-                  <label className="block text-white text-lg mb-3 font-hebrew">שם מלא *</label>
+                  <label className="block text-white text-sm mb-1 font-hebrew">שם מלא *</label>
                   <Input 
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="הכנס שם מלא" 
-                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    className="bg-black/50 border-primary/30 text-white h-10 text-sm"
                     data-testid="input-customer-name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white text-lg mb-3 font-hebrew">טלפון *</label>
+                  <label className="block text-white text-sm mb-1 font-hebrew">טלפון *</label>
                   <Input 
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     placeholder="05XXXXXXXX" 
-                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    className="bg-black/50 border-primary/30 text-white h-10 text-sm"
                     data-testid="input-customer-phone"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white text-lg mb-3 font-hebrew">אימייל (אופציונלי)</label>
+                  <label className="block text-white text-sm mb-1 font-hebrew">אימייל (אופציונלי)</label>
                   <Input 
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
                     placeholder="email@example.com" 
                     type="email"
-                    className="bg-black/50 border-primary/30 text-white h-14 text-lg"
+                    className="bg-black/50 border-primary/30 text-white h-10 text-sm"
                     data-testid="input-customer-email"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-4 mt-8">
+              <div className="flex gap-3 mt-5">
                 <Button
                   variant="outline"
                   onClick={handleBackToPackages}
-                  className="flex-1 h-14 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  className="flex-1 h-10 text-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
                   data-testid="button-back-to-packages"
                 >
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-4 h-4 ml-2" />
                   חזור לבחירת חבילה
                 </Button>
                 
                 <Button
                   onClick={handleContinueToPayment}
-                  className="flex-1 h-14 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
+                  className="flex-1 h-10 text-sm bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary font-bold"
                   data-testid="button-continue-to-payment"
                 >
                   המשך לתשלום
-                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <ArrowLeft className="w-4 h-4 mr-2" />
                 </Button>
               </div>
             </div>
