@@ -78,7 +78,7 @@ export default function IconSidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-0 h-screen w-16 bg-gradient-to-b from-slate-950/95 via-purple-950/40 to-slate-950/95 backdrop-blur-lg border-r border-pink-500/20 z-50 flex flex-col items-center py-6 gap-4">
+    <div className="fixed left-0 top-0 h-screen w-16 bg-gradient-to-b from-slate-950/40 via-purple-950/40 to-slate-950/40 backdrop-blur-lg border-r border-pink-500/20 z-50 flex flex-col items-center py-6 gap-4">
       {navItems.map((item) => {
         const isActive = location === item.path;
         const Icon = item.icon;
