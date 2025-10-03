@@ -273,10 +273,10 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       </div>
 
                       {/* Benefits - Fixed Height */}
-                      <div className="flex-1 mb-2 h-12 overflow-hidden">
+                      <div className="flex-1 mb-2 min-h-12 overflow-hidden">
                         {pkg.benefits && pkg.benefits.length > 0 ? (
                           <div className="space-y-1">
-                            {pkg.benefits.slice(0, 2).map((benefit, i) => (
+                            {pkg.benefits.slice(0, 3).map((benefit, i) => (
                               <div key={i} className="flex items-start gap-1">
                                 <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
                                 <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
@@ -284,7 +284,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                             ))}
                           </div>
                         ) : (
-                          <div className="h-12"></div>
+                          <div className="min-h-12"></div>
                         )}
                       </div>
 
