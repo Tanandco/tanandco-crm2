@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a premium touch-screen kiosk CRM system designed for Tan & Co salon/spa operations. The application features a modern Hebrew RTL interface with neon aesthetic, designed for customer self-service and salon management. The system integrates with multiple external services for payments, customer identification, access control, and automated marketing workflows.
+This project is a premium touch-screen kiosk CRM system designed for Tan & Co salon/spa operations. It features a modern Hebrew RTL interface with a neon aesthetic, focusing on customer self-service and salon management. The system integrates with multiple external services for payments, customer identification, access control, and automated marketing workflows, aiming to streamline salon operations and enhance the customer experience.
 
 ## User Preferences
 
@@ -10,234 +10,47 @@ Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
-### Frontend Architecture
-- **React + TypeScript**: Component-based UI with full TypeScript support
-- **Vite Build System**: Fast development and optimized production builds
-- **Wouter Routing**: Lightweight client-side routing
-- **TanStack Query**: Data fetching and state management with caching
-- **Shadcn/ui Components**: Radix UI primitives with custom styling
-- **Hebrew RTL Support**: Right-to-left layout with Hebrew-optimized fonts (Assistant, Heebo, Noto Sans Hebrew)
+### Frontend
+- **Technology Stack**: React, TypeScript, Vite, Wouter (routing), TanStack Query (data fetching), Shadcn/ui (components).
+- **UI/UX**: Neon aesthetic (hot pink, glow effects), dark mode theme, touch-optimized design (large hit areas), Hebrew RTL support with optimized fonts.
+- **State Management**: React Query for server state, React Hooks for local component state, React Hook Form with Zod for form management.
 
-### Backend Architecture
-- **Express.js Server**: RESTful API server with middleware support
-- **Drizzle ORM**: Type-safe database operations with PostgreSQL
-- **Session Management**: Connect-pg-simple for PostgreSQL-backed sessions
-- **Modular Storage Interface**: Abstracted storage layer supporting multiple implementations
+### Backend
+- **Technology Stack**: Express.js (RESTful API), Drizzle ORM (PostgreSQL), Connect-pg-simple (session management).
+- **Storage**: Modular storage interface with PostgreSQL as the primary database.
 
-### UI Design System
-- **Neon Aesthetic**: Hot pink (#ff69b4) primary color with glow effects
-- **Dark Mode Theme**: Gradient backgrounds with slate/black color scheme
-- **Touch-Optimized**: Large hit areas (48-64px) for kiosk interface
-- **Component Library**: Custom cards, buttons, and navigation with consistent spacing (2, 4, 8, 16 units)
+### Database
+- **Type**: PostgreSQL with Drizzle ORM for type-safe operations.
+- **Schema Highlights**:
+    - **Users**: Basic authentication.
+    - **Health Forms**: Digital questionnaires with signatures.
+    - **Session Usage**: Tracks customer service usage and access.
+    - **Products**: Unified for physical products (Thatso, BALIBODY) and services (sun beds, spray tan, massage).
+    - **Persistence**: All CRM data (customers, memberships, transactions, automation) is persisted to PostgreSQL.
 
-### Database Schema
-- **Users Table**: Basic authentication with username/password
-- **Health Forms Table**: Digital health questionnaires with skin type, allergies, medications, pregnancy status, and digital signatures
-- **Session Usage Table**: Tracks customer service usage, membership balance deductions, entry method (face recognition/manual), and door access details
-- **Products Table**: Unified system for both physical products and services
-  - Physical Products: Thatso, BALIBODY, AUSTRALIAN GOLD, PAS TOUCHER brands
-  - Services: Sun beds, spray tan, hair salon, massage, facial treatments
-  - Support for product type differentiation (product/service)
-  - Service-specific fields: duration (minutes), sessions (package count)
-  - Product-specific fields: stock, weight, SKU
-  - Categories: Both product categories and service categories
-  - Featured products shown in 3D carousel on shop page
-- **PostgreSQL**: Primary database with UUID generation
-- **Drizzle Kit**: Schema migrations and database management
-
-### State Management
-- **React Query**: Server state management with automatic caching
-- **Local Component State**: React hooks for UI state
-- **Form Management**: React Hook Form with Zod validation
+### System Design Choices
+- **Security**: Robust webhook security (signature verification, HMAC, rate limiting), localhost binding for sensitive endpoints (BioStar 2), and local access enforcement.
+- **Scalability**: Abstracted storage layer and modular design for future integrations.
 
 ## External Dependencies
 
-### Development Tools
-- **Replit Integration**: Runtime error overlay and development banner
-- **ESBuild**: Production bundling for server code
-- **TypeScript**: Full type safety across client and server
-
-### Database & ORM
-- **@neondatabase/serverless**: PostgreSQL serverless driver
-- **drizzle-orm**: Type-safe ORM with PostgreSQL dialect
-- **drizzle-kit**: Database migrations and schema management
-
-### UI Libraries
-- **@radix-ui/***: Comprehensive set of accessible UI primitives
-- **tailwindcss**: Utility-first CSS framework
-- **lucide-react**: Icon library for consistent iconography
-- **class-variance-authority**: Type-safe component variants
-
-### Form & Validation
-- **react-hook-form**: Performance-focused form library
-- **@hookform/resolvers**: Form validation resolvers
-- **zod**: Runtime type validation and schema definition
+### Development & Core
+- **Database**: `@neondatabase/serverless`, `drizzle-orm`, `drizzle-kit`.
+- **UI**: `@radix-ui/*`, `tailwindcss`, `lucide-react`, `class-variance-authority`.
+- **Forms**: `react-hook-form`, `@hookform/resolvers`, `zod`.
 
 ### Active Integrations
-- **WhatsApp Business API** ✅: Complete automated messaging system
-  - Template-based messages (Hebrew support)
-  - Inbound/outbound webhooks configured
-  - Customer engagement workflow automation
-  - Purchase options, payment confirmations, onboarding links
-  - **Live Chat Interface** ✅: Real-time WhatsApp messaging
-    - Server-Sent Events (SSE) for instant message delivery with 20s heartbeat
-    - Two-way communication with customers
-    - Contact management and message history
-    - Integrated with existing WhatsApp automation
-    - Accessible at `/chat` route
-  - **Webhook Security (Architect-Approved):**
-    - ✅ **Signature Verification**: X-Hub-Signature-256 with timing-safe comparison
-    - ✅ **Raw Body HMAC**: Computed over exact request bytes (not JSON)
-    - ✅ **Enforced when configured**: Requires signature if WHATSAPP_APP_SECRET set
-    - ✅ **GET/POST Separation**: Distinct handlers for verification and messages
-    - ✅ **Send Endpoint Security**: requireLocalAccess + rate limiting (10/min)
-  - **Deployment Requirements:**
-    - Server binds to localhost (127.0.0.1) for security
-    - Webhook endpoint needs public URL via tunnel/reverse proxy
-    - Expose ONLY `/api/webhooks/whatsapp` publicly
-    - Keep all other endpoints localhost-restricted
-  - **Required Environment Variables:**
-    - `WA_PHONE_NUMBER_ID` - WhatsApp Business Phone Number ID
-    - `CLOUD_API_ACCESS_TOKEN` - Meta Cloud API Access Token
-    - `CLOUD_API_VERSION` - API Version (default: v21.0)
-    - `WA_VERIFY_TOKEN` - Webhook verification token (for GET challenge)
-    - `WHATSAPP_APP_SECRET` - App secret for signature verification (optional but recommended)
-- **Cardcom Payment Gateway** ✅: Full payment processing integration
-  - Low Profile API for hosted payment pages
-  - Webhook support for transaction notifications
-  - Automatic membership and transaction updates
-  - Invoice generation capabilities
-  - **Required Environment Variables:**
-    - `CARDCOM_TERMINAL_NUMBER` - Terminal number from Cardcom
-    - `CARDCOM_API_USERNAME` - API username
-    - `CARDCOM_API_PASSWORD` - API password (optional)
-- **BioStar 2** ✅: Facial recognition and access control
-  - Face identification for customer check-in
-  - Face registration during onboarding
-  - Remote door control with comprehensive logging
-  - Door access history tracking (IP, timestamp, success/failure)
-  - Multi-door support (future-ready architecture)
-  - Integration with customer management system
-  - **Required Environment Variables:**
-    - `BIOSTAR_SERVER_URL` (e.g., http://localhost:5000 or https://IP:8443)
-    - `BIOSTAR_USERNAME` (admin username)
-    - `BIOSTAR_PASSWORD` (admin password)
-  - Optional: `BIOSTAR_ALLOW_SELF_SIGNED=true` for self-signed certificates
-  - **Remote Control UI:** `/remote-door` - Touch-optimized interface for door opening with real-time logs
-  - **Security Model (Architect-Approved):** 
-    - ✅ **Server Binding**: Express binds to 127.0.0.1 (localhost only) - NO LAN exposure
-    - ✅ **Middleware Enforcement**: `requireLocalAccess` validates ONLY loopback IPs (127.0.0.1, ::1, ::ffff:127.0.0.1)
-    - ✅ **No Bypasses**: Development mode bypass removed - security enforced unconditionally
-    - ✅ **Rate Limiting**: 10 requests/minute per IP with automatic cleanup
-    - ✅ **Comprehensive Logging**: All door control attempts logged (IP, timestamp, success/failure)
-    - ✅ **Deployment Model**: Server and kiosk MUST run on same physical machine
-    - ✅ **Security Status**: "Door control endpoints are now effectively localhost-only... Security: none observed" - Architect Review
+- **WhatsApp Business API**: Automated messaging, live chat (SSE), template-based messages, customer engagement workflows.
+- **Cardcom Payment Gateway**: Full payment processing, hosted payment pages, webhooks, invoice generation.
+- **BioStar 2**: Facial recognition for check-in/registration, remote door control with logging, multi-door support.
+- **Meta Marketing API (Facebook/Instagram Ads)**: Campaign management, budget optimization, custom audience syncing.
+- **Google Ads API**: Search campaign management, bidding strategies, performance tracking.
+- **TikTok Ads API**: Campaign and ad group management, video ad creation, audience targeting.
 
-### Social Media Automation ✅
-- **Meta Marketing API** (Facebook/Instagram Ads): Full automation suite
-  - Campaign creation and management
-  - Real-time performance monitoring
-  - Automatic budget optimization
-  - Custom audience syncing from CRM
-  - **Required Environment Variables:**
-    - `META_ACCESS_TOKEN` - Long-lived Meta Marketing API access token
-    - `META_AD_ACCOUNT_ID` - Facebook Ad Account ID (format: act_XXXXXXXXXX)
-- **Google Ads API**: Complete campaign automation
-  - Search campaign management
-  - Responsive search ads
-  - Automated bidding strategies
-  - Performance tracking
-  - **Required Environment Variables:**
-    - `GOOGLE_ADS_CLIENT_ID` - OAuth 2.0 Client ID
-    - `GOOGLE_ADS_CLIENT_SECRET` - OAuth 2.0 Client Secret
-    - `GOOGLE_ADS_REFRESH_TOKEN` - OAuth 2.0 Refresh Token
-    - `GOOGLE_ADS_DEVELOPER_TOKEN` - Google Ads API Developer Token
-    - `GOOGLE_ADS_CUSTOMER_ID` - Customer ID (format: XXX-XXX-XXXX)
-- **TikTok Ads API**: Video advertising automation
-  - Campaign and ad group management
-  - Video ad creation
-  - Audience targeting
-  - Performance analytics
-  - **Required Environment Variables:**
-    - `TIKTOK_ACCESS_TOKEN` - TikTok Marketing API access token
-    - `TIKTOK_ADVERTISER_ID` - TikTok Advertiser Account ID
-
-### Automation Engine Features
-- **Performance Monitoring**: Automated checks every 15 minutes
-- **Budget Optimization**: Automatic adjustments (±30-50%) based on performance
-- **A/B Testing**: Intelligent comparison and winner identification
-- **Budget Pacing**: Real-time spend rate monitoring with alerts
-- **Audience Syncing**: CRM customer data → ad platform custom audiences
-- **WhatsApp Alerts**: Real-time notifications for critical events
-- **General Settings:**
-  - `ADMIN_PHONE` - WhatsApp phone number for automation alerts (format: 972XXXXXXXXX)
+### Automation Engine
+- **Features**: Performance monitoring, budget optimization, A/B testing, budget pacing, audience syncing, WhatsApp alerts.
 
 ### Planned Integrations
-- **Jotform**: Digital health forms and signature collection
-- **Airtable**: Optional extended data storage
-- **Make/n8n**: Advanced workflow automation
-
-### Styling & Animation
-- **Tailwind CSS**: Utility-first styling with custom color palette
-- **CSS Gradients**: Neon effects and premium visual treatments
-- **Responsive Design**: Mobile-first approach with touch optimizations
-- **Engaging Animations**: Custom keyframe animations for important content (fade-in, glow pulse, shimmer, bouncing icons)
-
-## Recent Changes (October 2025)
-
-### Unified Page Design System ✅
-- **PageLayout Component**: Created shared layout component for consistent design across all pages
-  - Black background (bg-black) matching main interface
-  - Optional logo display at top
-  - Fixed navigation buttons in corners (Home, Back)
-  - Configurable max-width for different page types
-  - RTL support with Hebrew font
-  - No overflow restrictions - allows natural scrolling
-- **Updated Pages**:
-  - onboarding.tsx - Registration flow
-  - face-registration.tsx - Face ID registration
-  - health-form.tsx - Health declaration form
-  - self-service.tsx - Self-service interface
-- **Design Consistency**: All pages now share:
-  - Same black background as main screen
-  - Consistent Tan & Co logo placement
-  - Unified navigation pattern with Home/Back buttons
-  - Matching glow effects and hover states
-  - Proper scrolling behavior for long forms
-
-### Sun Beds Dialog Component ✅
-- **Kiosk-Optimized Dialog**: Converted from full page to overlay dialog to comply with no-scrolling requirement
-  - Opens as overlay from TouchInterface (staff screen) and SelfService (customer screen)
-  - Internal scrolling within dialog - all content accessible without page scroll
-  - Smart navigation: closes for outbound actions (onboarding, 24/7 registration), stays open for internal actions (scroll to packages)
-  - Full accessibility support with DialogTitle and DialogDescription (sr-only)
-  - **Unified Design**: Black background (bg-black) matching PageLayout with navigation buttons (Home/Back) in corners
-- **Content Features**:
-  - Animated introduction with multiple effects (glow pulse, shimmer, bouncing icons) to draw attention to safety information
-  - Safety guidelines: 6 do's (green-tinted) and 6 don'ts (red-tinted)
-  - 4 action buttons: New customer registration, search existing customer, 24/7 registration, purchase/renewal packages
-  - Detailed pricing tables: Personal packages (₪70-₪300) and shareable packages (₪220-₪400)
-  - Bronzer products carousel (3D carousel displaying bed-bronzer products)
-- **Navigation**: Accessible from home page and self-service page via "מיטות שיזוף" service card
-- **Design Philosophy**: Eye-catching animations encourage users to read important safety information before proceeding
-- **Architecture**: SunBedsDialog component with local state management; /sun-beds route removed
-
-### Customer Registration Enhancement & Database Integration ✅
-- **Date of Birth Field**: Added dateOfBirth to customers table and registration form
-  - Format: YYYY-MM-DD
-  - Age validation: 16-120 years (precise calculation with month/day)
-  - Required field in onboarding flow
-- **WhatsApp Phone Validation**: Enforced Israeli mobile format for WhatsApp integration
-  - Regex: `/^(972|05)\d{8,9}$|^\+?972\d{8,9}$|^05\d{1}-?\d{7}$/`
-  - Accepts: 972XXXXXXXXX, 05XXXXXXXX, +972XXXXXXXXX formats
-- **Critical Database Migration** ✅:
-  - **Fixed Storage Bug**: Replaced MemStorage with direct PostgreSQL integration
-  - POST /api/customers: Now uses `db.insert(customers).values().returning()` (Drizzle ORM)
-  - GET /api/customers/:id: Now uses `db.select().from(customers).where(eq(customers.id, id))`
-  - Customers are now persisted to PostgreSQL database (previously in-memory only!)
-  - Full end-to-end onboarding flow validated: registration → database → health form
-- **Route Fix**: Changed /health-form/:customerId to /health-form (uses query param ?customerId=...)
-- **User Experience**: Added loading state to registration button ("שומר..." while saving)
-- **Architect-Approved**: All changes reviewed and validated with successful e2e testing
-
-The architecture supports a premium salon experience with automated customer identification, self-service capabilities, and integrated business operations through external service connections.
+- **Jotform**: Digital health forms.
+- **Airtable**: Extended data storage.
+- **Make/n8n**: Advanced workflow automation.

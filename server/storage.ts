@@ -27,14 +27,23 @@ import {
   type InsertHealthForm,
   type SessionUsage,
   type InsertSessionUsage,
-  products as productsTable
+  users,
+  customers,
+  memberships,
+  products,
+  transactions,
+  doorAccessLogs,
+  automationSettings,
+  campaigns,
+  adSets,
+  ads,
+  contentQueue,
+  automationLogs,
+  healthForms,
+  sessionUsage
 } from "@shared/schema";
-import { randomUUID } from "crypto";
 import { db } from './db';
-import { eq } from 'drizzle-orm';
-
-// modify the interface with any CRUD methods
-// you might need
+import { eq, desc, sql, like, or } from 'drizzle-orm';
 
 export interface IStorage {
   // User operations
@@ -135,565 +144,530 @@ export interface IStorage {
   createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-  private customers: Map<string, Customer>;
-  private memberships: Map<string, Membership>;
-  private products: Map<string, Product>;
-  private transactions: Map<string, Transaction>;
-  private automationSettings: Map<string, AutomationSetting>;
-  private campaigns: Map<string, Campaign>;
-  private adSets: Map<string, AdSet>;
-  private ads: Map<string, Ad>;
-  private contentQueue: Map<string, ContentQueue>;
-  private automationLogs: AutomationLog[];
-  private doorAccessLogs: DoorAccessLog[];
-
-  constructor() {
-    this.users = new Map();
-    this.customers = new Map();
-    this.memberships = new Map();
-    this.products = new Map();
-    this.transactions = new Map();
-    this.automationSettings = new Map();
-    this.campaigns = new Map();
-    this.adSets = new Map();
-    this.ads = new Map();
-    this.contentQueue = new Map();
-    this.automationLogs = [];
-    this.doorAccessLogs = [];
-  }
-
+export class PostgresStorage implements IStorage {
+  // ============================================================
+  // USER OPERATIONS
+  // ============================================================
+  
   async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async createUser(user: InsertUser): Promise<User> {
+    const result = await db.insert(users).values(user).returning();
+    return result[0];
   }
 
-  // Customer operations
+  // ============================================================
+  // CUSTOMER OPERATIONS
+  // ============================================================
+  
   async getCustomers(): Promise<Customer[]> {
-    return Array.from(this.customers.values());
+    return await db.select().from(customers).orderBy(desc(customers.createdAt));
   }
 
   async getCustomer(id: string): Promise<Customer | undefined> {
-    return this.customers.get(id);
+    const result = await db.select().from(customers).where(eq(customers.id, id));
+    return result[0];
   }
 
   async getCustomerByPhone(phone: string): Promise<Customer | undefined> {
-    return Array.from(this.customers.values()).find(
-      (customer) => customer.phone === phone,
-    );
+    const result = await db.select().from(customers).where(eq(customers.phone, phone));
+    return result[0];
   }
 
   async getCustomerByFaceId(faceId: string): Promise<Customer | undefined> {
-    return Array.from(this.customers.values()).find(
-      (customer) => customer.faceRecognitionId === faceId,
-    );
+    const result = await db.select().from(customers).where(eq(customers.faceRecognitionId, faceId));
+    return result[0];
   }
 
-  async createCustomer(insertCustomer: InsertCustomer): Promise<Customer> {
-    const id = randomUUID();
-    const customer: Customer = { 
-      fullName: insertCustomer.fullName,
-      phone: insertCustomer.phone,
-      email: insertCustomer.email || null,
-      isNewClient: insertCustomer.isNewClient ?? true,
-      healthFormSigned: insertCustomer.healthFormSigned ?? false,
-      faceRecognitionId: insertCustomer.faceRecognitionId || null,
-      notes: insertCustomer.notes || null,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.customers.set(id, customer);
-    return customer;
+  async createCustomer(customer: InsertCustomer): Promise<Customer> {
+    const result = await db.insert(customers).values(customer).returning();
+    return result[0];
   }
 
-  async updateCustomer(id: string, updates: Partial<InsertCustomer>): Promise<Customer | undefined> {
-    const customer = this.customers.get(id);
-    if (!customer) return undefined;
-    
-    const updated = { 
-      ...customer, 
-      ...updates, 
-      updatedAt: new Date() 
-    };
-    this.customers.set(id, updated);
-    return updated;
+  async updateCustomer(id: string, customer: Partial<InsertCustomer>): Promise<Customer | undefined> {
+    const result = await db
+      .update(customers)
+      .set({ ...customer, updatedAt: new Date() })
+      .where(eq(customers.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteCustomer(id: string): Promise<void> {
-    this.customers.delete(id);
+    await db.delete(customers).where(eq(customers.id, id));
   }
 
   async searchCustomers(query: string): Promise<Customer[]> {
-    const searchTerm = query.toLowerCase();
-    return Array.from(this.customers.values()).filter(
-      (customer) =>
-        customer.fullName.toLowerCase().includes(searchTerm) ||
-        customer.phone.includes(searchTerm) ||
-        (customer.email && customer.email.toLowerCase().includes(searchTerm))
-    );
+    const searchPattern = `%${query}%`;
+    return await db
+      .select()
+      .from(customers)
+      .where(
+        or(
+          like(customers.fullName, searchPattern),
+          like(customers.phone, searchPattern),
+          like(customers.email, searchPattern)
+        )
+      )
+      .orderBy(desc(customers.createdAt));
   }
 
-  // Membership operations
+  // ============================================================
+  // MEMBERSHIP OPERATIONS
+  // ============================================================
+  
   async getMembershipsByCustomer(customerId: string): Promise<Membership[]> {
-    return Array.from(this.memberships.values()).filter(
-      (membership) => membership.customerId === customerId
-    );
+    return await db
+      .select()
+      .from(memberships)
+      .where(eq(memberships.customerId, customerId))
+      .orderBy(desc(memberships.createdAt));
   }
 
   async getMembership(id: string): Promise<Membership | undefined> {
-    return this.memberships.get(id);
+    const result = await db.select().from(memberships).where(eq(memberships.id, id));
+    return result[0];
   }
 
-  async createMembership(insertMembership: InsertMembership): Promise<Membership> {
-    const id = randomUUID();
-    const membership: Membership = { 
-      customerId: insertMembership.customerId,
-      type: insertMembership.type,
-      balance: insertMembership.balance ?? 0,
-      totalPurchased: insertMembership.totalPurchased ?? 0,
-      expiryDate: insertMembership.expiryDate || null,
-      isActive: insertMembership.isActive ?? true,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.memberships.set(id, membership);
-    return membership;
+  async createMembership(membership: InsertMembership): Promise<Membership> {
+    const result = await db.insert(memberships).values(membership).returning();
+    return result[0];
   }
 
-  async updateMembership(id: string, updates: Partial<InsertMembership>): Promise<Membership | undefined> {
-    const membership = this.memberships.get(id);
-    if (!membership) return undefined;
-    
-    const updated = { 
-      ...membership, 
-      ...updates, 
-      updatedAt: new Date() 
-    };
-    this.memberships.set(id, updated);
-    return updated;
+  async updateMembership(id: string, membership: Partial<InsertMembership>): Promise<Membership | undefined> {
+    const result = await db
+      .update(memberships)
+      .set({ ...membership, updatedAt: new Date() })
+      .where(eq(memberships.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteMembership(id: string): Promise<void> {
-    this.memberships.delete(id);
+    await db.delete(memberships).where(eq(memberships.id, id));
   }
 
   async deductSession(membershipId: string): Promise<{ success: boolean; newBalance: number; membership?: Membership }> {
-    const membership = this.memberships.get(membershipId);
+    const membership = await this.getMembership(membershipId);
     
     if (!membership) {
       return { success: false, newBalance: 0 };
     }
 
-    // Check if has remaining balance
     if (membership.balance <= 0) {
-      return { success: false, newBalance: 0, membership };
+      return { success: false, newBalance: 0 };
     }
 
-    // Deduct one session
     const newBalance = membership.balance - 1;
-    const updatedMembership: Membership = {
-      ...membership,
-      balance: newBalance,
-      isActive: newBalance > 0, // Deactivate if balance reaches 0
-      updatedAt: new Date(),
-    };
+    const updatedMembership = await this.updateMembership(membershipId, { balance: newBalance });
 
-    this.memberships.set(membershipId, updatedMembership);
-    
-    return { 
-      success: true, 
-      newBalance, 
-      membership: updatedMembership 
+    return {
+      success: true,
+      newBalance,
+      membership: updatedMembership,
     };
   }
 
-  // Product operations - Using PostgreSQL
+  // ============================================================
+  // PRODUCT OPERATIONS
+  // ============================================================
+  
   async getProducts(): Promise<Product[]> {
-    const result = await db.select().from(productsTable);
-    return result as Product[];
+    return await db.select().from(products).orderBy(desc(products.createdAt));
   }
 
   async getProduct(id: string): Promise<Product | undefined> {
-    const result = await db.select().from(productsTable).where(eq(productsTable.id, id));
-    return result[0] as Product | undefined;
+    const result = await db.select().from(products).where(eq(products.id, id));
+    return result[0];
   }
 
-  async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const result = await db.insert(productsTable).values(insertProduct).returning();
-    return result[0] as Product;
+  async createProduct(product: InsertProduct): Promise<Product> {
+    const productData = {
+      ...product,
+      price: typeof product.price === 'number' ? product.price.toString() : product.price,
+      salePrice: product.salePrice 
+        ? (typeof product.salePrice === 'number' ? product.salePrice.toString() : product.salePrice)
+        : null,
+    };
+    const result = await db.insert(products).values(productData as any).returning();
+    return result[0];
   }
 
-  async updateProduct(id: string, updates: Partial<InsertProduct>): Promise<Product | undefined> {
-    const result = await db.update(productsTable)
-      .set(updates)
-      .where(eq(productsTable.id, id))
+  async updateProduct(id: string, product: Partial<InsertProduct>): Promise<Product | undefined> {
+    const productData = {
+      ...product,
+      price: product.price !== undefined 
+        ? (typeof product.price === 'number' ? product.price.toString() : product.price)
+        : undefined,
+      salePrice: product.salePrice !== undefined
+        ? (product.salePrice === null ? null : (typeof product.salePrice === 'number' ? product.salePrice.toString() : product.salePrice))
+        : undefined,
+      updatedAt: new Date(),
+    };
+    const result = await db
+      .update(products)
+      .set(productData as any)
+      .where(eq(products.id, id))
       .returning();
-    return result[0] as Product | undefined;
+    return result[0];
   }
 
   async deleteProduct(id: string): Promise<void> {
-    await db.delete(productsTable).where(eq(productsTable.id, id));
+    await db.delete(products).where(eq(products.id, id));
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
-    const result = await db.select().from(productsTable).where(eq(productsTable.category, category));
-    return result as Product[];
+    return await db
+      .select()
+      .from(products)
+      .where(eq(products.category, category))
+      .orderBy(desc(products.createdAt));
   }
 
-  // Transaction operations
+  // ============================================================
+  // TRANSACTION OPERATIONS
+  // ============================================================
+  
   async getTransactions(): Promise<Transaction[]> {
-    return Array.from(this.transactions.values());
+    return await db.select().from(transactions).orderBy(desc(transactions.createdAt));
   }
 
   async getTransaction(id: string): Promise<Transaction | undefined> {
-    return this.transactions.get(id);
+    const result = await db.select().from(transactions).where(eq(transactions.id, id));
+    return result[0];
   }
 
   async getTransactionsByCustomer(customerId: string): Promise<Transaction[]> {
-    return Array.from(this.transactions.values()).filter(
-      (transaction) => transaction.customerId === customerId
-    );
+    return await db
+      .select()
+      .from(transactions)
+      .where(eq(transactions.customerId, customerId))
+      .orderBy(desc(transactions.createdAt));
   }
 
-  async createTransaction(insertTransaction: InsertTransaction): Promise<Transaction> {
-    const id = randomUUID();
-    const transaction: Transaction = { 
-      customerId: insertTransaction.customerId,
-      type: insertTransaction.type,
-      amount: insertTransaction.amount,
-      currency: insertTransaction.currency ?? "ILS",
-      status: insertTransaction.status,
-      paymentMethod: insertTransaction.paymentMethod || null,
-      cardcomTransactionId: insertTransaction.cardcomTransactionId || null,
-      metadata: insertTransaction.metadata || null,
-      id,
-      createdAt: new Date()
-    };
-    this.transactions.set(id, transaction);
-    return transaction;
+  async createTransaction(transaction: InsertTransaction): Promise<Transaction> {
+    const result = await db.insert(transactions).values(transaction).returning();
+    return result[0];
   }
 
-  async updateTransaction(id: string, updates: Partial<InsertTransaction>): Promise<Transaction | undefined> {
-    const transaction = this.transactions.get(id);
-    if (!transaction) return undefined;
-    
-    const updated = { ...transaction, ...updates };
-    this.transactions.set(id, updated);
-    return updated;
+  async updateTransaction(id: string, transaction: Partial<InsertTransaction>): Promise<Transaction | undefined> {
+    const result = await db
+      .update(transactions)
+      .set(transaction)
+      .where(eq(transactions.id, id))
+      .returning();
+    return result[0];
   }
 
-  // Automation Settings operations
+  // ============================================================
+  // DOOR ACCESS LOG OPERATIONS
+  // ============================================================
+  
+  async getDoorAccessLogs(limit: number = 100): Promise<DoorAccessLog[]> {
+    return await db
+      .select()
+      .from(doorAccessLogs)
+      .orderBy(desc(doorAccessLogs.createdAt))
+      .limit(limit);
+  }
+
+  async getDoorAccessLogsByDoor(doorId: string, limit: number = 100): Promise<DoorAccessLog[]> {
+    return await db
+      .select()
+      .from(doorAccessLogs)
+      .where(eq(doorAccessLogs.doorId, doorId))
+      .orderBy(desc(doorAccessLogs.createdAt))
+      .limit(limit);
+  }
+
+  async createDoorAccessLog(log: InsertDoorAccessLog): Promise<DoorAccessLog> {
+    const result = await db.insert(doorAccessLogs).values(log).returning();
+    return result[0];
+  }
+
+  // ============================================================
+  // AUTOMATION SETTINGS OPERATIONS
+  // ============================================================
+  
   async getAutomationSettings(): Promise<AutomationSetting[]> {
-    return Array.from(this.automationSettings.values());
+    return await db.select().from(automationSettings);
   }
 
   async getAutomationSetting(settingKey: string): Promise<AutomationSetting | undefined> {
-    return this.automationSettings.get(settingKey);
+    const result = await db
+      .select()
+      .from(automationSettings)
+      .where(eq(automationSettings.settingKey, settingKey));
+    return result[0];
   }
 
-  async createAutomationSetting(insertSetting: InsertAutomationSetting): Promise<AutomationSetting> {
-    const id = randomUUID();
-    const setting: AutomationSetting = {
-      ...insertSetting,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.automationSettings.set(insertSetting.settingKey, setting);
-    return setting;
+  async createAutomationSetting(setting: InsertAutomationSetting): Promise<AutomationSetting> {
+    const result = await db.insert(automationSettings).values(setting).returning();
+    return result[0];
   }
 
-  async updateAutomationSetting(settingKey: string, updates: Partial<InsertAutomationSetting>): Promise<AutomationSetting | undefined> {
-    const setting = this.automationSettings.get(settingKey);
-    if (!setting) return undefined;
-    
-    const updated = {
-      ...setting,
-      ...updates,
-      updatedAt: new Date()
-    };
-    this.automationSettings.set(settingKey, updated);
-    return updated;
+  async updateAutomationSetting(
+    settingKey: string,
+    setting: Partial<InsertAutomationSetting>
+  ): Promise<AutomationSetting | undefined> {
+    const result = await db
+      .update(automationSettings)
+      .set({ ...setting, updatedAt: new Date() })
+      .where(eq(automationSettings.settingKey, settingKey))
+      .returning();
+    return result[0];
   }
 
-  // Campaign operations
+  // ============================================================
+  // CAMPAIGN OPERATIONS
+  // ============================================================
+  
   async getCampaigns(): Promise<Campaign[]> {
-    return Array.from(this.campaigns.values());
+    return await db.select().from(campaigns).orderBy(desc(campaigns.createdAt));
   }
 
   async getCampaignsByPlatform(platform: string): Promise<Campaign[]> {
-    return Array.from(this.campaigns.values()).filter(c => c.platform === platform);
+    return await db
+      .select()
+      .from(campaigns)
+      .where(eq(campaigns.platform, platform))
+      .orderBy(desc(campaigns.createdAt));
   }
 
   async getCampaign(id: string): Promise<Campaign | undefined> {
-    return this.campaigns.get(id);
+    const result = await db.select().from(campaigns).where(eq(campaigns.id, id));
+    return result[0];
   }
 
-  async createCampaign(insertCampaign: InsertCampaign): Promise<Campaign> {
-    const id = randomUUID();
-    const campaign: Campaign = {
-      ...insertCampaign,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.campaigns.set(id, campaign);
-    return campaign;
+  async createCampaign(campaign: InsertCampaign): Promise<Campaign> {
+    const result = await db.insert(campaigns).values(campaign).returning();
+    return result[0];
   }
 
-  async updateCampaign(id: string, updates: Partial<InsertCampaign>): Promise<Campaign | undefined> {
-    const campaign = this.campaigns.get(id);
-    if (!campaign) return undefined;
-    
-    const updated = {
-      ...campaign,
-      ...updates,
-      updatedAt: new Date()
-    };
-    this.campaigns.set(id, updated);
-    return updated;
+  async updateCampaign(id: string, campaign: Partial<InsertCampaign>): Promise<Campaign | undefined> {
+    const result = await db
+      .update(campaigns)
+      .set({ ...campaign, updatedAt: new Date() })
+      .where(eq(campaigns.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteCampaign(id: string): Promise<void> {
-    this.campaigns.delete(id);
+    await db.delete(campaigns).where(eq(campaigns.id, id));
   }
 
-  // AdSet operations
+  // ============================================================
+  // AD SET OPERATIONS
+  // ============================================================
+  
   async getAdSets(): Promise<AdSet[]> {
-    return Array.from(this.adSets.values());
+    return await db.select().from(adSets).orderBy(desc(adSets.createdAt));
   }
 
   async getAdSetsByCampaign(campaignId: string): Promise<AdSet[]> {
-    return Array.from(this.adSets.values()).filter(a => a.campaignId === campaignId);
+    return await db
+      .select()
+      .from(adSets)
+      .where(eq(adSets.campaignId, campaignId))
+      .orderBy(desc(adSets.createdAt));
   }
 
   async getAdSet(id: string): Promise<AdSet | undefined> {
-    return this.adSets.get(id);
+    const result = await db.select().from(adSets).where(eq(adSets.id, id));
+    return result[0];
   }
 
-  async createAdSet(insertAdSet: InsertAdSet): Promise<AdSet> {
-    const id = randomUUID();
-    const adSet: AdSet = {
-      ...insertAdSet,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.adSets.set(id, adSet);
-    return adSet;
+  async createAdSet(adSet: InsertAdSet): Promise<AdSet> {
+    const result = await db.insert(adSets).values(adSet).returning();
+    return result[0];
   }
 
-  async updateAdSet(id: string, updates: Partial<InsertAdSet>): Promise<AdSet | undefined> {
-    const adSet = this.adSets.get(id);
-    if (!adSet) return undefined;
-    
-    const updated = {
-      ...adSet,
-      ...updates,
-      updatedAt: new Date()
-    };
-    this.adSets.set(id, updated);
-    return updated;
+  async updateAdSet(id: string, adSet: Partial<InsertAdSet>): Promise<AdSet | undefined> {
+    const result = await db
+      .update(adSets)
+      .set({ ...adSet, updatedAt: new Date() })
+      .where(eq(adSets.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteAdSet(id: string): Promise<void> {
-    this.adSets.delete(id);
+    await db.delete(adSets).where(eq(adSets.id, id));
   }
 
-  // Ad operations
+  // ============================================================
+  // AD OPERATIONS
+  // ============================================================
+  
   async getAds(): Promise<Ad[]> {
-    return Array.from(this.ads.values());
+    return await db.select().from(ads).orderBy(desc(ads.createdAt));
   }
 
   async getAdsByAdSet(adSetId: string): Promise<Ad[]> {
-    return Array.from(this.ads.values()).filter(a => a.adSetId === adSetId);
+    return await db
+      .select()
+      .from(ads)
+      .where(eq(ads.adSetId, adSetId))
+      .orderBy(desc(ads.createdAt));
   }
 
   async getAd(id: string): Promise<Ad | undefined> {
-    return this.ads.get(id);
+    const result = await db.select().from(ads).where(eq(ads.id, id));
+    return result[0];
   }
 
-  async createAd(insertAd: InsertAd): Promise<Ad> {
-    const id = randomUUID();
-    const ad: Ad = {
-      ...insertAd,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.ads.set(id, ad);
-    return ad;
+  async createAd(ad: InsertAd): Promise<Ad> {
+    const result = await db.insert(ads).values(ad).returning();
+    return result[0];
   }
 
-  async updateAd(id: string, updates: Partial<InsertAd>): Promise<Ad | undefined> {
-    const ad = this.ads.get(id);
-    if (!ad) return undefined;
-    
-    const updated = {
-      ...ad,
-      ...updates,
-      updatedAt: new Date()
-    };
-    this.ads.set(id, updated);
-    return updated;
+  async updateAd(id: string, ad: Partial<InsertAd>): Promise<Ad | undefined> {
+    const result = await db
+      .update(ads)
+      .set({ ...ad, updatedAt: new Date() })
+      .where(eq(ads.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteAd(id: string): Promise<void> {
-    this.ads.delete(id);
+    await db.delete(ads).where(eq(ads.id, id));
   }
 
-  // Content Queue operations
+  // ============================================================
+  // CONTENT QUEUE OPERATIONS
+  // ============================================================
+  
   async getContentQueue(): Promise<ContentQueue[]> {
-    return Array.from(this.contentQueue.values());
+    return await db.select().from(contentQueue).orderBy(desc(contentQueue.createdAt));
   }
 
   async getContentQueueByStatus(status: string): Promise<ContentQueue[]> {
-    return Array.from(this.contentQueue.values()).filter(c => c.status === status);
+    return await db
+      .select()
+      .from(contentQueue)
+      .where(eq(contentQueue.status, status))
+      .orderBy(desc(contentQueue.createdAt));
   }
 
   async getContentQueueByPlatform(platform: string): Promise<ContentQueue[]> {
-    return Array.from(this.contentQueue.values()).filter(c => c.platform === platform);
+    return await db
+      .select()
+      .from(contentQueue)
+      .where(eq(contentQueue.platform, platform))
+      .orderBy(desc(contentQueue.createdAt));
   }
 
   async getContentQueueItem(id: string): Promise<ContentQueue | undefined> {
-    return this.contentQueue.get(id);
+    const result = await db.select().from(contentQueue).where(eq(contentQueue.id, id));
+    return result[0];
   }
 
-  async createContentQueueItem(insertItem: InsertContentQueue): Promise<ContentQueue> {
-    const id = randomUUID();
-    const item: ContentQueue = {
-      ...insertItem,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.contentQueue.set(id, item);
-    return item;
+  async createContentQueueItem(item: InsertContentQueue): Promise<ContentQueue> {
+    const result = await db.insert(contentQueue).values(item).returning();
+    return result[0];
   }
 
-  async updateContentQueueItem(id: string, updates: Partial<InsertContentQueue>): Promise<ContentQueue | undefined> {
-    const item = this.contentQueue.get(id);
-    if (!item) return undefined;
-    
-    const updated = {
-      ...item,
-      ...updates,
-      updatedAt: new Date()
-    };
-    this.contentQueue.set(id, updated);
-    return updated;
+  async updateContentQueueItem(id: string, item: Partial<InsertContentQueue>): Promise<ContentQueue | undefined> {
+    const result = await db
+      .update(contentQueue)
+      .set({ ...item, updatedAt: new Date() })
+      .where(eq(contentQueue.id, id))
+      .returning();
+    return result[0];
   }
 
   async deleteContentQueueItem(id: string): Promise<void> {
-    this.contentQueue.delete(id);
+    await db.delete(contentQueue).where(eq(contentQueue.id, id));
   }
 
-  // Automation Log operations
-  async getAutomationLogs(limit?: number): Promise<AutomationLog[]> {
-    const logs = [...this.automationLogs].sort((a, b) => 
-      b.timestamp.getTime() - a.timestamp.getTime()
-    );
-    return limit ? logs.slice(0, limit) : logs;
+  // ============================================================
+  // AUTOMATION LOG OPERATIONS
+  // ============================================================
+  
+  async getAutomationLogs(limit: number = 100): Promise<AutomationLog[]> {
+    return await db
+      .select()
+      .from(automationLogs)
+      .orderBy(desc(automationLogs.timestamp))
+      .limit(limit);
   }
 
-  async getAutomationLogsByPlatform(platform: string, limit?: number): Promise<AutomationLog[]> {
-    const logs = this.automationLogs
-      .filter(l => l.platform === platform)
-      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
-    return limit ? logs.slice(0, limit) : logs;
+  async getAutomationLogsByPlatform(platform: string, limit: number = 100): Promise<AutomationLog[]> {
+    return await db
+      .select()
+      .from(automationLogs)
+      .where(eq(automationLogs.platform, platform))
+      .orderBy(desc(automationLogs.timestamp))
+      .limit(limit);
   }
 
   async getAutomationLogsByEntity(entity: string, entityId: string): Promise<AutomationLog[]> {
-    return this.automationLogs
-      .filter(l => l.entity === entity && l.entityId === entityId)
-      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+    return await db
+      .select()
+      .from(automationLogs)
+      .where(sql`${automationLogs.entity} = ${entity} AND ${automationLogs.entityId} = ${entityId}`)
+      .orderBy(desc(automationLogs.timestamp));
   }
 
-  async createAutomationLog(insertLog: InsertAutomationLog): Promise<AutomationLog> {
-    const id = randomUUID();
-    const log: AutomationLog = {
-      ...insertLog,
-      id,
-      timestamp: insertLog.timestamp || new Date()
-    };
-    this.automationLogs.push(log);
-    
-    // Keep only last 10000 logs in memory
-    if (this.automationLogs.length > 10000) {
-      this.automationLogs = this.automationLogs.slice(-10000);
-    }
-    
-    return log;
+  async createAutomationLog(log: InsertAutomationLog): Promise<AutomationLog> {
+    const result = await db.insert(automationLogs).values(log).returning();
+    return result[0];
   }
 
-  // Door Access Log operations
-  async getDoorAccessLogs(limit?: number): Promise<DoorAccessLog[]> {
-    const logs = [...this.doorAccessLogs].sort((a, b) => 
-      b.createdAt.getTime() - a.createdAt.getTime()
-    );
-    return limit ? logs.slice(0, limit) : logs;
-  }
-
-  async getDoorAccessLogsByDoor(doorId: string, limit?: number): Promise<DoorAccessLog[]> {
-    const logs = this.doorAccessLogs
-      .filter(l => l.doorId === doorId)
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    return limit ? logs.slice(0, limit) : logs;
-  }
-
-  async createDoorAccessLog(insertLog: InsertDoorAccessLog): Promise<DoorAccessLog> {
-    const id = randomUUID();
-    const log: DoorAccessLog = {
-      ...insertLog,
-      id,
-      createdAt: new Date()
-    };
-    this.doorAccessLogs.push(log);
-    
-    // Keep only last 5000 logs in memory
-    if (this.doorAccessLogs.length > 5000) {
-      this.doorAccessLogs = this.doorAccessLogs.slice(-5000);
-    }
-    
-    return log;
-  }
-
-  // Health Form operations
+  // ============================================================
+  // HEALTH FORM OPERATIONS
+  // ============================================================
+  
   async getHealthFormByCustomer(customerId: string): Promise<HealthForm | undefined> {
-    return undefined; // MemStorage not implemented - use DBStorage
+    const result = await db
+      .select()
+      .from(healthForms)
+      .where(eq(healthForms.customerId, customerId))
+      .orderBy(desc(healthForms.createdAt))
+      .limit(1);
+    return result[0];
   }
 
   async createHealthForm(form: InsertHealthForm): Promise<HealthForm> {
-    throw new Error("MemStorage not supported for health forms - use DBStorage");
+    const result = await db.insert(healthForms).values(form).returning();
+    return result[0];
   }
 
-  // Session Usage operations
+  // ============================================================
+  // SESSION USAGE OPERATIONS
+  // ============================================================
+  
   async getSessionUsageByCustomer(customerId: string): Promise<SessionUsage[]> {
-    return []; // MemStorage not implemented - use DBStorage
+    return await db
+      .select()
+      .from(sessionUsage)
+      .where(eq(sessionUsage.customerId, customerId))
+      .orderBy(desc(sessionUsage.createdAt));
   }
 
   async getSessionUsageByMembership(membershipId: string): Promise<SessionUsage[]> {
-    return []; // MemStorage not implemented - use DBStorage
+    return await db
+      .select()
+      .from(sessionUsage)
+      .where(eq(sessionUsage.membershipId, membershipId))
+      .orderBy(desc(sessionUsage.createdAt));
   }
 
   async createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage> {
-    throw new Error("MemStorage not supported for session usage - use DBStorage");
+    const result = await db.insert(sessionUsage).values(usage).returning();
+    return result[0];
   }
 }
 
-export const storage = new MemStorage();
+// Export PostgresStorage as the default storage implementation
+export const storage = new PostgresStorage();
