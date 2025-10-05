@@ -2,15 +2,33 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { bioStarStartup } from "./services/biostar-startup";
+import { doorHealthHandler, doorOpenHandler } from "./biostar";
 
 const app = express();
+app.get("/api/biostar/debug", (req, res) => {
+  res.json({
+    BIOSTAR_SERVER_URL: process.env.BIOSTAR_SERVER_URL,
+    BIOSTAR_USERNAME: process.env.BIOSTAR_USERNAME,
+    BIOSTAR_LOGIN_ID: process.env.BIOSTAR_LOGIN_ID,
+    BIOSTAR_PASSWORD: process.env.BIOSTAR_PASSWORD ? "***set***" : "(missing)",
+    DOOR_ID: process.env.DOOR_ID || process.env.BIOSTAR_DOOR_ID || null,
+  });
+});
 
-// Raw body middleware for WhatsApp webhook signature verification
+
+// ===== Raw body middleware for WhatsApp webhook signature verification =====
 app.use('/api/webhooks/whatsapp', express.raw({ type: 'application/json' }));
 
-// JSON middleware for all other routes
+// ===== JSON middleware for all other routes =====
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// ===== BioStar routes (אחרי ה-middlewares, לפני שאר הראוטים) =====
+app.get("/api/door/health", doorHealthHandler);
+app.get("/api/door/open",   doorOpenHandler);
+
+// מכאן ממשיכים שאר הדברים (registerRoutes/serveStatic/setupVite/app.listen וכו')
+
 
 app.use((req, res, next) => {
   const start = Date.now();
