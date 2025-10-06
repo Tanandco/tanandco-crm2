@@ -1,10 +1,10 @@
 // server/biostar.ts
 import type { RequestHandler } from "express";
 
-// ===== ENV =====
-export const BASE  = (process.env.BIOSTAR_SERVER_URL ?? "").replace(/\/+$/,"");
-export const USER  = process.env.BIOSTAR_USERNAME ?? "";
-export const PASS  = process.env.BIOSTAR_PASSWORD ?? "";
+// ========= ENV =========
+export const BASE = (process.env.BIOSTAR_SERVER_URL ?? "").replace(/\/+$/, "");
+export const USER = process.env.BIOSTAR_USERNAME ?? "";
+export const PASS = process.env.BIOSTAR_PASSWORD ?? "";
 export const DEFAULT_DOOR_ID =
   Number(process.env.BIOSTAR_DOOR_ID ?? 0) || undefined;
 
@@ -15,12 +15,19 @@ function requireEnv(): string | null {
   return null;
 }
 
+const UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123 Safari/537.36";
+const ORI = BASE;
+const REF = BASE.replace(/\/+$/, "") + "/";
+
 function commonHeaders() {
   return {
     Accept: "application/json",
     "X-Requested-With": "XMLHttpRequest",
-    "User-Agent": "TanCo/Server",
-  };
+    "User-Agent": UA,
+    Origin: ORI,
+    Referer: REF,
+  } as Record<string, string>;
 }
 
 function apiHeadersWithSID(sid: string) {
@@ -30,7 +37,7 @@ function apiHeadersWithSID(sid: string) {
     "be-session-id": sid,
     "bs-session-id": sid,
     Cookie: cookie,
-  };
+  } as Record<string, string>;
 }
 
 function sidFromHeaders(h: Headers): string | null {
@@ -38,15 +45,13 @@ function sidFromHeaders(h: Headers): string | null {
   if (d) return d;
   const sc = h.get("set-cookie");
   if (sc) {
-    const m = sc.match(
-      /(?:^|;|\s)(?:be-session-id|bs-session-id)=([^;]+)/i
-    );
+    const m = sc.match(/(?:^|;|\s)(?:be-session-id|bs-session-id)=([^;]+)/i);
     if (m) return m[1];
   }
   return null;
 }
 
-// ---- LOGIN (v1 -> v2 fallback) ----
+// ======== AUTH (v1 -> v2 fallback) ========
 async function loginV1(): Promise<string> {
   const url = `${BASE}/api/login`;
   const body = JSON.stringify({ User: { login_id: USER, password: PASS } });
@@ -88,57 +93,124 @@ async function login(): Promise<string> {
   }
 }
 
-async function whoami(sid: string): Promise<any | null> {
+type DoorLite = { id: string; name?: string; entryDeviceId?: string };
+
+async function listDoors(sid: string, trace: any[]): Promise<DoorLite[]> {
   const H = apiHeadersWithSID(sid);
-  const paths = [
-    "/api/users/me",
-    "/api/v2/users/me",
-    "/be/api/users/me",
-    "/bs/api/users/me",
-  ];
-  for (const p of paths) {
-    try {
-      const r = await fetch(`${BASE}${p}`, { headers: H });
-      if (r.ok) return await r.json();
-    } catch {}
+  const url = `${BASE}/api/doors`;
+  try {
+    const r = await fetch(url, { headers: H });
+    const txt = await r.text();
+    trace.push({ step: "GET /api/doors", status: r.status, body: cut(txt) });
+    if (!r.ok) return [];
+    const j = JSON.parse(txt);
+    const rows: any[] =
+      j?.DoorCollection?.rows ??
+      j?.DoorCollection ??
+      (Array.isArray(j) ? j : []);
+    const out: DoorLite[] = [];
+    for (const row of rows) {
+      const id =
+        row?.id?.toString() ??
+        row?.door_id?.toString() ??
+        row?.idx?.toString();
+      if (!id) continue;
+      const name =
+        row?.name ?? row?.door_name ?? row?.text ?? row?.label ?? undefined;
+      const entryDeviceId =
+        row?.entry_device_id?.id?.toString() ??
+        row?.device_id?.toString() ??
+        undefined;
+      out.push({ id, name, entryDeviceId });
+    }
+    return out;
+  } catch (e: any) {
+    trace.push({ step: "GET /api/doors", error: String(e) });
+    return [];
   }
-  return null;
+}
+
+function cut(s: string, n = 220) {
+  return (s || "").slice(0, n);
+}
+
+async function tryPost(
+  url: string,
+  H: Record<string, string>,
+  body: string | undefined,
+  ct: "json" | "form" | null,
+  trace: any[]
+) {
+  const headers = { ...H };
+  if (ct === "json") headers["Content-Type"] = "application/json";
+  if (ct === "form") headers["Content-Type"] = "application/x-www-form-urlencoded";
+  const r = await fetch(url, { method: "POST", headers, body });
+  const txt = await r.text();
+  trace.push({ step: `POST ${new URL(url).pathname}${new URL(url).search}`, status: r.status, body: cut(txt) });
+  return { ok: r.ok && /"code"\s*:\s*"0"/.test(txt), status: r.status, txt };
 }
 
 async function openDoorInternal(
+  sid: string,
   doorId: number,
-  sid: string
-): Promise<{ ok: boolean; endpoint?: string | null; status?: number; body?: string }> {
+  entryDeviceId: string | undefined,
+  trace: any[]
+) {
   const H = apiHeadersWithSID(sid);
-  const candidates = [
-    { url: `/api/doors/${doorId}/open`, json: false, body: "" },
-    { url: `/api/v2/doors/${doorId}/open`, json: false, body: "" },
-    { url: `/be/api/doors/${doorId}/open`, json: false, body: "" },
-    { url: `/bs/api/doors/${doorId}/open`, json: false, body: "" },
+  const idStr = String(doorId);
 
-    { url: `/api/doors/open`, json: true, body: JSON.stringify({ ids: [doorId] }) },
-    { url: `/api/v2/doors/open`, json: true, body: JSON.stringify({ ids: [doorId] }) },
-    { url: `/be/api/doors/open`, json: true, body: JSON.stringify({ ids: [doorId] }) },
-    { url: `/bs/api/doors/open`, json: true, body: JSON.stringify({ ids: [doorId] }) },
+  // 1) endpoints על דלת יחידה
+  const singlePaths = [
+    `/api/doors/${idStr}/open`,
+    `/api/doors/${idStr}/unlock`,
+    `/api/doors/${idStr}/unlatch`,
+    `/api/v2/doors/${idStr}/open`,
+    `/api/v2/doors/${idStr}/unlock`,
+    `/api/v2/doors/${idStr}/unlatch`,
   ];
 
-  for (const c of candidates) {
-    const headers: Record<string, string> = { ...H };
-    if (c.json) headers["Content-Type"] = "application/json";
-    try {
-      const r = await fetch(`${BASE}${c.url}`, {
-        method: "POST",
-        headers,
-        body: c.body,
-      });
-      const txt = await r.text();
-      if (r.ok) return { ok: true, endpoint: c.url, status: r.status, body: txt };
-    } catch {}
+  for (const p of singlePaths) {
+    const r = await tryPost(`${BASE}${p}`, H, "", null, trace);
+    if (r.ok) return { ok: true, endpoint: p, status: r.status, body: r.txt };
   }
+
+  // 2) endpoints על מערך דלתות (payload שונים)
+  const bulk = [
+    { p: "/api/doors/open", ct: "json", body: JSON.stringify({ ids: [doorId] }) },
+    { p: "/api/doors/open", ct: "json", body: JSON.stringify({ door_ids: [doorId] }) },
+    { p: "/api/doors/open", ct: "json", body: JSON.stringify({ id: [doorId] }) },
+    { p: "/api/doors/open", ct: "json", body: JSON.stringify({ DoorCollection: { rows: [{ id: idStr }] } }) },
+    { p: "/api/doors/open", ct: "form", body: `ids=${encodeURIComponent(idStr)}` },
+    { p: "/api/door/open", ct: "json", body: JSON.stringify({ id: doorId }) }, // צורה סינגולרית
+    { p: "/api/v2/doors/open", ct: "json", body: JSON.stringify({ ids: [doorId] }) },
+    { p: "/api/v2/doors/unlock", ct: "json", body: JSON.stringify({ ids: [doorId] }) },
+  ] as const;
+
+  for (const b of bulk) {
+    const r = await tryPost(`${BASE}${b.p}`, H, b.body, b.ct, trace);
+    if (r.ok) return { ok: true, endpoint: b.p, status: r.status, body: r.txt };
+  }
+
+  // 3) ניסיון דרך ממסרים של הבקר (relay) אם יש לנו device id
+  if (entryDeviceId) {
+    const dev = encodeURIComponent(entryDeviceId);
+    const relayPaths = [
+      { p: `/api/devices/${dev}/relays/0/trigger`, ct: "json", body: JSON.stringify({}) },
+      { p: `/api/devices/${dev}/relays/0/on`, ct: null, body: "" },
+      { p: `/api/devices/${dev}/relays/0/pulse`, ct: "json", body: JSON.stringify({ duration: 3000 }) },
+      { p: `/api/v2/devices/${dev}/relays/0/trigger`, ct: "json", body: JSON.stringify({}) },
+      { p: `/api/v2/devices/${dev}/relays/0/pulse`, ct: "json", body: JSON.stringify({ duration: 3000 }) },
+    ] as const;
+    for (const rp of relayPaths) {
+      const r = await tryPost(`${BASE}${rp.p}`, H, rp.body, rp.ct, trace);
+      if (r.ok) return { ok: true, endpoint: rp.p, status: r.status, body: r.txt };
+    }
+  }
+
   return { ok: false, endpoint: null, status: 500, body: "all endpoints failed" };
 }
 
-// ===== Express Handlers =====
+// ====== Express Handlers ======
 export const doorHealthHandler: RequestHandler = (req, res) => {
   const err = requireEnv();
   res.json({
@@ -157,19 +229,28 @@ export const doorOpenHandler: RequestHandler = async (req, res) => {
 
   const q = (req.query.doorId as string) ?? "";
   const doorId = Number(q || DEFAULT_DOOR_ID);
-  if (!doorId)
-    return res.status(400).json({ ok: false, error: "doorId missing (query ?doorId= or env BIOSTAR_DOOR_ID)" });
+  if (!doorId) {
+    return res.status(400).json({
+      ok: false,
+      error: "doorId missing (query ?doorId= or env BIOSTAR_DOOR_ID)",
+    });
+  }
 
+  const trace: any[] = [];
   try {
     const sid = await login();
-    const me = await whoami(sid);
-    const out = await openDoorInternal(doorId, sid);
-    return res.status(out.ok ? 200 : 500).json({
-      ...out,
-      user: me?.User?.login_id,
-      role: me?.User?.role?.name,
-    });
+    // נשלוף רשימת דלתות כדי להשיג deviceId אם יש:
+    const doors = await listDoors(sid, trace);
+    const d = doors.find((x) => x.id === String(doorId));
+    const entryDev = d?.entryDeviceId;
+
+    const out = await openDoorInternal(sid, doorId, entryDev, trace);
+    return res
+      .status(out.ok ? 200 : 500)
+      .json({ ...out, trace, door: d || null });
   } catch (err: any) {
-    return res.status(500).json({ ok: false, error: String(err?.message || err) });
+    trace.push({ step: "exception", error: String(err?.message || err) });
+    return res.status(500).json({ ok: false, error: String(err?.message || err), trace });
   }
 };
+

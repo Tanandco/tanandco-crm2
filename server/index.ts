@@ -1,66 +1,60 @@
-import express, { type Request, Response, NextFunction } from "express";
+// server/index.ts
+import express, { type Request, type Response, type NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { setupVite, serveStatic } from "./vite";
 import { bioStarStartup } from "./services/biostar-startup";
 import { doorHealthHandler, doorOpenHandler } from "./biostar";
 
+// ====== יצירת אפליקציית אקספרס ======
 const app = express();
-app.get("/api/biostar/debug", (req, res) => {
+
+// ====== ראוטים קטנים לדיבאג (אופציונלי אבל שימושי) ======
+app.get("/api/biostar/debug", (req: Request, res: Response) => {
   res.json({
     BIOSTAR_SERVER_URL: process.env.BIOSTAR_SERVER_URL,
     BIOSTAR_USERNAME: process.env.BIOSTAR_USERNAME,
-    BIOSTAR_LOGIN_ID: process.env.BIOSTAR_LOGIN_ID,
     BIOSTAR_PASSWORD: process.env.BIOSTAR_PASSWORD ? "***set***" : "(missing)",
-    DOOR_ID: process.env.DOOR_ID || process.env.BIOSTAR_DOOR_ID || null,
+    DOOR_ID: process.env.BIOSTAR_DOOR_ID || process.env.DOOR_ID || null,
   });
 });
 
+// ====== raw body ל-WhatsApp (אם צריך חתימת webhook) ======
+app.use("/api/webhooks/whatsapp", express.raw({ type: "application/json" }));
 
-// ===== Raw body middleware for WhatsApp webhook signature verification =====
-app.use('/api/webhooks/whatsapp', express.raw({ type: 'application/json' }));
-
-// ===== JSON middleware for all other routes =====
+// ====== JSON/URLENCODED לכל שאר הראוטים ======
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// ===== BioStar routes (אחרי ה-middlewares, לפני שאר הראוטים) =====
-app.get("/api/door/health", doorHealthHandler);
-app.get("/api/door/open",   doorOpenHandler);
+// ====== BioStar routes (לשים לפני שאר ה-middlewares/Routes) ======
+app.get("/api/biostar/health", doorHealthHandler);
+// שני נתיבים לפתיחת דלת (alias זהים):
+app.all("/api/biostar/open", doorOpenHandler);
+app.all("/api/door/open", doorOpenHandler);
 
-// מכאן ממשיכים שאר הדברים (registerRoutes/serveStatic/setupVite/app.listen וכו')
-
-
-app.use((req, res, next) => {
+// ====== לוג/מדידות פשוטים (לא חובה) ======
+app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
-  const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
+  const { path, method } = req;
+  const original = res.json;
+  let bodyJson: unknown;
+  (res as any).json = function (b: unknown, ...args: unknown[]) {
+    bodyJson = b;
+    return (original as any).apply(res, [b, ...args]);
   };
-
   res.on("finish", () => {
-    const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
+    if (path.startsWith("/api/")) {
+      const ms = Date.now() - start;
+      console.log(`${method} ${path} ${res.statusCode} in ${ms}ms`, bodyJson ? "" : "");
     }
   });
-
   next();
 });
 
-(async () => {
+// ====== רישום ראוטים אחרים של המערכת ======
+registerRoutes(app);
+
+// ====== הפעלת Vite/סטטי לפי סביבת העבודה ======
+async function start() {
   // Initialize BioStar connection
   try {
     console.log('Starting BioStar initialization...');
@@ -69,28 +63,29 @@ app.use((req, res, next) => {
     console.error('BioStar initialization failed, continuing without facial recognition:', error);
   }
 
-  registerRoutes(app);
+  const isProd = process.env.NODE_ENV === "production";
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  const port = parseInt(process.env.PORT || '5000', 10);
-  const server = app.listen(port, "127.0.0.1", () => {
-    log(`serving on port ${port} (localhost only - secure mode)`);
-    console.log('[Security] Server bound to localhost (127.0.0.1) only - door control endpoints protected');
-  });
-  
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
+  if (isProd) {
+    // ב־production מגישים קבצים סטטיים (דרוש build של ה-client)
+    try {
+      serveStatic(app);
+      console.log("[static] serving built client (production)");
+    } catch (e: any) {
+      console.warn("[static] skipping serveStatic:", e?.message || e);
+    }
   } else {
-    serveStatic(app);
+    // ב־development מריצים Vite middleware – לא צריך תיקיית build
+    await setupVite(app);
+    console.log("[vite] dev middleware attached");
   }
-})();
+
+  const PORT = Number(process.env.PORT || 5000);
+  app.listen(PORT, () => {
+    console.log(`[express] serving on port ${PORT} (${isProd ? "production" : "localhost only - secure mode"})`);
+  });
+}
+
+start().catch((err) => {
+  console.error("Fatal start error:", err);
+  process.exit(1);
+});
