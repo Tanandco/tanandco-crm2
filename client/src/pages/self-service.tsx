@@ -317,8 +317,8 @@ export default function SelfService() {
         </section>
 
         {/* HYBRID MODEL TEXT */}
-        <div className="max-w-5xl mx-auto px-6 text-center py-8">
-          <div className="space-y-6">
+        <div className="max-w-5xl mx-auto px-6 text-center py-4 pb-6">
+          <div className="space-y-4">
             <p className="text-white/95 text-lg leading-relaxed">
               <span className="text-[hsl(var(--primary))] font-bold">טאן אנד קו</span> מובילה את המהפכה הבאה של תעשיית היופי עם <span className="text-[hsl(var(--primary))] font-semibold">המודל ההיברידי-אוטונומי הראשון מסוגו</span>: שירותים בטכנולוגיה פורצת דרך, באוטומציה מלאה, 24/7 – וללא תלות בכוח אדם.
             </p>
@@ -338,7 +338,7 @@ export default function SelfService() {
         </div>
 
         {/* FOOTER WITH ALIN */}
-        <footer className="border-t border-[hsl(var(--border))] py-3 flex-shrink-0">
+        <footer className="border-t border-[hsl(var(--border))] py-2 flex-shrink-0 mt-auto">
           <div className="max-w-6xl mx-auto px-3">
             <div className="flex items-center gap-1">
               {/* Alin Avatar */}
