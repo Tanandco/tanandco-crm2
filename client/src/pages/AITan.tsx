@@ -277,11 +277,55 @@ export default function AITan() {
 
             {/* תצוגת הצבע הנבחר */}
             {selectedTanShade && (
-              <div className="text-center p-6 bg-black/50 rounded-xl border border-[hsla(var(--primary)/0.3)]">
+              <div className="group text-center p-8 bg-black/50 hover:bg-transparent rounded-xl border border-[hsla(var(--primary)/0.3)] hover:border-transparent transition-all duration-300">
                 <div
-                  className="w-32 h-32 rounded-full mx-auto mb-4 neon-glow shadow-[0_8px_20px_rgba(0,0,0,.4)]"
-                  style={{ backgroundColor: selectedTanShade.color }}
-                />
+                  className="w-32 h-32 rounded-full mx-auto mb-4 relative transition-all duration-300 group-hover:scale-125 group-hover:shadow-[0_0_60px_rgba(255,255,255,0.8),0_0_100px_rgba(236,72,153,0.6)]"
+                  style={{ 
+                    background: `
+                      radial-gradient(circle at 30% 30%, 
+                        rgba(255,255,255,0.4) 0%, 
+                        transparent 50%
+                      ),
+                      linear-gradient(145deg, 
+                        ${selectedTanShade.color}ff 0%, 
+                        ${selectedTanShade.color}cc 40%,
+                        ${selectedTanShade.color}99 70%,
+                        ${selectedTanShade.color}66 100%
+                      ),
+                      repeating-linear-gradient(
+                        45deg,
+                        transparent,
+                        transparent 2px,
+                        ${selectedTanShade.color}22 2px,
+                        ${selectedTanShade.color}22 4px
+                      )
+                    `,
+                    boxShadow: `
+                      inset -4px -4px 12px rgba(0,0,0,0.5),
+                      inset 4px 4px 12px rgba(255,255,255,0.3),
+                      inset -1px -1px 3px rgba(0,0,0,0.8),
+                      inset 1px 1px 3px rgba(255,255,255,0.5),
+                      0 6px 16px rgba(0,0,0,0.6),
+                      0 2px 4px rgba(255,255,255,0.3)
+                    `
+                  }}
+                >
+                  {/* Glass shine effect on hover */}
+                  <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      background: `
+                        linear-gradient(135deg,
+                          rgba(255,255,255,0.9) 0%,
+                          rgba(255,255,255,0.6) 20%,
+                          transparent 40%,
+                          rgba(236,72,153,0.3) 60%,
+                          rgba(236,72,153,0.6) 100%
+                        )
+                      `,
+                      backdropFilter: 'blur(8px)'
+                    }}
+                  />
+                </div>
                 <div className="text-xl font-bold text-[hsl(var(--cardText))]">{selectedTanShade.name}</div>
               </div>
             )}
@@ -305,20 +349,65 @@ export default function AITan() {
                 }}
                 onMouseMove={handleRippleMove}
                 className={`
-                  ripple p-3 rounded-xl transition-all duration-150 ease-in-out
+                  group ripple p-4 rounded-xl transition-all duration-300 ease-in-out overflow-visible
                   bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                  hover:from-transparent hover:via-transparent hover:to-transparent
                   ${selectedTanShade?.id === shade.id
                     ? "border-2 border-[hsl(var(--primary))] shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.4)] scale-110"
-                    : "border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)]"
+                    : "border border-[hsla(var(--primary)/0.6)] hover:border-transparent shadow-[0_8px_20px_rgba(0,0,0,.4)]"
                   }
-                  hover:scale-105 active:scale-100 backdrop-blur-sm
+                  hover:scale-105 active:scale-100 backdrop-blur-sm hover:backdrop-blur-none
                 `}
                 data-testid={`button-tanshade-${shade.id}`}
               >
                 <div
-                  className="w-16 h-16 rounded-full mx-auto mb-2 shadow-lg"
-                  style={{ backgroundColor: shade.color }}
-                />
+                  className="w-16 h-16 rounded-full mx-auto mb-2 relative transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_60px_rgba(255,255,255,0.8),0_0_100px_rgba(236,72,153,0.6)]"
+                  style={{ 
+                    background: `
+                      radial-gradient(circle at 30% 30%, 
+                        rgba(255,255,255,0.4) 0%, 
+                        transparent 50%
+                      ),
+                      linear-gradient(145deg, 
+                        ${shade.color}ff 0%, 
+                        ${shade.color}cc 40%,
+                        ${shade.color}99 70%,
+                        ${shade.color}66 100%
+                      ),
+                      repeating-linear-gradient(
+                        45deg,
+                        transparent,
+                        transparent 2px,
+                        ${shade.color}22 2px,
+                        ${shade.color}22 4px
+                      )
+                    `,
+                    boxShadow: `
+                      inset -4px -4px 12px rgba(0,0,0,0.5),
+                      inset 4px 4px 12px rgba(255,255,255,0.3),
+                      inset -1px -1px 3px rgba(0,0,0,0.8),
+                      inset 1px 1px 3px rgba(255,255,255,0.5),
+                      0 6px 16px rgba(0,0,0,0.6),
+                      0 2px 4px rgba(255,255,255,0.3)
+                    `
+                  }}
+                >
+                  {/* Glass shine effect on hover */}
+                  <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      background: `
+                        linear-gradient(135deg,
+                          rgba(255,255,255,0.9) 0%,
+                          rgba(255,255,255,0.6) 20%,
+                          transparent 40%,
+                          rgba(236,72,153,0.3) 60%,
+                          rgba(236,72,153,0.6) 100%
+                        )
+                      `,
+                      backdropFilter: 'blur(8px)'
+                    }}
+                  />
+                </div>
                 <div className="text-xs text-center text-[hsl(var(--cardText))] font-semibold">
                   {shade.name}
                 </div>
