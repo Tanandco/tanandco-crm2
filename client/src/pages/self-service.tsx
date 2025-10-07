@@ -324,7 +324,7 @@ export default function SelfService() {
               >
                 <div className="flex flex-col items-center justify-center">
                   <img src={storeIcon} alt="החנות שלכם" className="w-24 h-24 mb-2 neon-glow object-contain" />
-                  <div className="text-sm font-bold tracking-tight mt-1">החנות שלכם</div>
+                  <div className="text-sm font-bold tracking-tight mt-3">החנות שלכם</div>
                 </div>
               </a>
 
