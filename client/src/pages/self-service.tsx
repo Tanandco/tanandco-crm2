@@ -116,10 +116,36 @@ export default function SelfService() {
           );
         }
 
+        /* Alin floating bubble animation */
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 3s ease-in-out infinite;
+        }
+
+        /* Text bubble slide in animation */
+        @keyframes slide-in-left {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        .animate-slide-in-left {
+          animation: slide-in-left 0.6s ease-out forwards;
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
           .animate-glow-pulse,
-          .fade-out {
+          .fade-out,
+          .animate-bounce-slow,
+          .animate-slide-in-left {
             animation: none !important;
           }
         }
@@ -315,26 +341,29 @@ export default function SelfService() {
         </section>
 
         {/* FOOTER WITH ALIN */}
-        <footer className="border-t border-[hsl(var(--border))] py-2 flex-shrink-0">
-          <div className="max-w-6xl mx-auto px-3 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <div className="relative rounded-full overflow-hidden w-9 h-9 neon-glow shrink-0">
-                <Alin size={36} />
-              </div>
-              <div className="flex-1">
-                <h4 className="text-[10px] font-semibold text-[hsl(var(--primary))]">אלין - AI</h4>
-                <p className="text-white/80 text-[9px]">זמין/ה 24/7</p>
+        <footer className="border-t border-[hsl(var(--border))] py-3 flex-shrink-0">
+          <div className="max-w-6xl mx-auto px-3">
+            <div className="flex items-center gap-3">
+              {/* Alin Floating Bubble */}
+              <a
+                href="https://wa.me/972557247033"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative shrink-0 group"
+                data-testid="button-chat-with-alin"
+              >
+                <div className="relative rounded-full overflow-hidden w-16 h-16 neon-glow border-2 border-[hsl(var(--primary))]/60 bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent backdrop-blur-sm animate-bounce-slow hover:scale-110 transition-transform">
+                  <Alin size={64} />
+                </div>
+              </a>
+              
+              {/* Flowing Text Bubble */}
+              <div className="relative flex-1 bg-gradient-to-r from-[hsl(var(--primary))]/20 to-transparent border border-[hsl(var(--primary))]/40 rounded-2xl rounded-tr-sm p-3 backdrop-blur-sm animate-slide-in-left">
+                <p className="text-white/90 text-sm">
+                  היי אני אלין אשמח לעזור לכם בכל מה שתצטרכו
+                </p>
               </div>
             </div>
-            <a
-              href="https://wa.me/972557247033"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 py-1.5 rounded-lg bg-[hsl(var(--primary))] text-black text-[10px] font-semibold hover:opacity-90 transition-opacity"
-              data-testid="button-chat-with-alin"
-            >
-              דברו עם אלין
-            </a>
           </div>
         </footer>
       </main>
