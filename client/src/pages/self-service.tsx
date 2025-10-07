@@ -221,6 +221,12 @@ export default function SelfService() {
         <section className="relative overflow-hidden py-2">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-[hsla(var(--primary)/0.05)]" />
           <div className="relative max-w-6xl mx-auto px-3 text-center">
+            <Logo 
+              className="mx-auto mb-2"
+              size="medium"
+              showGlow={true}
+              showUnderline={false}
+            />
             <h2 className="text-base md:text-lg font-extrabold leading-tight">
               המודל ההיברידי של תעשיית השיזוף - העולם של המחר
             </h2>
