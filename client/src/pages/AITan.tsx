@@ -170,14 +170,22 @@ export default function AITan() {
                 </div>
               </div>
               <div className="flex-1 space-y-3">
-                <h3 className="text-lg font-bold text-[hsl(var(--cardText))]">איך זה עובד?</h3>
+                <h3 className="text-lg font-bold text-[hsl(var(--cardText))]">רוצה שיזוף מושלם? צלמ/י תמונה!</h3>
                 <p className="text-sm text-white/80 leading-relaxed">
-                  למען התאמה מדויקת של גוון השיזוף, מומלץ <span className="text-[hsl(var(--primary))] font-semibold">לצלם תמונה של העור שלך</span> באור טבעי. 
-                  זה יעזור לנו להתאים את רמת השיזוף בצורה מושלמת למראה העור האמיתי שלך.
+                  <span className="text-[hsl(var(--primary))] font-semibold">תמונה אחת של העור = תוצאה מדויקת פי 10</span>
+                  <br/>
+                  AI TAN ינתח את גוון העור האמיתי שלך ויציע את רמת השיזוף שתיראה הכי טבעית וזוהרת עליך. 
+                  בלי ניחושים, בלי טעויות - רק התאמה אישית מבוססת מדע.
                 </p>
-                <div className="flex items-center gap-2 text-xs text-white/60">
-                  <Sparkles className="w-4 h-4 text-[hsl(var(--primary))]" />
-                  <span>AI TAN ינתח את גוון העור ויציע את ההתאמה האידיאלית</span>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="flex items-center gap-2 text-white/70">
+                    <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
+                    <span>ניתוח AI מדויק</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/70">
+                    <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
+                    <span>התאמה אישית לעור שלך</span>
+                  </div>
                 </div>
               </div>
             </div>
