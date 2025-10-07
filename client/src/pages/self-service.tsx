@@ -173,8 +173,7 @@ export default function SelfService() {
       {/* NAVIGATION BAR */}
       <nav className="sticky top-0 z-40 backdrop-blur-xl bg-black/70 border-b border-[hsl(var(--border))]">
         <div className="max-w-6xl mx-auto px-3 py-1.5 flex items-center gap-2">
-          <Logo size="small" showGlow={false} showUnderline={false} />
-          <ul className="mr-auto flex gap-2 text-xs">
+          <ul className="flex gap-2 text-xs">
             <li>
               <a href="#services" className="hover:text-[hsl(var(--primary))] transition-colors">
                 שירותים
