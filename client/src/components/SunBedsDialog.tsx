@@ -188,7 +188,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 onClick={option.onClick}
                 className="
                   group relative h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px]
-                  bg-gradient-to-br from-gray-900 via-black to-gray-800
+                  bg-black
                   border hover:border-2
                   rounded-md
                   flex flex-col items-center justify-between pb-4
