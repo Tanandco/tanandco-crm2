@@ -1,25 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
-import { Home, Settings, Hand } from 'lucide-react';
+import { Home, Settings } from 'lucide-react';
 import Logo from '@/components/Logo';
 import Alin from '@/components/Alin';
 import SunBedsDialog from '@/components/SunBedsDialog';
 import SprayTanDialog from '@/components/SprayTanDialog';
 import HairSalonDialog from '@/components/HairSalonDialog';
 import CosmeticsDialog from '@/components/CosmeticsDialog';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
 import tanningBedIcon from '@assets/עיצוב ללא שם (30)_1759413689481.png';
 import sprayTanIcon from '@assets/freepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717_1759413070782.png';
 import hairSalonIcon from '@assets/freepik__3d-neon-pink-icon-of-a-hair-salon-symbol-stylized-__47719_1759413079154.png';
 import cosmeticsIcon from '@assets/עיצוב ללא שם (31)_1759413948155.png';
 import storeIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759413103497.png';
 import selfServiceIcon from '@assets/עיצוב ללא שם (32)_1759414540774.png';
-
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
 export default function SelfService() {
   const [, navigate] = useLocation();
@@ -66,34 +59,6 @@ export default function SelfService() {
     e.currentTarget.style.setProperty('--x', `${x}px`);
     e.currentTarget.style.setProperty('--y', `${y}px`);
   };
-
-  const infoSlides = [
-    {
-      title: "מודל Hybrid",
-      content: "שירות עצמי או ליווי מלא",
-      icon: "🔄"
-    },
-    {
-      title: "זמינות 24/7",
-      content: "כניסה בזיהוי פנים",
-      icon: "🕐"
-    },
-    {
-      title: "שעות פעילות",
-      content: "א׳–ה׳ 10:00–19:00",
-      icon: "📅"
-    },
-    {
-      title: "אלין - AI",
-      content: "זמין/ה 24/7",
-      icon: "🤖"
-    },
-    {
-      title: "סביבה בטוחה",
-      content: "מערכות מתקדמות",
-      icon: "🔒"
-    }
-  ];
 
   return (
     <div 
@@ -151,95 +116,10 @@ export default function SelfService() {
           );
         }
 
-        /* 3D Carousel Styles */
-        @keyframes flow-gradient {
-          0% { background-position: 0% 0%; }
-          100% { background-position: 200% 200%; }
-        }
-
-        .info-carousel .swiper-slide {
-          width: 220px !important;
-          height: 140px !important;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 16px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, 
-            rgba(236, 72, 153, 0.2) 0%,
-            rgba(168, 85, 247, 0.15) 50%,
-            rgba(236, 72, 153, 0.1) 100%);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(236, 72, 153, 0.6);
-          box-shadow: 
-            0 8px 16px rgba(0, 0, 0, 0.3),
-            0 16px 32px rgba(236, 72, 153, 0.3),
-            0 0 60px rgba(236, 72, 153, 0.1);
-          position: relative;
-          transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
-          overflow: visible;
-          transform: translateY(0) rotateX(0deg);
-          transform-style: preserve-3d;
-          perspective: 1000px;
-        }
-
-        .info-carousel .swiper-slide::before {
-          content: '';
-          position: absolute;
-          inset: -2px;
-          border-radius: 12px;
-          padding: 2px;
-          background: linear-gradient(
-            135deg,
-            rgba(236, 72, 153, 0.8),
-            rgba(168, 85, 247, 0.6),
-            rgba(139, 92, 246, 0.8),
-            rgba(236, 72, 153, 0.6),
-            rgba(168, 85, 247, 0.8)
-          );
-          background-size: 200% 200%;
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          z-index: -1;
-          animation: flow-gradient 4s linear infinite;
-          opacity: 0.7;
-        }
-
-        .info-carousel .swiper-slide-active {
-          background: linear-gradient(135deg, 
-            rgba(236, 72, 153, 0.3) 0%,
-            rgba(168, 85, 247, 0.2) 50%,
-            rgba(236, 72, 153, 0.15) 100%);
-          backdrop-filter: blur(16px);
-          box-shadow: 
-            0 16px 32px rgba(0, 0, 0, 0.5),
-            0 24px 48px rgba(236, 72, 153, 0.5),
-            0 0 80px rgba(236, 72, 153, 0.3);
-          transform: translateY(-6px) scale(1.05) rotateX(2deg);
-          border-color: rgba(236, 72, 153, 0.8);
-        }
-
-        .info-carousel .swiper-button-next,
-        .info-carousel .swiper-button-prev {
-          background: rgba(0, 0, 0, 0.4);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: rgba(236, 72, 153, 0.9);
-        }
-
-        .info-carousel .swiper-button-next::after,
-        .info-carousel .swiper-button-prev::after {
-          content: '';
-        }
-
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
           .animate-glow-pulse,
-          .fade-out,
-          .info-carousel .swiper-slide::before {
+          .fade-out {
             animation: none !important;
           }
         }
@@ -429,55 +309,50 @@ export default function SelfService() {
           </div>
         </section>
 
-        {/* 3D INFO CAROUSEL */}
-        <section id="info" className="relative py-2 flex-1 min-h-0">
-          <div className="max-w-6xl mx-auto px-3 h-full flex flex-col">
-            <h2 className="text-base md:text-lg font-bold mb-2 text-center text-[hsl(var(--primary))]">
-              מידע חשוב
-            </h2>
-            <div className="flex-1 min-h-0 relative">
-              <button className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-black/60 transition-colors swiper-button-prev-custom">
-                <Hand size={20} className="text-[hsl(var(--primary))] rotate-90" />
-              </button>
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/40 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-black/60 transition-colors swiper-button-next-custom">
-                <Hand size={20} className="text-[hsl(var(--primary))] -rotate-90" />
-              </button>
-              <Swiper
-                effect={'coverflow'}
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView={'auto'}
-                initialSlide={2}
-                loop={true}
-                coverflowEffect={{
-                  rotate: 20,
-                  stretch: 0,
-                  depth: 200,
-                  modifier: 1.5,
-                  slideShadows: true,
-                }}
-                navigation={{
-                  nextEl: '.swiper-button-next-custom',
-                  prevEl: '.swiper-button-prev-custom',
-                }}
-                modules={[EffectCoverflow, Navigation]}
-                className="info-carousel h-full"
-                dir="rtl"
-              >
-                {infoSlides.map((slide, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="text-center">
-                      <div className="text-3xl mb-2">{slide.icon}</div>
-                      <h3 className="text-base font-bold text-[hsl(var(--primary))] mb-1.5">
-                        {slide.title}
-                      </h3>
-                      <p className="text-white/80 text-xs">
-                        {slide.content}
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+        {/* WELCOME MESSAGE */}
+        <section id="info" className="relative py-3 flex-1 min-h-0">
+          <div className="max-w-4xl mx-auto px-4 h-full flex flex-col justify-center">
+            <div className="text-center space-y-3">
+              <h2 className="text-lg font-bold text-[hsl(var(--primary))] neon-glow">
+                ברוכים הבאים לעולם המחר של השיזוף
+              </h2>
+              
+              <p className="text-white/90 text-sm leading-relaxed">
+                אנחנו מובילים את מודל ה־Hybrid: חופש לבחור בין <span className="text-[hsl(var(--primary))] font-semibold">שירות עצמי חכם</span> לשירות מלא ע״י <span className="text-[hsl(var(--primary))] font-semibold">צוות מקצועי</span> — באותה רמת דיוק, בכל פעם.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                <div className="bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent border border-[hsl(var(--primary))]/30 rounded-lg p-3 backdrop-blur-sm">
+                  <h3 className="text-[hsl(var(--primary))] font-bold text-sm mb-1">🔓 חופש בחירה מלא</h3>
+                  <p className="text-white/80 text-xs">הרשמה ופעולה עצמאית בשעות הפעילות, עם ליווי זמין של צוות מקצועי</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent border border-[hsl(var(--primary))]/30 rounded-lg p-3 backdrop-blur-sm">
+                  <h3 className="text-[hsl(var(--primary))] font-bold text-sm mb-1">👥 או שירות מלא</h3>
+                  <p className="text-white/80 text-xs">איש/אשת צוות מנוסה מלווה אתכם מקצה לקצה</p>
+                </div>
+              </div>
+
+              <div className="bg-black/40 border border-[hsl(var(--primary))]/40 rounded-lg p-3 backdrop-blur-sm">
+                <p className="text-white/90 font-semibold text-sm mb-2">✨ ללא תיאום מראש. ללא תורים.</p>
+                
+                <div className="space-y-1.5 text-xs text-white/80">
+                  <p>🌙 <span className="text-[hsl(var(--primary))]">כניסה עצמאית בכל שעה</span> של היום ובלילה*</p>
+                  <p>⏰ מיטות שיזוף זמינות <span className="text-[hsl(var(--primary))]">24/7</span> ללקוחות הבוטיק</p>
+                  <p>🔐 לאחר שעות הפעילות — כניסה ע״י <span className="text-[hsl(var(--primary))]">מערכת זיהוי פנים</span> מתקדמת*</p>
+                  <p>🛡️ סביבה נקייה, בטוחה ומקצועית</p>
+                  <p>💬 שירות לקוחות זמין 24/7</p>
+                </div>
+
+                <div className="mt-3 pt-2 border-t border-white/20">
+                  <p className="text-[hsl(var(--primary))] font-bold text-xs mb-1">⏰ שעות פעילות:</p>
+                  <p className="text-white/70 text-[10px]">
+                    א׳–ה׳ 10:00–19:00 · ו׳ 10:00–14:00 · שבת — סגור
+                    <br />
+                    <span className="text-white/50">* שירות עצמי לאחר שעות הפעילות</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
