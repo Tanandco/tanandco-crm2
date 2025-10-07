@@ -375,7 +375,7 @@ export default function SelfService() {
                 data-testid="button-chat-with-alin"
               >
                 <div className="relative rounded-full overflow-hidden w-24 h-24 neon-glow border-2 border-[hsl(var(--primary))]/60 bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent backdrop-blur-sm animate-bounce-slow hover:scale-110 transition-transform">
-                  <Alin size={96} />
+                  <Alin size={110} />
                 </div>
               </a>
               
