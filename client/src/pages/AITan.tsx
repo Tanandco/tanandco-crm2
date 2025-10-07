@@ -185,7 +185,7 @@ export default function AITan() {
                 data-testid={`button-skintone-${tone.id}`}
               >
                 <div
-                  className="w-20 h-20 rounded-full mx-auto mb-3 relative"
+                  className="w-20 h-20 rounded-full mx-auto mb-3 relative transition-all duration-200 group-hover:scale-110 group-hover:shadow-2xl"
                   style={{ 
                     background: `
                       linear-gradient(135deg, 
