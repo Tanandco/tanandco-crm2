@@ -422,8 +422,8 @@ export default function SelfService() {
                 data-testid="card-ai-tan"
               >
                 <div className="flex items-center justify-center w-full h-full">
-                  <div className="relative rounded-full overflow-hidden w-32 h-32 neon-glow">
-                    <Alin size={128} />
+                  <div className="relative rounded-full overflow-hidden w-36 h-36 neon-glow">
+                    <Alin size={144} />
                   </div>
                 </div>
               </a>
