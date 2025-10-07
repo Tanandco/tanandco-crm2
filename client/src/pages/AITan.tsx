@@ -252,81 +252,128 @@ export default function AITan() {
             בחר את רמת השיזוף הרצויה
           </h2>
 
-          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] rounded-xl p-6 backdrop-blur-sm shadow-[0_8px_20px_rgba(0,0,0,.4)]">
-            <div className="mb-6">
-              <Slider
-                value={[desiredShade]}
-                onValueChange={(value) => {
-                  const currentToneIndex = skinTones.findIndex((t) => t.id === skinTone) + 1;
-                  const minValue = Math.max(6, currentToneIndex);
-                  if (value[0] >= minValue) {
-                    setDesiredShade(value[0]);
-                  }
-                }}
-                max={13}
-                min={6}
-                step={1}
-                className="w-full"
-              />
-            </div>
-
-            <div className="flex justify-between text-sm text-white/60 mb-8">
-              <span>שיזוף בהיר</span>
-              <span>ברונזה עשירה</span>
+          <div className="grid md:grid-cols-2 gap-6 items-center">
+            {/* גרדיאנט אינטראקטיבי של רמות שיזוף */}
+            <div className="space-y-4">
+              <div className="flex justify-between text-sm text-white/60 px-2">
+                <span>בהיר</span>
+                <span>עמוק</span>
+              </div>
+              
+              <div className="relative h-20 rounded-xl overflow-hidden border border-[hsla(var(--primary)/0.6)] shadow-[0_8px_20px_rgba(0,0,0,.4)]">
+                {/* גרדיאנט רקע */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(to left, ${tanShades.map(s => s.color).join(', ')})`
+                  }}
+                />
+                
+                {/* עיגולים אינטראקטיביים על הגרדיאנט */}
+                <div className="absolute inset-0 flex items-center justify-around px-2">
+                  {tanShades.map((shade) => {
+                    const currentToneIndex = skinTones.findIndex((t) => t.id === skinTone) + 1;
+                    const minValue = Math.max(6, currentToneIndex);
+                    const isDisabled = shade.value < minValue;
+                    const isSelected = selectedTanShade?.id === shade.id;
+                    
+                    return (
+                      <button
+                        key={shade.id}
+                        onClick={() => {
+                          if (!isDisabled) {
+                            setSelectedTanShade(shade);
+                            setDesiredShade(shade.value);
+                          }
+                        }}
+                        disabled={isDisabled}
+                        className={`
+                          group relative transition-all duration-150
+                          ${isDisabled ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer hover:scale-125'}
+                          ${isSelected ? 'scale-150' : 'scale-100'}
+                        `}
+                        data-testid={`button-gradient-shade-${shade.id}`}
+                      >
+                        <div
+                          className={`
+                            w-8 h-8 rounded-full border-2 transition-all duration-150
+                            ${isSelected 
+                              ? 'border-white shadow-[0_0_20px_rgba(255,255,255,0.8),0_0_40px_rgba(236,72,153,0.6)]' 
+                              : 'border-white/40 hover:border-white group-hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]'
+                            }
+                          `}
+                          style={{ backgroundColor: shade.color }}
+                        />
+                        {isSelected && (
+                          <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-white neon-glow" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              
+              <div className="text-center text-xs text-white/50 px-2">
+                גע על הנקודה להתאמת רמת השיזוף
+              </div>
             </div>
 
             {/* תצוגת הצבע הנבחר */}
             {selectedTanShade && (
-              <div className="group text-center p-8 bg-black/50 hover:bg-transparent rounded-xl border border-[hsla(var(--primary)/0.3)] hover:border-transparent transition-all duration-300">
-                <div
-                  className="w-32 h-32 rounded-full mx-auto mb-4 relative transition-all duration-300 group-hover:scale-125 group-hover:shadow-[0_0_60px_rgba(255,255,255,0.8),0_0_100px_rgba(236,72,153,0.6)]"
-                  style={{ 
-                    background: `
-                      radial-gradient(circle at 30% 30%, 
-                        rgba(255,255,255,0.4) 0%, 
-                        transparent 50%
-                      ),
-                      linear-gradient(145deg, 
-                        ${selectedTanShade.color}ff 0%, 
-                        ${selectedTanShade.color}cc 40%,
-                        ${selectedTanShade.color}99 70%,
-                        ${selectedTanShade.color}66 100%
-                      ),
-                      repeating-linear-gradient(
-                        45deg,
-                        transparent,
-                        transparent 2px,
-                        ${selectedTanShade.color}22 2px,
-                        ${selectedTanShade.color}22 4px
-                      )
-                    `,
-                    boxShadow: `
-                      inset -4px -4px 12px rgba(0,0,0,0.5),
-                      inset 4px 4px 12px rgba(255,255,255,0.3),
-                      inset -1px -1px 3px rgba(0,0,0,0.8),
-                      inset 1px 1px 3px rgba(255,255,255,0.5),
-                      0 6px 16px rgba(0,0,0,0.6),
-                      0 2px 4px rgba(255,255,255,0.3)
-                    `
-                  }}
-                >
-                  {/* Glass shine effect on hover */}
-                  <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{
+              <div className="group text-center py-8">
+                {/* מעטפת לריחוף */}
+                <div className="mb-4" style={{ animation: 'levitate 3s ease-in-out infinite' }}>
+                  <div
+                    className="w-40 h-40 rounded-full mx-auto relative transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_60px_rgba(255,255,255,0.8),0_0_100px_rgba(236,72,153,0.6)] [animation:slow-spin_20s_linear_infinite] group-hover:[animation-play-state:paused]"
+                    style={{ 
                       background: `
-                        linear-gradient(135deg,
-                          rgba(255,255,255,0.9) 0%,
-                          rgba(255,255,255,0.6) 20%,
-                          transparent 40%,
-                          rgba(236,72,153,0.3) 60%,
-                          rgba(236,72,153,0.6) 100%
+                        radial-gradient(circle at 30% 30%, 
+                          rgba(255,255,255,0.4) 0%, 
+                          transparent 50%
+                        ),
+                        linear-gradient(145deg, 
+                          ${selectedTanShade.color}ff 0%, 
+                          ${selectedTanShade.color}cc 40%,
+                          ${selectedTanShade.color}99 70%,
+                          ${selectedTanShade.color}66 100%
+                        ),
+                        repeating-linear-gradient(
+                          45deg,
+                          transparent,
+                          transparent 2px,
+                          ${selectedTanShade.color}22 2px,
+                          ${selectedTanShade.color}22 4px
                         )
                       `,
-                      backdropFilter: 'blur(8px)'
+                      boxShadow: `
+                        inset -4px -4px 12px rgba(0,0,0,0.5),
+                        inset 4px 4px 12px rgba(255,255,255,0.3),
+                        inset -1px -1px 3px rgba(0,0,0,0.8),
+                        inset 1px 1px 3px rgba(255,255,255,0.5),
+                        0 6px 16px rgba(0,0,0,0.6),
+                        0 2px 4px rgba(255,255,255,0.3)
+                      `
                     }}
-                  />
+                  >
+                    {/* Glass shine effect on hover */}
+                    <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{
+                        background: `
+                          linear-gradient(135deg,
+                            rgba(255,255,255,0.9) 0%,
+                            rgba(255,255,255,0.6) 20%,
+                            transparent 40%,
+                            rgba(236,72,153,0.3) 60%,
+                            rgba(236,72,153,0.6) 100%
+                          )
+                        `,
+                        backdropFilter: 'blur(8px)'
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="text-xl font-bold text-[hsl(var(--cardText))]">{selectedTanShade.name}</div>
+                <div className="text-2xl font-bold text-[hsl(var(--cardText))] mb-1">{selectedTanShade.name}</div>
+                <div className="text-sm text-white/60">רמת השיזוף שנבחרה</div>
               </div>
             )}
           </div>
