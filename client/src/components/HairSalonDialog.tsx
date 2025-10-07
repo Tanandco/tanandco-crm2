@@ -93,7 +93,7 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
             >
               מספרה ועיצוב שיער - מעצבי שיער מקצועיים
             </h1>
-            <Sparkles className="w-10 h-10 text-amber-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
+            <Sparkles className="w-10 h-10 text-amber-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 1))' }} />
           </div>
           
           {/* Purple Neon Separator */}

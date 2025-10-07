@@ -65,7 +65,7 @@ export default function Services() {
               key={service.id}
               className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 hover:scale-105 transition-transform duration-300"
               style={{
-                borderColor: 'rgba(236, 72, 153, 0.6)',
+                borderColor: 'rgba(251, 146, 60, 0.6)',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
               }}
             >

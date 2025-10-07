@@ -104,8 +104,8 @@ export default function AITan() {
         /* Neon glow effect */
         .neon-glow {
           filter: drop-shadow(0 0 40px hsla(var(--primary)/0.40))
-                  drop-shadow(0 0 80px rgba(147,51,234,0.40))
-                  drop-shadow(0 0 20px rgba(255,105,180,0.50));
+                  drop-shadow(0 0 80px rgba(249,115,22,0.40))
+                  drop-shadow(0 0 20px rgba(245,158,11,0.50));
         }
 
         /* Glow pulse animation */

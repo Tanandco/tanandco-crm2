@@ -75,7 +75,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
       <DialogContent 
         className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col bg-gradient-to-br from-slate-950 via-black to-slate-900 border-amber-500/30"
         style={{
-          boxShadow: '0 0 60px rgba(236, 72, 153, 0.3)'
+          boxShadow: '0 0 60px rgba(251, 146, 60, 0.3)'
         }}
       >
         <DialogHeader className="border-b border-amber-500/20 pb-4">

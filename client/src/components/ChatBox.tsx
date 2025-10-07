@@ -86,7 +86,7 @@ export default function ChatBox({ open, onClose }: ChatBoxProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-96 h-[500px] z-50 flex flex-col bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 border border-[hsl(var(--primary))]/60 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,.6),0_0_80px_rgba(236,72,153,.3)] backdrop-blur-xl" dir="rtl">
+    <div className="fixed bottom-4 left-4 w-96 h-[500px] z-50 flex flex-col bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 border border-[hsl(var(--primary))]/60 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,.6),0_0_80px_rgba(251,146,60,.3)] backdrop-blur-xl" dir="rtl">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-[hsl(var(--primary))]/40">
         <div className="flex items-center gap-3">

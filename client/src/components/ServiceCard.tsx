@@ -25,14 +25,14 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
         ${className}
       `}
       style={{
-        borderColor: 'rgba(236, 72, 153, 0.6)',
+        borderColor: 'rgba(251, 146, 60, 0.6)',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
       }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
-      <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.9)]">
+      <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(251,146,60,0.9)]">
         {icon}
       </div>
       <span className="text-base md:text-lg font-medium text-white text-center font-hebrew px-2">

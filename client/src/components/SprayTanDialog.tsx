@@ -62,7 +62,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Pink/Purple Gradient Background */}
+      {/* Amber Gradient Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/30 via-amber-600/20 to-black opacity-90 backdrop-blur-sm" />
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-orange-600/10" />
@@ -86,7 +86,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
       <div className="absolute top-16 left-0 right-0 z-20">
         <div className="text-center space-y-4 px-4">
           <div className="flex items-center justify-center gap-3">
-            <Droplets className="w-12 h-12 text-amber-500" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
+            <Droplets className="w-12 h-12 text-amber-500" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 1))' }} />
             <h1 
               className="text-xl font-bold text-white font-varela tracking-wide" 
               style={{ fontFamily: "'Varela Round', sans-serif !important" }}
@@ -96,13 +96,13 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             <Sparkles className="w-10 h-10 text-purple-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 1))' }} />
           </div>
           
-          {/* Pink Neon Separator */}
+          {/* Amber Neon Separator */}
           <div className="relative py-1 flex justify-center">
             <div 
               className="w-1/2 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent animate-pulse" 
               style={{
-                filter: 'drop-shadow(0 0 16px rgba(255, 20, 147, 1)) drop-shadow(0 0 32px rgba(236, 72, 153, 1)) drop-shadow(0 0 48px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 64px rgba(255, 20, 147, 0.6))',
-                boxShadow: '0 0 35px rgba(255, 20, 147, 1), 0 0 60px rgba(236, 72, 153, 0.8), 0 0 80px rgba(255, 20, 147, 0.6), inset 0 0 20px rgba(255, 20, 147, 0.5)'
+                filter: 'drop-shadow(0 0 16px rgba(245, 158, 11, 1)) drop-shadow(0 0 32px rgba(251, 146, 60, 1)) drop-shadow(0 0 48px rgba(251, 146, 60, 0.8)) drop-shadow(0 0 64px rgba(245, 158, 11, 0.6))',
+                boxShadow: '0 0 35px rgba(245, 158, 11, 1), 0 0 60px rgba(251, 146, 60, 0.8), 0 0 80px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.5)'
               }}
             />
             <div className="absolute inset-0 flex justify-center">
@@ -136,11 +136,11 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                     overflow-visible
                   "
                   style={{
-                    borderColor: 'rgba(236, 72, 153, 0.6)',
+                    borderColor: 'rgba(251, 146, 60, 0.6)',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
                   data-testid={`spray-tan-action-${index}`}
                 >
                   <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110">
@@ -148,13 +148,13 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                       <img 
                         src={option.icon as string}
                         alt={option.title}
-                        className="w-24 h-24 object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                        className="w-24 h-24 object-contain group-hover:drop-shadow-[0_0_30px_rgba(251,146,60,1)]"
+                        style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }}
                       />
                     ) : option.iconType === 'lucide' ? (
                       <option.icon 
-                        className="w-20 h-20 text-amber-500 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                        className="w-20 h-20 text-amber-500 group-hover:drop-shadow-[0_0_30px_rgba(251,146,60,1)]"
+                        style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }}
                       />
                     ) : null}
                   </div>

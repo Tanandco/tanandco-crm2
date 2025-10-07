@@ -651,12 +651,12 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     `}
                     style={{
                       background: selectedPackageId === 'custom-tan'
-                        ? 'linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%)'
-                        : 'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(147, 51, 234, 0.1) 100%)',
-                      filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.3))',
+                        ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%)'
+                        : 'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(249, 115, 22, 0.1) 100%)',
+                      filter: 'drop-shadow(0 0 20px rgba(249, 115, 22, 0.3))',
                       boxShadow: selectedPackageId === 'custom-tan' 
-                        ? '0 0 40px rgba(147, 51, 234, 0.6), 0 0 80px rgba(147, 51, 234, 0.3), inset 0 0 20px rgba(147, 51, 234, 0.1)' 
-                        : '0 0 15px rgba(147, 51, 234, 0.2)'
+                        ? '0 0 40px rgba(249, 115, 22, 0.6), 0 0 80px rgba(249, 115, 22, 0.3), inset 0 0 20px rgba(249, 115, 22, 0.1)' 
+                        : '0 0 15px rgba(249, 115, 22, 0.2)'
                     }}
                     onClick={() => handleSelectPackage('custom-tan')}
                     data-testid="package-card-custom-tan"
@@ -665,8 +665,8 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     <div 
                       className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
                       style={{
-                        filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.8)) drop-shadow(0 0 20px rgba(147, 51, 234, 0.6))',
-                        boxShadow: '0 0 20px rgba(147, 51, 234, 0.8)'
+                        filter: 'drop-shadow(0 0 10px rgba(249, 115, 22, 0.8)) drop-shadow(0 0 20px rgba(249, 115, 22, 0.6))',
+                        boxShadow: '0 0 20px rgba(249, 115, 22, 0.8)'
                       }}
                     >
                       <Sparkles className="w-4 h-4" />
@@ -748,7 +748,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       }}
                       className="w-full h-7 text-xs transition-all duration-300 mt-auto text-white font-bold px-3 py-1.5 bg-gradient-to-r from-orange-600 to-orange-600 hover:from-orange-500 hover:to-purple-400 relative z-10"
                       style={{
-                        filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.7))'
+                        filter: 'drop-shadow(0 0 10px rgba(249, 115, 22, 0.7))'
                       }}
                       data-testid="button-select-package-custom-tan"
                     >

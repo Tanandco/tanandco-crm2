@@ -71,8 +71,8 @@ export default function SelfServiceDemo() {
         /* Neon glow effect */
         .neon-glow {
           filter: drop-shadow(0 0 40px hsla(var(--primary)/0.40))
-                  drop-shadow(0 0 80px rgba(147,51,234,0.40))
-                  drop-shadow(0 0 20px rgba(255,105,180,0.50));
+                  drop-shadow(0 0 80px rgba(249,115,22,0.40))
+                  drop-shadow(0 0 20px rgba(245,158,11,0.50));
         }
 
         /* Glow pulse animation */
@@ -135,7 +135,7 @@ export default function SelfServiceDemo() {
             />
             
             {/* Neon line under logo */}
-            <div className="mt-4 h-px w-64 mx-auto bg-gradient-to-r from-transparent via-[rgba(236,72,153,.6)] via-[rgba(147,51,234,.5)] to-transparent" />
+            <div className="mt-4 h-px w-64 mx-auto bg-gradient-to-r from-transparent via-[rgba(251,146,60,.6)] via-[rgba(249,115,22,.5)] to-transparent" />
 
             <h1 className="mt-6 text-3xl md:text-5xl font-extrabold">שירות עצמי 24/7</h1>
             <p className="mt-2 text-white/70">כניסה בזיהוי פנים · ללא תיאום מראש · צוות אנושי זמין</p>
@@ -235,7 +235,7 @@ export default function SelfServiceDemo() {
             <div className="flex gap-3 justify-center flex-wrap max-w-5xl mx-auto">
               {/* Sun Beds */}
               <button
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
                 onMouseMove={handleRippleMove}
                 data-testid="card-sun-beds"
               >
@@ -248,7 +248,7 @@ export default function SelfServiceDemo() {
 
               {/* Spray Tan */}
               <button
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
                 onMouseMove={handleRippleMove}
                 data-testid="card-spray-tan"
               >
@@ -261,7 +261,7 @@ export default function SelfServiceDemo() {
 
               {/* Hair Salon */}
               <button
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
                 onMouseMove={handleRippleMove}
                 data-testid="card-hair-salon"
               >
@@ -274,7 +274,7 @@ export default function SelfServiceDemo() {
 
               {/* Cosmetics */}
               <button
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm"
                 onMouseMove={handleRippleMove}
                 data-testid="card-cosmetics"
               >
@@ -288,7 +288,7 @@ export default function SelfServiceDemo() {
               {/* Store */}
               <a
                 href="/shop"
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center"
                 onMouseMove={handleRippleMove}
                 data-testid="card-store"
               >
@@ -304,7 +304,7 @@ export default function SelfServiceDemo() {
                 href="https://wa.me/972557247033"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center"
+                className="h-[160px] w-[150px] rounded-2xl p-4 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(251,146,60,.3)] transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center"
                 onMouseMove={handleRippleMove}
                 data-testid="card-ai-tan"
               >
@@ -345,7 +345,7 @@ export default function SelfServiceDemo() {
 
         {/* 24/7 AVAILABILITY */}
         <section className="max-w-6xl mx-auto px-6">
-          <div className="rounded-2xl p-6 bg-[hsl(var(--accent))] border border-[hsla(var(--primary)/0.6)] shadow-[0_0_60px_rgba(236,72,153,.3)]">
+          <div className="rounded-2xl p-6 bg-[hsl(var(--accent))] border border-[hsla(var(--primary)/0.6)] shadow-[0_0_60px_rgba(251,146,60,.3)]">
             <h3 className="text-xl font-semibold">זמינות 24/7 ללקוחות הבוטיק</h3>
             <p className="text-white/80 mt-2">
               לאחר שעות הפעילות — כניסה למתחם באמצעות מערכת זיהוי פנים מתקדמת*. סביבה נקייה, בטוחה ומקצועית.
@@ -386,7 +386,7 @@ export default function SelfServiceDemo() {
           <div className="w-full flex justify-center">
             <button
               onClick={() => navigate('/self-service')}
-              className="h-[80px] w-[280px] ripple relative overflow-hidden rounded-2xl border transition-all duration-300 ease-in-out border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] bg-gradient-to-br from-slate-800/80 to-slate-700/80 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,.4),0_0_60px_rgba(236,72,153,.30)] hover:scale-[1.02] active:scale-[0.99]"
+              className="h-[80px] w-[280px] ripple relative overflow-hidden rounded-2xl border transition-all duration-300 ease-in-out border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] bg-gradient-to-br from-slate-800/80 to-slate-700/80 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,.4),0_0_60px_rgba(251,146,60,.30)] hover:scale-[1.02] active:scale-[0.99]"
               onMouseMove={handleRippleMove}
               data-testid="button-cta-self-service"
             >
@@ -401,7 +401,7 @@ export default function SelfServiceDemo() {
 
       {/* FOOTER */}
       <footer className="border-t border-[hsl(var(--border))] py-8 text-center text-white/60 text-sm">
-        <div className="h-px w-72 mx-auto mb-4 bg-gradient-to-r from-transparent via-[rgba(236,72,153,.6)] via-[rgba(147,51,234,.5)] to-transparent" />
+        <div className="h-px w-72 mx-auto mb-4 bg-gradient-to-r from-transparent via-[rgba(251,146,60,.6)] via-[rgba(249,115,22,.5)] to-transparent" />
         © Tan & Co · עיצוב נאון · 24/7
       </footer>
     </div>

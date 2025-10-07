@@ -15,7 +15,7 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
         style={{
           width: `${size}px`,
           height: `${size}px`,
-          filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))'
+          filter: 'drop-shadow(0 0 15px rgba(251, 146, 60, 0.8))'
         }}
       />
     </div>
