@@ -319,7 +319,7 @@ export default function SelfService() {
         {/* HYBRID MODEL TEXT */}
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="text-white/90 text-lg leading-relaxed">
-            אנחנו מובילים את מודל ה־Hybrid: חופש לבחור בין <span className="text-[hsl(var(--primary))] font-semibold">שירות עצמי חכם</span> לשירות מלא ע״י <span className="text-[hsl(var(--primary))] font-semibold">צוות מקצועי</span> — באותה רמת דיוק, בכל פעם.
+            אנחנו מובילים את מודל ה־Hybrid: חופש לבחור בין <span className="text-[hsl(var(--primary))] font-semibold">שירות עצמי חכם</span> לשירות <span className="text-[hsl(var(--primary))] font-semibold">מלא ע״י צוות מקצועי</span>.
           </p>
         </div>
 
