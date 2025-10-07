@@ -181,21 +181,16 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
         {/* Service Fields - All in one row */}
         <div className="w-full max-w-6xl mx-auto px-4">
-          <div 
-            className="flex gap-2 justify-center flex-nowrap animate-scale-in bg-gradient-to-br from-gray-900 via-black to-gray-800 p-4 rounded-xl"
-            style={{
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)'
-            }}
-          >
+          <div className="flex gap-2 justify-center flex-nowrap animate-scale-in">
             {tanningOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={option.onClick}
                 className="
                   group relative h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px]
-                  bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                  bg-gradient-to-br from-gray-900 via-black to-gray-800
                   border hover:border-2
-                  rounded-md backdrop-blur-sm
+                  rounded-md
                   flex flex-col items-center justify-between pb-4
                   transition-all duration-300 ease-in-out
                   hover-elevate active-elevate-2
