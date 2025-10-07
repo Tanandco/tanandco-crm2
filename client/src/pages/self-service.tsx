@@ -140,6 +140,26 @@ export default function SelfService() {
           animation: slide-in-left 0.6s ease-out forwards;
         }
 
+        /* Typing animation */
+        @keyframes typing {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        @keyframes blink-caret {
+          from, to { border-color: transparent; }
+          50% { border-color: rgba(236, 72, 153, 0.8); }
+        }
+        .typing-effect {
+          overflow: hidden;
+          white-space: nowrap;
+          border-left: 3px solid rgba(236, 72, 153, 0.8);
+          animation: 
+            typing 2.5s steps(50, end) forwards,
+            blink-caret 0.75s step-end infinite;
+          animation-delay: 0.3s;
+          width: 0;
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
           .animate-glow-pulse,
@@ -343,7 +363,7 @@ export default function SelfService() {
         {/* FOOTER WITH ALIN */}
         <footer className="border-t border-[hsl(var(--border))] py-3 flex-shrink-0">
           <div className="max-w-6xl mx-auto px-3">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {/* Alin Floating Bubble */}
               <a
                 href="https://wa.me/972557247033"
@@ -352,14 +372,14 @@ export default function SelfService() {
                 className="relative shrink-0 group"
                 data-testid="button-chat-with-alin"
               >
-                <div className="relative rounded-full overflow-hidden w-16 h-16 neon-glow border-2 border-[hsl(var(--primary))]/60 bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent backdrop-blur-sm animate-bounce-slow hover:scale-110 transition-transform">
-                  <Alin size={64} />
+                <div className="relative rounded-full overflow-hidden w-24 h-24 neon-glow border-2 border-[hsl(var(--primary))]/60 bg-gradient-to-br from-[hsl(var(--primary))]/20 to-transparent backdrop-blur-sm animate-bounce-slow hover:scale-110 transition-transform">
+                  <Alin size={96} />
                 </div>
               </a>
               
-              {/* Flowing Text Bubble */}
+              {/* Flowing Text Bubble with Typing Effect */}
               <div className="relative flex-1 bg-gradient-to-r from-[hsl(var(--primary))]/20 to-transparent border border-[hsl(var(--primary))]/40 rounded-2xl rounded-tr-sm p-3 backdrop-blur-sm animate-slide-in-left">
-                <p className="text-white/90 text-sm">
+                <p className="text-white/90 text-sm typing-effect">
                   היי אני אלין אשמח לעזור לכם בכל מה שתצטרכו
                 </p>
               </div>
