@@ -308,12 +308,12 @@ export function FaceRecognition({
   return (
     <Card className={cn("bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2", className)}
           style={{
-            borderColor: 'rgba(251, 146, 60, 0.6)',
+            borderColor: 'rgba(236, 72, 153, 0.6)',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
           }}>
       <CardHeader className="pb-4">
         <CardTitle className="text-xl font-bold text-white text-center flex items-center justify-center gap-3">
-          <Camera className="h-6 w-6 text-amber-400" />
+          <Camera className="h-6 w-6 text-pink-400" />
           זיהוי פנים אוטומטי
         </CardTitle>
       </CardHeader>
@@ -391,7 +391,7 @@ export function FaceRecognition({
           <Button
             onClick={handleScan}
             disabled={scanState.status === 'scanning' || scanState.status === 'processing'}
-            className="flex-1 bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800"
+            className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
             data-testid="button-scan-face"
           >
             {scanState.status === 'scanning' || scanState.status === 'processing' ? (
@@ -411,7 +411,7 @@ export function FaceRecognition({
             <Button
               onClick={stopCamera}
               variant="outline"
-              className="border-amber-500/50 text-amber-400 hover:bg-amber-500/20"
+              className="border-pink-500/50 text-pink-400 hover:bg-pink-500/20"
               data-testid="button-stop-camera"
             >
               <Camera className="h-4 w-4 mr-2" />

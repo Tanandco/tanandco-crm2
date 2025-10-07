@@ -68,7 +68,7 @@ export default function PageLayout({
             data-testid="button-back-nav"
           >
             <ArrowRight 
-              className="text-white group-hover:text-amber-400 transition-colors duration-300" 
+              className="text-white group-hover:text-pink-400 transition-colors duration-300" 
               size={20}
               style={{
                 filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'
@@ -98,7 +98,7 @@ export default function PageLayout({
             data-testid="button-home-nav"
           >
             <Home 
-              className="text-white group-hover:text-amber-400 transition-colors duration-300" 
+              className="text-white group-hover:text-pink-400 transition-colors duration-300" 
               size={20}
               style={{
                 filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'

@@ -43,7 +43,7 @@ export default function NavigationBar({ currentPath = '/', onNavigate }: Navigat
                 flex flex-col items-center gap-1 p-3 min-w-[60px] h-auto
                 text-white hover:text-primary transition-all duration-300
                 ${isActive ? 'text-primary bg-primary/10' : ''}
-                ${item.label === 'אלין' ? 'text-amber-400 hover:text-amber-300' : ''}
+                ${item.label === 'אלין' ? 'text-pink-400 hover:text-pink-300' : ''}
                 hover-elevate active-elevate-2
               `}
               onClick={() => {

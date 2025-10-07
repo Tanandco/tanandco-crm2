@@ -73,12 +73,12 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col bg-gradient-to-br from-slate-950 via-black to-slate-900 border-amber-500/30"
+        className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col bg-gradient-to-br from-slate-950 via-black to-slate-900 border-pink-500/30"
         style={{
-          boxShadow: '0 0 60px rgba(251, 146, 60, 0.3)'
+          boxShadow: '0 0 60px rgba(236, 72, 153, 0.3)'
         }}
       >
-        <DialogHeader className="border-b border-amber-500/20 pb-4">
+        <DialogHeader className="border-b border-pink-500/20 pb-4">
           <DialogTitle className="text-2xl font-bold text-white text-right font-hebrew">
             חיפוש לקוח קיים
           </DialogTitle>
@@ -93,7 +93,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
               placeholder="חיפוש לפי שם, טלפון או מייל..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10 bg-slate-900/50 border-amber-500/30 text-white placeholder:text-gray-500 text-right"
+              className="pr-10 bg-slate-900/50 border-pink-500/30 text-white placeholder:text-gray-500 text-right"
               data-testid="input-search-customer"
             />
           </div>
@@ -118,15 +118,15 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
                       onClick={() => handleCustomerClick(customer)}
                       className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
                         selectedCustomerId === customer.id
-                          ? 'bg-amber-500/20 border-amber-500'
-                          : 'bg-slate-900/30 border-slate-700 hover:border-amber-500/50'
+                          ? 'bg-pink-500/20 border-pink-500'
+                          : 'bg-slate-900/30 border-slate-700 hover:border-pink-500/50'
                       }`}
                       data-testid={`customer-result-${customer.id}`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="space-y-2 flex-1">
                           <div className="flex items-center gap-2">
-                            <User className="w-5 h-5 text-amber-500" />
+                            <User className="w-5 h-5 text-pink-500" />
                             <span className="text-lg font-semibold text-white">{customer.fullName}</span>
                           </div>
                           
@@ -174,7 +174,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
 
           {/* Customer Details & Memberships */}
           {selectedCustomer && (
-            <div className="border-t border-amber-500/20 pt-6 space-y-4">
+            <div className="border-t border-pink-500/20 pt-6 space-y-4">
               <h3 className="text-xl font-bold text-white font-hebrew">מנויים פעילים</h3>
               
               {memberships.length === 0 ? (
@@ -213,7 +213,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
                           </div>
                           
                           <div className="mt-2 flex gap-4 text-sm text-gray-400">
-                            <span>יתרה: <span className="text-amber-400 font-semibold">{membership.balance}</span> כניסות</span>
+                            <span>יתרה: <span className="text-pink-400 font-semibold">{membership.balance}</span> כניסות</span>
                             <span>נרכשו: {membership.totalPurchased} כניסות</span>
                             {membership.expiryDate && (
                               <span>תוקף עד: {new Date(membership.expiryDate).toLocaleDateString('he-IL')}</span>
@@ -229,11 +229,11 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
           )}
         </div>
 
-        <div className="border-t border-amber-500/20 p-4 flex justify-center">
+        <div className="border-t border-pink-500/20 p-4 flex justify-center">
           <Button
             onClick={() => onOpenChange(false)}
             variant="outline"
-            className="bg-slate-900/50 border-amber-500/30 text-white hover:bg-amber-500/20"
+            className="bg-slate-900/50 border-pink-500/30 text-white hover:bg-pink-500/20"
             data-testid="button-close-search"
           >
             <X className="w-4 h-4 ml-2" />

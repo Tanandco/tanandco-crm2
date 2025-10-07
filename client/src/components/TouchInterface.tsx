@@ -35,27 +35,27 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   const services = [
     { 
       title: 'מיטות שיזוף', 
-      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }} />, 
+      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'sun-beds' 
     },
     { 
       title: 'שיזוף בהתזה', 
-      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }} />, 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'spray-tan' 
     },
     { 
       title: 'מספרה', 
-      icon: <img src={hairSalonIcon} alt="מספרה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }} />, 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'hair-salon' 
     },
     { 
       title: 'קוסמטיקה', 
-      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }} />, 
+      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'cosmetics' 
     },
     { 
       title: 'החנות שלכם', 
-      icon: <img src={storeIcon} alt="החנות שלכם" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }} />, 
+      icon: <img src={storeIcon} alt="החנות שלכם" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'your-store' 
     },
     { 
@@ -123,25 +123,25 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               hover-elevate active-elevate-2
             "
             style={{
-              borderColor: 'rgba(251, 146, 60, 0.6)',
+              borderColor: 'rgba(236, 72, 153, 0.6)',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
             onClick={() => navigate('/customers')}
             data-testid="button-customer-management"
           >
             <Users 
-              className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300"
+              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
               size={20}
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))'
+                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
               }}
             />
             <span className="text-white font-hebrew">לקוחות</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
 
@@ -156,25 +156,25 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               hover-elevate active-elevate-2
             "
             style={{
-              borderColor: 'rgba(251, 146, 60, 0.6)',
+              borderColor: 'rgba(236, 72, 153, 0.6)',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
             onClick={() => onNavigate?.('/search')}
             data-testid="button-search"
           >
             <Search 
-              className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300"
+              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
               size={20}
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))'
+                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
               }}
             />
             <span className="text-white font-hebrew">חיפוש</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
           
@@ -189,11 +189,11 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               hover-elevate active-elevate-2
             "
             style={{
-              borderColor: 'rgba(251, 146, 60, 0.6)',
+              borderColor: 'rgba(236, 72, 153, 0.6)',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
             onClick={() => onNavigate?.('/register')}
             data-testid="button-register"
           >
@@ -202,13 +202,13 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               alt="לקוח חדש" 
               className="w-5 h-5 object-contain transition-all duration-300"
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))'
+                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
               }}
             />
             <span className="text-white font-hebrew">הרשמה</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
         </div>
@@ -245,20 +245,20 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             transform perspective-1000
           "
           style={{
-            borderColor: 'rgba(251, 146, 60, 0.6)',
+            borderColor: 'rgba(236, 72, 153, 0.6)',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
             transform: 'rotateX(5deg) rotateY(-2deg)',
             transformStyle: 'preserve-3d'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
+          onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
           onClick={() => navigate('/self-service')}
         >
           <img 
             src={selfServiceIcon} 
             alt="שירות עצמי" 
-            className="w-28 h-28 object-contain transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_30px_rgba(251,146,60,1)]"
-            style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }}
+            className="w-28 h-28 object-contain transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+            style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
           />
           <div className="flex items-center">
             <span className="text-sm font-medium text-white text-center font-hebrew">שירות עצמי 24/7</span>
@@ -266,7 +266,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
           
           {/* 3D highlight */}
@@ -295,7 +295,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           data-testid="button-home"
         >
           <Home 
-            className="text-white group-hover:text-amber-400 transition-colors duration-300" 
+            className="text-white group-hover:text-pink-400 transition-colors duration-300" 
             size={20}
             style={{
               filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'
@@ -321,7 +321,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           data-testid="button-settings"
         >
           <Settings 
-            className="text-white group-hover:text-amber-400 transition-colors duration-300" 
+            className="text-white group-hover:text-pink-400 transition-colors duration-300" 
             size={20}
             style={{
               filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'

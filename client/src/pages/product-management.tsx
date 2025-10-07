@@ -200,7 +200,7 @@ export default function ProductManagement() {
           <div className="flex items-center gap-4">
             <Logo size="header" showGlow={false} showUnderline={false} />
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
                 ניהול מוצרים
               </h1>
               <p className="text-muted-foreground">נהל את המלאי והמוצרים בחנות</p>
@@ -211,7 +211,7 @@ export default function ProductManagement() {
             <DialogTrigger asChild>
               <Button
                 onClick={handleNewProduct}
-                className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700"
+                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
                 data-testid="button-add-product"
               >
                 <Plus className="w-4 h-4 ml-2" />
@@ -534,7 +534,7 @@ export default function ProductManagement() {
                   <div className="flex gap-2 pt-4">
                     <Button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600"
+                      className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500"
                       disabled={createMutation.isPending}
                       data-testid="button-submit-product"
                     >
@@ -588,7 +588,7 @@ export default function ProductManagement() {
                       )}
                     </div>
                     {product.badge && (
-                      <Badge className="bg-amber-500">{product.badge}</Badge>
+                      <Badge className="bg-pink-500">{product.badge}</Badge>
                     )}
                   </div>
                 </CardHeader>
@@ -613,7 +613,7 @@ export default function ProductManagement() {
                         {product.salePrice ? (
                           <>
                             <span className="line-through text-muted-foreground ml-2">₪{product.price}</span>
-                            <span className="text-amber-500">₪{product.salePrice}</span>
+                            <span className="text-pink-500">₪{product.salePrice}</span>
                           </>
                         ) : (
                           `₪${product.price}`

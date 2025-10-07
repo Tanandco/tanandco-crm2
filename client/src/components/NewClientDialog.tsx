@@ -53,7 +53,7 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 border-amber-500/30 max-w-md" dir="rtl">
+      <DialogContent className="bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 border-pink-500/30 max-w-md" dir="rtl">
         <DialogTitle className="text-xl font-bold text-white text-center">
           הרשמת לקוח חדש
         </DialogTitle>
@@ -62,8 +62,8 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
         </DialogDescription>
 
         <div className="space-y-4 mt-4">
-          <div className="w-16 h-16 mx-auto bg-amber-500/20 rounded-full flex items-center justify-center">
-            <UserPlus className="w-8 h-8 text-amber-400" />
+          <div className="w-16 h-16 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center">
+            <UserPlus className="w-8 h-8 text-pink-400" />
           </div>
 
           <div className="space-y-3">
@@ -71,14 +71,14 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
               placeholder="שם מלא"
               value={formData.fullName}
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-              className="bg-black/50 border-amber-500/30 text-white"
+              className="bg-black/50 border-pink-500/30 text-white"
               data-testid="input-full-name"
             />
             <Input
               placeholder="מספר טלפון"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="bg-black/50 border-amber-500/30 text-white"
+              className="bg-black/50 border-pink-500/30 text-white"
               data-testid="input-phone"
             />
             <Input
@@ -86,7 +86,7 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="bg-black/50 border-amber-500/30 text-white"
+              className="bg-black/50 border-pink-500/30 text-white"
               data-testid="input-email"
             />
             <div className="space-y-2">
@@ -95,11 +95,11 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
                 placeholder="תאריך לידה"
                 value={formData.dateOfBirth}
                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                className="bg-black/50 border-amber-500/30 text-white"
+                className="bg-black/50 border-pink-500/30 text-white"
                 data-testid="input-date-of-birth"
               />
               {calculatedAge !== null && calculatedAge >= 0 && (
-                <p className="text-sm text-amber-400 text-center">
+                <p className="text-sm text-pink-400 text-center">
                   גיל: {calculatedAge} שנים
                 </p>
               )}
@@ -113,7 +113,7 @@ export function NewClientDialog({ open, onOpenChange }: NewClientDialogProps) {
 
           <Button
             onClick={handleSubmit}
-            className="w-full bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800 text-white font-bold"
+            className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold"
             data-testid="button-submit-registration"
           >
             המשך להרשמה

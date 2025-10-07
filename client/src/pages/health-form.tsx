@@ -75,7 +75,7 @@ export default function HealthForm() {
     const y = 'touches' in e ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
     
     ctx.lineTo(x, y);
-    ctx.strokeStyle = '#ec4899'; // amber-500
+    ctx.strokeStyle = '#ec4899'; // pink-500
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -164,7 +164,7 @@ export default function HealthForm() {
     return (
       <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <Card className="max-w-md border-amber-500/20">
+          <Card className="max-w-md border-pink-500/20">
             <CardHeader>
               <CardTitle className="text-red-500 flex items-center gap-2">
                 <AlertCircle className="w-6 h-6" />
@@ -184,9 +184,9 @@ export default function HealthForm() {
     return (
       <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <Card className="max-w-md border-amber-500/20 bg-slate-900/80 backdrop-blur-md">
+          <Card className="max-w-md border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
             <CardContent className="p-8 text-center">
-              <Loader2 className="w-12 h-12 text-amber-500 mx-auto mb-4 animate-spin" />
+              <Loader2 className="w-12 h-12 text-pink-500 mx-auto mb-4 animate-spin" />
               <p className="text-white">טוען פרטים...</p>
             </CardContent>
           </Card>
@@ -199,7 +199,7 @@ export default function HealthForm() {
     return (
       <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <Card className="max-w-md border-amber-500/20">
+          <Card className="max-w-md border-pink-500/20">
             <CardHeader>
               <CardTitle className="text-red-500 flex items-center gap-2">
                 <AlertCircle className="w-6 h-6" />
@@ -219,8 +219,8 @@ export default function HealthForm() {
     <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true} maxWidth="max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <FileText className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold bg-gradient-to-l from-amber-400 to-purple-400 bg-clip-text text-transparent mb-4">
+          <FileText className="w-16 h-16 text-pink-500 mx-auto mb-4" />
+          <h1 className="text-4xl font-bold bg-gradient-to-l from-pink-400 to-purple-400 bg-clip-text text-transparent mb-4">
             הצהרת בריאות
           </h1>
           <p className="text-lg text-slate-300">
@@ -229,22 +229,22 @@ export default function HealthForm() {
         </div>
 
         {/* Customer Info Card */}
-        <Card className="mb-6 border-amber-500/20 bg-slate-900/80 backdrop-blur-md">
+        <Card className="mb-6 border-pink-500/20 bg-slate-900/80 backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-xl text-white">פרטי הלקוח</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center gap-3 text-slate-300">
-              <User className="w-5 h-5 text-amber-500" />
+              <User className="w-5 h-5 text-pink-500" />
               <span className="font-medium">{customer.fullName}</span>
             </div>
             <div className="flex items-center gap-3 text-slate-300">
-              <Phone className="w-5 h-5 text-amber-500" />
+              <Phone className="w-5 h-5 text-pink-500" />
               <span className="font-medium">{customer.phone}</span>
             </div>
             {customer.email && (
               <div className="flex items-center gap-3 text-slate-300">
-                <Mail className="w-5 h-5 text-amber-500" />
+                <Mail className="w-5 h-5 text-pink-500" />
                 <span className="font-medium">{customer.email}</span>
               </div>
             )}
@@ -253,7 +253,7 @@ export default function HealthForm() {
 
         <Card className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2"
               style={{
-                borderColor: 'rgba(251, 146, 60, 0.6)',
+                borderColor: 'rgba(236, 72, 153, 0.6)',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
               }}>
           <CardHeader>
@@ -284,7 +284,7 @@ export default function HealthForm() {
                   <select
                     value={skinType}
                     onChange={(e) => setSkinType(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-slate-800 border border-amber-500/30 text-white focus:ring-2 focus:ring-amber-500"
+                    className="w-full p-3 rounded-lg bg-slate-800 border border-pink-500/30 text-white focus:ring-2 focus:ring-pink-500"
                     data-testid="select-skin-type"
                   >
                     <option value="1-very-fair">1 - עור בהיר מאוד (נוטה לכוויות)</option>
@@ -397,7 +397,7 @@ export default function HealthForm() {
                     />
                     <label
                       htmlFor="terms"
-                      className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer font-bold text-amber-400"
+                      className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer font-bold text-pink-400"
                     >
                       אני מאשר/ת כי קראתי והבנתי את כל ההצהרות לעיל וכי המידע שמסרתי נכון ומדויק
                     </label>
@@ -405,7 +405,7 @@ export default function HealthForm() {
                 </div>
 
                 {/* Digital Signature */}
-                <div className="border-t border-amber-500/20 pt-6">
+                <div className="border-t border-pink-500/20 pt-6">
                   <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                     ✍️ חתימה דיגיטלית
                   </h3>
@@ -417,7 +417,7 @@ export default function HealthForm() {
                       ref={signatureCanvasRef}
                       width={600}
                       height={200}
-                      className="w-full border-2 border-amber-500/30 rounded-lg cursor-crosshair touch-none"
+                      className="w-full border-2 border-pink-500/30 rounded-lg cursor-crosshair touch-none"
                       onMouseDown={startDrawing}
                       onMouseMove={draw}
                       onMouseUp={stopDrawing}
@@ -440,7 +440,7 @@ export default function HealthForm() {
                       size="sm"
                       onClick={clearSignature}
                       disabled={!hasSignature}
-                      className="border-amber-500/30"
+                      className="border-pink-500/30"
                       data-testid="button-clear-signature"
                     >
                       נקה חתימה
@@ -454,7 +454,7 @@ export default function HealthForm() {
                     size="lg"
                     onClick={handleSubmit}
                     disabled={!allChecked || formState === 'submitting'}
-                    className="bg-gradient-to-l from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-lg px-12"
+                    className="bg-gradient-to-l from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-lg px-12"
                     data-testid="button-submit"
                   >
                     {formState === 'submitting' ? (

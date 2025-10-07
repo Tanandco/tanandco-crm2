@@ -63,7 +63,7 @@ export default function TanningProductCarousel({ onAddToCart }: TanningProductCa
           onClick={prevSlide}
           variant="outline"
           size="icon"
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 border-amber-500/30"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 border-pink-500/30"
           data-testid="button-prev-product"
         >
           <ChevronRight className="w-6 h-6" />
@@ -73,7 +73,7 @@ export default function TanningProductCarousel({ onAddToCart }: TanningProductCa
           onClick={nextSlide}
           variant="outline"
           size="icon"
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 border-amber-500/30"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 border-pink-500/30"
           data-testid="button-next-product"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -91,7 +91,7 @@ export default function TanningProductCarousel({ onAddToCart }: TanningProductCa
                 className={`
                   p-4 transition-all duration-300
                   ${isCenter 
-                    ? 'bg-gradient-to-br from-amber-900/40 to-purple-900/40 border-amber-500/50 scale-105' 
+                    ? 'bg-gradient-to-br from-amber-900/40 to-purple-900/40 border-pink-500/50 scale-105' 
                     : 'bg-slate-900/60 border-slate-700/50 opacity-60'
                   }
                 `}
@@ -109,11 +109,11 @@ export default function TanningProductCarousel({ onAddToCart }: TanningProductCa
                 )}
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-amber-400">₪{product.price}</span>
+                  <span className="text-xl font-bold text-pink-400">₪{product.price}</span>
                   <Button
                     onClick={() => onAddToCart?.(product.id)}
                     size="sm"
-                    className="bg-gradient-to-r from-amber-600 to-orange-700"
+                    className="bg-gradient-to-r from-pink-600 to-purple-600"
                     data-testid={`button-add-to-cart-${product.id}`}
                   >
                     <ShoppingCart className="w-4 h-4 ml-1" />
@@ -132,7 +132,7 @@ export default function TanningProductCarousel({ onAddToCart }: TanningProductCa
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`w-2 h-2 rounded-full transition-all ${
-                idx === currentIndex ? 'bg-amber-500 w-6' : 'bg-gray-600'
+                idx === currentIndex ? 'bg-pink-500 w-6' : 'bg-gray-600'
               }`}
               data-testid={`dot-indicator-${idx}`}
             />

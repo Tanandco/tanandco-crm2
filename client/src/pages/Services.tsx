@@ -65,7 +65,7 @@ export default function Services() {
               key={service.id}
               className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 hover:scale-105 transition-transform duration-300"
               style={{
-                borderColor: 'rgba(251, 146, 60, 0.6)',
+                borderColor: 'rgba(236, 72, 153, 0.6)',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
               }}
             >
@@ -95,7 +95,7 @@ export default function Services() {
                       <CreditCard className="h-4 w-4" />
                       מחיר:
                     </span>
-                    <span className="text-amber-400 font-bold">
+                    <span className="text-pink-400 font-bold">
                       {service.price}
                     </span>
                   </div>
@@ -103,7 +103,7 @@ export default function Services() {
                 
                 <Button
                   onClick={() => handleBookService(service.id)}
-                  className="w-full bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800"
+                  className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
                   data-testid={`button-book-${service.id}`}
                 >
                   <Calendar className="h-4 w-4 mr-2" />
@@ -119,7 +119,7 @@ export default function Services() {
           <Button
             onClick={handleBackToMain}
             variant="outline"
-            className="border-amber-500/50 text-amber-400 hover:bg-amber-500/20"
+            className="border-pink-500/50 text-pink-400 hover:bg-pink-500/20"
             data-testid="button-back-main"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />

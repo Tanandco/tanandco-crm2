@@ -200,7 +200,7 @@ export default function AnimatedBook() {
               </div>
 
               {/* Page Number - Left */}
-              <div className="absolute bottom-4 left-8 text-sm text-amber-700">
+              <div className="absolute bottom-4 left-8 text-sm text-pink-700">
                 עמוד {currentPage + 1}
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function AnimatedBook() {
             transition-all duration-300
             ${currentPage === 0 || isFlipping 
               ? 'opacity-30 cursor-not-allowed' 
-              : 'hover-elevate active-elevate-2 bg-amber-800/20 border border-amber-600/50 text-amber-200'
+              : 'hover-elevate active-elevate-2 bg-amber-800/20 border border-pink-600/50 text-amber-200'
             }
           `}
           data-testid="button-prev-page"
@@ -236,8 +236,8 @@ export default function AnimatedBook() {
               className={`
                 w-3 h-3 rounded-full transition-all duration-300
                 ${idx === currentPage 
-                  ? 'bg-amber-500 w-8' 
-                  : 'bg-amber-500/30 hover:bg-amber-500/50'
+                  ? 'bg-pink-500 w-8' 
+                  : 'bg-pink-500/30 hover:bg-pink-500/50'
                 }
               `}
               data-testid={`page-indicator-${idx}`}
@@ -253,7 +253,7 @@ export default function AnimatedBook() {
             transition-all duration-300
             ${currentPage === pages.length - 1 || isFlipping 
               ? 'opacity-30 cursor-not-allowed' 
-              : 'hover-elevate active-elevate-2 bg-amber-800/20 border border-amber-600/50 text-amber-200'
+              : 'hover-elevate active-elevate-2 bg-amber-800/20 border border-pink-600/50 text-amber-200'
             }
           `}
           data-testid="button-next-page"

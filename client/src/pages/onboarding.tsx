@@ -73,7 +73,7 @@ export default function Onboarding() {
       title: 'רכישת מנוי',
       description: 'בחר את המנוי המתאים לך ושלם באמצעות Cardcom',
       icon: CreditCard,
-      color: 'from-amber-500 to-orange-600',
+      color: 'from-pink-500 to-purple-500',
       completed: currentStep > 1,
     },
     {
@@ -81,7 +81,7 @@ export default function Onboarding() {
       title: 'טופס בריאות',
       description: 'מלא הצהרת בריאות וחתום דיגיטלית',
       icon: FileText,
-      color: 'from-orange-500 to-blue-500',
+      color: 'from-purple-500 to-blue-500',
       completed: currentStep > 2,
     },
     {
@@ -196,7 +196,7 @@ export default function Onboarding() {
     <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
       {/* Header */}
       <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
             ברוכים הבאים ל-Tan & Co
           </h1>
           <p className="text-xl text-gray-300">
@@ -208,9 +208,9 @@ export default function Onboarding() {
         <div className="mb-12">
           <div className="flex items-center justify-between gap-4 flex-wrap relative">
             {/* Progress Line */}
-            <div className="absolute right-0 left-0 h-1 bg-gradient-to-l from-amber-500/20 to-orange-600/20 top-6 hidden md:block" />
+            <div className="absolute right-0 left-0 h-1 bg-gradient-to-l from-pink-500/20 to-purple-500/20 top-6 hidden md:block" />
             <div 
-              className="absolute right-0 h-1 bg-gradient-to-l from-amber-500 to-orange-600 top-6 transition-all duration-500 hidden md:block"
+              className="absolute right-0 h-1 bg-gradient-to-l from-pink-500 to-purple-500 top-6 transition-all duration-500 hidden md:block"
               style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
             />
 
@@ -229,7 +229,7 @@ export default function Onboarding() {
                       w-14 h-14 rounded-full flex items-center justify-center mb-3
                       transition-all duration-300 border-2
                       ${isActive
-                        ? `bg-gradient-to-br ${step.color} border-white shadow-lg shadow-amber-500/50 scale-110`
+                        ? `bg-gradient-to-br ${step.color} border-white shadow-lg shadow-pink-500/50 scale-110`
                         : isCompleted
                         ? 'bg-gradient-to-br from-green-500 to-emerald-500 border-green-400'
                         : 'bg-slate-800 border-slate-600'
@@ -256,7 +256,7 @@ export default function Onboarding() {
         {/* Current Step Card */}
         <Card className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2"
               style={{
-                borderColor: 'rgba(251, 146, 60, 0.6)',
+                borderColor: 'rgba(236, 72, 153, 0.6)',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
               }}>
           <CardHeader>
@@ -271,7 +271,7 @@ export default function Onboarding() {
             {/* Step 1: Purchase */}
             {currentStep === 1 && (
               <div className="space-y-6">
-                <div className="p-6 rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-600/10 border border-amber-500/30">
+                <div className="p-6 rounded-lg bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/30">
                   <h3 className="text-xl font-bold text-white mb-4">בחר אפשרות רכישה:</h3>
                   
                   {/* WhatsApp Option */}
@@ -308,7 +308,7 @@ export default function Onboarding() {
                         placeholder="שם פרטי ושם משפחה"
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
-                        className="text-lg bg-slate-800 border-amber-500/30"
+                        className="text-lg bg-slate-800 border-pink-500/30"
                         data-testid="input-name"
                       />
                     </div>
@@ -320,7 +320,7 @@ export default function Onboarding() {
                         placeholder="972XXXXXXXXX או 05X-XXXXXXX"
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
-                        className="text-lg bg-slate-800 border-amber-500/30"
+                        className="text-lg bg-slate-800 border-pink-500/30"
                         data-testid="input-phone"
                       />
                       <p className="text-xs text-gray-400 mt-1">
@@ -336,7 +336,7 @@ export default function Onboarding() {
                         onChange={(e) => setDateOfBirth(e.target.value)}
                         max={new Date(new Date().setFullYear(new Date().getFullYear() - 16)).toISOString().split('T')[0]}
                         min={new Date(new Date().setFullYear(new Date().getFullYear() - 120)).toISOString().split('T')[0]}
-                        className="text-lg bg-slate-800 border-amber-500/30"
+                        className="text-lg bg-slate-800 border-pink-500/30"
                         data-testid="input-date-of-birth"
                       />
                       <p className="text-xs text-gray-400 mt-1">
@@ -480,7 +480,7 @@ export default function Onboarding() {
             צריך עזרה?{' '}
             <a
               href="/chat"
-              className="text-amber-400 hover:text-amber-300 underline"
+              className="text-pink-400 hover:text-pink-300 underline"
               data-testid="link-help"
             >
               צור קשר איתנו ב-WhatsApp

@@ -28,8 +28,8 @@ export function ProductImageProcessor({ onImagesProcessed }: ProductImageProcess
       <h2 className="text-2xl font-bold text-white">עיבוד תמונות מוצרים</h2>
 
       {/* Upload Area */}
-      <div className="border-2 border-dashed border-amber-500/30 rounded-lg p-8 text-center">
-        <Upload className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+      <div className="border-2 border-dashed border-pink-500/30 rounded-lg p-8 text-center">
+        <Upload className="w-12 h-12 text-pink-400 mx-auto mb-4" />
         <p className="text-gray-300 mb-4">גרור תמונות לכאן או לחץ להעלאה</p>
         <input
           type="file"
@@ -40,7 +40,7 @@ export function ProductImageProcessor({ onImagesProcessed }: ProductImageProcess
           id="file-upload"
         />
         <label htmlFor="file-upload">
-          <Button asChild className="bg-gradient-to-r from-amber-600 to-orange-700">
+          <Button asChild className="bg-gradient-to-r from-pink-600 to-purple-600">
             <span>בחר תמונות</span>
           </Button>
         </label>
@@ -74,7 +74,7 @@ export function ProductImageProcessor({ onImagesProcessed }: ProductImageProcess
       <Button
         onClick={handleSubmit}
         disabled={images.length === 0}
-        className="w-full bg-gradient-to-r from-amber-600 to-orange-700 disabled:opacity-50"
+        className="w-full bg-gradient-to-r from-pink-600 to-purple-600 disabled:opacity-50"
       >
         עבד תמונות ({images.length})
       </Button>

@@ -131,17 +131,17 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
             </h1>
           </div>
           
-          {/* Amber Neon Separator */}
+          {/* Pink Neon Separator */}
           <div className="relative py-1 flex justify-center">
             <div 
-              className="w-1/2 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent animate-pulse" 
+              className="w-1/2 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent animate-pulse" 
               style={{
-                filter: 'drop-shadow(0 0 16px rgba(245, 158, 11, 1)) drop-shadow(0 0 32px rgba(251, 146, 60, 1)) drop-shadow(0 0 48px rgba(251, 146, 60, 0.8)) drop-shadow(0 0 64px rgba(245, 158, 11, 0.6))',
-                boxShadow: '0 0 35px rgba(245, 158, 11, 1), 0 0 60px rgba(251, 146, 60, 0.8), 0 0 80px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.5)'
+                filter: 'drop-shadow(0 0 16px rgba(236, 72, 153, 1)) drop-shadow(0 0 32px rgba(236, 72, 153, 1)) drop-shadow(0 0 48px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 64px rgba(236, 72, 153, 0.6))',
+                boxShadow: '0 0 35px rgba(236, 72, 153, 1), 0 0 60px rgba(236, 72, 153, 0.8), 0 0 80px rgba(236, 72, 153, 0.6), inset 0 0 20px rgba(236, 72, 153, 0.5)'
               }}
             />
             <div className="absolute inset-0 flex justify-center">
-              <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-amber-300 to-transparent opacity-80 blur-sm animate-pulse" />
+              <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent opacity-80 blur-sm animate-pulse" />
             </div>
           </div>
           
@@ -200,11 +200,11 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     overflow-visible
                   "
                   style={{
-                    borderColor: 'rgba(251, 146, 60, 0.6)',
+                    borderColor: 'rgba(236, 72, 153, 0.6)',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(251, 146, 60, 0.6)'}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={(option as any).testId || `action-tile-${index}`}
                 >
                 <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110">
@@ -216,8 +216,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                         option.title === "רכישת ברונזרים" || option.title === "חיפוש משתזף קיים"
                           ? "w-20 h-20"
                           : "w-24 h-24"
-                      } object-contain group-hover:drop-shadow-[0_0_30px_rgba(251,146,60,1)]`}
-                      style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }}
+                      } object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]`}
+                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   ) : option.iconType === 'component' ? (
                     <div className="-mt-6">
@@ -225,8 +225,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
-                      className="w-24 h-24 text-amber-400 group-hover:drop-shadow-[0_0_30px_rgba(251,146,60,1)]"
-                      style={{ filter: 'drop-shadow(0 0 20px rgba(251, 146, 60, 0.8))' }}
+                      className="w-24 h-24 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   )}
                 </div>
@@ -236,7 +236,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 
                 {/* Ripple effect */}
                 <div className="absolute inset-0 rounded-md overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </button>
               </div>

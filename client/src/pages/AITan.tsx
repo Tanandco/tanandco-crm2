@@ -91,7 +91,7 @@ export default function AITan() {
       className="h-screen overflow-y-auto text-white antialiased selection:bg-white/10"
       style={{
         '--bg': '210 6% 8%',
-        '--primary': '328 100% 70%',
+        '--primary': '38 95% 60%',
         '--text': '210 15% 92%',
         '--border': '210 8% 18%',
         '--card': '210 6% 10%',

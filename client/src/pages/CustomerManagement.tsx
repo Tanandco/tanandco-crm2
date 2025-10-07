@@ -182,7 +182,7 @@ export default function CustomerManagement() {
             
             <Button
               onClick={() => setIsCreateModalOpen(true)}
-              className="bg-gradient-to-r from-amber-500 to-orange-700 hover:from-amber-600 hover:to-orange-800"
+              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
               data-testid="button-add-customer"
             >
               <UserPlus className="ml-2 h-4 w-4" />
@@ -198,7 +198,7 @@ export default function CustomerManagement() {
             placeholder="חפש לקוח לפי שם, טלפון או אימייל..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pr-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-400 focus:border-amber-500"
+            className="pr-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-400 focus:border-pink-500"
             data-testid="input-search-customers"
           />
         </div>
@@ -210,14 +210,14 @@ export default function CustomerManagement() {
           <Card className="bg-slate-800/50 border-slate-700">
             <CardHeader>
               <CardTitle className="text-xl text-white flex items-center">
-                <Star className="ml-2 h-5 w-5 text-amber-500" />
+                <Star className="ml-2 h-5 w-5 text-pink-500" />
                 רשימת לקוחות ({displayedCustomers.length})
               </CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
                 <div className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
                   <p className="text-slate-400 mt-2">טוען לקוחות...</p>
                 </div>
               ) : displayedCustomers.length === 0 ? (
@@ -233,7 +233,7 @@ export default function CustomerManagement() {
                     <div
                       key={customer.id}
                       onClick={() => setSelectedCustomer(customer)}
-                      className="p-4 rounded-lg bg-slate-700/50 border border-slate-600 hover:border-amber-500/50 cursor-pointer transition-all duration-200 hover:scale-[1.01]"
+                      className="p-4 rounded-lg bg-slate-700/50 border border-slate-600 hover:border-pink-500/50 cursor-pointer transition-all duration-200 hover:scale-[1.01]"
                       data-testid={`customer-card-${customer.id}`}
                     >
                       <div className="flex items-center justify-between">
@@ -294,19 +294,19 @@ export default function CustomerManagement() {
 
                   <div className="space-y-3">
                     <div className="flex items-center text-slate-300">
-                      <Phone className="h-4 w-4 ml-2 text-amber-500" />
+                      <Phone className="h-4 w-4 ml-2 text-pink-500" />
                       <span>{selectedCustomer.phone}</span>
                     </div>
                     
                     {selectedCustomer.email && (
                       <div className="flex items-center text-slate-300">
-                        <Mail className="h-4 w-4 ml-2 text-amber-500" />
+                        <Mail className="h-4 w-4 ml-2 text-pink-500" />
                         <span>{selectedCustomer.email}</span>
                       </div>
                     )}
 
                     <div className="flex items-center text-slate-300">
-                      <Calendar className="h-4 w-4 ml-2 text-amber-500" />
+                      <Calendar className="h-4 w-4 ml-2 text-pink-500" />
                       <span>נרשם ב-{formatDate(selectedCustomer.createdAt)}</span>
                     </div>
                   </div>

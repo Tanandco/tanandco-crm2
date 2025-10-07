@@ -184,7 +184,7 @@ export default function FaceRegistration() {
     return (
       <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <Card className="max-w-md border-amber-500/20">
+          <Card className="max-w-md border-pink-500/20">
             <CardHeader>
               <CardTitle className="text-red-500 flex items-center gap-2">
                 <XCircle className="w-6 h-6" />
@@ -204,7 +204,7 @@ export default function FaceRegistration() {
     return (
       <PageLayout showBackButton={false} showHomeButton={true} showSettingsButton={true}>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <Loader2 className="w-12 h-12 text-amber-500 animate-spin" />
+          <Loader2 className="w-12 h-12 text-pink-500 animate-spin" />
         </div>
       </PageLayout>
     );
@@ -227,7 +227,7 @@ export default function FaceRegistration() {
 
         <Card className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2"
               style={{
-                borderColor: 'rgba(251, 146, 60, 0.6)',
+                borderColor: 'rgba(236, 72, 153, 0.6)',
                 boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
               }}>
           <CardHeader>
@@ -284,7 +284,7 @@ export default function FaceRegistration() {
                       data-testid="card-camera-option"
                     >
                       <CardContent className="flex flex-col items-center justify-center py-8 space-y-4">
-                        <Camera className="w-16 h-16 text-amber-500" />
+                        <Camera className="w-16 h-16 text-pink-500" />
                         <h3 className="text-xl font-bold">צלם עכשיו</h3>
                         <p className="text-sm text-gray-400 text-center">
                           השתמש במצלמה של המכשיר
@@ -378,7 +378,7 @@ export default function FaceRegistration() {
                 {/* Uploading State */}
                 {registrationState === 'uploading' && (
                   <div className="text-center py-8 space-y-4">
-                    <Loader2 className="w-16 h-16 text-amber-500 mx-auto animate-spin" />
+                    <Loader2 className="w-16 h-16 text-pink-500 mx-auto animate-spin" />
                     <h3 className="text-xl font-bold">שולח...</h3>
                     <p className="text-gray-400">אנא המתן בזמן שהמערכת רושמת את הפנים שלך</p>
                   </div>
