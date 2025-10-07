@@ -110,20 +110,6 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
             </div>
           </div>
           
-          {/* About Section */}
-          <div className="px-2 mx-[9px]">
-            <p className="text-sm font-semibold text-white mb-3 text-center font-varela">
-              קוסמטיקאיות מוסמכות למראה מושלם
-            </p>
-            <div className="text-gray-300 space-y-1 text-sm" dir="rtl">
-              <p>• מניקור ופדיקור מקצועיים עם לק ג'ל</p>
-              <p>• עיצוב וטיפול בגבות - פינצטה, שעווה וצביעה</p>
-              <p>• בניית ציפורניים והארכות</p>
-              <p>• טיפולים מתקדמים כמו למינציה לגבות</p>
-              <p>• מוצרים איכותיים וכלים סטריליים</p>
-              <p>• שירות מקצועי ואדיב</p>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -110,20 +110,6 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
             </div>
           </div>
           
-          {/* About Section */}
-          <div className="px-2 mx-[9px]">
-            <p className="text-sm font-semibold text-white mb-3 text-center font-varela">
-              מעצבי שיער מוסמכים ומנוסים למראה מושלם
-            </p>
-            <div className="text-gray-300 space-y-1 text-sm" dir="rtl">
-              <p>• תספורות ועיצוב שיער מקצועי ומותאם אישית</p>
-              <p>• צביעות והבהרות בטכניקות מתקדמות</p>
-              <p>• טיפולי שיער מקצועיים לחיזוק והזנה</p>
-              <p>• החלקות קרטין וברזילאיות</p>
-              <p>• ניסיון של למעלה מ-10 שנים</p>
-              <p>• מוצרים מקצועיים ואיכותיים</p>
-            </div>
-          </div>
         </div>
       </div>
 

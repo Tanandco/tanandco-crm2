@@ -110,20 +110,6 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             </div>
           </div>
           
-          {/* About Section */}
-          <div className="px-2 mx-[9px]">
-            <p className="text-sm font-semibold text-white mb-3 text-center font-varela">
-              שיזוף בהתזה - ללא קרינה מזיקה, תוצאות מיידיות ושיזוף אחיד
-            </p>
-            <div className="text-gray-300 space-y-1 text-sm" dir="rtl">
-              <p>• טכנולוגיית התזה מתקדמת לשיזוף אחיד ומושלם</p>
-              <p>• ללא חשיפה לשמש או קרינה מזיקה</p>
-              <p>• תוצאות מיידיות ועמידות עד 10 ימים</p>
-              <p>• מתאים לכל גווני העור</p>
-              <p>• טיפול מהיר ונוח בכל שעה</p>
-              <p>• צוות מקצועי ומיומן לשירותכם</p>
-            </div>
-          </div>
         </div>
       </div>
 
