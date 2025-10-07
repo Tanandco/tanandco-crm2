@@ -132,7 +132,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
                           
                           <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                             <div className="flex items-center gap-1">
-                              <Phone className="w-4 h-4" />
+                              <Phone className="w-5 h-5" />
                               <span>{customer.phone}</span>
                             </div>
                             
@@ -145,7 +145,7 @@ export default function CustomerSearchDialog({ open, onOpenChange, onCustomerSel
                             
                             {customer.dateOfBirth && (
                               <div className="flex items-center gap-1">
-                                <Calendar className="w-4 h-4" />
+                                <Calendar className="w-5 h-5" />
                                 <span>{new Date(customer.dateOfBirth).toLocaleDateString('he-IL')}</span>
                               </div>
                             )}

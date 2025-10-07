@@ -236,7 +236,7 @@ export default function Shop() {
                       onClick={() => handleAddToCart(product.id)}
                       data-testid={`add-to-cart-${product.id}`}
                     >
-                      <Plus className="w-3 h-3 ml-1" />
+                      <Plus className="w-4 h-4 ml-1" />
                       הוסף
                     </Button>
                     {product.description && (
@@ -248,7 +248,7 @@ export default function Shop() {
                             className="border-pink-500/50 hover:border-pink-500 px-2"
                             data-testid={`info-${product.id}`}
                           >
-                            <Info className="w-3 h-3" />
+                            <Info className="w-4 h-4" />
                           </Button>
                         </DrawerTrigger>
                         <DrawerContent>

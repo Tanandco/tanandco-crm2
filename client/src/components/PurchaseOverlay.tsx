@@ -250,7 +250,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                               : '0 0 20px hsl(var(--primary) / 0.6)'
                           }}
                         >
-                          <Sparkles className="w-3 h-3" />
+                          <Sparkles className="w-4 h-4" />
                           {pkg.id === 'home-package' ? 'חבילת הדגל' : 'הכי משתלם'}
                         </div>
                       )}
@@ -319,7 +319,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           <div className="space-y-1">
                             {pkg.benefits.slice(0, 3).map((benefit, i) => (
                               <div key={i} className="flex items-start gap-1">
-                                <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                                 <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
                               </div>
                             ))}
@@ -402,7 +402,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                               : '0 0 20px hsl(var(--primary) / 0.6)'
                           }}
                         >
-                          <Sparkles className="w-3 h-3" />
+                          <Sparkles className="w-4 h-4" />
                           {pkg.id === 'home-package' ? 'חבילת הדגל' : 'פופולרי'}
                         </div>
                       )}
@@ -463,7 +463,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           <div className="space-y-1">
                             {pkg.benefits.slice(0, 3).map((benefit, i) => (
                               <div key={i} className="flex items-start gap-1">
-                                <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                                 <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
                               </div>
                             ))}
@@ -545,7 +545,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                               : '0 0 20px hsl(var(--primary) / 0.6)'
                           }}
                         >
-                          <Sparkles className="w-3 h-3" />
+                          <Sparkles className="w-4 h-4" />
                           {pkg.id === 'home-package' ? 'חבילת הדגל' : 'הכי משתלם'}
                         </div>
                       )}
@@ -599,7 +599,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                           <div className="space-y-1">
                             {pkg.benefits.slice(0, 3).map((benefit, i) => (
                               <div key={i} className="flex items-start gap-1">
-                                <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+                                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                                 <span className="text-xs text-muted-foreground font-hebrew leading-tight">{benefit}</span>
                               </div>
                             ))}
@@ -669,7 +669,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         boxShadow: '0 0 20px rgba(147, 51, 234, 0.8)'
                       }}
                     >
-                      <Sparkles className="w-3 h-3" />
+                      <Sparkles className="w-4 h-4" />
                       חדש
                     </div>
 
@@ -821,7 +821,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   className="flex-1 h-10 text-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
                   data-testid="button-back-to-packages"
                 >
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="w-5 h-5 ml-2" />
                   חזור לבחירת חבילה
                 </Button>
                 
@@ -831,7 +831,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   data-testid="button-continue-to-payment"
                 >
                   המשך לתשלום
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <ArrowLeft className="w-5 h-5 mr-2" />
                 </Button>
               </div>
             </div>
