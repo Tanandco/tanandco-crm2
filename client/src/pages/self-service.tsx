@@ -1,245 +1,169 @@
 import { useState } from 'react';
-import Logo from '@/components/Logo';
-import ServiceCard from '@/components/ServiceCard';
+import { Palette } from 'lucide-react';
 import SunBedsDialog from '@/components/SunBedsDialog';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Palette } from 'lucide-react';
-import { useLocation } from 'wouter';
-import Alin from '@/components/Alin';
-import PageLayout from '@/components/PageLayout';
+import SprayTanDialog from '@/components/SprayTanDialog';
+import HairSalonDialog from '@/components/HairSalonDialog';
+import CosmeticsDialog from '@/components/CosmeticsDialog';
 import tanningBoothIcon from '@assets/freepik__uv-tanning-booth-variation-a-elegant-3d-neon-pink-__47715_1759394305008.png';
 import sprayTanIcon from '@assets/freepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717_1759394325900.png';
 import hairSalonIcon from '@assets/freepik__3d-neon-pink-icon-of-a-hair-salon-symbol-stylized-__47719_1759394333413.png';
-import shopIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759394339729.png';
+import memberCardIcon from '@assets/member-card-icon.png';
 
 export default function SelfService() {
-  const [, navigate] = useLocation();
   const [sunBedsDialogOpen, setSunBedsDialogOpen] = useState(false);
-
-  const services = [
-    { 
-      title: 'מיטות שיזוף', 
-      icon: <img src={tanningBoothIcon} alt="מיטות שיזוף" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
-      id: 'sun-beds' 
-    },
-    { 
-      title: 'שיזוף בהתזה', 
-      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
-      id: 'spray-tan' 
-    },
-    { 
-      title: 'מספרה', 
-      icon: <img src={hairSalonIcon} alt="מספרה" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
-      id: 'hair-salon' 
-    },
-    { 
-      title: 'קוסמטיקה', 
-      icon: <Palette size={40} className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
-      id: 'cosmetics' 
-    },
-    { 
-      title: 'החנות שלכם', 
-      icon: <img src={shopIcon} alt="החנות שלכם" className="w-[70px] h-[70px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))' }} />, 
-      id: 'your-store' 
-    },
-    { 
-      title: 'AI TAN', 
-      icon: <Alin size={120} />, 
-      id: 'ai-tan' 
-    },
-  ];
-
-  const handleServiceClick = (serviceId: string) => {
-    
-    if (serviceId === 'ai-tan') {
-      window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank');
-    } else if (serviceId === 'your-store') {
-      navigate('/shop');
-    } else if (serviceId === 'sun-beds') {
-      setSunBedsDialogOpen(true);
-    }
-  };
+  const [sprayTanDialogOpen, setSprayTanDialogOpen] = useState(false);
+  const [hairSalonDialogOpen, setHairSalonDialogOpen] = useState(false);
+  const [cosmeticsDialogOpen, setCosmeticsDialogOpen] = useState(false);
 
   return (
-    <PageLayout 
-      showBackButton={true} 
-      showHomeButton={true} 
-      showSettingsButton={true}
-      showLogo={false}
-      maxWidth="max-w-5xl"
-    >
-      {/* Logo */}
-      <div className="mb-8">
-        <Logo size="medium" showGlow={true} showUnderline={true} />
-      </div>
+    <>
+      <style>{`
+        @keyframes glowPulse {
+          0%, 100% { 
+            filter: drop-shadow(0 0 20px hsla(328, 100%, 70%, 0.4)) 
+                    drop-shadow(0 0 40px rgba(147,51,234,0.3)) 
+                    drop-shadow(0 0 10px rgba(255,105,180,0.5)); 
+            transform: scale(1); 
+          }
+          50% { 
+            filter: drop-shadow(0 0 30px hsla(328, 100%, 70%, 0.6)) 
+                    drop-shadow(0 0 60px rgba(147,51,234,0.5)) 
+                    drop-shadow(0 0 15px rgba(255,105,180,0.7)); 
+            transform: scale(1.05); 
+          }
+        }
+        .animate-glow-pulse { 
+          animation: glowPulse 2.5s ease-in-out infinite; 
+        }
+        .neon-glow {
+          filter: drop-shadow(0 0 40px hsla(328, 100%, 70%, 0.4)) 
+                  drop-shadow(0 0 80px rgba(147,51,234,0.4)) 
+                  drop-shadow(0 0 20px rgba(255,105,180,0.5));
+        }
+      `}</style>
 
-        {/* Welcome Section */}
-        <div className="text-center mb-12 space-y-6">
-          {/* Back to Self Service */}
-          <p 
-            className="text-lg text-pink-200/70 font-medium"
-            data-testid="subtitle-back-to-service"
+      <main className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-[hsl(210,6%,8%)] text-[hsl(210,15%,92%)]">
+        <h1 
+          className="text-4xl font-bold mb-6 text-[hsl(328,100%,70%)]"
+          data-testid="title-self-service"
+        >
+          שירות עצמי 24/7
+        </h1>
+        
+        <p 
+          className="text-white/80 mb-8"
+          data-testid="subtitle-choose-service"
+        >
+          בחרו שירות או כרטיסיה להמשך
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+          {/* מיטות שיזוף */}
+          <button
+            onClick={() => setSunBedsDialogOpen(true)}
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-sun-beds"
           >
-            חזרה לשירות עצמי
-          </p>
+            <img 
+              src={tanningBoothIcon} 
+              alt="מיטות שיזוף" 
+              className="w-10 h-10 mb-3 neon-glow" 
+            />
+            <span className="font-bold">מיטות שיזוף</span>
+          </button>
 
-          {/* Main Title */}
-          <h1 
-            className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-            style={{
-              filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.4))'
-            }}
-            data-testid="title-welcome"
+          {/* שיזוף בהתזה */}
+          <button
+            onClick={() => setSprayTanDialogOpen(true)}
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-spray-tan"
           >
-            ברוכים הבאים לעולם המחר של תעשיית השיזוף
-          </h1>
+            <img 
+              src={sprayTanIcon} 
+              alt="שיזוף בהתזה" 
+              className="w-10 h-10 mb-3 neon-glow" 
+            />
+            <span className="font-bold">שיזוף בהתזה</span>
+          </button>
 
-          {/* Subtitle */}
-          <p 
-            className="text-xl md:text-2xl text-pink-300/90 font-semibold"
-            data-testid="subtitle-hybrid-model"
+          {/* מספרה */}
+          <button
+            onClick={() => setHairSalonDialogOpen(true)}
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-hair-salon"
           >
-            גאים להוביל את המודל ההייברידי של עולם השיזוף
-          </p>
-        </div>
+            <img 
+              src={hairSalonIcon} 
+              alt="מספרה" 
+              className="w-10 h-10 mb-3 neon-glow" 
+            />
+            <span className="font-bold">מספרה</span>
+          </button>
 
-        {/* Hybrid Model Explanation */}
-        <div className="mb-12 max-w-3xl mx-auto">
+          {/* קוסמטיקה */}
+          <button
+            onClick={() => setCosmeticsDialogOpen(true)}
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-cosmetics"
+          >
+            <Palette className="w-10 h-10 mb-3 neon-glow text-pink-400" />
+            <span className="font-bold">קוסמטיקה</span>
+          </button>
+
+          {/* כרטיסיות (עם glow pulse) */}
           <div 
-            className="p-6 rounded-lg bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 border border-pink-500/30"
-            data-testid="hybrid-model-explanation"
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-membership"
           >
-            <p className="text-lg md:text-xl text-pink-100/90 leading-relaxed text-center mb-4">
-              אנחנו מציעים לכם את החופש לבחור: תוכלו להירשם באופן עצמאי במהלך שעות הפעילות, כאשר צוות מקצועי נמצא לצידכם לסייע בכל שאלה או צורך. 
-            </p>
-            <p className="text-lg text-pink-200/80 leading-relaxed text-center">
-              לחלופין, תוכלו לקבל שירות מלא ומקיף מאיש צוות מנוסה שילווה אתכם בכל שלב.
-            </p>
-          </div>
-        </div>
-
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
-          {/* Right Column */}
-          <div className="space-y-4">
-            <FeatureItem 
-              text="ללא צורך בתיאום מראש או קביעת תורים"
-              testId="feature-no-appointment"
+            <img 
+              src={memberCardIcon} 
+              alt="כרטיסיות" 
+              className="w-20 h-20 mb-3 rounded-xl neon-glow animate-glow-pulse" 
             />
-            <FeatureItem 
-              text="כניסה עצמאית בכל שעה של היום ובכל שעה של הלילה"
-              testId="feature-24-7-access"
-            />
-            <FeatureItem 
-              text="מיטות השיזוף זמינות 24/7 ללקוחות הבוטיק"
-              testId="feature-boutique-access"
-            />
-            <FeatureItem 
-              text="הכניסה למתחם השיזוף לאחר שעות הפעילות כרוך בהרשמה למערכת זיהוי פנים מתקדמת"
-              testId="feature-face-recognition"
-            />
-            <FeatureItem 
-              text="צוות מקצועי ומנוסה שיעניק לכם שירות ברמה הגבוהה ביותר"
-              testId="feature-professional-staff"
-            />
+            <span className="font-bold">כרטיסיות</span>
           </div>
 
-          {/* Left Column */}
-          <div className="space-y-4">
-            <FeatureItem 
-              text="שעות פעילות: 10:00-19:00, ימי שישי 10:00-14:00, ימי שבת סגור"
-              highlight={true}
-              testId="feature-business-hours"
-            />
-            <FeatureItem 
-              text="*בשירות עצמי לאחר שעות הפעילות"
-              highlight={true}
-              testId="feature-after-hours"
-            />
-            <FeatureItem 
-              text="שירות לקוחות זמין 24/7"
-              testId="feature-customer-service"
-            />
-            <FeatureItem 
-              text="סביבה נקיה, בטוחה ומקצועית"
-              testId="feature-safe-environment"
-            />
-          </div>
-        </div>
-
-        {/* Services Section */}
-        <div className="mb-8">
-          <h2 
-            className="text-2xl md:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-            style={{
-              filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.3))'
-            }}
-            data-testid="title-choose-service"
+          {/* AI TAN (אלין) */}
+          <a
+            href="https://wa.me/972557247033"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-[160px] w-[150px] rounded-2xl p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(328,100%,70%,0.6)] hover:border-[hsl(328,100%,70%)] transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center"
+            data-testid="card-ai-tan"
           >
-            בחרו את השירות המועדף עליכם
-          </h2>
-
-          {/* Services Grid */}
-          <div 
-            className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 justify-items-center max-w-3xl mx-auto"
-            data-testid="services-grid"
-          >
-            {services.map((service) => (
-              <ServiceCard
-                key={service.id}
-                title={service.title}
-                icon={service.icon}
-                onClick={() => handleServiceClick(service.id)}
+            <div className="w-16 h-16 mb-3 rounded-full overflow-hidden neon-glow">
+              <img 
+                src="https://i.imgur.com/placeholder-alin.jpg" 
+                alt="AI TAN" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
               />
-            ))}
-          </div>
+            </div>
+            <span className="font-bold">AI TAN (אלין)</span>
+          </a>
         </div>
+      </main>
 
-      {/* Sun Beds Dialog */}
+      {/* Dialogs */}
       <SunBedsDialog 
         open={sunBedsDialogOpen} 
         onOpenChange={setSunBedsDialogOpen}
       />
-    </PageLayout>
-  );
-}
-
-// Feature Item Component
-interface FeatureItemProps {
-  text: string;
-  highlight?: boolean;
-  testId: string;
-}
-
-function FeatureItem({ text, highlight = false, testId }: FeatureItemProps) {
-  return (
-    <div 
-      className={`
-        flex items-start gap-3 p-4 rounded-lg
-        ${highlight 
-          ? 'bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 border border-pink-500/30' 
-          : 'bg-slate-900/30'
-        }
-      `}
-      data-testid={testId}
-    >
-      <div className="mt-1 flex-shrink-0">
-        <div 
-          className="w-2 h-2 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, #ec4899, #a855f7)',
-            boxShadow: '0 0 10px rgba(236, 72, 153, 0.6)'
-          }}
-        />
-      </div>
-      <p 
-        className={`
-          text-base md:text-lg leading-relaxed
-          ${highlight ? 'text-pink-300 font-semibold' : 'text-pink-100/90'}
-        `}
-      >
-        {text}
-      </p>
-    </div>
+      <SprayTanDialog 
+        open={sprayTanDialogOpen} 
+        onOpenChange={setSprayTanDialogOpen}
+      />
+      <HairSalonDialog 
+        open={hairSalonDialogOpen} 
+        onOpenChange={setHairSalonDialogOpen}
+      />
+      <CosmeticsDialog 
+        open={cosmeticsDialogOpen} 
+        onOpenChange={setCosmeticsDialogOpen}
+      />
+    </>
   );
 }
