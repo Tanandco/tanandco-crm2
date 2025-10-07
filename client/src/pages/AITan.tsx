@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { ArrowRight, Palette, Sparkles, Sun, Camera } from "lucide-react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { PurchaseOverlay } from "@/components/PurchaseOverlay";
 
 export default function AITan() {
   const [skinTone, setSkinTone] = useState("type2");
@@ -18,6 +20,7 @@ export default function AITan() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [skinType, setSkinType] = useState<string>("");
   const [burnEasily, setBurnEasily] = useState<boolean | null>(null);
+  const [showPurchaseOverlay, setShowPurchaseOverlay] = useState(false);
 
   // גוונות עור - צבעים אמיתיים לפי סקלת Fitzpatrick
   const skinTones = [
@@ -29,16 +32,16 @@ export default function AITan() {
     { id: "type6", name: "חום עמוק", color: "#5C4033", description: "Type VI - אף פעם לא נשרף" },
   ];
 
-  // גוונות שיזוף - התקדמות אמיתית של מלנין בעור
+  // גוונות שיזוף - צבעים מושכים וכהים שמעוררים כמיהה לשיזוף מושלם
   const tanShades = [
-    { id: "light-glow", name: "זוהר בהיר", color: "#F1C27D", description: "תחילת שיזוף (3-5 ימים)", value: 6 },
-    { id: "subtle-tan", name: "שיזוף עדין", color: "#EEC096", description: "שיזוף קל", value: 7 },
-    { id: "visible-tan", name: "שיזוף נראה", color: "#E8AD82", description: "שיזוף בולט", value: 8 },
-    { id: "medium-tan", name: "שיזוף בינוני", color: "#E0AC69", description: "7-10 ימים", value: 9 },
-    { id: "golden-bronze", name: "ברונזה זהובה", color: "#D69056", description: "שיזוף עמוק", value: 10 },
-    { id: "rich-bronze", name: "ברונזה עשירה", color: "#C49979", description: "10-21 ימים", value: 11 },
-    { id: "deep-bronze", name: "ברונזה עמוקה", color: "#BD8966", description: "שיזוף מקסימלי", value: 12 },
-    { id: "maximum-tan", name: "שיזוף מקסימום", color: "#8D5524", description: "פיק מלנין", value: 13 },
+    { id: "light-glow", name: "זוהר בהיר", color: "#D4A574", description: "תחילת שיזוף (3-5 ימים)", value: 6 },
+    { id: "subtle-tan", name: "שיזוף עדין", color: "#C89968", description: "שיזוף קל", value: 7 },
+    { id: "visible-tan", name: "שיזוף נראה", color: "#B8845A", description: "שיזוף בולט", value: 8 },
+    { id: "medium-tan", name: "שיזוף בינוני", color: "#A67448", description: "7-10 ימים", value: 9 },
+    { id: "golden-bronze", name: "ברונזה זהובה", color: "#8B5A3C", description: "שיזוף עמוק", value: 10 },
+    { id: "rich-bronze", name: "ברונזה עשירה", color: "#754C2F", description: "10-21 ימים", value: 11 },
+    { id: "deep-bronze", name: "ברונזה עמוקה", color: "#5E3A22", description: "שיזוף מקסימלי", value: 12 },
+    { id: "maximum-tan", name: "שיזוף מקסימום", color: "#4A2818", description: "פיק מלנין", value: 13 },
   ];
 
   // חיבור אוטומטי בין הסליידר לבחירת הצבע
@@ -475,14 +478,14 @@ export default function AITan() {
             בחר את גוון העור הנוכחי שלך
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          <div className="flex gap-3 mb-8 overflow-x-auto pb-4 px-2" style={{ scrollbarWidth: 'thin' }}>
             {skinTones.map((tone, index) => (
               <button
                 key={tone.id}
                 onClick={() => setSkinTone(tone.id)}
                 onMouseMove={handleRippleMove}
                 className={`
-                  group ripple p-6 rounded-xl transition-all duration-300 ease-in-out overflow-visible
+                  group ripple p-6 rounded-xl transition-all duration-300 ease-in-out overflow-visible flex-shrink-0
                   bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 
                   hover:from-transparent hover:via-transparent hover:to-transparent
                   ${skinTone === tone.id
@@ -495,6 +498,7 @@ export default function AITan() {
                   }
                   hover:scale-105 active:scale-100 backdrop-blur-sm hover:backdrop-blur-none
                 `}
+                style={{ minWidth: '180px' }}
                 data-testid={`button-skintone-${tone.id}`}
               >
                 <div
@@ -1055,6 +1059,7 @@ export default function AITan() {
               size="lg"
               className="ripple bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/90 text-black font-bold px-12 gap-2 shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_40px_rgba(255,255,255,.4)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100"
               onMouseMove={handleRippleMove}
+              onClick={() => setShowPurchaseOverlay(true)}
               data-testid="button-continue-booking"
             >
               <Camera className="w-5 h-5" />
@@ -1063,6 +1068,12 @@ export default function AITan() {
           </div>
         </section>
       </main>
+
+      {/* Purchase Overlay */}
+      <PurchaseOverlay 
+        open={showPurchaseOverlay} 
+        onClose={() => setShowPurchaseOverlay(false)}
+      />
     </div>
   );
 }
