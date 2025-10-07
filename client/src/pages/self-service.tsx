@@ -313,10 +313,6 @@ export default function SelfService() {
         <section id="info" className="relative py-3 flex-1 min-h-0">
           <div className="max-w-4xl mx-auto px-4 h-full flex flex-col justify-center">
             <div className="text-center space-y-3">
-              <h2 className="text-lg font-bold text-[hsl(var(--primary))] neon-glow">
-                ברוכים הבאים לעולם המחר של השיזוף
-              </h2>
-              
               <p className="text-white/90 text-sm leading-relaxed">
                 אנחנו מובילים את מודל ה־Hybrid: חופש לבחור בין <span className="text-[hsl(var(--primary))] font-semibold">שירות עצמי חכם</span> לשירות מלא ע״י <span className="text-[hsl(var(--primary))] font-semibold">צוות מקצועי</span> — באותה רמת דיוק, בכל פעם.
               </p>
