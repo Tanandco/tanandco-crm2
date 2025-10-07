@@ -446,11 +446,6 @@ export default function SelfService() {
                 slidesPerView={'auto'}
                 initialSlide={1}
                 loop={true}
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
                 coverflowEffect={{
                   rotate: 35,
                   stretch: 0,
@@ -459,7 +454,7 @@ export default function SelfService() {
                   slideShadows: true,
                 }}
                 navigation={true}
-                modules={[EffectCoverflow, Navigation, Autoplay]}
+                modules={[EffectCoverflow, Navigation]}
                 className="info-carousel h-full"
                 dir="rtl"
               >
