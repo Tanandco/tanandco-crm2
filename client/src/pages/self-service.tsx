@@ -338,8 +338,8 @@ export default function SelfService() {
                 data-testid="card-ai-tan"
               >
                 <div className="h-full w-full flex flex-col items-center justify-center text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Alin size={100} />
+                  <div className="mb-2">
+                    <Alin size={80} />
                   </div>
                   <div className="text-sm font-bold tracking-tight">AI TAN</div>
                 </div>
