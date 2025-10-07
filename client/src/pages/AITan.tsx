@@ -1076,7 +1076,7 @@ export default function AITan() {
         style={{
           left: `${mousePos.x - 75}px`,
           top: `${mousePos.y - 75}px`,
-          transition: 'all 2s ease-out',
+          transition: 'all 5s ease-out',
           transform: 'scale(1)',
         }}
         data-testid="alin-floating"
