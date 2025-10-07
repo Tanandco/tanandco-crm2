@@ -59,7 +59,7 @@ export default function RemoteDoor() {
             <Button
               onClick={() => openDoorMutation.mutate()}
               disabled={openDoorMutation.isPending}
-              className="w-full h-32 text-2xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 shadow-lg shadow-pink-500/50"
+              className="w-full h-32 text-2xl font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shadow-lg shadow-amber-500/50"
               data-testid="button-open-door"
             >
               {openDoorMutation.isPending ? (

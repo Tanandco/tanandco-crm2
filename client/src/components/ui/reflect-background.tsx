@@ -54,7 +54,7 @@ export default function ReflectBackground({
 
       {/* Glossy Surface Line */}
       <div 
-        className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-pink-500/20 to-transparent"
+        className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"
         style={{
           top: '100%',
         }}

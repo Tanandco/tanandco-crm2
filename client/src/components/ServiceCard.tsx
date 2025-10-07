@@ -41,7 +41,7 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
       
       {/* Ripple effect */}
       <div className="absolute inset-0 rounded-md overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </button>
   );

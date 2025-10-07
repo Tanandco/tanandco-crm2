@@ -10,14 +10,14 @@ export default function IconSidebar() {
       path: '/face-registration',
       label: 'הרשמה',
       testId: 'nav-registration',
-      iconColor: 'text-pink-400',
-      iconHover: 'group-hover:text-pink-300',
-      activeBg: 'bg-gradient-to-br from-pink-500/30 to-pink-500/20',
-      activeBorder: 'border-pink-500/60',
-      hoverBorder: 'hover:border-pink-500/40',
-      tooltipBorder: 'border-pink-500/30',
-      tooltipText: 'text-pink-200',
-      indicator: 'bg-gradient-to-b from-pink-500 to-pink-600'
+      iconColor: 'text-amber-400',
+      iconHover: 'group-hover:text-amber-300',
+      activeBg: 'bg-gradient-to-br from-amber-500/30 to-amber-500/20',
+      activeBorder: 'border-amber-500/60',
+      hoverBorder: 'hover:border-amber-500/40',
+      tooltipBorder: 'border-amber-500/30',
+      tooltipText: 'text-amber-200',
+      indicator: 'bg-gradient-to-b from-amber-500 to-amber-600'
     },
     {
       icon: MessageCircle,
@@ -54,12 +54,12 @@ export default function IconSidebar() {
       testId: 'nav-automation',
       iconColor: 'text-purple-400',
       iconHover: 'group-hover:text-purple-300',
-      activeBg: 'bg-gradient-to-br from-purple-500/30 to-purple-500/20',
+      activeBg: 'bg-gradient-to-br from-orange-500/30 to-orange-600/20',
       activeBorder: 'border-purple-500/60',
       hoverBorder: 'hover:border-purple-500/40',
       tooltipBorder: 'border-purple-500/30',
       tooltipText: 'text-purple-200',
-      indicator: 'bg-gradient-to-b from-purple-500 to-purple-600'
+      indicator: 'bg-gradient-to-b from-orange-500 to-orange-700'
     },
     {
       icon: Fingerprint,
@@ -110,11 +110,11 @@ export default function IconSidebar() {
               <Icon 
                 className={`w-6 h-6 transition-colors ${item.iconColor}`}
                 style={{
-                  filter: `drop-shadow(0 0 12px ${item.iconColor.includes('pink') ? 'rgba(236, 72, 153, 1)' : 
+                  filter: `drop-shadow(0 0 12px ${item.iconColor.includes('amber') ? 'rgba(251, 146, 60, 1)' : 
                                                  item.iconColor.includes('green') ? 'rgba(34, 197, 94, 1)' :
                                                  item.iconColor.includes('blue') ? 'rgba(59, 130, 246, 1)' :
                                                  item.iconColor.includes('purple') ? 'rgba(168, 85, 247, 1)' :
-                                                 'rgba(251, 146, 60, 1)'}) drop-shadow(0 0 20px ${item.iconColor.includes('pink') ? 'rgba(236, 72, 153, 0.6)' : 
+                                                 'rgba(251, 146, 60, 1)'}) drop-shadow(0 0 20px ${item.iconColor.includes('amber') ? 'rgba(251, 146, 60, 0.6)' : 
                                                  item.iconColor.includes('green') ? 'rgba(34, 197, 94, 0.6)' :
                                                  item.iconColor.includes('blue') ? 'rgba(59, 130, 246, 0.6)' :
                                                  item.iconColor.includes('purple') ? 'rgba(168, 85, 247, 0.6)' :

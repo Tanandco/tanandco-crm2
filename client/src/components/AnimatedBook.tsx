@@ -236,8 +236,8 @@ export default function AnimatedBook() {
               className={`
                 w-3 h-3 rounded-full transition-all duration-300
                 ${idx === currentPage 
-                  ? 'bg-pink-500 w-8' 
-                  : 'bg-pink-500/30 hover:bg-pink-500/50'
+                  ? 'bg-amber-500 w-8' 
+                  : 'bg-amber-500/30 hover:bg-amber-500/50'
                 }
               `}
               data-testid={`page-indicator-${idx}`}

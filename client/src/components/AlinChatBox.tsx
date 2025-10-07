@@ -43,8 +43,8 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
           onClick={() => setIsOpen(true)}
           className="
             w-[67px] h-[67px] rounded-full 
-            bg-gradient-to-r from-pink-600 to-purple-600 
-            hover:from-pink-700 hover:to-purple-700
+            bg-gradient-to-r from-amber-600 to-orange-700 
+            hover:from-amber-700 hover:to-orange-800
             shadow-lg hover:shadow-xl
             transition-all duration-300
           "
@@ -60,7 +60,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
           className="
             w-80 h-96 
             bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 
-            border border-pink-500/30 
+            border border-amber-500/30 
             rounded-xl shadow-2xl
             flex flex-col
             backdrop-blur-sm
@@ -71,8 +71,8 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
           <div className="
             flex justify-between items-center 
             p-4 
-            border-b border-pink-500/20
-            bg-gradient-to-r from-pink-900/30 to-purple-900/30
+            border-b border-amber-500/20
+            bg-gradient-to-r from-amber-900/30 to-purple-900/30
           ">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -103,7 +103,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
                   className={`
                     max-w-[80%] p-3 rounded-lg text-sm
                     ${msg.sender === 'user' 
-                      ? 'bg-pink-600 text-white' 
+                      ? 'bg-amber-600 text-white' 
                       : 'bg-gray-700 text-gray-100'
                     }
                   `}
@@ -115,7 +115,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-pink-500/20">
+          <div className="p-4 border-t border-amber-500/20">
             <div className="flex gap-2">
               <Input
                 value={message}
@@ -127,7 +127,7 @@ export default function AlinChatBox({ isSelfServicePage = false, contextMessage 
               />
               <Button
                 onClick={handleSend}
-                className="bg-pink-600 hover:bg-pink-700"
+                className="bg-amber-600 hover:bg-amber-700"
                 data-testid="button-send-message"
               >
                 <Send className="w-4 h-4" />

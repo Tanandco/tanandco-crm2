@@ -132,7 +132,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             data-testid="button-customer-management"
           >
             <Users 
-              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+              className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300"
               size={20}
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
@@ -141,7 +141,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <span className="text-white font-hebrew">לקוחות</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
 
@@ -165,7 +165,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             data-testid="button-search"
           >
             <Search 
-              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+              className="text-amber-400 group-hover:text-amber-300 transition-colors duration-300"
               size={20}
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
@@ -174,7 +174,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <span className="text-white font-hebrew">חיפוש</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
           
@@ -208,7 +208,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <span className="text-white font-hebrew">הרשמה</span>
             
             <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </button>
         </div>
@@ -266,7 +266,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-radial from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
           
           {/* 3D highlight */}
@@ -295,7 +295,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           data-testid="button-home"
         >
           <Home 
-            className="text-white group-hover:text-pink-400 transition-colors duration-300" 
+            className="text-white group-hover:text-amber-400 transition-colors duration-300" 
             size={20}
             style={{
               filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'
@@ -321,7 +321,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           data-testid="button-settings"
         >
           <Settings 
-            className="text-white group-hover:text-pink-400 transition-colors duration-300" 
+            className="text-white group-hover:text-amber-400 transition-colors duration-300" 
             size={20}
             style={{
               filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))'

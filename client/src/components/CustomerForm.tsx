@@ -87,7 +87,7 @@ export default function CustomerForm({
       <DialogContent className="sm:max-w-md bg-slate-800 border-slate-700 text-white" dir="rtl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold flex items-center">
-            <User className="ml-2 h-5 w-5 text-pink-500" />
+            <User className="ml-2 h-5 w-5 text-amber-500" />
             {isEditMode ? 'עריכת לקוח' : 'לקוח חדש'}
           </DialogTitle>
         </DialogHeader>
@@ -108,7 +108,7 @@ export default function CustomerForm({
                     <Input
                       {...field}
                       placeholder="הזן שם מלא"
-                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-amber-500"
                       data-testid="input-customer-fullname"
                     />
                   </FormControl>
@@ -131,7 +131,7 @@ export default function CustomerForm({
                     <Input
                       {...field}
                       placeholder="05X-XXXXXXX"
-                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-amber-500"
                       data-testid="input-customer-phone"
                     />
                   </FormControl>
@@ -155,7 +155,7 @@ export default function CustomerForm({
                       {...field}
                       type="email"
                       placeholder="customer@example.com"
-                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-amber-500"
                       data-testid="input-customer-email"
                     />
                   </FormControl>
@@ -177,7 +177,7 @@ export default function CustomerForm({
                     <Input
                       {...field}
                       placeholder="מזהה זיהוי פנים (אוטומטי)"
-                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-amber-500"
                       data-testid="input-customer-face-id"
                     />
                   </FormControl>
@@ -200,7 +200,7 @@ export default function CustomerForm({
                     <Textarea
                       {...field}
                       placeholder="הערות נוספות על הלקוח..."
-                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500 resize-none"
+                      className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-amber-500 resize-none"
                       rows={3}
                       data-testid="textarea-customer-notes"
                     />
@@ -221,7 +221,7 @@ export default function CustomerForm({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        className="border-slate-600 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500"
+                        className="border-slate-600 data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500"
                         data-testid="checkbox-customer-new-client"
                       />
                     </FormControl>
@@ -241,7 +241,7 @@ export default function CustomerForm({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        className="border-slate-600 data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500"
+                        className="border-slate-600 data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500"
                         data-testid="checkbox-customer-health-form"
                       />
                     </FormControl>
@@ -270,7 +270,7 @@ export default function CustomerForm({
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-amber-500 to-orange-700 hover:from-amber-600 hover:to-orange-800"
                 data-testid="button-save-customer"
               >
                 {isLoading ? (

@@ -110,7 +110,7 @@ export default function FaceIdentification() {
                 <Button
                   onClick={handleManualEntry}
                   variant="outline"
-                  className="w-full border-pink-500/50 text-pink-400 hover:bg-pink-500/20"
+                  className="w-full border-amber-500/50 text-amber-400 hover:bg-amber-500/20"
                   data-testid="button-manual-entry"
                 >
                   <User className="h-4 w-4 mr-2" />
@@ -194,7 +194,7 @@ export default function FaceIdentification() {
                       </p>
                       <div className="w-full bg-gray-700 rounded-full h-2">
                         <div 
-                          className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full transition-all duration-2000 ease-in-out"
+                          className="bg-gradient-to-r from-amber-500 to-orange-600 h-2 rounded-full transition-all duration-2000 ease-in-out"
                           style={{ width: '100%' }}
                         />
                       </div>

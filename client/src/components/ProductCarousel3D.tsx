@@ -108,11 +108,11 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
       {/* Header */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Sparkles className="w-6 h-6 text-pink-500 animate-pulse" />
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          <Sparkles className="w-6 h-6 text-amber-500 animate-pulse" />
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 bg-clip-text text-transparent">
             המוצרים הכי חמים שלנו
           </h2>
-          <Sparkles className="w-6 h-6 text-pink-500 animate-pulse" />
+          <Sparkles className="w-6 h-6 text-amber-500 animate-pulse" />
         </div>
         <div className="flex items-center justify-center gap-2">
           <p className="text-muted-foreground">גלי את המוצרים המובילים של</p>
@@ -126,21 +126,21 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
         <Button
           variant="outline"
           size="icon"
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-background/80 backdrop-blur-sm border-pink-500/50 hover:border-pink-500 hover:bg-pink-500/10"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-background/80 backdrop-blur-sm border-amber-500/50 hover:border-amber-500 hover:bg-amber-500/10"
           onClick={scrollPrev}
           data-testid="button-carousel-prev"
         >
-          <ChevronLeft className="h-6 w-6 text-pink-500" />
+          <ChevronLeft className="h-6 w-6 text-amber-500" />
         </Button>
 
         <Button
           variant="outline"
           size="icon"
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-background/80 backdrop-blur-sm border-pink-500/50 hover:border-pink-500 hover:bg-pink-500/10"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-background/80 backdrop-blur-sm border-amber-500/50 hover:border-amber-500 hover:bg-amber-500/10"
           onClick={scrollNext}
           data-testid="button-carousel-next"
         >
-          <ChevronRight className="h-6 w-6 text-pink-500" />
+          <ChevronRight className="h-6 w-6 text-amber-500" />
         </Button>
 
         {/* Embla Viewport */}
@@ -184,7 +184,7 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                     {/* Badge */}
                     {product.badge && (
                       <Badge 
-                        className="absolute top-4 right-4 z-10 bg-pink-500 text-white border-0"
+                        className="absolute top-4 right-4 z-10 bg-amber-500 text-white border-0"
                         data-testid={`badge-${product.id}`}
                       >
                         {product.badge}
@@ -208,13 +208,13 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
                           {product.category}
                         </Badge>
                         <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-                        <p className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                        <p className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent">
                           ₪{product.price}
                         </p>
                       </div>
 
                       <Button
-                        className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white border-0"
+                        className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0"
                         onClick={() => onAddToCart?.(product.id)}
                         data-testid={`button-add-cart-${product.id}`}
                       >
@@ -237,7 +237,7 @@ export default function ProductCarousel3D({ products, onAddToCart }: ProductCaro
               onClick={() => emblaApi?.scrollTo(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === selectedIndex 
-                  ? 'w-8 bg-gradient-to-r from-pink-500 to-purple-500' 
+                  ? 'w-8 bg-gradient-to-r from-amber-500 to-orange-600' 
                   : 'w-2 bg-muted-foreground/30'
               }`}
               data-testid={`dot-${index}`}

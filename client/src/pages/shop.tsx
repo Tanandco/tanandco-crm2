@@ -121,7 +121,7 @@ export default function Shop() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" dir="rtl">
-        <Package className="w-12 h-12 animate-spin text-pink-500" />
+        <Package className="w-12 h-12 animate-spin text-amber-500" />
       </div>
     );
   }
@@ -129,13 +129,13 @@ export default function Shop() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950" dir="rtl">
       {/* Top Action Bar */}
-      <div className="sticky top-0 z-50 bg-gradient-to-r from-slate-950/95 via-purple-950/40 to-slate-950/95 backdrop-blur-lg border-b border-pink-500/20">
+      <div className="sticky top-0 z-50 bg-gradient-to-r from-slate-950/95 via-purple-950/40 to-slate-950/95 backdrop-blur-lg border-b border-amber-500/20">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-end gap-2">
             <Button 
               variant="outline" 
               size="icon"
-              className="border-pink-500/50 hover:border-pink-500"
+              className="border-amber-500/50 hover:border-amber-500"
               data-testid="button-search"
             >
               <Search className="w-5 h-5" />
@@ -144,7 +144,7 @@ export default function Shop() {
             <Link href="/face-registration">
               <Button 
                 variant="outline" 
-                className="border-pink-500/50 hover:border-pink-500"
+                className="border-amber-500/50 hover:border-amber-500"
                 data-testid="button-register"
               >
                 <UserPlus className="w-5 h-5 ml-2" />
@@ -162,10 +162,10 @@ export default function Shop() {
           <div className="flex justify-center mb-4">
             <div className="relative p-4">
               {/* Outer Glow Background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 blur-[100px] opacity-40 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 blur-[100px] opacity-40 animate-pulse"></div>
               
               {/* Inner Glow */}
-              <div className="absolute inset-2 bg-gradient-to-br from-pink-400/20 via-purple-500/20 to-pink-400/20 blur-2xl"></div>
+              <div className="absolute inset-2 bg-gradient-to-br from-amber-400/20 via-amber-600/20 to-amber-400/20 blur-2xl"></div>
               
               {/* Logo Container - 2x size */}
               <div className="relative scale-[2] transform-gpu">
@@ -175,7 +175,7 @@ export default function Shop() {
           </div>
 
           {/* Carousel Title */}
-          <h2 className="text-xl md:text-2xl font-semibold text-center mt-6 mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-xl md:text-2xl font-semibold text-center mt-6 mb-4 bg-gradient-to-r from-purple-400 via-amber-400 to-purple-400 bg-clip-text text-transparent">
             ברונזרים למיטות שיזוף
           </h2>
         </div>
@@ -207,7 +207,7 @@ export default function Shop() {
       {additionalItems.length > 0 && (
         <section className="relative pb-12">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">
               מוצרים מובילים לשיזוף עצמי
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -223,16 +223,16 @@ export default function Shop() {
                     className="w-full h-32 object-contain mb-2"
                     data-testid={`product-image-${product.id}`}
                   />
-                  <h3 className="text-xs font-bold text-pink-200 mb-1 text-center line-clamp-2">
+                  <h3 className="text-xs font-bold text-amber-200 mb-1 text-center line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-sm font-bold text-center mb-2 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  <p className="text-sm font-bold text-center mb-2 bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
                     ₪{product.price}
                   </p>
                   <div className="flex gap-1">
                     <Button
                       size="sm"
-                      className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-xs"
+                      className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-xs"
                       onClick={() => handleAddToCart(product.id)}
                       data-testid={`add-to-cart-${product.id}`}
                     >
@@ -245,7 +245,7 @@ export default function Shop() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            className="border-pink-500/50 hover:border-pink-500 px-2"
+                            className="border-amber-500/50 hover:border-amber-500 px-2"
                             data-testid={`info-${product.id}`}
                           >
                             <Info className="w-4 h-4" />
@@ -253,7 +253,7 @@ export default function Shop() {
                         </DrawerTrigger>
                         <DrawerContent>
                           <DrawerHeader>
-                            <DrawerTitle className="text-center text-pink-200">{product.name}</DrawerTitle>
+                            <DrawerTitle className="text-center text-amber-200">{product.name}</DrawerTitle>
                             <DrawerDescription className="text-center">
                               {product.description}
                             </DrawerDescription>
@@ -285,7 +285,7 @@ export default function Shop() {
               <Button
                 key={category}
                 variant="outline"
-                className="h-24 text-lg border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10"
+                className="h-24 text-lg border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/10"
                 data-testid={`category-${category}`}
               >
                 {category}
@@ -296,24 +296,24 @@ export default function Shop() {
 
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-8 mt-20 mb-12">
-          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-amber-500/20">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
               <Package className="w-8 h-8 text-white" />
             </div>
             <h4 className="text-xl font-bold mb-2">משלוח מהיר</h4>
             <p className="text-muted-foreground">משלוח עד הבית תוך 2-3 ימי עסקים</p>
           </div>
 
-          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-amber-500/20">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
               <RefreshCw className="w-8 h-8 text-white" />
             </div>
             <h4 className="text-xl font-bold mb-2">החזרות בחינם</h4>
             <p className="text-muted-foreground">החזרה ללא עלות תוך 30 יום</p>
           </div>
 
-          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+          <div className="text-center p-6 rounded-lg bg-slate-900/50 border border-amber-500/20">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
               <Package className="w-8 h-8 text-white" />
             </div>
             <h4 className="text-xl font-bold mb-2">איכות מעולה</h4>

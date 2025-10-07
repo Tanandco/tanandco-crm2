@@ -46,7 +46,7 @@ export default function AutomationDashboard() {
   return (
     <div className="min-h-screen p-6" dir="rtl">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent">
           לוח בקרת אוטומציה
         </h1>
 

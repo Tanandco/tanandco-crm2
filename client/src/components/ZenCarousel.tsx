@@ -249,7 +249,7 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
               data-testid={`zen-image-${product.id}`}
             />
             <h3 
-              className="text-sm font-bold text-center mb-1 text-pink-200 line-clamp-2"
+              className="text-sm font-bold text-center mb-1 text-amber-200 line-clamp-2"
               data-testid={`zen-title-${product.id}`}
             >
               {product.name}
@@ -304,14 +304,14 @@ export default function ZenCarousel({ products, onAddToCart }: ZenCarouselProps)
                           {product.images.map((img, idx) => (
                             <div 
                               key={idx} 
-                              className="bg-gradient-to-br from-pink-500/20 to-purple-500/10 backdrop-blur-md rounded-xl p-4 border border-pink-500/60 shadow-xl shadow-pink-500/20 hover:from-pink-500/30 hover:to-purple-500/15 hover:shadow-2xl hover:shadow-pink-500/40 hover:scale-105 transition-all duration-500 cursor-pointer"
+                              className="bg-gradient-to-br from-amber-500/20 to-orange-600/10 backdrop-blur-md rounded-xl p-4 border border-amber-500/60 shadow-xl shadow-amber-500/20 hover:from-amber-500/30 hover:to-orange-600/15 hover:shadow-2xl hover:shadow-amber-500/40 hover:scale-105 transition-all duration-500 cursor-pointer"
                             >
                               <img 
                                 src={img} 
                                 alt={`${product.name} - ${idx === 0 ? 'טיובה' : 'שקית חד פעמית'}`}
                                 className="w-full h-40 object-contain mb-2 transition-transform duration-300"
                               />
-                              <p className="text-xs text-center text-pink-200 font-medium hover:bg-pink-500/10 hover:px-2 border-b border-pink-500/20 transition-all duration-300 py-1">
+                              <p className="text-xs text-center text-amber-200 font-medium hover:bg-amber-500/10 hover:px-2 border-b border-amber-500/20 transition-all duration-300 py-1">
                                 {idx === 0 ? '🧴 טיובה' : '📦 שקית חד פעמית'}
                               </p>
                             </div>

@@ -99,7 +99,7 @@ export default function Chat() {
         <Card className="w-80 flex flex-col bg-slate-800/50 border-slate-700">
           <div className="p-4 border-b border-slate-700">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <MessageSquare className="w-6 h-6 text-pink-500" />
+              <MessageSquare className="w-6 h-6 text-amber-500" />
               צ'אט WhatsApp
             </h2>
           </div>
@@ -117,14 +117,14 @@ export default function Chat() {
                     data-testid={`contact-${contact.phone}`}
                     className={`p-3 mb-2 rounded-lg cursor-pointer transition-all hover-elevate ${
                       selectedContact === contact.phone
-                        ? "bg-pink-500/20 border border-pink-500/50"
+                        ? "bg-amber-500/20 border border-amber-500/50"
                         : "bg-slate-700/30"
                     }`}
                     onClick={() => setSelectedContact(contact.phone)}
                   >
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarFallback className="bg-pink-500">
+                        <AvatarFallback className="bg-amber-500">
                           {contact.name?.[0] || contact.phone[0]}
                         </AvatarFallback>
                       </Avatar>
@@ -154,7 +154,7 @@ export default function Chat() {
               <div className="p-4 border-b border-slate-700 bg-slate-800/80">
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarFallback className="bg-pink-500">
+                    <AvatarFallback className="bg-amber-500">
                       {selectedContact[0]}
                     </AvatarFallback>
                   </Avatar>
@@ -188,7 +188,7 @@ export default function Chat() {
                         <div
                           className={`max-w-md p-3 rounded-2xl ${
                             msg.type === 'outgoing'
-                              ? 'bg-pink-500 text-white'
+                              ? 'bg-amber-500 text-white'
                               : 'bg-slate-700 text-white'
                           }`}
                         >
@@ -220,7 +220,7 @@ export default function Chat() {
                   <Button
                     data-testid="button-send"
                     onClick={handleSend}
-                    className="bg-pink-500 hover:bg-pink-600"
+                    className="bg-amber-500 hover:bg-amber-600"
                   >
                     <Send className="w-5 h-5" />
                   </Button>

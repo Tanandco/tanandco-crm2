@@ -34,7 +34,7 @@ export default function BioStarTest() {
           <CardContent className="space-y-4">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
               </div>
             ) : error ? (
               <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg">
@@ -71,7 +71,7 @@ export default function BioStarTest() {
                 {status.serverUrl && (
                   <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg">
                     <span className="font-semibold">כתובת שרת:</span>
-                    <code className="text-sm text-pink-400">{status.serverUrl}</code>
+                    <code className="text-sm text-amber-400">{status.serverUrl}</code>
                   </div>
                 )}
 

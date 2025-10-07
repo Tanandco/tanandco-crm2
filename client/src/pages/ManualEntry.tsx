@@ -57,7 +57,7 @@ export default function ManualEntry() {
                 }}>
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white text-center flex items-center justify-center gap-3">
-                <Search className="h-6 w-6 text-pink-400" />
+                <Search className="h-6 w-6 text-amber-400" />
                 חיפוש לקוח קיים
               </CardTitle>
             </CardHeader>
@@ -77,7 +77,7 @@ export default function ManualEntry() {
                   />
                   <Button
                     onClick={handleSearch}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    className="bg-gradient-to-r from-blue-600 to-orange-700 hover:from-blue-700 hover:to-orange-800"
                     data-testid="button-search"
                   >
                     <Search className="h-4 w-4" />
@@ -95,7 +95,7 @@ export default function ManualEntry() {
                 }}>
             <CardHeader>
               <CardTitle className="text-lg font-bold text-white text-center flex items-center justify-center gap-3">
-                <User className="h-6 w-6 text-pink-400" />
+                <User className="h-6 w-6 text-amber-400" />
                 הזנת פרטים חדשים
               </CardTitle>
             </CardHeader>
@@ -152,7 +152,7 @@ export default function ManualEntry() {
               <Button
                 onClick={handleContinue}
                 disabled={!customerData.name || !customerData.phone}
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-700 hover:to-orange-800 disabled:opacity-50"
                 data-testid="button-continue"
               >
                 <ArrowRight className="h-4 w-4 mr-2" />
@@ -166,7 +166,7 @@ export default function ManualEntry() {
             <Button
               onClick={handleBackToFaceId}
               variant="outline"
-              className="border-pink-500/50 text-pink-400 hover:bg-pink-500/20"
+              className="border-amber-500/50 text-amber-400 hover:bg-amber-500/20"
               data-testid="button-back-face-id"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />

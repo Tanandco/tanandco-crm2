@@ -746,7 +746,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                         e.stopPropagation();
                         handleSelectPackage('custom-tan');
                       }}
-                      className="w-full h-7 text-xs transition-all duration-300 mt-auto text-white font-bold px-3 py-1.5 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 relative z-10"
+                      className="w-full h-7 text-xs transition-all duration-300 mt-auto text-white font-bold px-3 py-1.5 bg-gradient-to-r from-orange-600 to-orange-600 hover:from-orange-500 hover:to-purple-400 relative z-10"
                       style={{
                         filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.7))'
                       }}

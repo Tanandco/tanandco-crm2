@@ -64,7 +64,7 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Purple/Indigo Gradient Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-indigo-500/20 to-black opacity-90 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 via-indigo-500/20 to-black opacity-90 backdrop-blur-sm" />
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-indigo-500/10" />
       </div>
 
@@ -93,13 +93,13 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
             >
               מספרה ועיצוב שיער - מעצבי שיער מקצועיים
             </h1>
-            <Sparkles className="w-10 h-10 text-pink-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
+            <Sparkles className="w-10 h-10 text-amber-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
           </div>
           
           {/* Purple Neon Separator */}
           <div className="relative py-1 flex justify-center">
             <div 
-              className="w-1/2 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent animate-pulse" 
+              className="w-1/2 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent animate-pulse" 
               style={{
                 filter: 'drop-shadow(0 0 16px rgba(168, 85, 247, 1)) drop-shadow(0 0 32px rgba(99, 102, 241, 1)) drop-shadow(0 0 48px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 64px rgba(99, 102, 241, 0.6))',
                 boxShadow: '0 0 35px rgba(168, 85, 247, 1), 0 0 60px rgba(99, 102, 241, 0.8), 0 0 80px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(168, 85, 247, 0.5)'
