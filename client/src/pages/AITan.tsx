@@ -5,12 +5,13 @@ import { ArrowRight, Palette, Sparkles, Sun, Camera } from "lucide-react";
 import { Link } from "wouter";
 
 export default function AITan() {
-  const [skinTone, setSkinTone] = useState("fair");
+  const [skinTone, setSkinTone] = useState("type2");
   const [desiredShade, setDesiredShade] = useState(6);
   const [selectedTanShade, setSelectedTanShade] = useState<{
     id: string;
     name: string;
     color: string;
+    description: string;
     value: number;
   } | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -18,28 +19,26 @@ export default function AITan() {
   const [skinType, setSkinType] = useState<string>("");
   const [burnEasily, setBurnEasily] = useState<boolean | null>(null);
 
-  // גוונות עור - צבעים ריאליסטיים מוארים
+  // גוונות עור - צבעים אמיתיים לפי סקלת Fitzpatrick
   const skinTones = [
-    { id: "porcelain", name: "חרסינה", color: "#FFF0E5", description: "בהיר מאוד" },
-    { id: "fair", name: "בהיר", color: "#FFE4CC", description: "בהיר" },
-    { id: "ivory", name: "שנהב", color: "#F5D4B3", description: "בהיר חם" },
-    { id: "cream", name: "בז'", color: "#E8C29A", description: "בז' בהיר" },
-    { id: "lightbeige", name: "שקדים", color: "#D9A876", description: "בינוני בהיר" },
-    { id: "beige", name: "קרמל", color: "#C89560", description: "בינוני" },
-    { id: "almond", name: "ברונזה", color: "#B0824E", description: "בינוני כהה" },
-    { id: "honey", name: "שוקולד", color: "#8B6F47", description: "כהה" },
+    { id: "type1", name: "חיוור", color: "#FFF4E6", description: "Type I - תמיד נשרף, אף פעם לא משתזף" },
+    { id: "type2", name: "בהיר", color: "#F7DEC8", description: "Type II - נשרף בקלות, משתזף מעט" },
+    { id: "type3", name: "בז' בהיר", color: "#E0AC69", description: "Type III - נשרף בינוני, משתזף הדרגתי" },
+    { id: "type4", name: "חום בינוני", color: "#C68642", description: "Type IV - נשרף מעט, משתזף טוב" },
+    { id: "type5", name: "חום כהה", color: "#8D5524", description: "Type V - נשרף לעיתים רחוקות" },
+    { id: "type6", name: "חום עמוק", color: "#5C4033", description: "Type VI - אף פעם לא נשרף" },
   ];
 
-  // גוונות שיזוף
+  // גוונות שיזוף - התקדמות אמיתית של מלנין בעור
   const tanShades = [
-    { id: "light-tan", name: "שיזוף בהיר", color: "#E8C5A0", value: 6 },
-    { id: "medium-beige", name: "בז׳ בינוני", color: "#DDB088", value: 7 },
-    { id: "warm-sand", name: "חול חם", color: "#D29B70", value: 8 },
-    { id: "golden-tan", name: "שיזוף זהוב", color: "#C78658", value: 9 },
-    { id: "natural-bronze", name: "ברונזה טבעית", color: "#BC7140", value: 10 },
-    { id: "warm-bronze", name: "ברונזה חמה", color: "#B15C28", value: 11 },
-    { id: "deep-bronze", name: "ברונזה עמוקה", color: "#A64710", value: 12 },
-    { id: "rich-bronze", name: "ברונזה עשירה", color: "#9B3200", value: 13 },
+    { id: "light-glow", name: "זוהר בהיר", color: "#F1C27D", description: "תחילת שיזוף (3-5 ימים)", value: 6 },
+    { id: "subtle-tan", name: "שיזוף עדין", color: "#EEC096", description: "שיזוף קל", value: 7 },
+    { id: "visible-tan", name: "שיזוף נראה", color: "#E8AD82", description: "שיזוף בולט", value: 8 },
+    { id: "medium-tan", name: "שיזוף בינוני", color: "#E0AC69", description: "7-10 ימים", value: 9 },
+    { id: "golden-bronze", name: "ברונזה זהובה", color: "#D69056", description: "שיזוף עמוק", value: 10 },
+    { id: "rich-bronze", name: "ברונזה עשירה", color: "#C49979", description: "10-21 ימים", value: 11 },
+    { id: "deep-bronze", name: "ברונזה עמוקה", color: "#BD8966", description: "שיזוף מקסימלי", value: 12 },
+    { id: "maximum-tan", name: "שיזוף מקסימום", color: "#8D5524", description: "פיק מלנין", value: 13 },
   ];
 
   // חיבור אוטומטי בין הסליידר לבחירת הצבע
@@ -469,7 +468,7 @@ export default function AITan() {
                 </div>
                 <div className="text-center">
                   <div className="font-bold text-sm text-[hsl(var(--cardText))]">{tone.name}</div>
-                  <div className="text-xs text-white/60 mt-1">{tone.description}</div>
+                  <div className="text-xs text-white/50 mt-1">{tone.description}</div>
                 </div>
                 {skinTone === tone.id && (
                   <Sparkles className="absolute top-2 left-2 w-5 h-5 text-[hsl(var(--primary))] neon-glow" />
@@ -721,8 +720,16 @@ export default function AITan() {
               })}
             </div>
             
-            <div className="text-center text-xs text-white/50">
-              בחר את רמת השיזוף הרצויה
+            <div className="text-center">
+              {selectedTanShade && (
+                <div className="mb-2">
+                  <div className="text-sm font-semibold text-[hsl(var(--primary))]">{selectedTanShade.name}</div>
+                  <div className="text-xs text-white/60">{selectedTanShade.description}</div>
+                </div>
+              )}
+              <div className="text-xs text-white/50">
+                בחר את רמת השיזוף הרצויה
+              </div>
             </div>
           </div>
         </section>
