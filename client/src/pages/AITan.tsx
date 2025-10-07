@@ -182,40 +182,41 @@ export default function AITan() {
           </div>
         </section>
 
-        {/* הסבר שימוש */}
-        <section className="max-w-4xl mx-auto px-4 py-6">
-          <div className="bg-gradient-to-br from-[hsl(var(--primary))]/10 via-black/50 to-[hsl(var(--primary))]/5 border border-[hsla(var(--primary)/0.4)] rounded-xl p-6 backdrop-blur-sm">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center border border-[hsl(var(--primary))]/30">
-                  <Camera className="w-6 h-6 text-[hsl(var(--primary))] neon-glow" />
-                </div>
-              </div>
-              <div className="flex-1 space-y-3">
-                <h3 className="text-lg font-bold text-[hsl(var(--cardText))]">רוצה שיזוף מושלם? צלמ/י תמונה!</h3>
-                <p className="text-sm text-white/80 leading-relaxed">
-                  <span className="text-[hsl(var(--primary))] font-semibold">תמונה אחת של העור = תוצאה מדויקת פי 10</span>
-                  <br/>
-                  AI TAN ינתח את גוון העור האמיתי שלך ויציע את רמת השיזוף שתיראה הכי טבעית וזוהרת עליך. 
-                  בלי ניחושים, בלי טעויות - רק התאמה אישית מבוססת מדע.
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
-                    <span>ניתוח AI מדויק</span>
+        {/* הסבר שימוש + העלאת תמונה */}
+        <section className="max-w-6xl mx-auto px-4 py-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* טור 1: הסבר */}
+            <div className="bg-gradient-to-br from-[hsl(var(--primary))]/10 via-black/50 to-[hsl(var(--primary))]/5 border border-[hsla(var(--primary)/0.4)] rounded-xl p-6 backdrop-blur-sm">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center border border-[hsl(var(--primary))]/30">
+                    <Camera className="w-6 h-6 text-[hsl(var(--primary))] neon-glow" />
                   </div>
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
-                    <span>התאמה אישית לעור שלך</span>
+                </div>
+                <div className="flex-1 space-y-3">
+                  <h3 className="text-lg font-bold text-[hsl(var(--cardText))]">רוצה שיזוף מושלם? צלמ/י תמונה!</h3>
+                  <p className="text-sm text-white/80 leading-relaxed">
+                    <span className="text-[hsl(var(--primary))] font-semibold">תמונה אחת של העור = תוצאה מדויקת פי 10</span>
+                    <br/>
+                    AI TAN ינתח את גוון העור האמיתי שלך ויציע את רמת השיזוף שתיראה הכי טבעית וזוהרת עליך. 
+                    בלי ניחושים, בלי טעויות - רק התאמה אישית מבוססת מדע.
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-2 text-white/70">
+                      <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
+                      <span>ניתוח AI מדויק</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-white/70">
+                      <Sparkles className="w-3 h-3 text-[hsl(var(--primary))]" />
+                      <span>התאמה אישית לעור שלך</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* העלאת תמונה */}
-        <section className="max-w-4xl mx-auto px-4 py-6">
+            {/* טור 2: העלאת תמונה */}
+            <div>
           <div className="relative">
             <input
               type="file"
@@ -304,6 +305,8 @@ export default function AITan() {
                 </div>
               </div>
             )}
+          </div>
+            </div>
           </div>
         </section>
 
@@ -399,8 +402,8 @@ export default function AITan() {
             בחר את רמת השיזוף הרצויה
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            {/* גרדיאנט אינטראקטיבי של רמות שיזוף */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* טור 1: גרדיאנט אינטראקטיבי */}
             <div className="space-y-6">
               <div className="flex justify-between text-sm text-white/60 px-2">
                 <span>בהיר</span>
@@ -510,75 +513,13 @@ export default function AITan() {
               </div>
             </div>
 
-            {/* תצוגת הצבע הנבחר */}
-            {selectedTanShade && (
-              <div className="group text-center py-8">
-                {/* מעטפת לריחוף */}
-                <div className="mb-4" style={{ animation: 'levitate 3s ease-in-out infinite' }}>
-                  <div
-                    className="w-40 h-40 rounded-full mx-auto relative transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.6),0_0_80px_rgba(255,255,255,0.3)] [animation:slow-spin_20s_linear_infinite] group-hover:[animation-play-state:paused]"
-                    style={{ 
-                      background: `
-                        radial-gradient(circle at 30% 30%, 
-                          rgba(255,255,255,0.4) 0%, 
-                          transparent 50%
-                        ),
-                        linear-gradient(145deg, 
-                          ${selectedTanShade.color}ff 0%, 
-                          ${selectedTanShade.color}cc 40%,
-                          ${selectedTanShade.color}99 70%,
-                          ${selectedTanShade.color}66 100%
-                        ),
-                        repeating-linear-gradient(
-                          45deg,
-                          transparent,
-                          transparent 2px,
-                          ${selectedTanShade.color}22 2px,
-                          ${selectedTanShade.color}22 4px
-                        )
-                      `,
-                      boxShadow: `
-                        inset -4px -4px 12px rgba(0,0,0,0.5),
-                        inset 4px 4px 12px rgba(255,255,255,0.3),
-                        inset -1px -1px 3px rgba(0,0,0,0.8),
-                        inset 1px 1px 3px rgba(255,255,255,0.5),
-                        0 6px 16px rgba(0,0,0,0.6),
-                        0 2px 4px rgba(255,255,255,0.3)
-                      `
-                    }}
-                  >
-                    {/* Glass shine effect on hover */}
-                    <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                      style={{
-                        background: `
-                          linear-gradient(135deg,
-                            rgba(255,255,255,0.9) 0%,
-                            rgba(255,255,255,0.6) 20%,
-                            transparent 40%,
-                            rgba(255,255,255,0.2) 60%,
-                            rgba(255,255,255,0.4) 100%
-                          )
-                        `,
-                        backdropFilter: 'blur(8px)'
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="text-2xl font-bold text-[hsl(var(--cardText))] mb-1">{selectedTanShade.name}</div>
-                <div className="text-sm text-white/60">רמת השיזוף שנבחרה</div>
+            {/* טור 2: בחירה ישירה של גוון */}
+            <div className="space-y-6">
+              <div className="text-sm text-white/60 text-center px-2">
+                או בחר גוון ישירות
               </div>
-            )}
-          </div>
-        </section>
-
-        {/* גוונות שיזוף */}
-        <section className="max-w-6xl mx-auto px-4 py-6">
-          <h2 className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-2 justify-center text-[hsl(var(--primary))]">
-            <Palette className="w-6 h-6" />
-            בחירת גוון שיזוף ישיר
-          </h2>
-
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-3 mb-8">
+              
+              <div className="grid grid-cols-4 gap-3">
             {tanShades.map((shade) => (
               <button
                 key={shade.id}
@@ -655,6 +596,8 @@ export default function AITan() {
                 )}
               </button>
             ))}
+              </div>
+            </div>
           </div>
         </section>
 
