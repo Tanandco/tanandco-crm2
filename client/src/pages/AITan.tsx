@@ -370,7 +370,7 @@ export default function AITan() {
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            {skinTones.map((tone) => (
+            {skinTones.map((tone, index) => (
               <button
                 key={tone.id}
                 onClick={() => setSkinTone(tone.id)}
@@ -380,8 +380,12 @@ export default function AITan() {
                   bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 
                   hover:from-transparent hover:via-transparent hover:to-transparent
                   ${skinTone === tone.id
-                    ? "border-2 border-[hsl(var(--primary))] shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_40px_rgba(255,255,255,.3)]"
-                    : "border border-[hsla(var(--primary)/0.6)] hover:border-transparent shadow-[0_8px_20px_rgba(0,0,0,.4)]"
+                    ? "border-2 border-[hsl(var(--primary))] shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_40px_rgba(255,255,255,.3)] neomorph-raised-strong"
+                    : index % 3 === 0
+                      ? "border border-[hsla(var(--primary)/0.6)] hover:border-transparent shadow-[0_8px_20px_rgba(0,0,0,.4)] neomorph-inset"
+                      : index % 3 === 1
+                        ? "border border-[hsla(var(--primary)/0.6)] hover:border-transparent shadow-[0_8px_20px_rgba(0,0,0,.4)] neomorph-flat"
+                        : "border border-[hsla(var(--primary)/0.6)] hover:border-transparent shadow-[0_8px_20px_rgba(0,0,0,.4)] neomorph-hover-raise"
                   }
                   hover:scale-105 active:scale-100 backdrop-blur-sm hover:backdrop-blur-none
                 `}
@@ -459,15 +463,17 @@ export default function AITan() {
               { id: "normal", name: "רגיל", description: "עור מאוזן" },
               { id: "oily", name: "שמן", description: "עור שמנוני ומבריק" },
               { id: "combination", name: "מעורב", description: "שמן באזור T" }
-            ].map((type) => (
+            ].map((type, index) => (
               <button
                 key={type.id}
                 onClick={() => setSkinType(type.id)}
                 className={`
                   p-4 rounded-xl border-2 transition-all duration-150 relative
                   ${skinType === type.id 
-                    ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)]' 
-                    : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5'
+                    ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)] neomorph-raised' 
+                    : index % 2 === 0
+                      ? 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5 neomorph-inset'
+                      : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5 neomorph-flat'
                   }
                 `}
                 data-testid={`button-skintype-${type.id}`}
@@ -492,16 +498,16 @@ export default function AITan() {
             <button
               onClick={() => setBurnEasily(true)}
               className={`
-                flex-1 p-6 rounded-xl border-2 transition-all duration-150 relative
+                flex-1 p-4 rounded-xl border-2 transition-all duration-150 relative
                 ${burnEasily === true 
-                  ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)]' 
-                  : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5'
+                  ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)] neomorph-raised-strong' 
+                  : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5 neomorph-inset-deep'
                 }
               `}
               data-testid="button-burn-yes"
             >
-              <div className="text-2xl font-bold text-[hsl(var(--cardText))]">כן</div>
-              <div className="text-sm text-white/60 mt-2">נוטה להישרף</div>
+              <div className="text-lg font-bold text-[hsl(var(--cardText))]">כן</div>
+              <div className="text-xs text-white/60 mt-1">נוטה להישרף</div>
               {burnEasily === true && (
                 <Sparkles className="absolute top-2 right-2 w-4 h-4 text-[hsl(var(--primary))] neon-glow" />
               )}
@@ -510,16 +516,16 @@ export default function AITan() {
             <button
               onClick={() => setBurnEasily(false)}
               className={`
-                flex-1 p-6 rounded-xl border-2 transition-all duration-150 relative
+                flex-1 p-4 rounded-xl border-2 transition-all duration-150 relative
                 ${burnEasily === false 
-                  ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)]' 
-                  : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5'
+                  ? 'border-[hsl(var(--primary))] bg-[hsl(var(--primary))]/10 shadow-[0_0_20px_rgba(255,255,255,0.3)] neomorph-raised-strong' 
+                  : 'border-white/20 bg-gray-900/50 hover:border-[hsl(var(--primary))]/50 hover:bg-[hsl(var(--primary))]/5 neomorph-inset-deep'
                 }
               `}
               data-testid="button-burn-no"
             >
-              <div className="text-2xl font-bold text-[hsl(var(--cardText))]">לא</div>
-              <div className="text-sm text-white/60 mt-2">לא נוטה להישרף</div>
+              <div className="text-lg font-bold text-[hsl(var(--cardText))]">לא</div>
+              <div className="text-xs text-white/60 mt-1">לא נוטה להישרף</div>
               {burnEasily === false && (
                 <Sparkles className="absolute top-2 right-2 w-4 h-4 text-[hsl(var(--primary))] neon-glow" />
               )}

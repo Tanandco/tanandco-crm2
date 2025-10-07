@@ -55,11 +55,11 @@
   --muted-foreground: 210 6% 35%;
   --accent: 210 12% 90%;
   --accent-foreground: 210 8% 25%;
-  --destructive: 325.42deg 95.16% 75.69%;
+  --destructive: 0 75% 50%;
   --destructive-foreground: 0 15% 96%;
   --input: 210 8% 75%;
-  --ring: 328 100% 70%;
-  --chart-1: 306.12deg 88.79% 54.51%;
+  --ring: 38 95% 60%;
+  --chart-1: 38 95% 60%;
   --chart-2: 262 75% 40%;
   --chart-3: 196.02deg 74.19% 57.45%;
   --chart-4: 58.64deg 86.84% 70.2%;
@@ -375,5 +375,56 @@
       0 0 30px hsl(38 95% 60% / 0.4),
       0 0 40px hsl(38 95% 60% / 0.2);
     filter: drop-shadow(0 0 15px hsl(38 95% 60% / 0.6));
+  }
+
+  /* אפקטים של ניאו-מורפיזם */
+  
+  /* מובלט - צללים רכים שיוצרים תחושת הרמה */
+  .neomorph-raised {
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.6),
+      -4px -4px 12px rgba(255, 255, 255, 0.05);
+  }
+
+  /* שקוע - הפוך, תחושת עומק */
+  .neomorph-inset {
+    box-shadow: 
+      inset 6px 6px 12px rgba(0, 0, 0, 0.7),
+      inset -4px -4px 10px rgba(255, 255, 255, 0.04);
+  }
+
+  /* שטוח עם צל רך */
+  .neomorph-flat {
+    box-shadow: 
+      6px 6px 12px rgba(0, 0, 0, 0.5),
+      -3px -3px 8px rgba(255, 255, 255, 0.03);
+  }
+
+  /* מובלט חזק יותר */
+  .neomorph-raised-strong {
+    box-shadow: 
+      12px 12px 24px rgba(0, 0, 0, 0.7),
+      -6px -6px 16px rgba(255, 255, 255, 0.06);
+  }
+
+  /* שקוע עמוק */
+  .neomorph-inset-deep {
+    box-shadow: 
+      inset 8px 8px 16px rgba(0, 0, 0, 0.8),
+      inset -6px -6px 14px rgba(255, 255, 255, 0.05);
+  }
+
+  /* עם hover - מעבר מרחף למובלט */
+  .neomorph-hover-raise {
+    transition: box-shadow 0.3s ease;
+    box-shadow: 
+      4px 4px 8px rgba(0, 0, 0, 0.4),
+      -2px -2px 6px rgba(255, 255, 255, 0.02);
+  }
+
+  .neomorph-hover-raise:hover {
+    box-shadow: 
+      10px 10px 20px rgba(0, 0, 0, 0.6),
+      -5px -5px 14px rgba(255, 255, 255, 0.05);
   }
 }
