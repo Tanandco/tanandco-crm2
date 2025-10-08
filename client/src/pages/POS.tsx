@@ -134,7 +134,7 @@ export default function POS() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+    <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
@@ -159,7 +159,7 @@ export default function POS() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="חפש מוצר או שירות... (הקלד כדי לחפש)"
-                className="pr-10 bg-slate-800/50 border-blue-500/30 text-white placeholder:text-gray-500"
+                className="pr-10 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 text-white placeholder:text-gray-500 backdrop-blur-sm"
                 data-testid="input-search"
                 autoFocus
               />
@@ -185,7 +185,7 @@ export default function POS() {
                     onClick={() => setSelectedCategory(cat.id)}
                     variant={selectedCategory === cat.id ? 'default' : 'outline'}
                     size="sm"
-                    className={selectedCategory === cat.id ? 'bg-blue-600 hover:bg-blue-700' : ''}
+                    className={selectedCategory === cat.id ? 'bg-gradient-to-br from-pink-600 via-pink-500 to-purple-600 hover:from-pink-500 hover:to-purple-500 border-pink-500/50' : 'bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 hover:border-pink-500/50 backdrop-blur-sm'}
                     data-testid={`button-category-${cat.id}`}
                   >
                     {cat.label}
@@ -197,7 +197,7 @@ export default function POS() {
                 onClick={() => setShowImages(!showImages)}
                 variant="outline"
                 size="sm"
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 hover:border-pink-500/50 backdrop-blur-sm"
                 data-testid="button-toggle-images"
               >
                 {showImages ? (
@@ -226,9 +226,12 @@ export default function POS() {
                 filteredProducts.map(product => (
                   <Card
                     key={product.id}
-                    className="p-4 bg-slate-800/50 border-blue-500/30 hover:border-blue-500/60 transition-all cursor-pointer"
+                    className="p-4 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 hover:border-pink-500 transition-all cursor-pointer backdrop-blur-sm hover-elevate active-elevate-2"
                     onClick={() => addToCart(product)}
                     data-testid={`card-product-${product.id}`}
+                    style={{
+                      boxShadow: '0 0 20px rgba(236, 72, 153, 0.1)',
+                    }}
                   >
                     {showImages && product.images && product.images[0] && (
                       <img 
@@ -242,7 +245,7 @@ export default function POS() {
                       <p className="text-gray-400 text-xs mb-2">{product.brand}</p>
                     )}
                     <div className="flex items-center justify-between">
-                      <span className="text-blue-400 font-bold">₪{product.price}</span>
+                      <span className="text-pink-400 font-bold" style={{ textShadow: '0 0 10px rgba(236, 72, 153, 0.5)' }}>₪{product.price}</span>
                       {product.productType === 'product' && product.stock !== undefined && (
                         <span className="text-xs text-gray-500">במלאי: {product.stock}</span>
                       )}
@@ -260,14 +263,14 @@ export default function POS() {
             </div>
             
             <Card 
-              className="p-6 bg-slate-800/50 border-blue-500/30 sticky top-6"
+              className="p-6 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 sticky top-6 backdrop-blur-sm"
               style={{
-                boxShadow: '0 0 40px rgba(69, 114, 182, 0.3)',
+                boxShadow: '0 0 40px rgba(236, 72, 153, 0.3)',
               }}
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <ShoppingCart className="w-5 h-5 text-blue-400" />
+                  <ShoppingCart className="w-5 h-5 text-pink-400" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }} />
                   <h2 className="text-xl font-bold text-white">עגלה</h2>
                 </div>
                 {cart.length > 0 && (
@@ -290,12 +293,12 @@ export default function POS() {
                   cart.map(item => (
                     <div 
                       key={item.product.id}
-                      className="flex items-center gap-3 p-3 bg-slate-700/30 rounded-lg"
+                      className="flex items-center gap-3 p-3 bg-gradient-to-br from-gray-800/50 via-black/40 to-gray-900/50 rounded-lg border border-pink-500/20"
                       data-testid={`cart-item-${item.product.id}`}
                     >
                       <div className="flex-1">
                         <p className="text-white font-medium text-sm">{item.product.nameHe}</p>
-                        <p className="text-blue-400 text-sm">₪{item.product.price}</p>
+                        <p className="text-pink-400 text-sm">₪{item.product.price}</p>
                       </div>
                       
                       <div className="flex items-center gap-2">
@@ -347,9 +350,12 @@ export default function POS() {
 
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full bg-gradient-to-br from-pink-600 via-pink-500 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white border-pink-500/50"
                   size="lg"
                   data-testid="button-checkout"
+                  style={{
+                    boxShadow: '0 0 20px rgba(236, 72, 153, 0.4)',
+                  }}
                 >
                   <CreditCard className="w-5 h-5 ml-2" />
                   סיום ותשלום
