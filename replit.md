@@ -9,6 +9,8 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
 - Successfully imported legacy customer data with automated phone normalization and membership creation
 - BioStar sync system to match CRM customers with existing BioStar face recognition users
 - Multilingual checkout page with Hebrew/English/French support and neon aesthetic
+- PAS TOUCHER product scraper using Cheerio HTML parser to import sunglasses inventory from shop URL
+- Fixed critical SSRF security vulnerabilities with strict hostname validation and HTTPS enforcement
 
 ## User Preferences
 
@@ -44,7 +46,7 @@ Preferred communication style: Simple, everyday language.
 - **Database**: `@neondatabase/serverless`, `drizzle-orm`, `drizzle-kit`.
 - **UI**: `@radix-ui/*`, `tailwindcss`, `lucide-react`, `class-variance-authority`.
 - **Forms**: `react-hook-form`, `@hookform/resolvers`, `zod`.
-- **File Processing**: `xlsx` (Excel parsing), `multer` (file uploads).
+- **File Processing**: `xlsx` (Excel parsing), `multer` (file uploads), `cheerio` (HTML parsing for web scraping).
 
 ### Active Integrations
 - **WhatsApp Business API**: Automated messaging, live chat (SSE), template-based messages, customer engagement workflows.
