@@ -137,19 +137,16 @@ export default function POS() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Logo size="small" />
-            <h1 
-              className="text-3xl font-bold text-white"
-              style={{
-                textShadow: '0 0 20px rgba(69, 114, 182, 0.6)',
-              }}
-              data-testid="text-pos-title"
-            >
-              קופה
-            </h1>
-          </div>
+        <div className="mb-6">
+          <h1 
+            className="text-3xl font-bold text-white"
+            style={{
+              textShadow: '0 0 20px rgba(69, 114, 182, 0.6)',
+            }}
+            data-testid="text-pos-title"
+          >
+            קופה
+          </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -257,7 +254,11 @@ export default function POS() {
           </div>
 
           {/* Cart Section */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-4">
+            <div className="flex justify-start">
+              <Logo size="small" />
+            </div>
+            
             <Card 
               className="p-6 bg-slate-800/50 border-blue-500/30 sticky top-6"
               style={{
