@@ -31,6 +31,7 @@ import POS from "@/pages/POS";
 import QuickSearch from "@/pages/QuickSearch";
 import NewCustomerRegistration from "@/pages/NewCustomerRegistration";
 import UploadFace from "@/pages/upload-face";
+import Checkout from "@/pages/Checkout";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -68,6 +69,7 @@ function Router() {
       <Route path="/quick-search" component={QuickSearch} />
       <Route path="/new-customer" component={NewCustomerRegistration} />
       <Route path="/upload-face/:token" component={UploadFace} />
+      <Route path="/checkout/:customerId" component={Checkout} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
