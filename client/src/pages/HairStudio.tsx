@@ -6,28 +6,26 @@ export default function HairStudio() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const services = {
-    cosmetics: [
-      { name: "קוסמיקה", price: "₪100-250" },
-      { name: "קוסמיקה + פלאנבר", price: "₪250-350" },
-      { name: "קוסמיקה בד גזה", price: "₪120-180" },
-      { name: "קוסמיקה בד גזה + עיסוי כף רגל", price: "₪150-200" },
-      { name: "קוסמיקה גרירקט", price: "₪100-120" }
+    haircuts: [
+      { name: "תספורת נשים", price: "₪180-250" },
+      { name: "תספורת נשים + פן/עיצוב", price: "₪250-350" },
+      { name: "תספורת גברים", price: "₪120-160" },
+      { name: "תספורת גברים + עיצוב זקן", price: "₪150-200" },
+      { name: "תספורת ילדים", price: "₪100-120" }
     ],
     coloring: [
-      { name: "צביעות ועיצוב", price: "" },
-      { name: "צבע ריח", price: "₪250-350" },
-      { name: "צבע חצי", price: "₪400-600" },
-      { name: "צבע / צביעה/ צבע עדין רק", price: "₪450-900" },
-      { name: "כימי", price: "₪600-950" },
-      { name: "פלסטיקה בלבד / תוספות/ מכשירה", price: "₪150-200" },
-      { name: "פירטה סינציפיט ופיר קומרלבר אונל", price: "₪400-1,200" }
+      { name: "צבע שורשים", price: "₪250-350" },
+      { name: "צבע מלא", price: "₪400-600" },
+      { name: "גוונים / הבהרה", price: "₪450-800" },
+      { name: "טכניקות בליאז'/אומברה", price: "₪600-950" },
+      { name: "טונר", price: "₪150-200" },
+      { name: "טיפולי שיקום (קראטין/בוטוקס)", price: "₪400-1,200" }
     ],
-    manicure: [
-      { name: "מניקור / פדיקור", price: "" },
-      { name: "צבע שיניים", price: "₪100-150" },
-      { name: "ציפורניים / בניקור", price: "₪150-200" },
-      { name: "מבנה קלאסיקה + צבע ג׳ל ריף", price: "₪100-180" },
-      { name: "תיקון / חיזוק / פרחים", price: "₪1,500-3,800" }
+    treatments: [
+      { name: "פן רגיל / חלק", price: "₪100-150" },
+      { name: "פן מעוצב / בייביליס", price: "₪150-200" },
+      { name: "מסכה טיפולית + עיסוי ראש", price: "₪100-180" },
+      { name: "החלקה יפנית / אורגנית", price: "₪1,200-2,500" }
     ]
   };
 
@@ -111,11 +109,11 @@ export default function HairStudio() {
         <h2 className="text-3xl font-bold text-center mb-10">מחירון טאן אנד קו – חדר מספרה</h2>
         
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {/* Cosmetics */}
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-cosmetics">
-            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">קוסמטיקה</h3>
+          {/* Haircuts */}
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-haircuts">
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">תספורות</h3>
             <div className="space-y-3">
-              {services.cosmetics.map((service, i) => (
+              {services.haircuts.map((service, i) => (
                 <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
                   <span className="text-white/90">{service.name}</span>
                   <span className="text-[#d12fc6] font-semibold">{service.price}</span>
@@ -124,9 +122,9 @@ export default function HairStudio() {
             </div>
           </div>
 
-          {/* Coloring & Styling */}
+          {/* Coloring & Treatments */}
           <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-coloring">
-            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">צביעות ועיצוב</h3>
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">צבעים וטיפולים</h3>
             <div className="space-y-3">
               {services.coloring.map((service, i) => (
                 <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
@@ -137,11 +135,11 @@ export default function HairStudio() {
             </div>
           </div>
 
-          {/* Manicure & Pedicure */}
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-manicure">
-            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">מניקור / פדיקור</h3>
+          {/* Hair Treatments & Styling */}
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-treatments">
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">טיפולי שיער ועיצוב</h3>
             <div className="space-y-3">
-              {services.manicure.map((service, i) => (
+              {services.treatments.map((service, i) => (
                 <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
                   <span className="text-white/90">{service.name}</span>
                   <span className="text-[#d12fc6] font-semibold">{service.price}</span>
