@@ -306,14 +306,7 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
                     name="dateOfBirth"
                     render={({ field }) => (
                       <FormItem>
-                        <div className="flex justify-between items-center mb-2">
-                          <FormLabel className="text-white">תאריך לידה *</FormLabel>
-                          {age && (
-                            <span className="text-pink-400 text-sm font-bold">
-                              גיל: {age}
-                            </span>
-                          )}
-                        </div>
+                        <FormLabel className="text-white">תאריך לידה *</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -327,6 +320,11 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
                             }}
                           />
                         </FormControl>
+                        {age && (
+                          <div className="mt-2 text-pink-400 text-sm font-bold">
+                            גיל: {age}
+                          </div>
+                        )}
                         <FormMessage />
                       </FormItem>
                     )}
