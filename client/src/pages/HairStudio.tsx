@@ -40,18 +40,18 @@ export default function HairStudio() {
   return (
     <section dir="rtl" className="w-full min-h-screen bg-black text-white">
       {/* LOGO HEADER */}
-      <div className="py-6 px-6 flex justify-center border-b border-white/10">
-        <Logo size="large" showGlow={true} showUnderline={false} />
+      <div className="absolute top-4 right-6 z-10">
+        <Logo size="small" showGlow={true} showUnderline={false} />
       </div>
 
       {/* HERO */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30 pointer-events-none" aria-hidden>
+        <div className="absolute inset-0 opacity-75 pointer-events-none" aria-hidden>
           <div className="absolute -top-32 -right-32 w-[40rem] h-[40rem] rounded-full blur-3xl" style={{background: "radial-gradient(circle at center, #d12fc6, transparent 60%)"}} />
           <div className="absolute -bottom-24 -left-24 w-[36rem] h-[36rem] rounded-full blur-3xl" style={{background: "radial-gradient(circle at center, #9C4695, transparent 60%)"}} />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-10 lg:py-12">
+        <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-8 lg:pt-8 lg:pb-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
               היופי החדש מתחיל כאן.
@@ -67,37 +67,37 @@ export default function HairStudio() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-extensions">
-            <div className="flex justify-center gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+            <div className="flex justify-center gap-3 mb-6">
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
             </div>
             <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">תוספות שיער</h3>
             <p className="text-base text-white/60">ותסרוקות</p>
           </div>
           <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-bridal">
-            <div className="flex justify-center gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+            <div className="flex justify-center gap-3 mb-6">
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
             </div>
             <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">תסרוקות כלה</h3>
             <p className="text-base text-white/60">וליווי</p>
           </div>
           <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-color">
-            <div className="flex justify-center gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+            <div className="flex justify-center gap-3 mb-6">
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
             </div>
             <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">גוונים</h3>
             <p className="text-base text-white/60">ובליאג'</p>
           </div>
           <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-treatments">
-            <div className="flex justify-center gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
-              <div className="w-3 h-3 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+            <div className="flex justify-center gap-3 mb-6">
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
+              <div className="w-5 h-5 rounded-full bg-[#d12fc6] group-hover:shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all"></div>
             </div>
             <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">כל סוגי ההחלקות</h3>
             <p className="text-base text-white/60">וטיפולים משקמים</p>
