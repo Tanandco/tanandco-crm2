@@ -194,7 +194,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => navigate('/face-registration')}
+            onClick={() => navigate('/onboarding')}
             data-testid="button-register"
           >
             <img 
