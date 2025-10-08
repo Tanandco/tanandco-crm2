@@ -7,6 +7,7 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
 **Recent Updates (October 2025)**:
 - Excel import system for migrating 216 existing subscribers with packages and balances
 - Successfully imported legacy customer data with automated phone normalization and membership creation
+- BioStar sync system to match CRM customers with existing BioStar face recognition users
 - Multilingual checkout page with Hebrew/English/French support and neon aesthetic
 
 ## User Preferences
