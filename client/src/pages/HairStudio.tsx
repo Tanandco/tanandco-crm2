@@ -66,25 +66,25 @@ export default function HairStudio() {
       {/* SERVICE CATEGORIES */}
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-brand">
-            <ShoppingCart className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
-            <h3 className="font-semibold mb-1">מותג שיער</h3>
-            <p className="text-sm text-white/60">רכישת מוצרים</p>
-          </div>
           <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-extensions">
             <Sparkles className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
             <h3 className="font-semibold mb-1">תוספות שיער</h3>
-            <p className="text-sm text-white/60">והחזקות קל</p>
+            <p className="text-sm text-white/60">ותסרוקות</p>
           </div>
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-styling">
-            <Scissors className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
-            <h3 className="font-semibold mb-1">תוספות שיער</h3>
-            <p className="text-sm text-white/60">תוספות עין + צבע</p>
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-bridal">
+            <Sparkles className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">תסרוקות כלה</h3>
+            <p className="text-sm text-white/60">וליווי</p>
           </div>
           <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-color">
+            <Scissors className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">גוונים</h3>
+            <p className="text-sm text-white/60">ובליאג'</p>
+          </div>
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-treatments">
             <Sparkles className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
-            <h3 className="font-semibold mb-1">תוספות וצביעה</h3>
-            <p className="text-sm text-white/60">מגוון אפשרויות</p>
+            <h3 className="font-semibold mb-1">כל סוגי ההחלקות</h3>
+            <p className="text-sm text-white/60">וטיפולים משקמים</p>
           </div>
         </div>
       </div>
