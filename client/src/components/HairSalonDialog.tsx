@@ -64,8 +64,8 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Purple/Indigo Gradient Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-indigo-500/20 to-black opacity-90 backdrop-blur-sm" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-indigo-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-indigo-500/15 to-black opacity-95 backdrop-blur-md" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-indigo-500/5" />
       </div>
 
       {/* Back Button */}
@@ -109,12 +109,45 @@ export default function HairSalonDialog({ open, onOpenChange }: HairSalonDialogP
               <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent opacity-80 blur-sm animate-pulse" />
             </div>
           </div>
+
+          {/* Introduction Text */}
+          <div className="mt-6 max-w-3xl mx-auto px-6">
+            <div className="text-center space-y-4">
+              <p className="text-white/90 text-base leading-relaxed">
+                <span className="text-purple-400 font-semibold">טאן אנד קו</span> מובילה בגאווה את המהפכה הבאה של תעשיית היופי עם <span className="text-pink-400">המודל ההיברידי-אוטונומי הראשון מסוגו</span>: שירותים בטכנולוגיה פורצת דרך, באוטומציה מלאה, 24/7 – וללא תלות בכוח אדם.
+              </p>
+              
+              <p className="text-white/80 text-sm leading-relaxed">
+                ובכל זאת, אנחנו מאמינים בלב שלם במה שלא ניתן להחליף בשום אלגוריתם – <span className="text-purple-300">הקשר האנושי</span>. מגע. קרבה. חיוך. שיחה טובה. 
+              </p>
+
+              <p className="text-white/80 text-sm leading-relaxed">
+                ולכן, תחת קורת גג אחת, אנחנו מאחדים את <span className="text-pink-300">מקצועני היופי והשיער מהשורה הראשונה</span> – כל אחד מהם הוא עולם ומלואו של כישרון, יצירתיות, ועצמאות אמיתית שמאפשרת להם להמריא – ולהעיף את הלקוחות יחד איתם.
+              </p>
+
+              {/* Services List */}
+              <div className="mt-6 pt-4 border-t border-purple-500/30">
+                <p className="text-purple-300 text-sm font-semibold mb-3">התמחויות המספרה שלנו:</p>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs border border-purple-500/30">תספורות וצביעה</span>
+                  <span className="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs border border-pink-500/30">גוונים ואומברה</span>
+                  <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs border border-purple-500/30">תוספות שיער</span>
+                  <span className="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs border border-pink-500/30">תסרוקות ערב</span>
+                  <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs border border-purple-500/30">תסרוקות לכל אירוע</span>
+                </div>
+              </div>
+
+              <p className="text-white/60 text-xs italic mt-4">
+                שהגעתם בדיוק למקום הנכון ✨
+              </p>
+            </div>
+          </div>
           
         </div>
       </div>
 
       {/* Content Container - positioned lower to avoid overlap */}
-      <div className="relative w-full max-w-4xl flex items-center justify-center mt-80">
+      <div className="relative w-full max-w-4xl flex items-center justify-center mt-[520px]">
         {/* Service Fields - All in one row */}
         <div className="w-full max-w-6xl mx-auto px-4">
           <div className="flex gap-2 justify-center flex-nowrap animate-scale-in">
