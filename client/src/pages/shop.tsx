@@ -244,7 +244,8 @@ export default function Shop() {
                   <div className="flex gap-2 justify-center items-center">
                     <Button
                       size="sm"
-                      className="border !border-pink-500 bg-white text-gray-800"
+                      className="border-pink-500 bg-white text-gray-800"
+                      style={{ borderWidth: '1px', borderStyle: 'solid' }}
                       onClick={() => handleAddToCart(product.id)}
                       data-testid={`add-to-cart-${product.id}`}
                     >
@@ -256,7 +257,8 @@ export default function Shop() {
                         <DrawerTrigger asChild>
                           <Button 
                             size="sm"
-                            className="border !border-pink-500 bg-white text-gray-800"
+                            className="border-pink-500 bg-white text-gray-800"
+                            style={{ borderWidth: '1px', borderStyle: 'solid' }}
                             data-testid={`info-${product.id}`}
                           >
                             <Info className="w-4 h-4" />
