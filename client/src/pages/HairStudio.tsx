@@ -66,24 +66,24 @@ export default function HairStudio() {
       {/* SERVICE CATEGORIES */}
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] transition" data-testid="category-extensions">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6]" />
-            <h3 className="text-xl font-semibold mb-2">תוספות שיער</h3>
+          <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-extensions">
+            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6] group-hover:drop-shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all duration-300" />
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">תוספות שיער</h3>
             <p className="text-base text-white/60">ותסרוקות</p>
           </div>
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] transition" data-testid="category-bridal">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6]" />
-            <h3 className="text-xl font-semibold mb-2">תסרוקות כלה</h3>
+          <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-bridal">
+            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6] group-hover:drop-shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all duration-300" />
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">תסרוקות כלה</h3>
             <p className="text-base text-white/60">וליווי</p>
           </div>
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] transition" data-testid="category-color">
-            <Scissors className="w-12 h-12 mx-auto mb-4 text-[#d12fc6]" />
-            <h3 className="text-xl font-semibold mb-2">גוונים</h3>
+          <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-color">
+            <Scissors className="w-12 h-12 mx-auto mb-4 text-[#d12fc6] group-hover:drop-shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all duration-300" />
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">גוונים</h3>
             <p className="text-base text-white/60">ובליאג'</p>
           </div>
-          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] transition" data-testid="category-treatments">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6]" />
-            <h3 className="text-xl font-semibold mb-2">כל סוגי ההחלקות</h3>
+          <div className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-8 text-center hover:border-[#d12fc6] hover:shadow-[0_0_30px_rgba(209,47,198,0.3)] transition-all duration-300 cursor-pointer" data-testid="category-treatments">
+            <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#d12fc6] group-hover:drop-shadow-[0_0_10px_rgba(209,47,198,0.8)] transition-all duration-300" />
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-[#d12fc6] transition-colors">כל סוגי ההחלקות</h3>
             <p className="text-base text-white/60">וטיפולים משקמים</p>
           </div>
         </div>
