@@ -27,6 +27,7 @@ import AITan from "@/pages/AITan";
 import PaymentSuccess from "@/pages/payment-success";
 import PaymentError from "@/pages/payment-error";
 import HairStudio from "@/pages/HairStudio";
+import POS from "@/pages/POS";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -60,6 +61,7 @@ function Router() {
       <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/payment-error" component={PaymentError} />
       <Route path="/hair-studio" component={HairStudio} />
+      <Route path="/pos" component={POS} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
