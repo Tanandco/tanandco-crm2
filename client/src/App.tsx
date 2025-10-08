@@ -33,6 +33,7 @@ import NewCustomerRegistration from "@/pages/NewCustomerRegistration";
 import UploadFace from "@/pages/upload-face";
 import Checkout from "@/pages/Checkout";
 import ImportSubscribers from "@/pages/ImportSubscribers";
+import SyncBioStar from "@/pages/SyncBioStar";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -72,6 +73,7 @@ function Router() {
       <Route path="/upload-face/:token" component={UploadFace} />
       <Route path="/checkout/:customerId" component={Checkout} />
       <Route path="/import-subscribers" component={ImportSubscribers} />
+      <Route path="/sync-biostar" component={SyncBioStar} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />

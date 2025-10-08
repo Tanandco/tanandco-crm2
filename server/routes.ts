@@ -2273,4 +2273,106 @@ export function registerRoutes(app: express.Application) {
       });
     }
   });
+
+  // ============================================================
+  // BioStar Sync Endpoint
+  // ============================================================
+
+  app.post('/api/sync/biostar', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          error: 'No file uploaded'
+        });
+      }
+
+      // Read CSV file using XLSX (it supports CSV too)
+      const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = XLSX.utils.sheet_to_json(worksheet);
+
+      const results = {
+        matched: 0,
+        unmatched: 0,
+        total: data.length,
+        unmatchedNames: [] as string[],
+        syncedUsers: [] as { name: string; phone: string; biostarId: string }[]
+      };
+
+      // Process each BioStar user
+      for (const row of data as any[]) {
+        try {
+          const biostarUserId = row.user_id?.toString() || '';
+          const name = row.name || '';
+          const phone = row.phone || '';
+          
+          // Skip rows without essential data
+          if (!biostarUserId || !name) {
+            continue;
+          }
+
+          // Skip special users (like "אופטימוס-פתיחת דלת")
+          if (biostarUserId === '2' || name.includes('אופטימוס') || name.includes('כניסות בודדות')) {
+            continue;
+          }
+
+          // If no phone, can't match - add to unmatched
+          if (!phone) {
+            results.unmatched++;
+            results.unmatchedNames.push(name);
+            continue;
+          }
+
+          // Normalize phone number (same logic as import)
+          let normalizedPhone = phone.toString().replace(/\D/g, '');
+          if (normalizedPhone.startsWith('972')) {
+            normalizedPhone = '0' + normalizedPhone.substring(3);
+          } else if (!normalizedPhone.startsWith('0')) {
+            normalizedPhone = '0' + normalizedPhone;
+          }
+
+          // Find customer by phone
+          const customer = await db
+            .select()
+            .from(customers)
+            .where(eq(customers.phone, normalizedPhone))
+            .limit(1);
+
+          if (customer.length > 0) {
+            // Update customer with BioStar user_id
+            await db
+              .update(customers)
+              .set({ faceRecognitionId: biostarUserId })
+              .where(eq(customers.id, customer[0].id));
+
+            results.matched++;
+            results.syncedUsers.push({
+              name,
+              phone: normalizedPhone,
+              biostarId: biostarUserId
+            });
+          } else {
+            // Customer not found in CRM
+            results.unmatched++;
+            results.unmatchedNames.push(`${name} (${normalizedPhone})`);
+          }
+
+        } catch (error: any) {
+          console.error('Sync row error:', error);
+          // Continue with next row
+        }
+      }
+
+      res.json(results);
+    } catch (error: any) {
+      console.error('BioStar sync error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to sync BioStar users',
+        details: error.message
+      });
+    }
+  });
 }
