@@ -6,12 +6,14 @@ import { bioStarStartup } from './services/biostar-startup';
 import { requireLocalAccess, rateLimit } from './middleware/auth';
 import { storage } from './storage';
 import { db } from './db';
-import { customers, insertCustomerSchema, insertMembershipSchema, faceUploadTokens } from '@shared/schema';
+import { customers, insertCustomerSchema, insertMembershipSchema, faceUploadTokens, memberships } from '@shared/schema';
 import { z } from 'zod';
 import { whatsappService } from './services/whatsapp-service';
 import { cardcomService } from './services/cardcom-service';
 import { WorkflowService } from './services/workflow-service';
 import { eq, sql } from 'drizzle-orm';
+import multer from 'multer';
+import XLSX from 'xlsx';
 
 // Validation schemas
 const identifyFaceSchema = z.object({
@@ -2135,6 +2137,139 @@ export function registerRoutes(app: express.Application) {
       res.status(500).json({
         success: false,
         error: error.message
+      });
+    }
+  });
+
+  // ============================================================
+  // Excel Import Endpoint
+  // ============================================================
+
+  const upload = multer({ storage: multer.memoryStorage() });
+
+  app.post('/api/import/subscribers', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          error: 'No file uploaded'
+        });
+      }
+
+      // Read Excel file
+      const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = XLSX.utils.sheet_to_json(worksheet);
+
+      const results = {
+        success: 0,
+        failed: 0,
+        total: data.length,
+        errors: [] as string[],
+        created: [] as { name: string; phone: string; balance: number }[]
+      };
+
+      // Process each row
+      for (const row of data as any[]) {
+        try {
+          const fullName = row.FL || '';
+          const phone = row.Pelephone || row.Phone || '';
+          const packageName = row.Name || '';
+          const totalPurchased = parseInt(row.Amount) || 0;
+          const balance = parseInt(row.AmountNotuseed) || 0;
+          const openDate = row.OpenDate;
+
+          if (!fullName || !phone) {
+            results.failed++;
+            results.errors.push(`שורה חסרה שם או טלפון: ${fullName || 'לא ידוע'}`);
+            continue;
+          }
+
+          // Normalize phone number
+          let normalizedPhone = phone.toString().replace(/\D/g, '');
+          if (normalizedPhone.startsWith('972')) {
+            normalizedPhone = '0' + normalizedPhone.substring(3);
+          } else if (!normalizedPhone.startsWith('0')) {
+            normalizedPhone = '0' + normalizedPhone;
+          }
+
+          // Check if customer exists
+          let customer = await db
+            .select()
+            .from(customers)
+            .where(eq(customers.phone, normalizedPhone))
+            .limit(1);
+
+          let customerId: string;
+
+          if (customer.length === 0) {
+            // Create new customer
+            const [newCustomer] = await db
+              .insert(customers)
+              .values({
+                fullName,
+                phone: normalizedPhone,
+                isNewClient: false,
+                healthFormSigned: false,
+              })
+              .returning();
+            customerId = newCustomer.id;
+          } else {
+            customerId = customer[0].id;
+          }
+
+          // Determine membership type from package name
+          let membershipType = 'sun-beds';
+          if (packageName.includes('עיסוי') || packageName.includes('massage')) {
+            membershipType = 'massage';
+          } else if (packageName.includes('התזה')) {
+            membershipType = 'spray-tan';
+          }
+
+          // Convert Excel date to timestamp if exists
+          let expiryDate = null;
+          if (openDate && typeof openDate === 'number') {
+            // Excel date serial number to JS date
+            const excelEpoch = new Date(1899, 11, 30);
+            const jsDate = new Date(excelEpoch.getTime() + openDate * 86400000);
+            // Add 12 months
+            expiryDate = new Date(jsDate);
+            expiryDate.setMonth(expiryDate.getMonth() + 12);
+          }
+
+          // Create membership
+          await db
+            .insert(memberships)
+            .values({
+              customerId,
+              type: membershipType,
+              balance,
+              totalPurchased,
+              expiryDate,
+              isActive: balance > 0,
+            });
+
+          results.success++;
+          results.created.push({
+            name: fullName,
+            phone: normalizedPhone,
+            balance
+          });
+
+        } catch (error: any) {
+          results.failed++;
+          results.errors.push(`שגיאה בייבוא ${row.FL}: ${error.message}`);
+        }
+      }
+
+      res.json(results);
+    } catch (error: any) {
+      console.error('Import subscribers error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to import subscribers',
+        details: error.message
       });
     }
   });
