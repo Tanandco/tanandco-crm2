@@ -233,39 +233,6 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
         {/* Self Service Button */}
         <div className="mt-24">
-        <style>{`
-          @keyframes sparkle-travel {
-            0% {
-              offset-distance: 0%;
-              opacity: 0;
-            }
-            5% {
-              opacity: 0.8;
-            }
-            95% {
-              opacity: 0.8;
-            }
-            100% {
-              offset-distance: 100%;
-              opacity: 0;
-            }
-          }
-
-          .sparkle-runner {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.9) 0%, rgba(147, 51, 234, 0.6) 50%, transparent 100%);
-            border-radius: 50%;
-            box-shadow: 
-              0 0 6px rgba(236, 72, 153, 0.6),
-              0 0 12px rgba(147, 51, 234, 0.3);
-            offset-path: path('M 10,10 L 270,10 L 270,70 L 10,70 Z');
-            animation: sparkle-travel 4s ease-in-out infinite;
-            pointer-events: none;
-          }
-        `}</style>
-        
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
@@ -289,9 +256,6 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
           onClick={() => navigate('/self-service')}
         >
-          {/* Single delicate sparkle traveling around border */}
-          <div className="sparkle-runner"></div>
-
           <img 
             src={selfServiceIcon} 
             alt="שירות עצמי" 
