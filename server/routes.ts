@@ -1,11 +1,12 @@
 import express from 'express';
 import crypto from 'crypto';
+import { nanoid } from 'nanoid';
 import { bioStarClient } from './services/biostar-client';
 import { bioStarStartup } from './services/biostar-startup';
 import { requireLocalAccess, rateLimit } from './middleware/auth';
 import { storage } from './storage';
 import { db } from './db';
-import { customers, insertCustomerSchema, insertMembershipSchema } from '@shared/schema';
+import { customers, insertCustomerSchema, insertMembershipSchema, faceUploadTokens } from '@shared/schema';
 import { z } from 'zod';
 import { whatsappService } from './services/whatsapp-service';
 import { cardcomService } from './services/cardcom-service';
@@ -455,6 +456,201 @@ export function registerRoutes(app: express.Application) {
       res.status(500).json({
         success: false,
         error: 'Failed to get door logs',
+        details: error.message
+      });
+    }
+  });
+
+  // ============================================================
+  // FACE UPLOAD VIA WHATSAPP ENDPOINTS
+  // ============================================================
+
+  // Send WhatsApp link for face upload
+  app.post('/api/face-upload/send-link', async (req, res) => {
+    try {
+      const { customerId } = req.body;
+      
+      if (!customerId) {
+        return res.status(400).json({
+          success: false,
+          error: 'Customer ID is required'
+        });
+      }
+
+      // Get customer details
+      const customer = await storage.getCustomer(customerId);
+      if (!customer) {
+        return res.status(404).json({
+          success: false,
+          error: 'Customer not found'
+        });
+      }
+
+      // Generate unique token (10 characters)
+      const token = nanoid(10);
+      
+      // Token expires in 30 minutes
+      const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
+
+      // Create token in database
+      await storage.createFaceUploadToken({
+        token,
+        customerId,
+        status: 'pending',
+        expiresAt
+      });
+
+      // Generate upload link
+      const uploadUrl = `${process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000'}/upload-face/${token}`;
+
+      // Send WhatsApp message
+      const message = `שלום ${customer.fullName}! 👋\n\nלהשלמת הרישום במכון, אנא העלה תמונה ברורה שלך דרך הקישור:\n\n${uploadUrl}\n\nהקישור תקף ל-30 דקות.`;
+      
+      await whatsappService.sendTextMessage(customer.phone, message);
+
+      res.json({
+        success: true,
+        data: {
+          token,
+          uploadUrl,
+          expiresAt
+        }
+      });
+    } catch (error: any) {
+      console.error('Send face upload link failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to send upload link',
+        details: error.message
+      });
+    }
+  });
+
+  // Check token status (for polling)
+  app.get('/api/face-upload/check/:token', async (req, res) => {
+    try {
+      const { token } = req.params;
+      
+      const tokenData = await storage.getFaceUploadToken(token);
+      
+      if (!tokenData) {
+        return res.status(404).json({
+          success: false,
+          error: 'Token not found'
+        });
+      }
+
+      // Check if expired
+      if (new Date() > new Date(tokenData.expiresAt)) {
+        return res.json({
+          success: true,
+          data: {
+            status: 'expired',
+            imageUrl: null
+          }
+        });
+      }
+
+      res.json({
+        success: true,
+        data: {
+          status: tokenData.status,
+          imageUrl: tokenData.imageUrl
+        }
+      });
+    } catch (error: any) {
+      console.error('Check token status failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to check token status',
+        details: error.message
+      });
+    }
+  });
+
+  // Receive image upload from customer's phone
+  app.post('/api/face-upload/:token', async (req, res) => {
+    try {
+      const { token } = req.params;
+      const { image } = req.body;
+      
+      if (!image) {
+        return res.status(400).json({
+          success: false,
+          error: 'Image data is required'
+        });
+      }
+
+      const tokenData = await storage.getFaceUploadToken(token);
+      
+      if (!tokenData) {
+        return res.status(404).json({
+          success: false,
+          error: 'Invalid token'
+        });
+      }
+
+      // Check if expired
+      if (new Date() > new Date(tokenData.expiresAt)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Token has expired'
+        });
+      }
+
+      // Check if already used
+      if (tokenData.status === 'uploaded' || tokenData.status === 'used') {
+        return res.status(400).json({
+          success: false,
+          error: 'Token has already been used'
+        });
+      }
+
+      // Update token with image data (store base64 temporarily)
+      await storage.updateFaceUploadTokenWithImage(token, image);
+
+      res.json({
+        success: true,
+        message: 'Image uploaded successfully'
+      });
+    } catch (error: any) {
+      console.error('Upload image failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to upload image',
+        details: error.message
+      });
+    }
+  });
+
+  // Mark token as used after successful face registration
+  app.put('/api/face-upload/:token/mark-used', async (req, res) => {
+    try {
+      const { token } = req.params;
+      
+      const tokenData = await storage.getFaceUploadToken(token);
+      
+      if (!tokenData) {
+        return res.status(404).json({
+          success: false,
+          error: 'Invalid token'
+        });
+      }
+
+      // Update status to 'used'
+      await db.update(faceUploadTokens)
+        .set({ status: 'used' })
+        .where(eq(faceUploadTokens.token, token));
+
+      res.json({
+        success: true,
+        message: 'Token marked as used'
+      });
+    } catch (error: any) {
+      console.error('Mark token as used failed:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to mark token as used',
         details: error.message
       });
     }
