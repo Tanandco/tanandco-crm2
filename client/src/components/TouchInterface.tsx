@@ -72,15 +72,15 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     } else if (serviceId === 'your-store') {
       // Navigate to shop page
       navigate('/shop');
+    } else if (serviceId === 'hair-salon') {
+      // Navigate to Hair Studio page
+      navigate('/hair-studio');
     } else if (serviceId === 'sun-beds') {
       // Open sun beds dialog
       setSunBedsDialogOpen(true);
     } else if (serviceId === 'spray-tan') {
       // Open spray tan dialog
       setSprayTanDialogOpen(true);
-    } else if (serviceId === 'hair-salon') {
-      // Open hair salon dialog
-      setHairSalonDialogOpen(true);
     } else if (serviceId === 'cosmetics') {
       // Open cosmetics dialog
       setCosmeticsDialogOpen(true);
