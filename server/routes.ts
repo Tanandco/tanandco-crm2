@@ -2375,4 +2375,161 @@ export function registerRoutes(app: express.Application) {
       });
     }
   });
+
+  // ============================================================
+  // PAS TOUCHER Import Endpoint
+  // ============================================================
+
+  app.post('/api/import/pas-toucher', async (req, res) => {
+    try {
+      const { url } = req.body;
+      
+      if (!url) {
+        return res.status(400).json({
+          success: false,
+          error: 'URL is required'
+        });
+      }
+
+      // Security: Validate URL belongs to pas-toucher.com and uses HTTPS
+      const urlObj = new URL(url);
+      const isValidHost = urlObj.hostname === 'pas-toucher.com' || urlObj.hostname.endsWith('.pas-toucher.com');
+      if (urlObj.protocol !== 'https:' || !isValidHost) {
+        return res.status(400).json({
+          success: false,
+          error: 'URL must be from https://pas-toucher.com or https://www.pas-toucher.com'
+        });
+      }
+
+      const { load } = await import('cheerio');
+      const { products: productsTable } = await import('@shared/schema');
+
+      const results = {
+        imported: 0,
+        skipped: 0,
+        total: 0,
+        products: [] as { name: string; color: string; price: number; salePrice?: number }[]
+      };
+
+      // Fetch the HTML content
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        return res.status(502).json({
+          success: false,
+          error: `Failed to fetch from PAS TOUCHER: ${response.status} ${response.statusText}`
+        });
+      }
+      
+      const html = await response.text();
+
+      // Load HTML with Cheerio
+      const $ = load(html);
+
+      // Extract products from WooCommerce structure
+      $('.product').each((_, element) => {
+        const $product = $(element);
+        
+        // Extract product name
+        const name = $product.find('.woocommerce-loop-product__title, h2, h3').first().text().trim();
+        
+        // Extract price
+        const priceText = $product.find('.price .woocommerce-Price-amount, .price').first().text().trim();
+        const priceMatch = priceText.match(/(\d+)/);
+        const price = priceMatch ? parseInt(priceMatch[1]) : 0;
+        
+        // Extract sale price if exists
+        const salePriceText = $product.find('.price ins .woocommerce-Price-amount').text().trim();
+        const salePriceMatch = salePriceText.match(/(\d+)/);
+        const salePrice = salePriceMatch ? parseInt(salePriceMatch[1]) : null;
+        
+        // Extract image
+        const imageUrl = $product.find('img').first().attr('src') || $product.find('img').first().attr('data-src') || '';
+        
+        // Extract color/variant info from title or description
+        const fullText = $product.text();
+        const colorMatch = fullText.match(/(?:-|–)\s*([א-ת\s]+)/);
+        const color = colorMatch ? colorMatch[1].trim() : '';
+
+        if (name && price > 0) {
+          results.total++;
+        }
+      });
+
+      // Now actually import (re-iterate to insert into DB)
+      for (const productElement of $('.product').toArray()) {
+        const $product = $(productElement);
+        
+        const name = $product.find('.woocommerce-loop-product__title, h2, h3').first().text().trim();
+        const priceText = $product.find('.price .woocommerce-Price-amount, .price').first().text().trim();
+        const priceMatch = priceText.match(/(\d+)/);
+        const price = priceMatch ? parseInt(priceMatch[1]) : 0;
+        
+        const salePriceText = $product.find('.price ins .woocommerce-Price-amount').text().trim();
+        const salePriceMatch = salePriceText.match(/(\d+)/);
+        const salePrice = salePriceMatch ? parseInt(salePriceMatch[1]) : null;
+        
+        const imageUrl = $product.find('img').first().attr('src') || $product.find('img').first().attr('data-src') || '';
+        
+        const fullText = $product.text();
+        const colorMatch = fullText.match(/(?:-|–)\s*([א-ת\s]+)/);
+        const color = colorMatch ? colorMatch[1].trim() : 'קלאסי';
+
+        if (!name || price <= 0) {
+          continue;
+        }
+
+        // Check if product already exists
+        const existing = await db
+          .select()
+          .from(productsTable)
+          .where(eq(productsTable.name, name))
+          .limit(1);
+
+        if (existing.length > 0) {
+          results.skipped++;
+          continue;
+        }
+
+        // Create product
+        await db.insert(productsTable).values({
+          name: name,
+          nameHe: name,
+          description: `משקפי שמש ${name}${color ? ' - ' + color : ''}`,
+          descriptionHe: `משקפי שמש ${name}${color ? ' - ' + color : ''}`,
+          price: price.toString(),
+          salePrice: salePrice ? salePrice.toString() : null,
+          productType: 'product',
+          category: 'sunglasses',
+          brand: 'PAS TOUCHER',
+          stock: 10,
+          isActive: true,
+          isFeatured: false,
+          images: imageUrl ? [imageUrl] : null,
+          features: [
+            'הגנה מלאה מקרינת UV',
+            'עיצוב אלכסנדר ברקמן',
+            'איכות פרימיום'
+          ]
+        });
+
+        results.imported++;
+        results.products.push({
+          name,
+          color,
+          price,
+          salePrice: salePrice || undefined
+        });
+      }
+
+      res.json(results);
+    } catch (error: any) {
+      console.error('PAS TOUCHER import error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to import PAS TOUCHER products',
+        details: error.message
+      });
+    }
+  });
 }

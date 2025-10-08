@@ -34,6 +34,7 @@ import UploadFace from "@/pages/upload-face";
 import Checkout from "@/pages/Checkout";
 import ImportSubscribers from "@/pages/ImportSubscribers";
 import SyncBioStar from "@/pages/SyncBioStar";
+import ImportPasToucher from "@/pages/ImportPasToucher";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -74,6 +75,7 @@ function Router() {
       <Route path="/checkout/:customerId" component={Checkout} />
       <Route path="/import-subscribers" component={ImportSubscribers} />
       <Route path="/sync-biostar" component={SyncBioStar} />
+      <Route path="/import-pas-toucher" component={ImportPasToucher} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
