@@ -8,6 +8,7 @@ import SunBedsDialog from './SunBedsDialog';
 import SprayTanDialog from './SprayTanDialog';
 import HairSalonDialog from './HairSalonDialog';
 import CosmeticsDialog from './CosmeticsDialog';
+import NewCustomerDialog from './NewCustomerDialog';
 import Alin from './Alin';
 import tanningBedIcon from '@assets/עיצוב ללא שם (30)_1759413689481.png';
 import sprayTanIcon from '@assets/freepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717_1759413070782.png';
@@ -31,6 +32,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   const [sprayTanDialogOpen, setSprayTanDialogOpen] = useState(false);
   const [hairSalonDialogOpen, setHairSalonDialogOpen] = useState(false);
   const [cosmeticsDialogOpen, setCosmeticsDialogOpen] = useState(false);
+  const [newCustomerDialogOpen, setNewCustomerDialogOpen] = useState(false);
 
   const services = [
     { 
@@ -194,7 +196,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => navigate('/onboarding')}
+            onClick={() => setNewCustomerDialogOpen(true)}
             data-testid="button-register"
           >
             <img 
@@ -352,6 +354,12 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       <CosmeticsDialog 
         open={cosmeticsDialogOpen} 
         onOpenChange={setCosmeticsDialogOpen}
+      />
+
+      {/* New Customer Dialog */}
+      <NewCustomerDialog 
+        open={newCustomerDialogOpen} 
+        onOpenChange={setNewCustomerDialogOpen}
       />
     </div>
   );

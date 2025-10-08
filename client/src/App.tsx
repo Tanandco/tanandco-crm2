@@ -29,6 +29,7 @@ import PaymentError from "@/pages/payment-error";
 import HairStudio from "@/pages/HairStudio";
 import POS from "@/pages/POS";
 import QuickSearch from "@/pages/QuickSearch";
+import NewCustomerRegistration from "@/pages/NewCustomerRegistration";
 
 // Import component examples for preview
 import LogoExample from "@/components/examples/Logo";
@@ -64,6 +65,7 @@ function Router() {
       <Route path="/hair-studio" component={HairStudio} />
       <Route path="/pos" component={POS} />
       <Route path="/quick-search" component={QuickSearch} />
+      <Route path="/new-customer" component={NewCustomerRegistration} />
       
       {/* Component Examples for Development/Preview */}
       <Route path="/examples/logo" component={LogoExample} />
