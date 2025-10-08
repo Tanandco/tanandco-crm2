@@ -161,7 +161,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => onNavigate?.('/search')}
+            onClick={() => navigate('/products')}
             data-testid="button-search"
           >
             <Search 
@@ -194,7 +194,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             }}
             onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => onNavigate?.('/register')}
+            onClick={() => navigate('/face-registration')}
             data-testid="button-register"
           >
             <img 
@@ -291,7 +291,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           style={{
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
           }}
-          onClick={() => handleNavigation('/')}
+          onClick={() => navigate('/')}
           data-testid="button-home"
         >
           <Home 
@@ -317,7 +317,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           style={{
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
           }}
-          onClick={() => handleNavigation('/settings')}
+          onClick={() => navigate('/products')}
           data-testid="button-settings"
         >
           <Settings 
