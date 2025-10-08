@@ -149,9 +149,10 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
 
   const onSubmitMembership = () => {
     const membershipType = form.getValues('membershipType');
-    const sessions = parseInt(form.getValues('membershipSessions'));
+    const membershipSessions = form.getValues('membershipSessions');
+    const sessions = parseInt(membershipSessions || '0');
     
-    if (!customerId || !membershipType || !sessions) {
+    if (!customerId || !membershipType || !sessions || isNaN(sessions)) {
       toast({
         title: '❌ שגיאה',
         description: 'יש למלא את כל השדות',
