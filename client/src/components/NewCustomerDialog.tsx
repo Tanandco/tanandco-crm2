@@ -92,10 +92,11 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
       };
       
       const response = await apiRequest('POST', '/api/customers', customerData);
-      return response;
+      const json = await response.json();
+      return json;
     },
-    onSuccess: (data: any) => {
-      setCustomerId(data.data.id);
+    onSuccess: (json: any) => {
+      setCustomerId(json.data.id);
       setStep('membership');
       toast({
         title: '✅ פרטים נשמרו',
@@ -122,7 +123,8 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
       };
       
       const response = await apiRequest('POST', '/api/memberships', membershipData);
-      return response;
+      const json = await response.json();
+      return json;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/customers'] });
@@ -139,8 +141,6 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
   });
 
   const onSubmitDetails = (data: RegistrationFormData) => {
-    console.log('onSubmitDetails called with data:', data);
-    console.log('Form errors:', form.formState.errors);
     createCustomerMutation.mutate(data);
   };
 
