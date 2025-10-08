@@ -51,8 +51,8 @@ export default function HairStudio() {
           <div className="absolute -bottom-24 -left-24 w-[36rem] h-[36rem] rounded-full blur-3xl" style={{background: "radial-gradient(circle at center, #9C4695, transparent 60%)"}} />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-16 lg:py-24">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto max-w-6xl px-6 py-16 lg:py-20">
+          <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
               היופי החדש מתחיל כאן.
             </h1>
