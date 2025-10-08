@@ -13,8 +13,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { z } from 'zod';
 
-const registrationSchema = insertCustomerSchema.extend({
-  dateOfBirth: z.string().min(1, 'תאריך לידה הוא שדה חובה'),
+const registrationSchema = insertCustomerSchema.omit({ dateOfBirth: true }).extend({
+  dateOfBirth: z.string()
+    .min(1, 'תאריך לידה הוא שדה חובה')
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "תאריך לידה חייב להיות בפורמט YYYY-MM-DD"),
   membershipType: z.string().min(1, 'יש לבחור סוג כרטיסיה'),
   membershipSessions: z.string().min(1, 'יש לבחור מספר כניסות'),
 });
@@ -58,7 +60,7 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
     defaultValues: {
       fullName: '',
       phone: '',
-      email: null,
+      email: '',
       dateOfBirth: '',
       isNewClient: true,
       healthFormSigned: false,
@@ -76,7 +78,7 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
       const customerData = {
         fullName: data.fullName,
         phone: data.phone,
-        email: data.email,
+        email: data.email || null,
         dateOfBirth: data.dateOfBirth,
         isNewClient: true,
         healthFormSigned: false,
