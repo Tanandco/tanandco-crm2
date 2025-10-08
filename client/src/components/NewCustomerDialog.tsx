@@ -100,10 +100,10 @@ export default function NewCustomerDialog({ open, onOpenChange }: NewCustomerDia
       handleClose();
       toast({
         title: '✅ לקוח נרשם בהצלחה',
-        description: 'עובר לעמוד הקופה לבחירת כרטיסיה...',
+        description: 'עובר להצהרת בריאות...',
       });
       setTimeout(() => {
-        window.location.href = `/pos?customer=${json.data.id}`;
+        window.location.href = `/health-form?customerId=${json.data.id}`;
       }, 500);
     },
     onError: (error: any) => {

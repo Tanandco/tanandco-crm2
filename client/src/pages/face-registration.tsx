@@ -155,10 +155,10 @@ export default function FaceRegistration() {
           description: "עכשיו תוכל להיכנס למכון באמצעות זיהוי פנים",
         });
         
-        // Redirect after 3 seconds
+        // Redirect to POS after 2 seconds
         setTimeout(() => {
-          navigate('/');
-        }, 3000);
+          navigate(`/pos?customer=${customerId}`);
+        }, 2000);
       } else {
         throw new Error(data.error || 'Registration failed');
       }
