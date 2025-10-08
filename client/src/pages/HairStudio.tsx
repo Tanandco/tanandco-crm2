@@ -1,14 +1,44 @@
 import Logo from '@/components/Logo';
+import { Calendar, Scissors, Sparkles, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 
 export default function HairStudio() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const services = {
+    cosmetics: [
+      { name: "קוסמטיקה", price: "₪100-250" },
+      { name: "קוסמטיקה + פלאנבר", price: "₪250-350" },
+      { name: "קוסמטיקה בד גזה", price: "₪120-180" },
+      { name: "קוסמטיקה בד גזה + עיסוי כף רגל", price: "₪150-200" },
+      { name: "קוסמטיקה גרירקט", price: "₪100-120" }
+    ],
+    coloring: [
+      { name: "צביעות ועיצוב", price: "" },
+      { name: "צבע ריח", price: "₪250-350" },
+      { name: "צבע חצי", price: "₪400-600" },
+      { name: "צבע / צביעה/ צבע עדין רק", price: "₪450-900" },
+      { name: "כימי", price: "₪600-950" },
+      { name: "פלסטיקה בלבד / תוספות/ מכשירה", price: "₪150-200" },
+      { name: "פירטה סינציפיט ופיר קומרלבר אונל", price: "₪400-1,200" }
+    ],
+    manicure: [
+      { name: "מניקור / פדיקור", price: "" },
+      { name: "צבע שיניים", price: "₪100-150" },
+      { name: "ציפורניים / בניקור", price: "₪150-200" },
+      { name: "מבנה קלאסיקה + צבע ג׳ל ריף", price: "₪100-180" },
+      { name: "תיקון / חיזוק / פרחים", price: "₪1,500-3,800" }
+    ]
+  };
+
   const profiles = [
     { handle: "tanandco_hair", url: "https://instagram.com/tanandco_hair", name: "Tan & Co Hair" },
     { handle: "stylist_one", url: "https://instagram.com/stylist_one", name: "Stylist One" },
     { handle: "stylist_two", url: "https://instagram.com/stylist_two", name: "Stylist Two" },
   ];
-  
+
   return (
-    <section dir="rtl" className="w-full bg-black text-white">
+    <section dir="rtl" className="w-full min-h-screen bg-black text-white">
       {/* LOGO HEADER */}
       <div className="py-6 px-6 flex justify-center border-b border-white/10">
         <Logo size="large" showGlow={true} showUnderline={false} />
@@ -21,7 +51,7 @@ export default function HairStudio() {
           <div className="absolute -bottom-24 -left-24 w-[36rem] h-[36rem] rounded-full blur-3xl" style={{background: "radial-gradient(circle at center, #9C4695, transparent 60%)"}} />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-20 lg:py-28">
+        <div className="relative mx-auto max-w-6xl px-6 py-16 lg:py-24">
           <div className="max-w-3xl">
             <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
               היופי החדש מתחיל כאן.
@@ -29,90 +59,162 @@ export default function HairStudio() {
             <p className="mt-5 text-lg text-white/80 leading-8">
               טאן אנד קו מובילה בגאווה את המהפכה הבאה של תעשיית היופי עם המודל ההיברידי־אוטונומי הראשון מסוגו: שירותים בטכנולוגיה פורצת דרך, באוטומציה מלאה, 24/7 – וללא תלות בכוח אדם. ובכל זאת, בלב שלנו – תמיד נשאר המקום למה שלא ניתן להחליף באף אלגוריתם: הקשר האנושי. המגע. הקרבה. החיוך. השיחה הטובה. ולכן, תחת קורת גג אחת, אנחנו מאחדים את מקצועני היופי והשיער המובילים – כל אחד מהם עצמאי, יוצר, אמן אמיתי. יחד הם יוצרים מרחב חופשי, יצירתי ומלא השראה – שבו גם אתם יכולים פשוט… לנשום. אז קחו רגע לעצמכם. שבו בנחת. ותנו לנו להוציא אתכם מכאן עם תחושה אחת ברורה: שהגעתם בדיוק למקום הנכון.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#book" className="rounded-2xl bg-[#d12fc6] px-6 py-3 text-base font-semibold shadow-lg shadow-[#d12fc6]/30 hover:shadow-[#d12fc6]/50 transition" data-testid="button-book-appointment">
-                קבעו תור
-              </a>
-              <a href="#artists" className="rounded-2xl border border-white/20 px-6 py-3 text-base font-semibold hover:bg-white/5 transition" data-testid="button-meet-artists">
-                הכירו את האמנים
-              </a>
+          </div>
+        </div>
+      </div>
+
+      {/* SERVICE CATEGORIES */}
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-brand">
+            <ShoppingCart className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">מותג שיער</h3>
+            <p className="text-sm text-white/60">רכישת מוצרים</p>
+          </div>
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-extensions">
+            <Sparkles className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">תוספות שיער</h3>
+            <p className="text-sm text-white/60">והחזקות קל</p>
+          </div>
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-styling">
+            <Scissors className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">תוספות שיער</h3>
+            <p className="text-sm text-white/60">תוספות עין + צבע</p>
+          </div>
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/20 to-transparent p-6 text-center hover:border-[#d12fc6] transition" data-testid="category-color">
+            <Sparkles className="w-8 h-8 mx-auto mb-3 text-[#d12fc6]" />
+            <h3 className="font-semibold mb-1">תוספות וצביעה</h3>
+            <p className="text-sm text-white/60">מגוון אפשרויות</p>
+          </div>
+        </div>
+      </div>
+
+      {/* PRICING SECTION */}
+      <div id="pricing" className="mx-auto max-w-7xl px-6 py-12">
+        <h2 className="text-3xl font-bold text-center mb-10">מחירון טאן אנד קו – חדר מספרה</h2>
+        
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {/* Cosmetics */}
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-cosmetics">
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">קוסמטיקה</h3>
+            <div className="space-y-3">
+              {services.cosmetics.map((service, i) => (
+                <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
+                  <span className="text-white/90">{service.name}</span>
+                  <span className="text-[#d12fc6] font-semibold">{service.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Coloring & Styling */}
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-coloring">
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">צביעות ועיצוב</h3>
+            <div className="space-y-3">
+              {services.coloring.map((service, i) => (
+                <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
+                  <span className="text-white/90">{service.name}</span>
+                  <span className="text-[#d12fc6] font-semibold">{service.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Manicure & Pedicure */}
+          <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-6" data-testid="pricing-manicure">
+            <h3 className="text-xl font-semibold mb-6 text-center text-[#d12fc6]">מניקור / פדיקור</h3>
+            <div className="space-y-3">
+              {services.manicure.map((service, i) => (
+                <div key={i} className="flex justify-between items-center text-sm py-2 border-b border-white/10">
+                  <span className="text-white/90">{service.name}</span>
+                  <span className="text-[#d12fc6] font-semibold">{service.price}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* INSTAGRAM PROFILES */}
-      <div id="artists" className="mx-auto max-w-6xl px-6 pb-20">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-2xl md:text-3xl font-semibold">עובדים חופשי, יוצרים יחד</h2>
-          <span className="text-sm text-white/60">עצמאות בתוך קהילה</span>
+      {/* BOOKING SECTION */}
+      <div id="book" className="mx-auto max-w-4xl px-6 py-12">
+        <div className="rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <Calendar className="w-8 h-8 text-[#d12fc6]" />
+            <h2 className="text-2xl font-bold">קביעת תור</h2>
+          </div>
+          
+          <p className="text-white/70 mb-8 leading-relaxed">
+            מאוחר מאוד טאן אנד קו – חדר מספרה <br/>
+            שני, חום, הום, לים יניה חמישי, לפיכך – מ-09:00 עד 22:00 | שבת – רצוי ליצור קשר מראש
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <button className="w-full rounded-xl bg-[#d12fc6] px-6 py-4 font-semibold hover:bg-[#d12fc6]/90 transition" data-testid="button-book-now">
+                קבעו תור עכשיו
+              </button>
+              <button className="w-full rounded-xl border border-white/20 px-6 py-4 font-semibold hover:bg-white/5 transition" data-testid="button-contact">
+                צרו קשר
+              </button>
+            </div>
+            
+            <div className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <div className="text-center text-sm text-white/60 mb-3">October 2025</div>
+              <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                {['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'].map(day => (
+                  <div key={day} className="text-white/40 font-semibold">{day}</div>
+                ))}
+                {Array.from({length: 31}, (_, i) => i + 1).map(day => (
+                  <button
+                    key={day}
+                    className="aspect-square rounded-lg hover:bg-[#d12fc6]/20 hover:text-[#d12fc6] transition text-white/70"
+                    data-testid={`calendar-day-${day}`}
+                  >
+                    {day}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="mt-3 text-white/70 max-w-3xl">
-          במתחם שלנו כל נותן/ת שירות הוא/היא עצמאי/ת ומשכיר/ה עמדה – לא עובד/ת שכיר/ה. אנחנו מספקים מעטפת מותגית, סביבת עבודה מוקפדת וחוויית לקוח אחידה; הם מביאים את הכישרון, האישיות והקשר האישי. הנה שלושה פרופילים שתוכלו לעקוב אחריהם:
+      </div>
+
+      {/* ARTISTS SECTION */}
+      <div id="artists" className="mx-auto max-w-6xl px-6 py-12">
+        <h2 className="text-3xl font-bold mb-4">עובדים חופשי, יוצרים יחד</h2>
+        <p className="text-white/70 max-w-3xl mb-8">
+          במתחם שלנו כל נותן/ת שירות הוא/היא עצמאי/ת ומשכיר/ה עמדה. אנחנו מספקים מעטפת מותגית וחוויית לקוח אחידה; הם מביאים את הכישרון והקשר האישי.
         </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {profiles.map((p, i) => (
-            <article key={i} className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm hover:bg-white/10 transition" data-testid={`profile-card-${i}`}>
-              <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#e064d5]/15 to-transparent">
+            <article key={i} className="group rounded-2xl border border-[#9C4695]/40 bg-gradient-to-br from-[#9C4695]/10 to-transparent p-5 hover:border-[#d12fc6] transition" data-testid={`profile-card-${i}`}>
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#e064d5]/15 to-transparent mb-4">
                 <img
                   src={`https://dummyimage.com/800x600/0b0b0b/ffffff&text=@${p.handle}`}
-                  alt={`תצוגה מקדימה של ${p.name}`}
-                  className="h-full w-full object-cover object-center opacity-90 group-hover:scale-[1.02] group-hover:opacity-100 transition"
+                  alt={`${p.name}`}
+                  className="h-full w-full object-cover opacity-90 group-hover:scale-105 transition"
                   loading="lazy"
                 />
               </div>
 
-              <div className="mt-4">
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-lg font-semibold leading-tight">{p.name}</h3>
-                  <span className="text-xs rounded-full border border-white/15 px-2 py-1 text-white/70">עצמאי/ת</span>
-                </div>
-                <p className="mt-1 text-sm text-white/60 truncate">@{p.handle}</p>
-                <div className="mt-4 flex items-center gap-3">
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-white text-black px-4 py-2 text-sm font-semibold hover:bg-white/90 transition"
-                    data-testid={`button-instagram-${i}`}
-                  >
-                    עקבו באינסטגרם
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                      <path d="M7.5 3A4.5 4.5 0 003 7.5v9A4.5 4.5 0 007.5 21h9a4.5 4.5 0 004.5-4.5v-9A4.5 4.5 0 0016.5 3h-9zM12 7.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm6 .75a.75.75 0 110-1.5.75.75 0 010 1.5z"/>
-                    </svg>
-                  </a>
-                  <a
-                    href={`https://instagram.com/${p.handle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold hover:bg-white/5 transition"
-                    data-testid={`button-profile-${i}`}
-                  >
-                    פרופיל מלא
-                  </a>
-                </div>
+              <div className="flex items-center justify-between gap-3 mb-2">
+                <h3 className="text-lg font-semibold">{p.name}</h3>
+                <span className="text-xs rounded-full border border-white/15 px-2 py-1 text-white/70">עצמאי/ת</span>
               </div>
+              <p className="text-sm text-white/60 mb-4">@{p.handle}</p>
+              
+              <a
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#d12fc6] text-white px-4 py-2 text-sm font-semibold hover:bg-[#d12fc6]/90 transition w-full justify-center"
+                data-testid={`button-instagram-${i}`}
+              >
+                עקבו באינסטגרם
+              </a>
             </article>
           ))}
-        </div>
-
-        {/* INFO STRIP */}
-        <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
-          <ul className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <li className="flex items-center gap-3">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#d12fc6]" />
-              עצמאות מלאה למעצבים – השכרה לפי עמדה
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#d12fc6]" />
-              חוויית מותג אחידה ללקוחות בכל הביקורים
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#d12fc6]" />
-              קביעת תור נוחה + תקשורת ישירה עם נותן/ת השירות
-            </li>
-          </ul>
         </div>
       </div>
     </section>
