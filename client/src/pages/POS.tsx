@@ -256,7 +256,7 @@ export default function POS() {
           {/* Cart Section */}
           <div className="lg:col-span-1 space-y-4">
             <div className="flex justify-start">
-              <Logo size="small" />
+              <Logo size="medium" />
             </div>
             
             <Card 
