@@ -181,11 +181,6 @@ export default function HairStudio() {
             <h2 className="text-2xl font-bold">קביעת תור</h2>
           </div>
           
-          <p className="text-white/70 mb-8 leading-relaxed">
-            מאוחר מאוד טאן אנד קו – חדר מספרה <br/>
-            שני, חום, הום, לים יניה חמישי, לפיכך – מ-09:00 עד 22:00 | שבת – רצוי ליצור קשר מראש
-          </p>
-
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <button className="w-full rounded-xl bg-[#d12fc6] px-6 py-4 font-semibold hover:bg-[#d12fc6]/90 transition" data-testid="button-book-now">
