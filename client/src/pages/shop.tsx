@@ -245,7 +245,14 @@ export default function Shop() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-pink-500 hover:border-pink-600 hover:bg-pink-50 text-pink-500 hover:text-pink-600 bg-transparent"
+                      className="border-0 bg-transparent text-gray-800 hover:text-gray-900 relative overflow-visible"
+                      style={{
+                        borderImage: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(168, 85, 247)) 1',
+                        border: '2px solid transparent',
+                        backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgb(236, 72, 153), rgb(168, 85, 247))',
+                        backgroundOrigin: 'border-box',
+                        backgroundClip: 'padding-box, border-box'
+                      }}
                       onClick={() => handleAddToCart(product.id)}
                       data-testid={`add-to-cart-${product.id}`}
                     >
@@ -258,7 +265,14 @@ export default function Shop() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            className="border-pink-500 hover:border-pink-600 hover:bg-pink-50 text-pink-500 hover:text-pink-600 bg-transparent"
+                            className="border-0 bg-transparent text-gray-800 hover:text-gray-900 relative overflow-visible"
+                            style={{
+                              borderImage: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(168, 85, 247)) 1',
+                              border: '2px solid transparent',
+                              backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgb(236, 72, 153), rgb(168, 85, 247))',
+                              backgroundOrigin: 'border-box',
+                              backgroundClip: 'padding-box, border-box'
+                            }}
                             data-testid={`info-${product.id}`}
                           >
                             <Info className="w-4 h-4" />
