@@ -27,8 +27,6 @@ import {
   type InsertHealthForm,
   type SessionUsage,
   type InsertSessionUsage,
-  type FaceUploadToken,
-  type InsertFaceUploadToken,
   users,
   customers,
   memberships,
@@ -42,8 +40,7 @@ import {
   contentQueue,
   automationLogs,
   healthForms,
-  sessionUsage,
-  faceUploadTokens
+  sessionUsage
 } from "@shared/schema";
 import { db } from './db';
 import { eq, desc, sql, like, or } from 'drizzle-orm';
@@ -145,11 +142,6 @@ export interface IStorage {
   getSessionUsageByCustomer(customerId: string): Promise<SessionUsage[]>;
   getSessionUsageByMembership(membershipId: string): Promise<SessionUsage[]>;
   createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage>;
-
-  // Face Upload Token operations
-  createFaceUploadToken(token: InsertFaceUploadToken): Promise<FaceUploadToken>;
-  getFaceUploadToken(token: string): Promise<FaceUploadToken | undefined>;
-  updateFaceUploadTokenWithImage(token: string, imageUrl: string): Promise<FaceUploadToken | undefined>;
 }
 
 export class PostgresStorage implements IStorage {
@@ -673,33 +665,6 @@ export class PostgresStorage implements IStorage {
 
   async createSessionUsage(usage: InsertSessionUsage): Promise<SessionUsage> {
     const result = await db.insert(sessionUsage).values(usage).returning();
-    return result[0];
-  }
-
-  // ============================================================
-  // FACE UPLOAD TOKEN OPERATIONS
-  // ============================================================
-  
-  async createFaceUploadToken(token: InsertFaceUploadToken): Promise<FaceUploadToken> {
-    const result = await db.insert(faceUploadTokens).values(token).returning();
-    return result[0];
-  }
-
-  async getFaceUploadToken(token: string): Promise<FaceUploadToken | undefined> {
-    const result = await db
-      .select()
-      .from(faceUploadTokens)
-      .where(eq(faceUploadTokens.token, token))
-      .limit(1);
-    return result[0];
-  }
-
-  async updateFaceUploadTokenWithImage(token: string, imageUrl: string): Promise<FaceUploadToken | undefined> {
-    const result = await db
-      .update(faceUploadTokens)
-      .set({ imageUrl, status: 'uploaded' })
-      .where(eq(faceUploadTokens.token, token))
-      .returning();
     return result[0];
   }
 }
