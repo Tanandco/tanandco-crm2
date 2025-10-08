@@ -241,10 +241,11 @@ export default function Shop() {
                   <p className="text-sm font-bold text-center mb-2 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
                     ₪{product.price}
                   </p>
-                  <div className="flex gap-1">
+                  <div className="flex gap-2 justify-center items-center">
                     <Button
+                      variant="outline"
                       size="sm"
-                      className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-xs"
+                      className="border-pink-500 hover:border-pink-600 hover:bg-pink-50 text-pink-600 hover:text-pink-700 bg-transparent"
                       onClick={() => handleAddToCart(product.id)}
                       data-testid={`add-to-cart-${product.id}`}
                     >
@@ -257,7 +258,7 @@ export default function Shop() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            className="border-pink-500/50 hover:border-pink-500 px-2"
+                            className="border-pink-500 hover:border-pink-600 hover:bg-pink-50 text-pink-600 hover:text-pink-700 bg-transparent"
                             data-testid={`info-${product.id}`}
                           >
                             <Info className="w-4 h-4" />
