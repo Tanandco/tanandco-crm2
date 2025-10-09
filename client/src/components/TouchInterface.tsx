@@ -242,47 +242,90 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             border-2
             rounded-md backdrop-blur-sm
             flex flex-col items-center justify-center gap-4
-            transition-all duration-150 ease-in-out
+            transition-all duration-300 ease-in-out
             hover-elevate active-elevate-2
             text-xl font-bold
+            hover:scale-105
           "
           style={{
             borderColor: 'rgba(236, 72, 153, 0.6)',
-            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.1)'
+            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(59, 130, 246, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
+            transform: 'perspective(1000px) rotateX(2deg)',
+            transformStyle: 'preserve-3d'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)';
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) translateY(-4px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(2deg)';
+          }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Blue Neon Star */}
-          <div className="relative">
+          {/* Blue Neon Star - Pulsing */}
+          <div className="relative animate-pulse">
             <svg 
               width="80" 
               height="80" 
               viewBox="0 0 24 24" 
               fill="none"
-              className="transition-all duration-300 group-hover:scale-110"
+              className="transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
+              style={{
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
+              }}
             >
+              <defs>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
               <path
                 d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                fill="rgba(59, 130, 246, 0.8)"
+                fill="rgba(96, 165, 250, 1)"
                 stroke="rgba(59, 130, 246, 1)"
-                strokeWidth="0.5"
+                strokeWidth="1"
+                filter="url(#glow)"
                 style={{
-                  filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 1)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.6))'
+                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 1)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.6))'
                 }}
               />
             </svg>
+            
+            {/* Animated rings around star */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div 
+                className="w-24 h-24 border-2 border-blue-400/30 rounded-full"
+                style={{
+                  animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+                }}
+              />
+            </div>
           </div>
           
-          <span className="text-base font-medium text-white text-center font-hebrew">שירות עצמי 24/7</span>
+          <span className="text-base font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-radial from-blue-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
+          
+          {/* 3D Depth effect */}
+          <div className="absolute inset-0 rounded-md border border-blue-400/20 pointer-events-none" style={{ transform: 'translateZ(10px)' }} />
         </button>
         </div>
+        
+        {/* Add floating animation */}
+        <style>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+          }
+        `}</style>
       </div>
 
       {/* Corner Icons */}
