@@ -112,7 +112,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       data-testid="touch-interface"
     >
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-3 md:px-6 py-3 md:py-6 flex flex-col items-center flex-1">
+      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-3 md:px-6 py-3 md:py-6 flex flex-col items-center flex-1 overflow-y-auto">
         {/* Top Buttons - Management */}
         <div className="flex gap-2 md:gap-4 mb-3 md:mb-4 w-full justify-center flex-wrap">
           <button
@@ -218,7 +218,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
 
         {/* Logo */}
-        <Logo className="mb-4 md:mb-8 scale-75 md:scale-100" showGlow={true} showUnderline={true} />
+        <Logo className="mb-2 md:mb-8 scale-75 md:scale-100" showGlow={true} showUnderline={true} />
 
         {/* Service Cards - 2 in mobile, 6 in desktop */}
         <div className="grid grid-cols-2 md:flex gap-2 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto">
@@ -234,7 +234,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Self Service Button */}
-        <div className="mt-8 md:mt-24">
+        <div className="mt-4 md:mt-24">
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
