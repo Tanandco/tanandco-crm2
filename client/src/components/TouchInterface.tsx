@@ -249,31 +249,24 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           "
           style={{
             borderColor: 'rgba(236, 72, 153, 0.6)',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 153, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
-            transform: 'perspective(1000px) rotateX(2deg)',
-            transformStyle: 'preserve-3d'
+            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 153, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)';
-            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) translateY(-4px)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
-            e.currentTarget.style.transform = 'perspective(1000px) rotateX(2deg)';
           }}
           onClick={() => navigate('/self-service')}
         >
           {/* Blue Neon Star */}
-          <div className="relative animate-pulse">
+          <div className="relative">
             <svg 
               width="80" 
               height="80" 
               viewBox="0 0 24 24" 
               fill="none"
               className="transition-all duration-300 group-hover:scale-125"
-              style={{
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
-              }}
             >
               <defs>
                 <filter id="glow">
@@ -303,9 +296,6 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
             <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
-          
-          {/* 3D Depth effect */}
-          <div className="absolute inset-0 rounded-md border border-pink-400/20 pointer-events-none" style={{ transform: 'translateZ(10px)' }} />
         </button>
         </div>
         
