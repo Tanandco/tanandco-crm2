@@ -237,105 +237,42 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
-            group relative h-[90px] w-[240px]
+            group relative h-[160px] w-[280px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+            border-2
             rounded-md backdrop-blur-sm
-            flex items-center justify-center
+            flex flex-col items-center justify-center gap-4
             transition-all duration-300 ease-in-out
             hover-elevate active-elevate-2
             text-xl font-bold
             hover:scale-105
-            overflow-visible
           "
           style={{
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(59, 130, 246, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
+            borderColor: 'rgba(236, 72, 153, 0.6)',
+            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 153, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
             transform: 'perspective(1000px) rotateX(2deg)',
             transformStyle: 'preserve-3d'
           }}
           onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)';
             e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) translateY(-4px)';
-            const borders = e.currentTarget.querySelectorAll('.custom-border');
-            borders.forEach((border: any) => {
-              border.style.backgroundColor = 'rgba(59, 130, 246, 1)';
-            });
           }}
           onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
             e.currentTarget.style.transform = 'perspective(1000px) rotateX(2deg)';
-            const borders = e.currentTarget.querySelectorAll('.custom-border');
-            borders.forEach((border: any) => {
-              border.style.backgroundColor = 'rgba(59, 130, 246, 0.6)';
-            });
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Custom Border with Gap for Star - BLUE NEON */}
-          {/* Left Border */}
-          <div className="custom-border absolute left-0 top-0 bottom-0 w-[2px] rounded-l-md transition-colors duration-300" 
-               style={{ backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
-          
-          {/* Right Border */}
-          <div className="custom-border absolute right-0 top-0 bottom-0 w-[2px] rounded-r-md transition-colors duration-300" 
-               style={{ backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
-          
-          {/* Bottom Border */}
-          <div className="custom-border absolute left-0 right-0 bottom-0 h-[2px] rounded-b-md transition-colors duration-300" 
-               style={{ backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
-          
-          {/* Top Border - Left Part (before star) */}
-          <div className="custom-border absolute left-0 top-0 h-[2px] rounded-tl-md transition-colors duration-300" 
-               style={{ width: 'calc(50% - 50px)', backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
-          
-          {/* Top Border - Right Part (after star) */}
-          <div className="custom-border absolute right-0 top-0 h-[2px] rounded-tr-md transition-colors duration-300" 
-               style={{ width: 'calc(50% - 50px)', backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
-        
-          {/* PINK Neon Star with 3D Effect */}
-          <div className="absolute -top-8 left-1/2 -translate-x-1/2 overflow-visible" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
-            {/* Glowing Background - Back Layer - PINK */}
-            <div 
-              className="absolute rounded-full blur-3xl transition-all duration-500 group-hover:blur-2xl group-hover:scale-110"
-              style={{
-                width: '100px',
-                height: '100px',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%) scale(1.5) translateZ(-20px)',
-                background: 'radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, rgba(236, 72, 153, 0.5) 40%, transparent 70%)',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                transformStyle: 'preserve-3d'
-              }}
-            />
-            
-            {/* Shadow Layer - Middle */}
+          {/* Blue Neon Star */}
+          <div className="relative animate-pulse">
             <svg 
               width="80" 
               height="80" 
               viewBox="0 0 24 24" 
               fill="none"
-              className="absolute inset-0 z-0 opacity-40"
+              className="transition-all duration-300 group-hover:scale-125"
               style={{
-                transform: 'translateZ(-10px) translateY(4px) translateX(2px)',
-                transformStyle: 'preserve-3d'
-              }}
-            >
-              <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                fill="rgba(0, 0, 0, 0.5)"
-                filter="url(#glow)"
-              />
-            </svg>
-            
-            {/* Main Star - Front Layer */}
-            <svg 
-              width="80" 
-              height="80" 
-              viewBox="0 0 24 24" 
-              fill="none"
-              className="relative z-10 transition-all duration-300 group-hover:scale-125"
-              style={{
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                transform: 'translateZ(20px)',
-                transformStyle: 'preserve-3d'
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
               }}
             >
               <defs>
@@ -346,41 +283,21 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
                     <feMergeNode in="SourceGraphic"/>
                   </feMerge>
                 </filter>
-                <linearGradient id="star3DGradient" x1="12" y1="2" x2="12" y2="22">
-                  <stop offset="0%" stopColor="#ec4899" />
-                  <stop offset="50%" stopColor="#ec4899" />
-                  <stop offset="100%" stopColor="#db2777" />
-                </linearGradient>
               </defs>
               <path
                 d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                fill="url(#star3DGradient)"
-                fillOpacity="0.9"
-                stroke="rgba(236, 72, 153, 1)"
-                strokeWidth="1.5"
+                fill="rgba(96, 165, 250, 1)"
+                stroke="rgba(59, 130, 246, 1)"
+                strokeWidth="1"
                 filter="url(#glow)"
                 style={{
-                  filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 60px rgba(236, 72, 153, 0.8)) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5))'
+                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 1)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.6))'
                 }}
               />
-              
-              {/* Glass reflection overlay - top highlight */}
-              <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                fill="url(#glassHighlight)"
-                opacity="0.4"
-              />
-              
-              <defs>
-                <linearGradient id="glassHighlight" x1="12" y1="2" x2="12" y2="12">
-                  <stop offset="0%" stopColor="white" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="white" stopOpacity="0" />
-                </linearGradient>
-              </defs>
             </svg>
           </div>
           
-          <span className="text-lg font-medium text-white text-center font-hebrew group-hover:text-pink-100 transition-colors mt-10">שירות עצמי 24/7</span>
+          <span className="text-base font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
