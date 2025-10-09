@@ -263,43 +263,35 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Lightning Bolt - Blue Neon */}
+          {/* Blue Neon Star */}
           <div className="relative">
             <svg 
               width="80" 
               height="80" 
               viewBox="0 0 24 24" 
               fill="none"
-              className="transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
+              className="transition-all duration-300 group-hover:scale-125"
               style={{
                 animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
               }}
             >
               <defs>
-                <filter id="boltGlow">
+                <filter id="glow">
                   <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                   <feMerge>
-                    <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="SourceGraphic"/>
                   </feMerge>
                 </filter>
-                <linearGradient id="boltGradient" x1="12" y1="2" x2="12" y2="22">
-                  <stop offset="0%" stopColor="#60a5fa" />
-                  <stop offset="100%" stopColor="#3b82f6" />
-                </linearGradient>
               </defs>
-              
-              {/* Lightning Bolt Path */}
-              <path 
-                d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" 
-                fill="url(#boltGradient)"
-                stroke="#60a5fa"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-                filter="url(#boltGlow)"
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                fill="rgba(96, 165, 250, 1)"
+                stroke="rgba(59, 130, 246, 1)"
+                strokeWidth="1"
+                filter="url(#glow)"
                 style={{
-                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.6))'
+                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 1)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.6))'
                 }}
               />
             </svg>
