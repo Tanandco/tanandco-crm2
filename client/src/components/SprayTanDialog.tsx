@@ -1,12 +1,5 @@
-import { useState } from 'react';
-import { ArrowLeft, X, Droplets, Sparkles, Share2 } from 'lucide-react';
+import { ArrowLeft, Droplets, Sparkles, Share2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { NewClientDialog } from "@/components/NewClientDialog";
-import CustomerSearchDialog from "@/components/CustomerSearchDialog";
-import { PurchaseOverlay } from "@/components/PurchaseOverlay";
-import searchIcon from '@assets/3_1759474572534.png';
-import packageIcon from '@assets/member-card-icon.png';
-import newCustomerIcon from '@assets/Dהורדותfreepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717.png_1759805942437.png';
 
 interface SprayTanDialogProps {
   open: boolean;
@@ -14,51 +7,7 @@ interface SprayTanDialogProps {
 }
 
 export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogProps) {
-  const [showNewClientDialog, setShowNewClientDialog] = useState(false);
-  const [showCustomerSearch, setShowCustomerSearch] = useState(false);
-  const [showPurchaseOverlay, setShowPurchaseOverlay] = useState(false);
-
   if (!open) return null;
-
-  const sprayTanOptions: Array<{
-    icon: string | any;
-    iconType: 'image' | 'component' | 'lucide';
-    title: string;
-    onClick: () => void;
-  }> = [
-    {
-      icon: newCustomerIcon,
-      iconType: 'image' as const,
-      title: "לקוח חדש - הרשמה",
-      onClick: () => {
-        setShowNewClientDialog(true);
-      }
-    },
-    {
-      icon: searchIcon,
-      iconType: 'image' as const,
-      title: "חיפוש לקוח קיים",
-      onClick: () => {
-        setShowCustomerSearch(true);
-      }
-    },
-    {
-      icon: packageIcon,
-      iconType: 'image' as const,
-      title: "רכישת חבילה",
-      onClick: () => {
-        setShowPurchaseOverlay(true);
-      }
-    },
-    {
-      icon: Droplets,
-      iconType: 'lucide' as const,
-      title: "טיפול מיידי",
-      onClick: () => {
-        console.log('Start immediate treatment');
-      }
-    }
-  ];
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -114,97 +63,8 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </div>
       </div>
 
-      {/* Content Container - positioned lower to avoid overlap */}
-      <div className="relative w-full max-w-4xl flex items-center justify-center mt-80">
-        {/* Service Fields - All in one row */}
-        <div className="w-full max-w-6xl mx-auto px-4">
-          <div className="flex gap-2 justify-center flex-nowrap animate-scale-in">
-            {sprayTanOptions.map((option, index) => (
-              <div key={index} className="relative">
-                {/* Solid black background */}
-                <div className="absolute inset-0 bg-black rounded-md" />
-                
-                <button
-                  onClick={option.onClick}
-                  className="
-                    group relative h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px]
-                    bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                    border hover:border-2
-                    rounded-md backdrop-blur-sm
-                    flex flex-col items-center justify-between pb-4
-                    transition-all duration-150 ease-in-out
-                    hover-elevate active-elevate-2
-                    overflow-visible
-                  "
-                  style={{
-                    borderColor: 'rgba(236, 72, 153, 0.6)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-                  data-testid={`spray-tan-action-${index}`}
-                >
-                  <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110">
-                    {option.iconType === 'image' ? (
-                      <img 
-                        src={option.icon as string}
-                        alt={option.title}
-                        className="w-24 h-24 object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                      />
-                    ) : option.iconType === 'lucide' ? (
-                      <option.icon 
-                        className="w-20 h-20 text-pink-500 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                      />
-                    ) : null}
-                  </div>
-                  
-                  {option.title && (
-                    <div className="px-2 text-center">
-                      <p className="text-white text-xs font-semibold leading-tight font-hebrew">
-                        {option.title}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Ripple effect container */}
-                  <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
-                    <div className="ripple"></div>
-                  </div>
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* New Client Dialog */}
-      <NewClientDialog 
-        open={showNewClientDialog}
-        onOpenChange={setShowNewClientDialog}
-      />
-
-      {/* Customer Search Dialog */}
-      <CustomerSearchDialog
-        open={showCustomerSearch}
-        onOpenChange={setShowCustomerSearch}
-        onCustomerSelect={(customer) => {
-          console.log('Selected customer:', customer);
-          setShowCustomerSearch(false);
-        }}
-      />
-
-      {/* Purchase Overlay */}
-      {showPurchaseOverlay && (
-        <PurchaseOverlay
-          open={showPurchaseOverlay}
-          onClose={() => setShowPurchaseOverlay(false)}
-        />
-      )}
-
       {/* Content Section */}
-      <div className="relative w-full max-w-4xl mt-12 px-4">
+      <div className="relative w-full max-w-4xl mt-32 px-4">
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {[
@@ -234,6 +94,57 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               <p className="text-gray-300 text-sm font-hebrew text-center">{item.sessions}</p>
             </div>
           ))}
+        </div>
+
+        {/* Info Text */}
+        <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6 mb-8" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+          <p className="text-white text-center font-hebrew leading-relaxed mb-4">
+            שיזוף בהתזה הוא שיטה מתקדמת ובטוחה המתבצעת באמצעות קומפרסור אויר המחובר לאקדח המפזר תמיסת שיזוף בחלקיקים דקיקים, מה שמקנה שיזוף אחיד ומושלם תוך 15 דקות בלבד.
+          </p>
+          <p className="text-white text-center font-hebrew leading-relaxed">
+            תמיסת השיזוף מכילה DHA - חומר טבעי המופק מקנה סוכר. במגע עם העור הוא יוצר גוון שזוף על ידי צביעת שכבת העור העליונה בלבד.
+          </p>
+        </div>
+
+        {/* Suitable For & Benefits - Two Column Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Suitable For */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>מתאים במיוחד עבור:</h3>
+            <ul className="text-white font-hebrew space-y-2 text-right list-disc list-inside">
+              <li>אנשים עם עור רגיש שלא יכולים להשתזף בשמש</li>
+              <li>מי שרוצה תוצאות מיידיות ללא זמן המתנה</li>
+              <li>אנשים המודעים לסכנות קרינת UV</li>
+              <li>מי שרוצה גוון אחיד ללא פסים או כתמים</li>
+              <li>לקראת אירועים מיוחדים (חתונות, צילומים)</li>
+              <li>מי שמחפש חלופה בטוחה לסולריום</li>
+            </ul>
+          </div>
+
+          {/* Process & Benefits */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>יתרונות:</h3>
+            <ul className="text-white font-hebrew space-y-2 text-right">
+              <li className="flex items-center justify-end gap-2">
+                <span>בטוח - ללא קרינת UV</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+              <li className="flex items-center justify-end gap-2">
+                <span>מהיר - 15 דקות</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+              <li className="flex items-center justify-end gap-2">
+                <span>אחיד - גוון שווה</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+            </ul>
+            <h3 className="text-xl font-bold text-pink-400 mt-6 mb-3 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>התהליך:</h3>
+            <ol className="text-white font-hebrew space-y-1 text-right list-decimal list-inside">
+              <li>התזת תמיסה עם DHA</li>
+              <li>תגובה עם חלבוני העור</li>
+              <li>גוון ברונזה תוך 2-4 שעות</li>
+            </ol>
+          </div>
         </div>
 
         {/* Solution Types */}
