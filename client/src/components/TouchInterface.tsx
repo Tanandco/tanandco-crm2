@@ -237,7 +237,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
-            group relative h-[120px] w-[120px]
+            group relative h-[90px] w-[180px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
             border-2
             rounded-md backdrop-blur-sm
@@ -246,6 +246,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             hover-elevate active-elevate-2
             text-xl font-bold
             hover:scale-105
+            overflow-visible
           "
           style={{
             borderColor: 'rgba(236, 72, 153, 0.6)',
@@ -264,7 +265,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           onClick={() => navigate('/self-service')}
         >
           {/* Blue Neon Star with 3D Effect */}
-          <div className="relative" style={{ perspective: '1000px', transformStyle: 'preserve-3d', width: '80px', height: '80px' }}>
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2" style={{ perspective: '1000px', transformStyle: 'preserve-3d', width: '80px', height: '80px' }}>
             {/* Glowing Background - Back Layer */}
             <div 
               className="absolute rounded-full blur-3xl transition-all duration-500 group-hover:blur-2xl group-hover:scale-110"
@@ -338,6 +339,8 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               />
             </svg>
           </div>
+          
+          <span className="text-sm font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors mt-6">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
