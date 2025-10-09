@@ -313,63 +313,80 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         `}</style>
       </div>
 
-      {/* Corner Icons */}
-      <div className="fixed top-2 md:top-4 right-2 md:right-4 z-50 flex gap-2 md:gap-3">
-        <button
+      {/* Bottom Navigation Menu */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-4 md:pb-6">
+        <div 
           className="
-            group relative w-10 h-10 md:w-12 md:h-12
-            bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-            rounded-lg backdrop-blur-sm
-            flex items-center justify-center
-            transition-all duration-300 ease-in-out
-            hover:scale-105 active:scale-95
-            hover-elevate active-elevate-2
+            flex gap-3 md:gap-4
+            bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95
+            backdrop-blur-md
+            rounded-full
+            px-6 py-3
+            shadow-2xl
           "
           style={{
-            border: '1px solid rgba(59, 130, 246, 0.6)',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.3)'
+            border: '1px solid rgba(59, 130, 246, 0.4)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.2)'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.6)'}
-          onClick={() => navigate('/')}
-          data-testid="button-home"
         >
-          <Home 
-            className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
-            size={18}
+          <button
+            className="
+              group relative w-12 h-12 md:w-14 md:h-14
+              bg-gradient-to-br from-gray-800/80 via-black/60 to-gray-900/80
+              rounded-full
+              flex flex-col items-center justify-center gap-0.5
+              transition-all duration-300 ease-in-out
+              hover:scale-110 active:scale-95
+              hover-elevate active-elevate-2
+            "
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
+              border: '1px solid rgba(59, 130, 246, 0.5)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(59, 130, 246, 0.3)'
             }}
-          />
-        </button>
-        
-        <button
-          className="
-            group relative w-10 h-10 md:w-12 md:h-12
-            bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-            rounded-lg backdrop-blur-sm
-            flex items-center justify-center
-            transition-all duration-300 ease-in-out
-            hover:scale-105 active:scale-95
-            hover-elevate active-elevate-2
-          "
-          style={{
-            border: '1px solid rgba(59, 130, 246, 0.6)',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(59, 130, 246, 0.3)'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 1)'}
-          onMouseLeave={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.6)'}
-          onClick={() => navigate('/products')}
-          data-testid="button-settings"
-        >
-          <Settings 
-            className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
-            size={18}
+            onMouseEnter={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.5)'}
+            onClick={() => navigate('/')}
+            data-testid="button-home"
+          >
+            <Home 
+              className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
+              size={20}
+              style={{
+                filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
+              }}
+            />
+            <span className="text-[10px] text-blue-400 group-hover:text-blue-300 font-hebrew">בית</span>
+          </button>
+          
+          <button
+            className="
+              group relative w-12 h-12 md:w-14 md:h-14
+              bg-gradient-to-br from-gray-800/80 via-black/60 to-gray-900/80
+              rounded-full
+              flex flex-col items-center justify-center gap-0.5
+              transition-all duration-300 ease-in-out
+              hover:scale-110 active:scale-95
+              hover-elevate active-elevate-2
+            "
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
+              border: '1px solid rgba(59, 130, 246, 0.5)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(59, 130, 246, 0.3)'
             }}
-          />
-        </button>
+            onMouseEnter={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.5)'}
+            onClick={() => navigate('/products')}
+            data-testid="button-settings"
+          >
+            <Settings 
+              className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
+              size={20}
+              style={{
+                filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
+              }}
+            />
+            <span className="text-[10px] text-blue-400 group-hover:text-blue-300 font-hebrew">הגדרות</span>
+          </button>
+        </div>
       </div>
 
       {/* Sun Beds Dialog */}
