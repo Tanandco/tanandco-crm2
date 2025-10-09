@@ -290,7 +290,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
                style={{ width: 'calc(50% - 50px)', backgroundColor: 'rgba(59, 130, 246, 0.6)' }} />
         
           {/* PINK Neon Star with 3D Effect */}
-          <div className="absolute -top-8 left-1/2 -translate-x-1/2" style={{ perspective: '1000px', transformStyle: 'preserve-3d', width: '80px', height: '80px' }}>
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2 overflow-visible" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
             {/* Glowing Background - Back Layer - PINK */}
             <div 
               className="absolute rounded-full blur-3xl transition-all duration-500 group-hover:blur-2xl group-hover:scale-110"
