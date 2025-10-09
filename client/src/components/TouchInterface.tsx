@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { Home, Star, Search, Sparkles, Settings, Users, Package, Smartphone, Fingerprint } from 'lucide-react';
+import { Home, Star, Search, Sparkles, Settings, Users, Package, Smartphone, Fingerprint, Hand } from 'lucide-react';
 import Logo from './Logo';
 import ServiceCard from './ServiceCard';
 import StatusDisplay from './StatusDisplay';
@@ -259,9 +259,9 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Blue Neon Fingerprint Icon */}
+          {/* Blue Neon Hand Icon */}
           <div className="relative">
-            <Fingerprint 
+            <Hand 
               size={72}
               className="transition-all duration-300 group-hover:scale-125"
               style={{
