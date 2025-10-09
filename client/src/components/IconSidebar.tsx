@@ -95,12 +95,13 @@ export default function IconSidebar() {
     <div 
       className="fixed left-0 top-0 h-screen w-16 backdrop-blur-lg border-r z-50 flex flex-col items-center py-6 gap-4"
       style={{
-        background: 'rgba(69, 114, 182, 0.3)',
-        borderColor: 'rgba(69, 114, 182, 0.6)',
+        background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.85), rgba(31, 41, 55, 0.95))',
+        borderColor: 'rgba(59, 130, 246, 0.4)',
         boxShadow: `
-          0 0 20px rgba(69, 114, 182, 0.4),
-          0 0 40px rgba(69, 114, 182, 0.3),
-          0 0 60px rgba(69, 114, 182, 0.2)
+          0 0 30px rgba(59, 130, 246, 0.6),
+          0 0 60px rgba(59, 130, 246, 0.4),
+          0 0 90px rgba(59, 130, 246, 0.3),
+          inset 0 1px 2px rgba(59, 130, 246, 0.1)
         `
       }}
     >
