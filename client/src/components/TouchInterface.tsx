@@ -251,15 +251,20 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Neon Touch Button Icon */}
-          <div className="relative overflow-visible">
+          {/* Neon Touch Button Icon with Circle */}
+          <div className="relative flex items-center justify-center w-28 h-28 rounded-full border-2 transition-all duration-300 group-hover:scale-110"
+            style={{
+              borderColor: 'rgba(59, 130, 246, 0.6)',
+              boxShadow: '0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1)',
+              animation: 'pulse-glow-border 2s ease-in-out infinite'
+            }}
+          >
             <img 
               src={selfServiceButtonIcon} 
               alt="Self Service" 
-              className="w-24 h-24 object-contain transition-all duration-300 group-hover:scale-110"
+              className="w-16 h-16 object-contain"
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4))',
-                animation: 'pulse-glow 2s ease-in-out infinite'
+                filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.5))'
               }}
             />
           </div>
@@ -280,12 +285,14 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             50% { transform: translateY(-8px); }
           }
           
-          @keyframes pulse-glow {
+          @keyframes pulse-glow-border {
             0%, 100% { 
-              filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4));
+              border-color: rgba(59, 130, 246, 0.6);
+              box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1);
             }
             50% { 
-              filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.9)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.7)) drop-shadow(0 0 80px rgba(59, 130, 246, 0.5));
+              border-color: rgba(59, 130, 246, 0.9);
+              box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.5), inset 0 0 30px rgba(59, 130, 246, 0.2);
             }
           }
         `}</style>
