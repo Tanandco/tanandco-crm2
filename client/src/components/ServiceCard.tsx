@@ -48,10 +48,10 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
       onMouseLeave={(e) => e.currentTarget.style.borderColor = colors.default}
       data-testid={`service-card-${title.replace(/\s+/g, '-').toLowerCase()}`}
     >
-      <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.9)]">
+      <div className="h-28 flex items-center justify-center transition-all duration-150 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.9)]">
         {icon}
       </div>
-      <span className="text-base md:text-lg font-medium text-white text-center font-hebrew px-2">
+      <span className="text-base md:text-lg font-medium text-white text-center font-hebrew px-2 mt-2">
         {title}
       </span>
       
