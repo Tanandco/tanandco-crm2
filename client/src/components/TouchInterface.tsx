@@ -38,32 +38,32 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   const services = [
     { 
       title: 'מיטות שיזוף', 
-      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-48 h-48 object-contain -mt-6" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-28 md:w-48 h-28 md:h-48 object-contain -mt-2 md:-mt-6" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'sun-beds' 
     },
     { 
       title: 'שיזוף בהתזה', 
-      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-32 h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-20 md:w-32 h-20 md:h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'spray-tan' 
     },
     { 
       title: 'מספרה', 
-      icon: <img src={hairSalonIcon} alt="מספרה" className="w-40 h-40 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="w-24 md:w-40 h-24 md:h-40 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'hair-salon' 
     },
     { 
       title: 'קוסמטיקה', 
-      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-40 h-40 object-contain mt-4" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-24 md:w-40 h-24 md:h-40 object-contain mt-2 md:mt-4" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'cosmetics' 
     },
     { 
       title: 'החנות שלכם', 
-      icon: <img src={storeIcon} alt="החנות שלכם" className="w-32 h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={storeIcon} alt="החנות שלכם" className="w-20 md:w-32 h-20 md:h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'your-store' 
     },
     { 
       title: 'AI TAN', 
-      icon: <div className="-mt-14 -mb-12 scale-150"><Alin size={204} /></div>, 
+      icon: <div className="-mt-6 md:-mt-14 -mb-6 md:-mb-12 scale-100 md:scale-150"><Alin size={140} className="md:w-[204px] md:h-[204px]" /></div>, 
       id: 'ai-tan' 
     },
   ];
@@ -218,10 +218,10 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
 
         {/* Logo */}
-        <Logo className="mb-8" showGlow={true} showUnderline={true} />
+        <Logo className="mb-4 md:mb-8 scale-75 md:scale-100" showGlow={true} showUnderline={true} />
 
-        {/* Service Cards - 6 in one row */}
-        <div className="flex gap-3 justify-center flex-wrap max-w-5xl">
+        {/* Service Cards - 2 in mobile, 6 in desktop */}
+        <div className="grid grid-cols-2 md:flex gap-2 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
@@ -234,7 +234,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Self Service Button */}
-        <div className="mt-24">
+        <div className="mt-8 md:mt-24">
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
@@ -261,7 +261,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <img 
               src={selfServiceButtonIcon} 
               alt="Self Service" 
-              className="w-20 h-20 object-contain transition-all duration-300 group-hover:scale-110 relative z-10"
+              className="w-16 h-16 md:w-20 md:h-20 object-contain transition-all duration-300 group-hover:scale-110 relative z-10"
               style={{
                 opacity: 0.9,
                 filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.5))',
@@ -271,8 +271,8 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           </div>
           
           <div className="text-center mt-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-            <div className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">מעבר לשירות עצמי</div>
-            <div className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">24/7</div>
+            <div className="text-base md:text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">מעבר לשירות עצמי</div>
+            <div className="text-base md:text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">24/7</div>
           </div>
           
           {/* Ripple effect */}
@@ -314,10 +314,10 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       </div>
 
       {/* Corner Icons */}
-      <div className="fixed top-4 right-4 z-50 flex gap-3">
+      <div className="fixed top-2 md:top-4 right-2 md:right-4 z-50 flex gap-2 md:gap-3">
         <button
           className="
-            group relative w-12 h-12
+            group relative w-10 h-10 md:w-12 md:h-12
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
             rounded-lg backdrop-blur-sm
             flex items-center justify-center
@@ -336,7 +336,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         >
           <Home 
             className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
-            size={20}
+            size={18}
             style={{
               filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
             }}
@@ -345,7 +345,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         
         <button
           className="
-            group relative w-12 h-12
+            group relative w-10 h-10 md:w-12 md:h-12
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
             rounded-lg backdrop-blur-sm
             flex items-center justify-center
@@ -364,7 +364,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         >
           <Settings 
             className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
-            size={20}
+            size={18}
             style={{
               filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.6))'
             }}
