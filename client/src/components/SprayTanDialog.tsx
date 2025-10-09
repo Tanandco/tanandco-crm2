@@ -424,11 +424,6 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                 <p className="text-gray-300 text-sm font-hebrew">יש להגיע בבגדים קלילים, רחבים, רצוי כהים ולא חשופים, וכפכפים</p>
               </div>
             </div>
-            <div className="mt-4 p-3 bg-pink-500/10 border border-pink-500/30 rounded-md">
-              <p className="text-gray-300 text-sm font-hebrew text-right">
-                הימנעו משתיית אלכוהול 24 שעות לפני הטיפול, אל תשתמשו בבושם או דאודורנט ביום הטיפול, לבשו בגדים רחבים ונוחים, אל תתכננו פעילות גופנית לאחר הטיפול
-              </p>
-            </div>
             <button
               onClick={() => {
                 const text = encodeURIComponent('*הכנה מוקדמת לשיזוף בהתזה* 🌟\n\n• תיאום מועד: 1-2 ימים לפני\n• מקלחת וגילוח לפני הטיפול\n• עור נקי ללא קרמים/שמנים/בושם\n• בגדים קלילים וכהים\n• ללא אלכוהול 24 שעות לפני');
@@ -454,7 +449,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               <div>
                 <h4 className="text-white font-bold font-hebrew mb-1">המקלחת הראשונה</h4>
                 <p className="text-pink-400 text-sm mb-1">אחרי 4 שעות</p>
-                <p className="text-gray-300 text-sm font-hebrew">במקלחת הראשונה יש להסתבן פעמיים להסרת הברונזר הראשוני</p>
+                <p className="text-gray-300 text-sm font-hebrew">לשטוף את הגוף עם מים זורמים לנקות את שאריות הברונזר, מקלחת ללא סבון או קירצוף ולהתנגב בטפיחות</p>
               </div>
               <div>
                 <h4 className="text-white font-bold font-hebrew mb-1">הגוון הסופי</h4>
@@ -472,14 +467,9 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                 <p className="text-gray-300 text-sm font-hebrew">רצוי להשתמש בחמאת גוף איכותית לשימור ותחזוק תוצאת השיזוף</p>
               </div>
             </div>
-            <div className="mt-4 p-3 bg-pink-500/10 border border-pink-500/30 rounded-md">
-              <p className="text-gray-300 text-sm font-hebrew text-right">
-                התקלחו במים פושרים, השתמשו בסבון עדין, הימנעו מחמאות גוף עם בושם, שתו הרבה מים, הימנעו מבריכת שחייה עם כלור בימים הראשונים
-              </p>
-            </div>
             <button
               onClick={() => {
-                const text = encodeURIComponent('*תחזוקה לאחר שיזוף בהתזה* 🌟\n\n• המתנה: 1-4 שעות ללא מים/הזעה\n• מקלחת ראשונה: להסתבן פעמיים\n• גוון סופי: למחרת\n• שימור: ללא פילינג/ליפה\n• טיפוח: חמאת גוף איכותית\n• מים פושרים, סבון עדין\n• הימנעו מכלור בימים הראשונים');
+                const text = encodeURIComponent('*תחזוקה לאחר שיזוף בהתזה* 🌟\n\n• המתנה: 1-4 שעות ללא מים/הזעה\n• מקלחת ראשונה: לשטוף את הגוף עם מים זורמים לנקות את שאריות הברונזר, מקלחת ללא סבון או קירצוף ולהתנגב בטפיחות\n• גוון סופי: למחרת\n• שימור: ללא פילינג/ליפה\n• טיפוח: חמאת גוף איכותית');
                 window.open(`https://wa.me/?text=${text}`, '_blank');
               }}
               className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center gap-2 transition-all hover-elevate active-elevate-2"
