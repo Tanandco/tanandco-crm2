@@ -239,7 +239,6 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           className="
             group relative h-[90px] w-[180px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-            border-2
             rounded-md backdrop-blur-sm
             flex items-center justify-center
             transition-all duration-300 ease-in-out
@@ -249,21 +248,47 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             overflow-visible
           "
           style={{
-            borderColor: 'rgba(236, 72, 153, 0.6)',
             boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 153, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)',
             transform: 'perspective(1000px) rotateX(2deg)',
             transformStyle: 'preserve-3d'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)';
             e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) translateY(-4px)';
+            const borders = e.currentTarget.querySelectorAll('.custom-border');
+            borders.forEach((border: any) => {
+              border.style.borderColor = 'rgba(236, 72, 153, 1)';
+            });
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
             e.currentTarget.style.transform = 'perspective(1000px) rotateX(2deg)';
+            const borders = e.currentTarget.querySelectorAll('.custom-border');
+            borders.forEach((border: any) => {
+              border.style.borderColor = 'rgba(236, 72, 153, 0.6)';
+            });
           }}
           onClick={() => navigate('/self-service')}
         >
+          {/* Custom Border with Gap for Star */}
+          {/* Left Border */}
+          <div className="custom-border absolute left-0 top-0 bottom-0 w-[2px] rounded-l-md transition-colors duration-300" 
+               style={{ backgroundColor: 'rgba(236, 72, 153, 0.6)' }} />
+          
+          {/* Right Border */}
+          <div className="custom-border absolute right-0 top-0 bottom-0 w-[2px] rounded-r-md transition-colors duration-300" 
+               style={{ backgroundColor: 'rgba(236, 72, 153, 0.6)' }} />
+          
+          {/* Bottom Border */}
+          <div className="custom-border absolute left-0 right-0 bottom-0 h-[2px] rounded-b-md transition-colors duration-300" 
+               style={{ backgroundColor: 'rgba(236, 72, 153, 0.6)' }} />
+          
+          {/* Top Border - Left Part (before star) */}
+          <div className="custom-border absolute left-0 top-0 h-[2px] rounded-tl-md transition-colors duration-300" 
+               style={{ width: 'calc(50% - 50px)', backgroundColor: 'rgba(236, 72, 153, 0.6)' }} />
+          
+          {/* Top Border - Right Part (after star) */}
+          <div className="custom-border absolute right-0 top-0 h-[2px] rounded-tr-md transition-colors duration-300" 
+               style={{ width: 'calc(50% - 50px)', backgroundColor: 'rgba(236, 72, 153, 0.6)' }} />
+        
           {/* Blue Neon Star with 3D Effect */}
           <div className="absolute -top-8 left-1/2 -translate-x-1/2" style={{ perspective: '1000px', transformStyle: 'preserve-3d', width: '80px', height: '80px' }}>
             {/* Glowing Background - Back Layer */}
