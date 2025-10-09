@@ -303,10 +303,215 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
 
         {/* Info Text */}
         <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6 mb-8" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
-          <p className="text-white text-center font-hebrew leading-relaxed">
-            שיזוף בהתזה הוא שיטה מתקדמת ובטוחה המתבצעת באמצעות קומפרסור אויר המחובר לאקדח המפזר תמיסת שיזוף בחלקיקים דקיקים.
-            התהליך לוקח 15 דקות בלבד ומקנה שיזוף אחיד ומושלם. תמיסת השיזוף מכילה DHA - חומר טבעי המופק מקנה סוכר.
+          <p className="text-white text-center font-hebrew leading-relaxed mb-4">
+            שיזוף בהתזה הוא שיטה מתקדמת ובטוחה המתבצעת באמצעות קומפרסור אויר המחובר לאקדח המפזר תמיסת שיזוף בחלקיקים דקיקים, מה שמקנה שיזוף אחיד ומושלם תוך 15 דקות בלבד.
           </p>
+          <p className="text-white text-center font-hebrew leading-relaxed">
+            תמיסת השיזוף מכילה DHA - חומר טבעי המופק מקנה סוכר. במגע עם העור הוא יוצר גוון שזוף על ידי צביעת שכבת העור העליונה בלבד.
+          </p>
+        </div>
+
+        {/* Suitable For & Benefits - Two Column Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Suitable For */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>מתאים במיוחד עבור:</h3>
+            <ul className="text-white font-hebrew space-y-2 text-right list-disc list-inside">
+              <li>אנשים עם עור רגיש שלא יכולים להשתזף בשמש</li>
+              <li>מי שרוצה תוצאות מיידיות ללא זמן המתנה</li>
+              <li>אנשים המודעים לסכנות קרינת UV</li>
+              <li>מי שרוצה גוון אחיד ללא פסים או כתמים</li>
+              <li>לקראת אירועים מיוחדים (חתונות, צילומים)</li>
+              <li>מי שמחפש חלופה בטוחה לסולריום</li>
+            </ul>
+          </div>
+
+          {/* Process & Benefits */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>יתרונות:</h3>
+            <ul className="text-white font-hebrew space-y-2 text-right">
+              <li className="flex items-center justify-end gap-2">
+                <span>בטוח - ללא קרינת UV</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+              <li className="flex items-center justify-end gap-2">
+                <span>מהיר - 15 דקות</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+              <li className="flex items-center justify-end gap-2">
+                <span>אחיד - גוון שווה</span>
+                <span className="text-pink-400">✓</span>
+              </li>
+            </ul>
+            <h3 className="text-xl font-bold text-pink-400 mt-6 mb-3 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>התהליך:</h3>
+            <ol className="text-white font-hebrew space-y-1 text-right list-decimal list-inside">
+              <li>התזת תמיסה עם DHA</li>
+              <li>תגובה עם חלבוני העור</li>
+              <li>גוון ברונזה תוך 2-4 שעות</li>
+            </ol>
+          </div>
+        </div>
+
+        {/* Solution Types */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-white font-hebrew mb-6 text-center">
+            סוגי תמיסות השיזוף
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { 
+                title: 'טבעית בהירה', 
+                subtitle: 'לגוון טבעי ועדין',
+                dha: '8%', 
+                duration: '5-7 ימים', 
+                skin: 'עור בהיר מאוד',
+                popular: false
+              },
+              { 
+                title: 'בינונית', 
+                subtitle: 'האופציה הפופולרית ביותר',
+                dha: '12%', 
+                duration: '7-10 ימים', 
+                skin: 'עור בהיר עד בינוני',
+                popular: true
+              },
+              { 
+                title: 'כהה', 
+                subtitle: 'לגוון דרמטי ועמוק',
+                dha: '16%', 
+                duration: '8-12 ימים', 
+                skin: 'עור כהה או מנוסה',
+                popular: false
+              },
+            ].map((solution, index) => (
+              <div
+                key={index}
+                className="relative bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-5 hover-elevate active-elevate-2 transition-all"
+                style={{
+                  borderColor: solution.popular ? 'rgba(236, 72, 153, 1)' : 'rgba(236, 72, 153, 0.6)',
+                  boxShadow: solution.popular ? '0 0 20px rgba(236, 72, 153, 0.5)' : '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = solution.popular ? 'rgba(236, 72, 153, 1)' : 'rgba(236, 72, 153, 0.6)'}
+              >
+                {solution.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-bold" style={{ boxShadow: '0 0 15px rgba(236, 72, 153, 0.6)' }}>
+                    פופולרי ביותר
+                  </div>
+                )}
+                <h3 className="text-white font-bold text-xl mb-1 font-hebrew text-center">{solution.title}</h3>
+                <p className="text-gray-400 text-sm font-hebrew text-center mb-4">{solution.subtitle}</p>
+                <div className="space-y-3">
+                  <div className="text-center">
+                    <p className="text-pink-400 font-bold text-3xl" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>{solution.dha}</p>
+                    <p className="text-gray-300 text-sm font-hebrew">ריכוז DHA</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-white font-semibold">{solution.duration}</p>
+                    <p className="text-gray-300 text-sm font-hebrew">משך החזקה</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-white font-semibold font-hebrew">{solution.skin}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Preparation & Aftercare */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Preparation */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>הכנה מוקדמת לטיפול</h3>
+            <div className="space-y-4 text-right">
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">תיאום מועד הטיפול</h4>
+                <p className="text-pink-400 text-sm mb-1">1-2 ימים לפני</p>
+                <p className="text-gray-300 text-sm font-hebrew">יש לתאם את הטיפול יום או יומיים לפני המועד הרצוי להיות שזופים</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">מקלחת וגילוח</h4>
+                <p className="text-pink-400 text-sm mb-1">לפני הטיפול</p>
+                <p className="text-gray-300 text-sm font-hebrew">יש להתקלח ולגלח שיערות במידת הצורך לפני הגעה לטיפול</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">עור נקי ויבש</h4>
+                <p className="text-pink-400 text-sm mb-1">ביום הטיפול</p>
+                <p className="text-gray-300 text-sm font-hebrew">אין למרוח שמן/קרם גוף/דאודורנט/בושם - על העור להיות נקי לחלוטין</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">לבוש מתאים</h4>
+                <p className="text-pink-400 text-sm mb-1">ביום הטיפול</p>
+                <p className="text-gray-300 text-sm font-hebrew">יש להגיע בבגדים קלילים, רחבים, רצוי כהים ולא חשופים, וכפכפים</p>
+              </div>
+            </div>
+            <div className="mt-4 p-3 bg-pink-500/10 border border-pink-500/30 rounded-md">
+              <p className="text-gray-300 text-sm font-hebrew text-right">
+                הימנעו משתיית אלכוהול 24 שעות לפני הטיפול, אל תשתמשו בבושם או דאודורנט ביום הטיפול, לבשו בגדים רחבים ונוחים, אל תתכננו פעילות גופנית לאחר הטיפול
+              </p>
+            </div>
+          </div>
+
+          {/* Aftercare */}
+          <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+            <h3 className="text-xl font-bold text-pink-400 mb-4 font-hebrew text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>תחזוקה לאחר הטיפול</h3>
+            <div className="space-y-4 text-right">
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">המתנה לאחר הטיפול</h4>
+                <p className="text-pink-400 text-sm mb-1">1-4 שעות</p>
+                <p className="text-gray-300 text-sm font-hebrew">יש להימנע מהזעה ומגע מים בעור 4 שעות עד למקלחת הראשונה</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">המקלחת הראשונה</h4>
+                <p className="text-pink-400 text-sm mb-1">אחרי 4 שעות</p>
+                <p className="text-gray-300 text-sm font-hebrew">במקלחת הראשונה יש להסתבן פעמיים להסרת הברונזר הראשוני</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">הגוון הסופי</h4>
+                <p className="text-pink-400 text-sm mb-1">למחרת</p>
+                <p className="text-gray-300 text-sm font-hebrew">הגוון הסופי יתפתח יום למחרת הטיפול - זה התוצאה הרצויה</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">שימור השיזוף</h4>
+                <p className="text-pink-400 text-sm mb-1">כל השבוע</p>
+                <p className="text-gray-300 text-sm font-hebrew">יש להימנע מפילינג/ליפה במהלך השבוע ולהתנגב בטפיחות עדינות</p>
+              </div>
+              <div>
+                <h4 className="text-white font-bold font-hebrew mb-1">טיפוח לשימור</h4>
+                <p className="text-pink-400 text-sm mb-1">כל השבוע</p>
+                <p className="text-gray-300 text-sm font-hebrew">רצוי להשתמש בחמאת גוף איכותית לשימור ותחזוק תוצאת השיזוף</p>
+              </div>
+            </div>
+            <div className="mt-4 p-3 bg-pink-500/10 border border-pink-500/30 rounded-md">
+              <p className="text-gray-300 text-sm font-hebrew text-right">
+                התקלחו במים פושרים, השתמשו בסבון עדין, הימנעו מחמאות גוף עם בושם, שתו הרבה מים, הימנעו מבריכת שחייה עם כלור בימים הראשונים
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bride Package */}
+        <div className="bg-gradient-to-br from-pink-900/20 via-purple-900/20 to-black border-2 rounded-md p-6 mb-8" style={{ borderColor: 'rgba(236, 72, 153, 0.8)', boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }}>
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-pink-400 mb-2 font-hebrew" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }}>חבילה מיוחדת לכלה</h3>
+            <p className="text-white text-3xl font-bold mb-2">₪320</p>
+            <p className="text-gray-300 font-hebrew mb-4">2 טיפולים: טסט + טיפול נוסף + שירות עד הבית</p>
+            <p className="text-pink-300 text-sm font-hebrew">הפתרון המושלם ליום החתונה המושלם</p>
+          </div>
+        </div>
+
+        {/* Customer Testimonials */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-white font-hebrew mb-6 text-center">מה הלקוחות אומרים</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6 hover-elevate transition-all" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+              <p className="text-white font-hebrew text-right text-lg leading-relaxed">"זה נראה כאילו חזרתי מחופשה באיביזה – בלי לצאת מהעיר!"</p>
+            </div>
+            <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border rounded-md p-6 hover-elevate transition-all" style={{ borderColor: 'rgba(236, 72, 153, 0.6)' }}>
+              <p className="text-white font-hebrew text-right text-lg leading-relaxed">"ככלה זה היה הפתרון המושלם – לא הייתי דואגת לשיזוף ביום החתונה."</p>
+            </div>
+          </div>
         </div>
       </div>
       </div>
