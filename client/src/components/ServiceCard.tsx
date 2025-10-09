@@ -19,7 +19,7 @@ export default function ServiceCard({ title, icon, onClick, disabled = false, cl
     blue: {
       default: 'rgba(59, 130, 246, 0.6)',
       hover: 'rgba(59, 130, 246, 1)',
-      shadow: '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 90px rgba(59, 130, 246, 0.3)'
+      shadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
     }
   };
 
