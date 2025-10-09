@@ -253,7 +253,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <div className="absolute inset-0 -m-4"
               style={{
                 background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 40%, transparent 70%)',
-                animation: 'pulse-bg 1.5s ease-in-out infinite',
+                animation: 'pulse-bg 3s ease-in-out infinite',
                 filter: 'blur(12px)'
               }}
             />
@@ -265,7 +265,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               style={{
                 opacity: 0.9,
                 filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.5))',
-                animation: 'shine 1.5s ease-in-out infinite'
+                animation: 'shine 3s ease-in-out infinite'
               }}
             />
           </div>
