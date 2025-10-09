@@ -38,27 +38,27 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   const services = [
     { 
       title: 'מיטות שיזוף', 
-      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-32 h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'sun-beds' 
     },
     { 
       title: 'שיזוף בהתזה', 
-      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-32 h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'spray-tan' 
     },
     { 
       title: 'מספרה', 
-      icon: <img src={hairSalonIcon} alt="מספרה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="w-36 h-36 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'hair-salon' 
     },
     { 
       title: 'קוסמטיקה', 
-      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-28 h-28 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-36 h-36 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'cosmetics' 
     },
     { 
       title: 'החנות שלכם', 
-      icon: <img src={storeIcon} alt="החנות שלכם" className="w-24 h-24 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={storeIcon} alt="החנות שלכם" className="w-32 h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'your-store' 
     },
     { 
