@@ -263,97 +263,46 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Sparkling Star with Sharp Rays */}
+          {/* Lightning Bolt - Blue Neon */}
           <div className="relative">
-            {/* Main Star with Sharp Rays */}
             <svg 
               width="80" 
               height="80" 
-              viewBox="0 0 100 100" 
+              viewBox="0 0 24 24" 
               fill="none"
-              className="transition-all duration-300 group-hover:scale-125"
+              className="transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
               style={{
                 animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
               }}
             >
               <defs>
-                <filter id="starGlow">
-                  <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <filter id="boltGlow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                   <feMerge>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="SourceGraphic"/>
                   </feMerge>
                 </filter>
-                <radialGradient id="starGradient" cx="50%" cy="50%">
+                <linearGradient id="boltGradient" x1="12" y1="2" x2="12" y2="22">
                   <stop offset="0%" stopColor="#60a5fa" />
-                  <stop offset="50%" stopColor="#3b82f6" />
-                  <stop offset="100%" stopColor="#2563eb" />
-                </radialGradient>
+                  <stop offset="100%" stopColor="#3b82f6" />
+                </linearGradient>
               </defs>
               
-              {/* 8-Point Star with Sharp Rays */}
+              {/* Lightning Bolt Path */}
               <path 
-                d="M50 5 L55 40 L90 35 L60 55 L85 85 L50 65 L15 85 L40 55 L10 35 L45 40 Z" 
-                fill="url(#starGradient)"
+                d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" 
+                fill="url(#boltGradient)"
                 stroke="#60a5fa"
-                strokeWidth="2"
-                filter="url(#starGlow)"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+                filter="url(#boltGlow)"
                 style={{
-                  filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.9)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.7))'
+                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.6))'
                 }}
               />
-              
-              {/* Center Bright Core */}
-              <circle cx="50" cy="50" r="8" fill="#60a5fa" opacity="0.9" filter="url(#starGlow)" />
             </svg>
-            
-            {/* Sparkles around the star */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {/* Sparkle 1 - Top Right */}
-              <div 
-                className="absolute w-3 h-3 bg-blue-400 rounded-full"
-                style={{
-                  top: '10%',
-                  right: '15%',
-                  animation: 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite',
-                  boxShadow: '0 0 20px #60a5fa'
-                }}
-              />
-              
-              {/* Sparkle 2 - Top Left */}
-              <div 
-                className="absolute w-2 h-2 bg-blue-300 rounded-full"
-                style={{
-                  top: '15%',
-                  left: '10%',
-                  animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite 0.3s',
-                  boxShadow: '0 0 15px #60a5fa'
-                }}
-              />
-              
-              {/* Sparkle 3 - Bottom Right */}
-              <div 
-                className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                style={{
-                  bottom: '12%',
-                  right: '10%',
-                  animation: 'ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite 0.6s',
-                  boxShadow: '0 0 18px #60a5fa'
-                }}
-              />
-              
-              {/* Sparkle 4 - Bottom Left */}
-              <div 
-                className="absolute w-3 h-3 bg-blue-300 rounded-full"
-                style={{
-                  bottom: '10%',
-                  left: '15%',
-                  animation: 'ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite 0.9s',
-                  boxShadow: '0 0 20px #60a5fa'
-                }}
-              />
-            </div>
           </div>
           
           <span className="text-base font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors">שירות עצמי 24/7</span>
