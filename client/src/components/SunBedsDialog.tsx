@@ -221,7 +221,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     />
                   )}
                 </div>
-                <span className="text-sm font-medium text-white text-center font-hebrew px-2 mt-2">
+                <span className={`text-sm font-medium text-white text-center font-hebrew px-2 ${option.title === "AI TAN" ? "mt-0" : "mt-2"}`}>
                   {option.title}
                 </span>
                 
