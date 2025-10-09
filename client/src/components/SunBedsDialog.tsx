@@ -212,7 +212,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     />
                   ) : option.iconType === 'component' ? (
                     <div className="-mt-6">
-                      <option.icon size={160} />
+                      <option.icon size={220} />
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
