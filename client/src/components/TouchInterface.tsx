@@ -274,7 +274,10 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             />
           </div>
           
-          <span className="text-lg font-semibold text-white text-center group-hover:text-blue-100 transition-colors mt-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>שירות עצמי 24/7</span>
+          <div className="text-center mt-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+            <div className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">מעבר לשירות עצמי</div>
+            <div className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">24/7</div>
+          </div>
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
