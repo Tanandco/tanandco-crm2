@@ -160,9 +160,13 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             { title: 'שירות עד הבית', price: '₪350', sessions: 'טיפול מקצועי בנוחות הבית', badge: null, special: false },
             { title: 'חבילת כלה', price: '₪320', sessions: '2 טיפולים + שירות', badge: 'מיוחד', special: true },
           ].map((item, index) => (
-            <div
+            <button
               key={index}
-              className={`group relative ${item.special ? 'bg-gradient-to-br from-pink-900/30 via-purple-900/30 to-black' : 'bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90'} border rounded-md p-4 hover-elevate active-elevate-2 transition-all`}
+              onClick={() => {
+                // Handle purchase click - you can navigate to POS or open payment dialog
+                console.log('רכישה:', item.title, item.price);
+              }}
+              className={`group relative ${item.special ? 'bg-gradient-to-br from-pink-900/30 via-purple-900/30 to-black' : 'bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90'} border rounded-md p-4 hover-elevate active-elevate-2 transition-all cursor-pointer`}
               style={{
                 borderColor: item.special ? 'rgba(236, 72, 153, 1)' : 'rgba(236, 72, 153, 0.6)',
                 boxShadow: item.special ? '0 0 25px rgba(236, 72, 153, 0.5)' : '0 4px 12px rgba(0, 0, 0, 0.3)'
@@ -172,14 +176,22 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               data-testid={`pricing-card-${index}`}
             >
               {item.badge && (
-                <div className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded-full font-bold" style={{ boxShadow: '0 0 15px rgba(236, 72, 153, 0.6)' }}>
+                <div className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded-full font-bold pointer-events-none" style={{ boxShadow: '0 0 15px rgba(236, 72, 153, 0.6)' }}>
                   {item.badge}
                 </div>
               )}
               <h3 className="text-white font-bold text-lg mb-2 font-hebrew text-center">{item.title}</h3>
               <p className="text-pink-400 font-bold text-2xl mb-1 text-center" style={{ filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))' }}>{item.price}</p>
               <p className="text-gray-300 text-sm font-hebrew text-center">{item.sessions}</p>
-            </div>
+              
+              {/* Click to Buy Indicator */}
+              <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="mt-3 text-xs text-pink-400 font-hebrew text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                לחץ לרכישה
+              </div>
+            </button>
           ))}
         </div>
 
