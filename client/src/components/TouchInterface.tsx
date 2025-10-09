@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { Home, Star, Search, Sparkles, Settings, Users, Package, Smartphone, Fingerprint, Hand } from 'lucide-react';
+import { Home, Star, Search, Sparkles, Settings, Users, Package, Smartphone, Fingerprint, Hand, Menu, DoorOpen, ShoppingCart, MessageCircle, BarChart3, UserPlus } from 'lucide-react';
 import Logo from './Logo';
 import ServiceCard from './ServiceCard';
 import StatusDisplay from './StatusDisplay';
@@ -34,36 +34,37 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
   const [hairSalonDialogOpen, setHairSalonDialogOpen] = useState(false);
   const [cosmeticsDialogOpen, setCosmeticsDialogOpen] = useState(false);
   const [newCustomerDialogOpen, setNewCustomerDialogOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const services = [
     { 
       title: 'מיטות שיזוף', 
-      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-28 md:w-48 h-28 md:h-48 object-contain -mt-2 md:-mt-6" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="w-20 md:w-36 h-20 md:h-36 object-contain -mt-1 md:-mt-4" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'sun-beds' 
     },
     { 
       title: 'שיזוף בהתזה', 
-      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-20 md:w-32 h-20 md:h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="w-16 md:w-28 h-16 md:h-28 object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'spray-tan' 
     },
     { 
       title: 'מספרה', 
-      icon: <img src={hairSalonIcon} alt="מספרה" className="w-24 md:w-40 h-24 md:h-40 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="w-18 md:w-32 h-18 md:h-32 object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'hair-salon' 
     },
     { 
       title: 'קוסמטיקה', 
-      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-24 md:w-40 h-24 md:h-40 object-contain mt-2 md:mt-4" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="w-18 md:w-32 h-18 md:h-32 object-contain mt-1 md:mt-3" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'cosmetics' 
     },
     { 
       title: 'החנות שלכם', 
-      icon: <img src={storeIcon} alt="החנות שלכם" className="w-20 md:w-32 h-20 md:h-32 object-contain" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }} />, 
+      icon: <img src={storeIcon} alt="החנות שלכם" className="w-16 md:w-28 h-16 md:h-28 object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
       id: 'your-store' 
     },
     { 
       title: 'AI TAN', 
-      icon: <div className="-mt-6 md:-mt-14 -mb-6 md:-mb-12 scale-100 md:scale-150"><Alin size={140} className="md:w-[204px] md:h-[204px]" /></div>, 
+      icon: <div className="-mt-4 md:-mt-10 -mb-4 md:-mb-8 scale-75 md:scale-125"><Alin size={120} className="md:w-[170px] md:h-[170px]" /></div>, 
       id: 'ai-tan' 
     },
   ];
@@ -112,113 +113,130 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       data-testid="touch-interface"
     >
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-3 md:px-6 py-3 md:py-6 flex flex-col items-center flex-1 overflow-y-auto">
-        {/* Top Buttons - Management */}
-        <div className="flex gap-2 md:gap-4 mb-3 md:mb-4 w-full justify-center flex-wrap">
+      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-2 md:py-6 flex flex-col items-center flex-1 overflow-y-auto">
+        {/* Top Bar - Hamburger Menu + Action Buttons */}
+        <div className="flex gap-2 mb-2 md:mb-4 w-full justify-between items-center">
+          {/* Hamburger Menu */}
           <button
             className="
-              group relative h-10 md:h-12 px-3 md:px-6
+              group relative w-9 h-9 md:w-10 md:h-10
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-              border hover:border-2
+              border
               rounded-md backdrop-blur-sm
-              flex items-center justify-center gap-1 md:gap-2
+              flex items-center justify-center
               transition-all duration-300 ease-in-out
               hover-elevate active-elevate-2
             "
             style={{
-              borderColor: 'rgba(236, 72, 153, 0.6)',
+              borderColor: 'rgba(59, 130, 246, 0.6)',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => navigate('/customers')}
-            data-testid="button-customer-management"
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)'}
+            onClick={() => setMenuOpen(!menuOpen)}
+            data-testid="button-menu"
           >
-            <Users 
-              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-              size={16}
+            <Menu 
+              className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300"
+              size={18}
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+                filter: 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.8))'
               }}
             />
-            <span className="text-white font-hebrew text-sm md:text-base">לקוחות</span>
-            
-            <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
           </button>
 
-          <button
-            className="
-              group relative h-10 md:h-12 px-3 md:px-6
-              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-              border hover:border-2
-              rounded-md backdrop-blur-sm
-              flex items-center justify-center gap-1 md:gap-2
-              transition-all duration-300 ease-in-out
-              hover-elevate active-elevate-2
-            "
-            style={{
-              borderColor: 'rgba(236, 72, 153, 0.6)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => navigate('/quick-search')}
-            data-testid="button-search"
-          >
-            <Search 
-              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-              size={16}
+          {/* Action Buttons */}
+          <div className="flex gap-2">
+            <button
+              className="
+                group relative w-9 h-9 md:w-10 md:h-10
+                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                border
+                rounded-md backdrop-blur-sm
+                flex items-center justify-center
+                transition-all duration-300 ease-in-out
+                hover-elevate active-elevate-2
+              "
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+                borderColor: 'rgba(236, 72, 153, 0.6)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
               }}
-            />
-            <span className="text-white font-hebrew text-sm md:text-base">חיפוש</span>
-            
-            <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </button>
-          
-          <button
-            className="
-              group relative h-10 md:h-12 px-3 md:px-6
-              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-              border hover:border-2
-              rounded-md backdrop-blur-sm
-              flex items-center justify-center gap-1 md:gap-2
-              transition-all duration-300 ease-in-out
-              hover-elevate active-elevate-2
-            "
-            style={{
-              borderColor: 'rgba(236, 72, 153, 0.6)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-            onClick={() => setNewCustomerDialogOpen(true)}
-            data-testid="button-register"
-          >
-            <img 
-              src={newCustomerIcon} 
-              alt="לקוח חדש" 
-              className="w-4 h-4 md:w-5 md:h-5 object-contain transition-all duration-300"
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+              onClick={() => navigate('/customers')}
+              data-testid="button-customer-management"
+            >
+              <Users 
+                className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+                size={18}
+                style={{
+                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+                }}
+              />
+            </button>
+
+            <button
+              className="
+                group relative w-9 h-9 md:w-10 md:h-10
+                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                border
+                rounded-md backdrop-blur-sm
+                flex items-center justify-center
+                transition-all duration-300 ease-in-out
+                hover-elevate active-elevate-2
+              "
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+                borderColor: 'rgba(236, 72, 153, 0.6)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
               }}
-            />
-            <span className="text-white font-hebrew text-sm md:text-base">הרשמה</span>
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+              onClick={() => navigate('/quick-search')}
+              data-testid="button-search"
+            >
+              <Search 
+                className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+                size={18}
+                style={{
+                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+                }}
+              />
+            </button>
             
-            <div className="absolute inset-0 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </button>
+            <button
+              className="
+                group relative w-9 h-9 md:w-10 md:h-10
+                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                border
+                rounded-md backdrop-blur-sm
+                flex items-center justify-center
+                transition-all duration-300 ease-in-out
+                hover-elevate active-elevate-2
+              "
+              style={{
+                borderColor: 'rgba(236, 72, 153, 0.6)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+              onClick={() => setNewCustomerDialogOpen(true)}
+              data-testid="button-register"
+            >
+              <img 
+                src={newCustomerIcon} 
+                alt="לקוח חדש" 
+                className="w-4 h-4 object-contain transition-all duration-300"
+                style={{
+                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+                }}
+              />
+            </button>
+          </div>
         </div>
 
 
         {/* Logo */}
-        <Logo className="mb-2 md:mb-8 scale-75 md:scale-100" showGlow={true} showUnderline={true} />
+        <Logo className="mb-1 md:mb-6 scale-[0.6] md:scale-90" showGlow={true} showUnderline={true} />
 
         {/* Service Cards - 2 in mobile, 6 in desktop */}
         <div className="grid grid-cols-2 md:flex gap-2 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto">
@@ -234,7 +252,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Self Service Button */}
-        <div className="mt-4 md:mt-24">
+        <div className="mt-2 md:mt-16">
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
@@ -261,18 +279,18 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             <img 
               src={selfServiceButtonIcon} 
               alt="Self Service" 
-              className="w-16 h-16 md:w-20 md:h-20 object-contain transition-all duration-300 group-hover:scale-110 relative z-10"
+              className="w-12 h-12 md:w-16 md:h-16 object-contain transition-all duration-300 group-hover:scale-110 relative z-10"
               style={{
                 opacity: 0.9,
-                filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.5))',
+                filter: 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.5))',
                 animation: 'shine 3s ease-in-out infinite'
               }}
             />
           </div>
           
-          <div className="text-center mt-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-            <div className="text-base md:text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">מעבר לשירות עצמי</div>
-            <div className="text-base md:text-lg font-semibold text-white group-hover:text-blue-100 transition-colors">24/7</div>
+          <div className="text-center mt-0.5" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+            <div className="text-sm md:text-base font-semibold text-white group-hover:text-blue-100 transition-colors">מעבר לשירות עצמי</div>
+            <div className="text-sm md:text-base font-semibold text-white group-hover:text-blue-100 transition-colors">24/7</div>
           </div>
           
           {/* Ripple effect */}
@@ -312,6 +330,125 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }
         `}</style>
       </div>
+
+      {/* Hamburger Menu Overlay */}
+      {menuOpen && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            onClick={() => setMenuOpen(false)}
+            data-testid="menu-overlay"
+          />
+          <div 
+            className="fixed left-0 top-0 h-screen w-64 backdrop-blur-lg border-r z-50 flex flex-col py-6 gap-3"
+            style={{
+              background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.90), rgba(31, 41, 55, 0.95))',
+              borderColor: 'rgba(59, 130, 246, 0.4)',
+              boxShadow: `
+                0 0 30px rgba(59, 130, 246, 0.6),
+                0 0 60px rgba(59, 130, 246, 0.4),
+                inset 0 1px 2px rgba(59, 130, 246, 0.1)
+              `
+            }}
+          >
+            <button
+              onClick={() => {
+                navigate('/');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-home"
+            >
+              <Home className="w-5 h-5 text-blue-400" />
+              <span className="text-white font-hebrew">בית</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/pos');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-pos"
+            >
+              <ShoppingCart className="w-5 h-5 text-amber-400" />
+              <span className="text-white font-hebrew">קופה</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/face-registration');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-registration"
+            >
+              <UserPlus className="w-5 h-5 text-pink-400" />
+              <span className="text-white font-hebrew">הרשמה</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/chat');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-whatsapp"
+            >
+              <MessageCircle className="w-5 h-5 text-green-400" />
+              <span className="text-white font-hebrew">WhatsApp</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/remote-door');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-door"
+            >
+              <DoorOpen className="w-5 h-5 text-blue-400" />
+              <span className="text-white font-hebrew">פתיחת דלת</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/automation-dashboard');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-automation"
+            >
+              <BarChart3 className="w-5 h-5 text-purple-400" />
+              <span className="text-white font-hebrew">אוטומציה</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/biostar-test');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-biostar"
+            >
+              <Fingerprint className="w-5 h-5 text-pink-400" />
+              <span className="text-white font-hebrew">BioStar</span>
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/products');
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-3 px-6 py-3 hover-elevate active-elevate-2 transition-all"
+              data-testid="menu-settings"
+            >
+              <Settings className="w-5 h-5 text-blue-400" />
+              <span className="text-white font-hebrew">הגדרות</span>
+            </button>
+          </div>
+        </>
+      )}
 
       {/* Sun Beds Dialog */}
       <SunBedsDialog 
