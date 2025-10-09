@@ -263,16 +263,16 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Blue Neon Star - Pulsing */}
+          {/* Blue Neon Star - Pulsing & Rotating */}
           <div className="relative animate-pulse">
             <svg 
               width="80" 
               height="80" 
               viewBox="0 0 24 24" 
               fill="none"
-              className="transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
+              className="transition-all duration-300 group-hover:scale-125"
               style={{
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite'
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, float 3s ease-in-out infinite, spin 4s linear infinite'
               }}
             >
               <defs>
