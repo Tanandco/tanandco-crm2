@@ -240,9 +240,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           className="
             group relative
             flex flex-col items-center justify-center
-            transition-all duration-300 ease-in-out
             text-xl font-bold
-            hover:scale-105
           "
           style={{
             filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.3))'
