@@ -240,7 +240,6 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           className="
             group relative h-[140px] w-[260px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-            border-2
             rounded-md backdrop-blur-sm
             flex flex-col items-center justify-center gap-3
             transition-all duration-300 ease-in-out
@@ -249,14 +248,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             hover:scale-105
           "
           style={{
-            borderColor: 'rgba(236, 72, 153, 0.6)',
             boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 153, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
           }}
           onClick={() => navigate('/self-service')}
         >
