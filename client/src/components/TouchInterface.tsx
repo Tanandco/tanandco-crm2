@@ -259,25 +259,15 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Blue Neon Phone Icon with Fingerprint */}
+          {/* Blue Neon Fingerprint Icon */}
           <div className="relative">
-            <Smartphone 
-              size={64}
+            <Fingerprint 
+              size={72}
               className="transition-all duration-300 group-hover:scale-125"
               style={{
                 color: 'rgba(96, 165, 250, 1)',
                 strokeWidth: '1.5',
                 filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 1)) drop-shadow(0 0 60px rgba(59, 130, 246, 1)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.6))'
-              }}
-            />
-            {/* Fingerprint in center */}
-            <Fingerprint 
-              size={28}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 group-hover:scale-125"
-              style={{
-                color: 'rgba(236, 72, 153, 1)',
-                strokeWidth: '2',
-                filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.8))'
               }}
             />
           </div>
