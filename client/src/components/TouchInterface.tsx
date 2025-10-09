@@ -237,7 +237,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         <button
           data-testid="button-ai-tan-face-recognition"
           className="
-            group relative h-[90px] w-[180px]
+            group relative h-[110px] w-[200px]
             bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
             rounded-md backdrop-blur-sm
             flex items-center justify-center
@@ -365,7 +365,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             </svg>
           </div>
           
-          <span className="text-sm font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors mt-6">שירות עצמי 24/7</span>
+          <span className="text-sm font-medium text-white text-center font-hebrew group-hover:text-blue-100 transition-colors mt-10">שירות עצמי 24/7</span>
           
           {/* Ripple effect */}
           <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
