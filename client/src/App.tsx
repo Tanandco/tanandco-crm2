@@ -4,7 +4,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
-import IconSidebar from "@/components/IconSidebar";
 
 // Import main components
 import TouchInterfaceComponent from "@/components/TouchInterface";
@@ -95,10 +94,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen bg-slate-900 text-white" dir="rtl">
-          <IconSidebar />
-          <div className="pl-16">
-            <Router />
-          </div>
+          <Router />
         </div>
         <Toaster />
       </TooltipProvider>
