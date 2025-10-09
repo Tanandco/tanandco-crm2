@@ -264,14 +264,18 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           onClick={() => navigate('/self-service')}
         >
           {/* Blue Neon Star with 3D Effect */}
-          <div className="relative" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
+          <div className="relative" style={{ perspective: '1000px', transformStyle: 'preserve-3d', width: '80px', height: '80px' }}>
             {/* Glowing Background - Back Layer */}
             <div 
-              className="absolute inset-0 rounded-full blur-3xl transition-all duration-500 group-hover:blur-2xl group-hover:scale-110"
+              className="absolute rounded-full blur-3xl transition-all duration-500 group-hover:blur-2xl group-hover:scale-110"
               style={{
+                width: '100px',
+                height: '100px',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%) scale(1.5) translateZ(-20px)',
                 background: 'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(59, 130, 246, 0.3) 40%, transparent 70%)',
                 animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                transform: 'scale(1.5) translateZ(-20px)',
                 transformStyle: 'preserve-3d'
               }}
             />
