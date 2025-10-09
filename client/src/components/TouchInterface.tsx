@@ -114,8 +114,8 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
     >
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-2 md:py-6 flex flex-col items-center flex-1 overflow-y-auto">
-        {/* Top Bar - Hamburger Menu + Action Buttons */}
-        <div className="flex gap-2 mb-2 md:mb-4 w-full justify-between items-center">
+        {/* Top Bar - Hamburger Menu */}
+        <div className="flex gap-2 mb-2 md:mb-3 w-full justify-start items-center">
           {/* Hamburger Menu */}
           <button
             className="
@@ -144,96 +144,95 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               }}
             />
           </button>
-
-          {/* Action Buttons */}
-          <div className="flex gap-2">
-            <button
-              className="
-                group relative w-9 h-9 md:w-10 md:h-10
-                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                border
-                rounded-md backdrop-blur-sm
-                flex items-center justify-center
-                transition-all duration-300 ease-in-out
-                hover-elevate active-elevate-2
-              "
-              style={{
-                borderColor: 'rgba(236, 72, 153, 0.6)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-              onClick={() => navigate('/customers')}
-              data-testid="button-customer-management"
-            >
-              <Users 
-                className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-                size={14}
-                style={{
-                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
-                }}
-              />
-            </button>
-
-            <button
-              className="
-                group relative w-9 h-9 md:w-10 md:h-10
-                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                border
-                rounded-md backdrop-blur-sm
-                flex items-center justify-center
-                transition-all duration-300 ease-in-out
-                hover-elevate active-elevate-2
-              "
-              style={{
-                borderColor: 'rgba(236, 72, 153, 0.6)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-              onClick={() => navigate('/quick-search')}
-              data-testid="button-search"
-            >
-              <Search 
-                className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
-                size={14}
-                style={{
-                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
-                }}
-              />
-            </button>
-            
-            <button
-              className="
-                group relative w-9 h-9 md:w-10 md:h-10
-                bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                border
-                rounded-md backdrop-blur-sm
-                flex items-center justify-center
-                transition-all duration-300 ease-in-out
-                hover-elevate active-elevate-2
-              "
-              style={{
-                borderColor: 'rgba(236, 72, 153, 0.6)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-              onClick={() => setNewCustomerDialogOpen(true)}
-              data-testid="button-register"
-            >
-              <img 
-                src={newCustomerIcon} 
-                alt="לקוח חדש" 
-                className="w-3.5 h-3.5 object-contain transition-all duration-300"
-                style={{
-                  filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
-                }}
-              />
-            </button>
-          </div>
         </div>
 
+        {/* Action Buttons - Above Logo */}
+        <div className="flex gap-2 mb-2 md:mb-3 justify-center">
+          <button
+            className="
+              group relative w-9 h-9 md:w-10 md:h-10
+              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+              border
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center
+              transition-all duration-300 ease-in-out
+              hover-elevate active-elevate-2
+            "
+            style={{
+              borderColor: 'rgba(236, 72, 153, 0.6)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+            onClick={() => navigate('/customers')}
+            data-testid="button-customer-management"
+          >
+            <Users 
+              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+              size={14}
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+              }}
+            />
+          </button>
+
+          <button
+            className="
+              group relative w-9 h-9 md:w-10 md:h-10
+              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+              border
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center
+              transition-all duration-300 ease-in-out
+              hover-elevate active-elevate-2
+            "
+            style={{
+              borderColor: 'rgba(236, 72, 153, 0.6)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+            onClick={() => navigate('/quick-search')}
+            data-testid="button-search"
+          >
+            <Search 
+              className="text-pink-400 group-hover:text-pink-300 transition-colors duration-300"
+              size={14}
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+              }}
+            />
+          </button>
+          
+          <button
+            className="
+              group relative w-9 h-9 md:w-10 md:h-10
+              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+              border
+              rounded-md backdrop-blur-sm
+              flex items-center justify-center
+              transition-all duration-300 ease-in-out
+              hover-elevate active-elevate-2
+            "
+            style={{
+              borderColor: 'rgba(236, 72, 153, 0.6)',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+            onClick={() => setNewCustomerDialogOpen(true)}
+            data-testid="button-register"
+          >
+            <img 
+              src={newCustomerIcon} 
+              alt="לקוח חדש" 
+              className="w-3.5 h-3.5 object-contain transition-all duration-300"
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(236, 72, 153, 0.8))'
+              }}
+            />
+          </button>
+        </div>
 
         {/* Logo */}
         <Logo className="mb-1 md:mb-6 scale-[0.6] md:scale-90" showGlow={true} showUnderline={true} />
