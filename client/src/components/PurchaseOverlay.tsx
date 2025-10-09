@@ -663,35 +663,40 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     </h3>
 
                     {/* Counter */}
-                    <div className="flex items-center justify-center mb-1 relative z-10">
-                      <div className="flex items-center space-x-2 bg-black/50 rounded-lg px-2 py-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-5 w-5 p-0 text-white hover:bg-white/20"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCustomTanSessions(Math.max(4, customTanSessions - 1));
-                          }}
-                          data-testid="button-decrease-sessions"
-                        >
-                          <Minus className="h-2.5 w-2.5" />
-                        </Button>
-                        <span className="text-white font-bold text-sm min-w-[1.5rem] text-center">
-                          {customTanSessions}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-5 w-5 p-0 text-white hover:bg-white/20"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCustomTanSessions(Math.min(20, customTanSessions + 1));
-                          }}
-                          data-testid="button-increase-sessions"
-                        >
-                          <Plus className="h-2.5 w-2.5" />
-                        </Button>
+                    <div className="text-center mb-1">
+                      <div className="flex items-center justify-center mb-1 relative z-10">
+                        <div className="flex items-center space-x-2 bg-black/50 rounded-lg px-2 py-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCustomTanSessions(Math.max(4, customTanSessions - 1));
+                            }}
+                            data-testid="button-decrease-sessions"
+                          >
+                            <Minus className="h-2.5 w-2.5" />
+                          </Button>
+                          <span className="text-white font-bold text-sm min-w-[1.5rem] text-center">
+                            {customTanSessions}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-5 w-5 p-0 text-white hover:bg-white/20"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCustomTanSessions(Math.min(20, customTanSessions + 1));
+                            }}
+                            data-testid="button-increase-sessions"
+                          >
+                            <Plus className="h-2.5 w-2.5" />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="text-xs text-purple-400 font-semibold mt-0.5">
+                        + ברונזר
                       </div>
                     </div>
 
