@@ -211,7 +211,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   ) : option.iconType === 'component' ? (
-                    <div className="-mt-6">
+                    <div className="-mt-10">
                       <option.icon size={180} />
                     </div>
                   ) : option.icon && !option.isFunction && (
