@@ -298,10 +298,10 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                     boxShadow: '0 0 20px rgba(236, 72, 153, 0.6)',
                     filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.4))'
                   } : !isPast ? {
-                    borderColor: 'rgba(236, 72, 153, 0.3)'
+                    borderColor: 'rgba(236, 72, 153, 0.6)'
                   } : {}}
-                  onMouseEnter={(e) => !isPast && !isSelected && (e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.8)')}
-                  onMouseLeave={(e) => !isPast && !isSelected && (e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.3)')}
+                  onMouseEnter={(e) => !isPast && !isSelected && (e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)')}
+                  onMouseLeave={(e) => !isPast && !isSelected && (e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)')}
                   data-testid={`calendar-day-${day}`}
                 >
                   {day}
