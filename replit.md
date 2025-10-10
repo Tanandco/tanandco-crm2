@@ -5,12 +5,14 @@
 This project is a premium touch-screen kiosk CRM system designed for Tan & Co salon/spa operations. It features a modern Hebrew RTL interface with a neon aesthetic, focusing on customer self-service and salon management. The system integrates with multiple external services for payments, customer identification, access control, and automated marketing workflows, aiming to streamline salon operations and enhance the customer experience.
 
 **Recent Updates (October 2025)**:
-- **Self-Service Page Mobile Optimization** (October 10, 2025):
-  - Reduced text size on mobile: text-xs (12px) for descriptions, text-sm (14px) for final message
-  - Optimized service cards for mobile: 120px height with 60px icons arranged in 3-column grid (2 rows)
-  - Added Alin chatbot to footer on mobile (80px size) for 24/7 support access
-  - Desktop layout preserved with original sizing (180px cards, 115px icons, 130px Alin)
-  - Improved mobile UX with compact, organized layout fitting all content without excessive scrolling
+- **Self-Service Page Comprehensive Redesign** (October 10, 2025):
+  - **Card sizing**: Reduced to 100px height on mobile (from 120px) with p-1.5 padding for compact layout
+  - **Text optimization**: text-xs (12px) for descriptions, text-sm (14px) for final message on mobile
+  - **AI TAN rebrand**: Replaced pink Alin with blue Alin GIF featuring cyan glow (rgb(59, 130, 246))
+  - **Icon hierarchy**: Progressive sizing - AI TAN largest at 95px/155px, Hair Salon 80px/140px, Cosmetics 75px/135px, Spray Tan 70px/125px, Sun Beds/Store 60px/115px (mobile/desktop)
+  - **Visual enhancements**: Added pink-purple gradient separator line under logo, removed "בחרו את השירות המועדף עליכם" header
+  - **Footer optimization**: Fixed Alin duplication - consolidated to single responsive component with max-w constraints
+  - **Layout**: 3-column grid (2 rows) on mobile, flex layout on desktop with all content fitting without excessive scrolling
 - **Spray Tan Dialog Complete Redesign** (October 10, 2025):
   - Modern minimalist redesign based on user's design mockup featuring spray machine image
   - Desktop: Two-column layout with content left, spray machine image right with pink glow effect

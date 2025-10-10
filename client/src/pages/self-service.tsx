@@ -14,6 +14,7 @@ import hairSalonIcon from '@assets/freepik__3d-neon-pink-icon-of-a-hair-salon-sy
 import cosmeticsIcon from '@assets/עיצוב ללא שם (31)_1759413948155.png';
 import storeIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759413103497.png';
 import selfServiceIcon from '@assets/עיצוב ללא שם (32)_1759414540774.png';
+import blueAlinGif from '@assets/עיצוב ללא שם (5)_1760108712417.gif';
 
 export default function SelfService() {
   const [, navigate] = useLocation();
@@ -259,12 +260,16 @@ export default function SelfService() {
           <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-[hsla(var(--primary)/0.05)]" />
           <div className="relative max-w-6xl mx-auto px-3 text-center">
             <Logo 
-              className="mx-auto mb-2"
+              className="mx-auto"
               size="medium"
               showGlow={true}
               showUnderline={false}
             />
-            <h2 className="text-base md:text-lg font-extrabold leading-tight">
+            
+            {/* Neon line under logo */}
+            <div className="mt-2 h-px w-64 mx-auto bg-gradient-to-r from-transparent via-[rgba(236,72,153,.6)] via-[rgba(147,51,234,.5)] to-transparent" />
+            
+            <h2 className="mt-4 text-base md:text-lg font-extrabold leading-tight">
               המודל ההיברידי של תעשיית השיזוף - העולם של המחר
             </h2>
           </div>
@@ -294,19 +299,16 @@ export default function SelfService() {
         {/* SERVICE CARDS */}
         <section id="services" className="relative py-2 pb-6 flex-shrink-0">
           <div className="max-w-6xl mx-auto px-3 text-center">
-            <h3 className="text-sm md:text-lg font-extrabold mb-2 text-[hsl(var(--primary))]">
-              בחרו את השירות המועדף עליכם
-            </h3>
             <div className="grid grid-cols-3 md:flex gap-1.5 md:gap-2 justify-center md:flex-wrap max-w-5xl mx-auto">
               {/* Sun Beds */}
               <button
                 onClick={() => setSunBedsOpen(true)}
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-0"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-0"
                 onMouseMove={handleRippleMove}
                 data-testid="card-sun-beds"
               >
                 <div className="h-full w-full flex flex-col items-center justify-center text-center">
-                  <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-1 md:mb-2 neon-glow object-contain" />
+                  <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-0.5 md:mb-2 neon-glow object-contain" />
                   <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">מיטות שיזוף</div>
                 </div>
               </button>
@@ -314,12 +316,12 @@ export default function SelfService() {
               {/* Spray Tan */}
               <button
                 onClick={() => setSprayTanOpen(true)}
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-100"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-100"
                 onMouseMove={handleRippleMove}
                 data-testid="card-spray-tan"
               >
                 <div className="h-full w-full flex flex-col items-center justify-center text-center">
-                  <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-1 md:mb-2 neon-glow object-contain" />
+                  <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[70px] max-h-[70px] md:max-w-[125px] md:max-h-[125px] mb-0.5 md:mb-2 neon-glow object-contain" />
                   <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">שיזוף בהתזה</div>
                 </div>
               </button>
@@ -327,12 +329,12 @@ export default function SelfService() {
               {/* Hair Salon */}
               <a
                 href="/hair-studio"
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-200"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-200"
                 onMouseMove={handleRippleMove}
                 data-testid="card-hair-salon"
               >
                 <div className="flex flex-col items-center justify-center">
-                  <img src={hairSalonIcon} alt="מספרה" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-1 md:mb-2 neon-glow object-contain" />
+                  <img src={hairSalonIcon} alt="מספרה" className="max-w-[80px] max-h-[80px] md:max-w-[140px] md:max-h-[140px] mb-0.5 md:mb-2 neon-glow object-contain" />
                   <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">מספרה</div>
                 </div>
               </a>
@@ -340,12 +342,12 @@ export default function SelfService() {
               {/* Cosmetics */}
               <button
                 onClick={() => setCosmeticsOpen(true)}
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-300"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-300"
                 onMouseMove={handleRippleMove}
                 data-testid="card-cosmetics"
               >
                 <div className="h-full w-full flex flex-col items-center justify-center text-center">
-                  <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-1 md:mb-2 neon-glow object-contain" />
+                  <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[75px] max-h-[75px] md:max-w-[135px] md:max-h-[135px] mb-0.5 md:mb-2 neon-glow object-contain" />
                   <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">קוסמטיקה</div>
                 </div>
               </button>
@@ -353,26 +355,31 @@ export default function SelfService() {
               {/* Store */}
               <a
                 href="/shop"
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-400"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-400"
                 onMouseMove={handleRippleMove}
                 data-testid="card-store"
               >
                 <div className="flex flex-col items-center justify-center">
-                  <img src={storeIcon} alt="החנות שלכם" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-1 md:mb-2 neon-glow object-contain" />
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight md:mt-3">החנות שלכם</div>
+                  <img src={storeIcon} alt="החנות שלכם" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] mb-0.5 md:mb-2 neon-glow object-contain" />
+                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">החנות שלכם</div>
                 </div>
               </a>
 
               {/* AI TAN (Alin) */}
               <a
                 href="/ai-tan"
-                className="h-[120px] w-full md:h-[180px] md:w-[160px] rounded-xl p-2 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-500"
+                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 ripple bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(59,130,246,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-500"
                 onMouseMove={handleRippleMove}
                 data-testid="card-ai-tan"
               >
                 <div className="h-full w-full flex flex-col items-center justify-center text-center">
-                  <Alin size={70} className="max-w-[70px] max-h-[70px] md:max-w-[125px] md:max-h-[125px] md:-my-6" />
-                  <div className="text-[10px] md:text-base font-bold tracking-tight text-[hsl(var(--primary))] drop-shadow-[0_0_10px_rgba(236,72,153,0.8)] md:-mt-12">
+                  <img 
+                    src={blueAlinGif} 
+                    alt="AI TAN" 
+                    className="max-w-[95px] max-h-[95px] md:max-w-[155px] md:max-h-[155px] object-contain"
+                    style={{ filter: 'drop-shadow(0 0 20px rgb(59, 130, 246)) contrast(1.15) brightness(1.05)' }}
+                  />
+                  <div className="text-[10px] md:text-base font-bold tracking-tight text-[rgb(59,130,246)] drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] mt-0.5 md:-mt-10">
                     AI TAN
                   </div>
                 </div>
@@ -391,8 +398,7 @@ export default function SelfService() {
                 className="relative shrink-0 group animate-bounce-slow hover:scale-110 transition-transform -mt-4 md:-mt-8"
                 data-testid="button-chat-with-alin"
               >
-                <Alin size={80} className="md:hidden" />
-                <Alin size={130} className="hidden md:block" />
+                <Alin size={80} className="max-w-[80px] md:max-w-[130px]" />
               </button>
               
               {/* Flowing Text Bubble with Typing Effect */}
