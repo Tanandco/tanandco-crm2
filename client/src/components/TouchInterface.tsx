@@ -268,7 +268,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               loop 
               muted 
               playsInline
-              className="w-10 h-10 md:w-12 md:h-12 object-contain"
+              className="w-40 h-40 md:w-48 md:h-48 object-contain"
             />
           </div>
           
