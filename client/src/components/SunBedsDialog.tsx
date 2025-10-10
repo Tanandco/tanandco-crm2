@@ -485,7 +485,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       <div className="fixed bottom-4 right-4 z-30 flex items-end gap-0 max-w-[90vw] md:max-w-md">
         {/* Text bubble with typing animation */}
         {typedText && (
-          <div className="bg-pink-500/90 text-white px-4 py-2 rounded-l-full rounded-tr-full shadow-lg animate-in slide-in-from-left duration-700 flex-1" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
+          <div className="bg-pink-500/90 text-white px-4 py-2 rounded-l-full rounded-tr-full shadow-lg animate-in slide-in-from-left duration-700 flex-1 -mr-2" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
             <p className="text-xs md:text-sm font-hebrew break-words leading-snug">
               {typedText}
               <span className="animate-pulse">|</span>
