@@ -29,7 +29,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
   const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
   const [typedText, setTypedText] = useState("");
   
-  const fullText = "היי אני אלין , אני פה לעזור לכם בכל שלב בכל שעה , מבטיחה לא לחפור";
+  const fullText = "היי אני אלין , אני פה לעזור לכם בכל שלב בכל שעה\nמבטיחה לא לחפור";
   
   useEffect(() => {
     if (open) {
@@ -495,7 +495,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         {/* Text bubble with typing animation */}
         {typedText && (
           <div className="bg-pink-500/90 text-white px-4 py-2 rounded-lg shadow-lg animate-in slide-in-from-right duration-700 -ml-16 max-w-[60vw] md:max-w-sm" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
-            <p className="text-xs md:text-sm font-hebrew leading-snug break-words">
+            <p className="text-xs md:text-sm font-hebrew leading-snug whitespace-pre-line">
               {typedText}
               <span className="animate-pulse">|</span>
             </p>
