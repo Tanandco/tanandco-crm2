@@ -357,7 +357,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 <button
                   onClick={option.onClick}
                   className="
-                    group relative h-[120px] w-[105px] sm:h-[140px] sm:w-[120px] md:h-[160px] md:w-[150px]
+                    group relative h-[110px] w-[100px] sm:h-[130px] sm:w-[115px] md:h-[150px] md:w-[145px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
                     border hover:border-2
                     rounded-md backdrop-blur-sm
