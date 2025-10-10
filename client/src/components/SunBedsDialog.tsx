@@ -482,11 +482,11 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       )}
 
       {/* Alin Chatbot - Bottom right corner */}
-      <div className="fixed bottom-4 right-4 z-30 flex items-center gap-3">
+      <div className="fixed bottom-4 right-4 z-30 flex items-end gap-3 max-w-[90vw] md:max-w-md">
         {/* Text bubble with typing animation */}
         {typedText && (
-          <div className="bg-pink-500/90 text-white px-4 py-2 rounded-l-full rounded-tr-full shadow-lg animate-in slide-in-from-left duration-700" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
-            <p className="text-xs md:text-sm font-hebrew whitespace-nowrap">
+          <div className="bg-pink-500/90 text-white px-4 py-2 rounded-l-full rounded-tr-full shadow-lg animate-in slide-in-from-left duration-700 flex-1" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
+            <p className="text-xs md:text-sm font-hebrew break-words leading-snug">
               {typedText}
               <span className="animate-pulse">|</span>
             </p>
@@ -496,7 +496,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         {/* Alin avatar - clickable chatbot */}
         <button
           onClick={() => window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank')}
-          className="hover:scale-110 transition-transform duration-200"
+          className="hover:scale-110 transition-transform duration-200 flex-shrink-0"
           data-testid="button-alin-chatbot"
         >
           <Alin className="scale-[1.05] md:scale-[1.35] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
