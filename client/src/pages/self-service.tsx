@@ -382,7 +382,7 @@ export default function SelfService() {
         </section>
 
         {/* FOOTER WITH ALIN */}
-        <footer className="border-t border-[hsl(var(--border))] py-2 flex-shrink-0 mt-auto">
+        <footer className="border-t border-[hsl(var(--border))] py-2 flex-shrink-0 mt-auto hidden md:block">
           <div className="max-w-6xl mx-auto px-3">
             <div className="flex items-center gap-1">
               {/* Alin Avatar */}

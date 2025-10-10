@@ -136,20 +136,21 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           onClick={() => onOpenChange(false)} 
           variant="outline" 
           size="lg" 
-          className="bg-white/10 border-white/20 text-white backdrop-blur-sm"
+          className="bg-white/10 border-white/20 text-white backdrop-blur-sm px-2 py-1 md:px-4 md:py-2 text-xs md:text-base h-auto min-h-0 md:min-h-10"
           data-testid="button-back-to-self-service"
         >
-          <ArrowLeft className="w-5 h-5 ml-2" />
-          חזרה לשירות עצמי
+          <ArrowLeft className="w-3 h-3 md:w-5 md:h-5 ml-1 md:ml-2" />
+          <span className="hidden md:inline">חזרה לשירות עצמי</span>
+          <span className="md:hidden">חזרה</span>
         </Button>
       </div>
 
       {/* Welcome Header */}
       <div className="absolute top-16 left-0 right-0 z-20">
-        <div className="text-center space-y-4 px-4">
+        <div className="text-center space-y-2 md:space-y-4 px-4">
           <div className="flex items-center justify-center mb-1">
             <h1 
-              className="text-xl font-bold text-white font-varela tracking-wide" 
+              className="text-sm md:text-xl font-bold text-white font-varela tracking-wide" 
               style={{ fontFamily: "'Varela Round', sans-serif !important" }}
             >
               ברוכים הבאים לעולם המחר של תעשיית השיזוף
@@ -172,18 +173,18 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           
           {/* About Us Section */}
           <div className="px-2 mx-[9px]">
-            <p className="text-sm font-semibold text-white mb-3 text-center font-varela">
+            <p className="text-xs md:text-sm font-semibold text-white mb-2 md:mb-3 text-center font-varela">
               גאים להוביל את המודל ההייברידי של עולם השיזוף
             </p>
-            <div className="text-gray-300 space-y-1 text-sm" dir="rtl">
-              <p>• ללא צורך בתיאום מראש או קביעת תורים</p>
+            <div className="text-gray-300 space-y-0.5 md:space-y-1 text-xs md:text-sm" dir="rtl">
+              <p className="md:block hidden">• ללא צורך בתיאום מראש או קביעת תורים</p>
               <p>• כניסה עצמאית בכל שעה של היום ובכל שעה של הלילה</p>
               <p>• מיטות השיזוף זמינות 24/7 ללקוחות הבוטיק</p>
-              <p>• הכניסה למתחם השיזוף לאחר שעות הפעילות כרוך בהרשמה למערכת זיהוי פנים מתקדמת</p>
-              <p>• צוות מקצועי ומנוסה שיעניק לכם שירות ברמה הגבוהה ביותר</p>
+              <p className="md:block hidden">• הכניסה למתחם השיזוף לאחר שעות הפעילות כרוך בהרשמה למערכת זיהוי פנים מתקדמת</p>
+              <p className="md:block hidden">• צוות מקצועי ומנוסה שיעניק לכם שירות ברמה הגבוהה ביותר</p>
               <p>• שעות פעילות: 10:00-19:00, ימי שישי 10:00-14:00, ימי שבת סגור</p>
-              <p className="text-xs text-gray-400 mr-2">* בשירות עצמי לאחר שעות הפעילות</p>
-              <p>• שירות לקוחות זמין 24/7 • סביבה נקיה, בטוחה ומקצועית</p>
+              <p className="text-xs text-gray-400 mr-2 md:block hidden">* בשירות עצמי לאחר שעות הפעילות</p>
+              <p className="md:block hidden">• שירות לקוחות זמין 24/7 • סביבה נקיה, בטוחה ומקצועית</p>
             </div>
           </div>
         </div>
@@ -191,7 +192,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
 
       {/* Content Container - positioned lower to avoid overlap */}
       <div 
-        className="relative w-full max-w-4xl flex items-center justify-center mt-80"
+        className="relative w-full max-w-4xl flex items-center justify-center mt-48 md:mt-80"
       >
         {/* Close Button */}
         <Button 
@@ -204,9 +205,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           <X className="w-6 h-6" />
         </Button>
 
-        {/* Service Fields - All in one row */}
+        {/* Service Fields - All in one row on desktop, two rows on mobile */}
         <div className="w-full max-w-6xl mx-auto px-4">
-          <div className="flex gap-2 justify-center flex-nowrap animate-scale-in">
+          <div className="flex gap-2 justify-center flex-wrap md:flex-nowrap animate-scale-in">
             {tanningOptions.map((option, index) => (
               <div key={index} className="relative">
                 {/* Solid black background */}
@@ -215,11 +216,11 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 <button
                   onClick={option.onClick}
                   className="
-                    group relative h-[140px] w-[130px] sm:h-[150px] sm:w-[140px] md:h-[160px] md:w-[150px]
+                    group relative h-[110px] w-[105px] sm:h-[130px] sm:w-[120px] md:h-[160px] md:w-[150px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
                     border hover:border-2
                     rounded-md backdrop-blur-sm
-                    flex flex-col items-center justify-between pb-4
+                    flex flex-col items-center justify-between pb-2 md:pb-4
                     transition-all duration-150 ease-in-out
                     hover-elevate active-elevate-2
                     overflow-visible
@@ -232,32 +233,33 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={(option as any).testId || `action-tile-${index}`}
                 >
-                <div className={`${option.title === "AI TAN" ? "h-32" : "h-28"} flex items-center justify-center transition-all duration-150 group-hover:scale-110 ${option.title === "AI TAN" ? "overflow-visible" : ""}`}>
+                <div className={`${option.title === "AI TAN" ? "h-20 md:h-32" : "h-16 md:h-28"} flex items-center justify-center transition-all duration-150 group-hover:scale-110 ${option.title === "AI TAN" ? "overflow-visible" : ""}`}>
                   {option.iconType === 'image' ? (
                     <img 
                       src={option.icon as string}
                       alt={option.title}
                       className={`${
                         option.title === "רכישת חבילה"
-                          ? "w-36 h-36"
+                          ? "w-20 h-20 md:w-36 md:h-36"
                           : option.title === "רכישת ברונזרים" || option.title === "חיפוש משתזף קיים"
-                          ? "w-28 h-28"
-                          : "w-32 h-32"
+                          ? "w-16 h-16 md:w-28 md:h-28"
+                          : "w-18 h-18 md:w-32 md:h-32"
                       } object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]`}
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   ) : option.iconType === 'component' ? (
-                    <div className="-mt-8 scale-150">
-                      <option.icon size={180} />
+                    <div className="-mt-4 md:-mt-8 scale-100 md:scale-150">
+                      <option.icon size={120} className="md:hidden" />
+                      <option.icon size={180} className="hidden md:block" />
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
-                      className="w-32 h-32 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                      className="w-18 h-18 md:w-32 md:h-32 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   )}
                 </div>
-                <span className={`text-sm font-medium text-white text-center font-hebrew px-2 ${option.title === "AI TAN" ? "-mt-4" : "mt-2"}`}>
+                <span className={`text-xs md:text-sm font-medium text-white text-center font-hebrew px-1 md:px-2 ${option.title === "AI TAN" ? "-mt-2 md:-mt-4" : "mt-1 md:mt-2"}`}>
                   {option.title}
                 </span>
                 
