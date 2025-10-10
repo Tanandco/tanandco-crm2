@@ -5,15 +5,17 @@
 This project is a premium touch-screen kiosk CRM system designed for Tan & Co salon/spa operations. It features a modern Hebrew RTL interface with a neon aesthetic, focusing on customer self-service and salon management. The system integrates with multiple external services for payments, customer identification, access control, and automated marketing workflows, aiming to streamline salon operations and enhance the customer experience.
 
 **Recent Updates (October 2025)**:
-- **Spray Tan Dialog Redesign** (October 10, 2025):
-  - Complete modern redesign based on user's design mockup with spray machine image
-  - Two-column layout: content left, spray machine image right (desktop only)
-  - Three pricing cards with modern highlighted design (170₪, 450₪, 800₪)
-  - Middle card (450₪) highlighted with pink border glow and "פופולרי" badge
-  - Dark gradient background (from-gray-900 via-black to-gray-800)
-  - Benefits list with pink bullet points in RTL Hebrew
-  - Responsive mobile layout with single column
-  - Pink/purple neon aesthetic matching overall design system
+- **Spray Tan Dialog Complete Redesign** (October 10, 2025):
+  - Modern minimalist redesign based on user's design mockup featuring spray machine image
+  - Desktop: Two-column layout with content left, spray machine image right with pink glow effect
+  - Mobile: Single-column responsive layout with stacked content and full-width cards
+  - Three pricing packages with modern design (170₪ single, 450₪ for 3 sessions, 800₪ for 6 sessions)
+  - Middle package highlighted with pink border glow, shadow effect, and "פופולרי" badge
+  - Dark gradient background (from-gray-900 via-black to-gray-800) with backdrop blur
+  - Title with gradient pink underline and RTL Hebrew text alignment
+  - Benefits list with pink bullet points describing 24/7 access and face recognition entry
+  - CSS-based hover effects (no imperative handlers) for consistent touch/mouse interaction
+  - Fully tested on mobile (390x844) and desktop (1280x720) viewports
 - Excel import system for migrating 216 existing subscribers with packages and balances
 - Successfully imported legacy customer data with automated phone normalization and membership creation
 - BioStar sync system to match CRM customers with existing BioStar face recognition users
