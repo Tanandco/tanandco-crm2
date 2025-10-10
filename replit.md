@@ -16,6 +16,7 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
   - AI TAN icon maintained 21% larger on mobile, 9% larger on desktop for visual hierarchy
   - Self-service page: Regular icons 115px, AI TAN 125px (on 180px cards)
   - TouchInterface: Regular icons 70px mobile/115px desktop, AI TAN 85px mobile/125px desktop (on 110px/160px cards)
+    * Self-service button positioned lower (mt-6 mobile, mt-16 desktop) for better spacing from service cards
   - Fixed title alignment across all service cards using leading-tight and consistent padding
   - Icon containers use max-height constraints to prevent overflow
   - Enhanced Alin component to support custom sizing via className utilities (max-w-[]/max-h-[])
