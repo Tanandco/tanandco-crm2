@@ -304,20 +304,6 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </button>
-              
-              {/* Typing text bubble for Alin */}
-              {option.title === "AI TAN" && typedText && (
-                <div className="absolute -bottom-24 md:-bottom-20 left-1/2 -translate-x-1/2 w-max max-w-[200px] md:max-w-[300px] z-40">
-                  <div className="bg-pink-500/90 text-white px-3 py-2 rounded-lg shadow-lg" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
-                    <p className="text-[9px] md:text-xs font-hebrew text-center leading-tight">
-                      {typedText}
-                      <span className="animate-pulse">|</span>
-                    </p>
-                  </div>
-                  {/* Arrow pointing up */}
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-pink-500/90" />
-                </div>
-              )}
               </div>
             ))}
           </div>
@@ -495,6 +481,27 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         </div>
       )}
 
+      {/* Alin Chatbot - Bottom right corner */}
+      <div className="fixed bottom-4 right-4 z-30 flex items-center gap-3">
+        {/* Text bubble with typing animation */}
+        {typedText && (
+          <div className="bg-pink-500/90 text-white px-4 py-2 rounded-l-full rounded-tr-full shadow-lg animate-in slide-in-from-left duration-700" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
+            <p className="text-xs md:text-sm font-hebrew whitespace-nowrap">
+              {typedText}
+              <span className="animate-pulse">|</span>
+            </p>
+          </div>
+        )}
+        
+        {/* Alin avatar - clickable chatbot */}
+        <button
+          onClick={() => window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank')}
+          className="hover:scale-110 transition-transform duration-200"
+          data-testid="button-alin-chatbot"
+        >
+          <Alin className="scale-[1.05] md:scale-[1.35] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
+        </button>
+      </div>
 
     </div>
   );
