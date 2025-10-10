@@ -462,21 +462,13 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       )}
 
       {/* Alin Chatbot - Bottom of page */}
-      <div className="fixed bottom-4 right-4 z-30 flex items-center gap-4 bg-black/80 backdrop-blur-md border border-pink-500/40 rounded-full px-6 py-3 shadow-lg">
-        <div className="text-right">
-          <p className="text-pink-400 text-sm md:text-base font-hebrew font-semibold" style={{ textShadow: '0 0 10px rgba(236, 72, 153, 0.8)' }}>
-            שלום! אני Alin, העוזרת הדיגיטלית שלך
-          </p>
-          <p className="text-gray-300 text-xs md:text-sm">לחץ כאן לצ'אט איתי 24/7</p>
-        </div>
-        <button
-          onClick={() => window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank')}
-          className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
-          data-testid="button-alin-chatbot"
-        >
-          <Alin className="scale-[1.5] md:scale-[2] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
-        </button>
-      </div>
+      <button
+        onClick={() => window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank')}
+        className="fixed bottom-4 right-4 z-30 hover:scale-110 transition-transform duration-200"
+        data-testid="button-alin-chatbot"
+      >
+        <Alin className="scale-[1.5] md:scale-[2] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
+      </button>
 
     </div>
   );
