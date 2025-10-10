@@ -259,59 +259,36 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
             flex flex-col items-center justify-center
             text-xl font-bold
           "
-          style={{
-            filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.6)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.5)) drop-shadow(0 0 60px rgba(236, 72, 153, 0.4))'
-          }}
           onClick={() => navigate('/self-service')}
         >
-          {/* Neon Touch Button Icon */}
-          <div className="relative overflow-visible">
-            {/* Background glow effect */}
-            <div className="absolute inset-0 -m-4"
-              style={{
-                background: 'radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, rgba(236, 72, 153, 0.2) 40%, transparent 70%)',
-                animation: 'pulse-bg 3s ease-in-out infinite',
-                filter: 'blur(12px)'
-              }}
-            />
-            
+          <div className="relative">
             <video 
               src={selfServiceButtonVideo} 
               autoPlay 
               loop 
               muted 
               playsInline
-              className="w-10 h-10 md:w-12 md:h-12 object-contain transition-all duration-300 group-hover:scale-110 relative z-10"
-              style={{
-                opacity: 0.9
-              }}
+              className="w-10 h-10 md:w-12 md:h-12 object-contain"
             />
           </div>
           
           <div className="text-center mt-0.5" style={{ fontFamily: 'Varela Round, sans-serif' }}>
             <div 
-              className="text-sm md:text-base font-semibold transition-colors"
+              className="text-sm md:text-base font-semibold"
               style={{
-                color: 'rgb(236, 72, 153)',
-                textShadow: '0 0 8px rgba(236, 72, 153, 0.5)'
+                color: 'rgb(236, 72, 153)'
               }}
             >
               מעבר לשירות עצמי
             </div>
             <div 
-              className="text-sm md:text-base font-semibold transition-colors"
+              className="text-sm md:text-base font-semibold"
               style={{
-                color: 'rgb(236, 72, 153)',
-                textShadow: '0 0 8px rgba(236, 72, 153, 0.5)'
+                color: 'rgb(236, 72, 153)'
               }}
             >
               24/7
             </div>
-          </div>
-          
-          {/* Ripple effect */}
-          <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-radial from-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
         </button>
         </div>
