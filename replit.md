@@ -5,6 +5,12 @@
 This project is a premium touch-screen kiosk CRM system designed for Tan & Co salon/spa operations. It features a modern Hebrew RTL interface with a neon aesthetic, focusing on customer self-service and salon management. The system integrates with multiple external services for payments, customer identification, access control, and automated marketing workflows, aiming to streamline salon operations and enhance the customer experience.
 
 **Recent Updates (October 2025)**:
+- **Self-Service Page Mobile Optimization** (October 10, 2025):
+  - Reduced text size on mobile: text-xs (12px) for descriptions, text-sm (14px) for final message
+  - Optimized service cards for mobile: 120px height with 60px icons arranged in 3-column grid (2 rows)
+  - Added Alin chatbot to footer on mobile (80px size) for 24/7 support access
+  - Desktop layout preserved with original sizing (180px cards, 115px icons, 130px Alin)
+  - Improved mobile UX with compact, organized layout fitting all content without excessive scrolling
 - **Spray Tan Dialog Complete Redesign** (October 10, 2025):
   - Modern minimalist redesign based on user's design mockup featuring spray machine image
   - Desktop: Two-column layout with content left, spray machine image right with pink glow effect
