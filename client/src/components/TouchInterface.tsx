@@ -138,7 +138,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           >
             <Menu 
               className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300"
-              size={14}
+              size={20}
               style={{
                 filter: 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.8))'
               }}
