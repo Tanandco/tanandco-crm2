@@ -19,6 +19,14 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
   - Fixed title alignment across all service cards using leading-tight and consistent padding
   - Icon containers use max-height constraints to prevent overflow
   - Enhanced Alin component to support custom sizing via className utilities (max-w-[]/max-h-[])
+  - Mobile-only optimizations for sun beds dialog (SunBedsDialog):
+    * Reduced back button size with abbreviated text ("חזרה" vs "חזרה לשירות עצמי")
+    * Condensed header and description text (text-xs vs text-sm)
+    * Hidden non-essential bullet points on mobile (3 visible vs 8 on desktop)
+    * Service buttons arranged in 2 rows on mobile vs 1 row on desktop
+    * Reduced button sizes: 110px mobile vs 160px desktop
+    * Smaller icons and text within service buttons
+  - Hidden Alin floating bubble footer on mobile, visible on desktop only
 - Bug fixes (October 8, 2025):
   - Fixed type error in NewCustomerDialog where parseInt() received undefined values
   - Added defensive programming to HairStudio for safe array mapping
