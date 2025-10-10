@@ -374,29 +374,29 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={(option as any).testId || `action-tile-${index}`}
                 >
-                <div className="h-20 md:h-32 flex items-center justify-center transition-all duration-150 group-hover:scale-110 overflow-visible">
+                <div className="h-16 md:h-32 flex items-center justify-center transition-all duration-150 group-hover:scale-110 overflow-visible">
                   {option.iconType === 'image' ? (
                     <img 
                       src={option.icon as string}
                       alt={option.title}
                       className={`${
                         option.title === "רכישת חבילה"
-                          ? "w-22 h-22 md:w-40 md:h-40"
+                          ? "w-20 h-20 md:w-40 md:h-40"
                           : option.title === "רכישת ברונזרים"
-                          ? "w-17 h-17 md:w-30 md:h-30"
+                          ? "w-16 h-16 md:w-30 md:h-30"
                           : option.title === "לקוח חדש - הרשמה"
-                          ? "w-16 h-16 md:w-28 md:h-28"
-                          : "w-18 h-18 md:w-32 md:h-32"
+                          ? "w-14 h-14 md:w-28 md:h-28"
+                          : "w-16 h-16 md:w-32 md:h-32"
                       } object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]`}
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   ) : option.iconType === 'component' ? (
-                    <div className="-mt-2 md:-mt-6 scale-[1.05] md:scale-[1.25]">
-                      <option.icon size={140} className="max-w-[120px] md:max-w-[170px] max-h-[120px] md:max-h-[170px]" />
+                    <div className="scale-[0.85] md:scale-[1.25]">
+                      <option.icon size={140} className="max-w-[100px] md:max-w-[170px] max-h-[100px] md:max-h-[170px]" />
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
-                      className="w-18 h-18 md:w-32 md:h-32 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                      className="w-16 h-16 md:w-32 md:h-32 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   )}
