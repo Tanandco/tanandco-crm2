@@ -467,7 +467,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         className="fixed bottom-4 right-4 z-30 hover:scale-110 transition-transform duration-200"
         data-testid="button-alin-chatbot"
       >
-        <Alin className="scale-[1.5] md:scale-[2] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
+        <Alin className="scale-[1.05] md:scale-[1.35] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
       </button>
 
     </div>
