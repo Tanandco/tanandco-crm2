@@ -11,6 +11,11 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
 - Multilingual checkout page with Hebrew/English/French support and neon aesthetic
 - PAS TOUCHER product scraper using Cheerio HTML parser to import sunglasses inventory from shop URL
 - Fixed critical SSRF security vulnerabilities with strict hostname validation and HTTPS enforcement
+- UI improvements (October 10, 2025):
+  - Optimized service card icon sizing with responsive constraints
+  - AI TAN icon maintained 21% larger on mobile, 9% larger on desktop for visual hierarchy
+  - Fixed title alignment across all service cards using leading-tight and consistent padding
+  - Icon containers use max-height constraints to prevent overflow
 - Bug fixes (October 8, 2025):
   - Fixed type error in NewCustomerDialog where parseInt() received undefined values
   - Added defensive programming to HairStudio for safe array mapping
