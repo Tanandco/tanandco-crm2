@@ -1,4 +1,4 @@
-import alinVideo from '@assets/עיצוב ללא שם (1)_1760096746428.mp4';
+import alinGif from '@assets/עיצוב ללא שם (1)_1760096972706.gif';
 
 interface AlinProps {
   className?: string;
@@ -11,12 +11,9 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
   
   return (
     <div className={`relative inline-block ${hasCustomSize ? className : ''}`} data-testid="alin-chatbot">
-      <video 
-        src={alinVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
+      <img 
+        src={alinGif}
+        alt="אלין הצ'טבוט"
         className={`object-contain ${hasCustomSize ? className : ''}`}
         style={{
           ...(!hasCustomSize && { width: `${size}px`, height: `${size}px` }),
