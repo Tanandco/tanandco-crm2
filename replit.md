@@ -74,6 +74,11 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
     * Bubble positioned right of Alin avatar with -space-x-12 overlap, text-[10px] mobile / text-sm desktop, whitespace-nowrap
   - Self-service splash screen: Buttons positioned lower on page (mt-24 mobile, mt-20 desktop) for better visual balance and spacing from service cards
   - Hidden Alin floating bubble footer on mobile, visible on desktop only
+- **Performance Optimization** (October 10, 2025):
+  - Optimized neon-glow effect: Reduced from 3 drop-shadows to single drop-shadow for GPU performance
+  - Removed ripple effect on mousemove: Eliminated heavy radial-gradient calculations on every mouse movement
+  - Simplified typing-effect animation: Removed infinite blink-caret animation, kept finite typing reveal
+  - Performance improvements reduce GPU compositing, eliminate continuous JS work, and improve frame rates on lower-end devices
 - Bug fixes (October 8, 2025):
   - Fixed type error in NewCustomerDialog where parseInt() received undefined values
   - Added defensive programming to HairStudio for safe array mapping
