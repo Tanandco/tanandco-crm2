@@ -26,15 +26,16 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
   - Enhanced Alin component to support custom sizing via className utilities (max-w-[]/max-h-[])
   - Sun Beds Dialog improvements:
     * Removed interfering AlinChatBox floating bubble from dialog
-    * Repositioned customer search bar above service buttons (was inline with buttons)
-    * Search bar width precisely matches 2 service buttons + gap: 218px mobile (2×105px + 8px), 308px desktop (2×150px + 8px)
-    * Fixed search API query to use correct parameter format: { q: searchQuery }
-    * Restored full descriptive text visibility across all viewports (removed mobile text hiding)
-    * Eliminated Alin avatar duplication: single responsive Alin instance using scale-[0.79] md:scale-100
-    * Icon sizes optimized: AI TAN 120px mobile/170px desktop, New Customer 64px mobile/112px desktop, Bronzers 68px mobile/120px desktop, Package 88px mobile/160px desktop
-    * Service button dimensions unified: 110px×100px mobile, 150px×145px desktop
+    * Alin upgraded to animated GIF with pink/transparent background (replaced white background version)
+    * Alin sizing enlarged: scale 0.85 mobile, 1.4 desktop with mt-2 vertical adjustment for optimal positioning
+    * Back button compacted for cleaner header (no overlap with title)
+    * Service button dimensions: 90×85px mobile, 160×150px desktop
+    * Service buttons arranged in 2×2 grid on mobile (grid-cols-2), single row on desktop
+    * Customer search bar repositioned below service buttons (was above)
+    * Search bar width matches 2 buttons without gap: 170px mobile (2×85px), 300px desktop (2×150px)
+    * Reduced spacing between buttons and search bar (space-y-2) for compact layout
+    * Icon sizes optimized: AI TAN scale 0.85/1.4, New Customer 12px/28px, Bronzers 14px/30px, Package 16px/40px
     * Replaced New Customer icon with pink plus icon (PNG) for modern neon aesthetic
-    * Service buttons arranged in 2 rows on mobile vs 1 row on desktop
   - Self-service splash screen: Buttons positioned lower on page (mt-24 mobile, mt-20 desktop) for better visual balance and spacing from service cards
   - Hidden Alin floating bubble footer on mobile, visible on desktop only
 - Bug fixes (October 8, 2025):
