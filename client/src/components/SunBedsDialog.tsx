@@ -103,6 +103,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
     icon: string | any;
     iconType: 'image' | 'component' | 'lucide';
     title: string;
+    mobileTitle?: string;
     isFunction: boolean;
     testId?: string;
     onClick: () => void;
@@ -111,6 +112,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       icon: newCustomerIcon,
       iconType: 'image' as const,
       title: "לקוח חדש - הרשמה",
+      mobileTitle: "לקוח חדש\nהרשמה",
       isFunction: false,
       onClick: () => {
         setShowNewClientDialog(true);
@@ -120,6 +122,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       icon: bronzerIcon,
       iconType: 'image' as const,
       title: "רכישת ברונזרים",
+      mobileTitle: "רכישת\nברונזרים",
       isFunction: false,
       onClick: () => {
         setShowProductCarousel(true);
@@ -129,6 +132,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       icon: packageIcon,
       iconType: 'image' as const,
       title: "רכישת חבילה",
+      mobileTitle: "רכישת\nחבילה",
       isFunction: false,
       testId: "button-purchase-overlay",
       onClick: () => {
@@ -252,11 +256,11 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                 <button
                   onClick={option.onClick}
                   className="
-                    group relative h-[85px] w-[90px] md:h-[160px] md:w-[150px]
+                    group relative h-[95px] w-[90px] md:h-[160px] md:w-[150px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
                     border hover:border-2
                     rounded-md backdrop-blur-sm
-                    flex flex-col items-center justify-between pb-2 md:pb-4
+                    flex flex-col items-center justify-between pb-1 md:pb-4
                     transition-all duration-150 ease-in-out
                     hover-elevate active-elevate-2
                     overflow-visible
@@ -269,7 +273,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={(option as any).testId || `action-tile-${index}`}
                 >
-                <div className="h-14 md:h-32 flex items-center justify-center transition-all duration-150 group-hover:scale-110 overflow-visible">
+                <div className="h-12 md:h-32 flex items-center justify-center transition-all duration-150 group-hover:scale-110 overflow-visible">
                   {option.iconType === 'image' ? (
                     <img 
                       src={option.icon as string}
@@ -306,7 +310,12 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     />
                   )}
                 </div>
-                <span className="text-[14px] md:text-base font-medium text-white text-center font-hebrew px-1 md:px-2 leading-tight">
+                {/* Mobile text with line breaks */}
+                <span className="md:hidden font-medium text-white text-center font-hebrew px-1 leading-tight whitespace-pre-line" style={{ fontSize: '12px' }}>
+                  {option.mobileTitle || option.title}
+                </span>
+                {/* Desktop text single line */}
+                <span className="hidden md:block text-base font-medium text-white text-center font-hebrew px-3 leading-tight">
                   {option.title}
                 </span>
                 
