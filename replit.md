@@ -13,10 +13,14 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
 - Fixed critical SSRF security vulnerabilities with strict hostname validation and HTTPS enforcement
 - UI improvements (October 10, 2025):
   - Optimized service card icon sizing with responsive constraints across TouchInterface and self-service pages
-  - AI TAN icon maintained 21% larger on mobile, 9% larger on desktop for visual hierarchy
+  - AI TAN icon enlarged: 95px mobile (was 85px), 140px desktop (was 125px) for stronger visual hierarchy
   - Self-service page: Regular icons 115px, AI TAN 125px (on 180px cards)
-  - TouchInterface: Regular icons 70px mobile/115px desktop, AI TAN 85px mobile/125px desktop (on 110px/160px cards)
+  - TouchInterface: Regular icons 70px mobile/115px desktop, AI TAN 95px mobile/140px desktop (on 110px/160px cards)
     * Self-service button positioned lower (mt-10 mobile, mt-16 desktop) for better spacing from service cards
+    * Self-service button: Pink neon glow background (rgba(236, 72, 153)) with subtle text-shadow
+    * "מעבר לשירות עצמי" and "24/7" text styled in pink neon with subtle glow effect
+  - Unified button/field dimensions across all dialogs: 110px×100px mobile, 150px×145px desktop for consistent UX
+  - Added back navigation arrows to NewCustomerDialog and NewClientDialog for better user flow
   - Fixed title alignment across all service cards using leading-tight and consistent padding
   - Icon containers use max-height constraints to prevent overflow
   - Enhanced Alin component to support custom sizing via className utilities (max-w-[]/max-h-[])
@@ -28,7 +32,7 @@ This project is a premium touch-screen kiosk CRM system designed for Tan & Co sa
     * Restored full descriptive text visibility across all viewports (removed mobile text hiding)
     * Eliminated Alin avatar duplication: single responsive Alin instance using scale-[0.79] md:scale-100
     * Icon sizes optimized: AI TAN 120px mobile/170px desktop, New Customer 64px mobile/112px desktop, Bronzers 68px mobile/120px desktop, Package 88px mobile/160px desktop
-    * Service button heights increased in mobile (120px) for better text visibility
+    * Service button dimensions unified: 110px×100px mobile, 150px×145px desktop
     * Replaced New Customer icon with pink plus icon (PNG) for modern neon aesthetic
     * Service buttons arranged in 2 rows on mobile vs 1 row on desktop
   - Self-service splash screen: Buttons positioned lower on page (mt-24 mobile, mt-20 desktop) for better visual balance and spacing from service cards
