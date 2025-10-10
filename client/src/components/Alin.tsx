@@ -16,8 +16,7 @@ export default function Alin({ className = "", size = 20 }: AlinProps) {
         alt="אלין הצ'טבוט"
         className={`object-contain ${hasCustomSize ? className : ''}`}
         style={{
-          ...(!hasCustomSize && { width: `${size}px`, height: `${size}px` }),
-          filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))'
+          ...(!hasCustomSize && { width: `${size}px`, height: `${size}px` })
         }}
       />
     </div>
