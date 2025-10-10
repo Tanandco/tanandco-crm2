@@ -461,6 +461,23 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         </div>
       )}
 
+      {/* Alin Chatbot - Bottom of page */}
+      <div className="fixed bottom-4 right-4 z-30 flex items-center gap-3 bg-black/80 backdrop-blur-md border border-pink-500/40 rounded-full px-4 py-2 shadow-lg">
+        <div className="text-right">
+          <p className="text-pink-400 text-xs md:text-sm font-hebrew font-semibold" style={{ textShadow: '0 0 10px rgba(236, 72, 153, 0.8)' }}>
+            שלום! אני Alin, העוזרת הדיגיטלית שלך
+          </p>
+          <p className="text-gray-300 text-[10px] md:text-xs">לחץ כאן לצ'אט איתי 24/7</p>
+        </div>
+        <button
+          onClick={() => window.open('https://preview--radiant-booth-studio.lovable.app/', '_blank')}
+          className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
+          data-testid="button-alin-chatbot"
+        >
+          <Alin className="scale-75 md:scale-100 max-w-[60px] max-h-[60px]" />
+        </button>
+      </div>
+
     </div>
   );
 }
