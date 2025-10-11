@@ -11,11 +11,11 @@ export const SelfServiceButton3D = ({
     <div className={`w-full max-w-xs mx-auto mt-10 md:mt-16 ${className}`}>
       <button
         onClick={onClick}
-        className="relative w-full h-6 md:h-8 rounded-lg bg-gradient-to-r from-gray-900/90 to-black/90 border border-pink-500 backdrop-blur-sm shadow-xl touch-target transition-all duration-500 active:scale-95 hover:scale-105 group overflow-hidden"
+        className="relative w-full h-6 md:h-8 rounded-lg bg-gradient-to-r from-gray-900/90 to-black/90 border-2 border-pink-500 backdrop-blur-sm shadow-xl touch-target transition-all duration-500 active:scale-95 hover:scale-105 group overflow-hidden"
         style={{
           backdropFilter: 'blur(20px)',
           background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.95))',
-          boxShadow: '0 20px 60px -15px rgba(236, 72, 153, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)'
+          boxShadow: '0 20px 60px -15px rgba(236, 72, 153, 0.6), 0 0 50px rgba(139, 92, 246, 0.4)'
         }}
         data-testid="button-self-service-3d"
       >
@@ -50,7 +50,7 @@ export const SelfServiceButton3D = ({
           <div className="flex-1 text-center">
             <div className="flex items-center justify-center gap-0.5">
               <div className="w-0.5 h-0.5 bg-pink-500 rounded-full animate-ping" />
-              <h2 className="text-[10px] md:text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 drop-shadow-lg animate-pulse" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+              <h2 className="text-[10px] md:text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 drop-shadow-lg animate-pulse" style={{ fontFamily: 'Varela Round, sans-serif' }}>
                 מעבר לשירות עצמי
               </h2>
               <div 
