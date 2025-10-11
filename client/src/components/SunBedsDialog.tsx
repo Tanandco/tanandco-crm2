@@ -229,9 +229,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         </div>
       </div>
 
-      {/* Content Container - positioned lower to avoid overlap */}
+      {/* Content Container - repositioned with more space */}
       <div 
-        className="relative w-full max-w-4xl flex items-center justify-center mt-24 md:mt-80"
+        className="relative w-full max-w-4xl flex items-center justify-center mt-16 md:mt-72"
       >
         {/* Service Fields - All in one row on both mobile and desktop */}
         <div className="w-full max-w-6xl mx-auto space-y-2 mt-6 md:mt-0">
@@ -264,21 +264,21 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                     data-testid={(option as any).testId || `action-tile-${index}`}
                   >
-                <div className="flex items-center justify-center mb-0.5 md:mb-2 transition-all duration-150 group-hover:scale-110 overflow-visible">
+                <div className="flex items-center justify-center mb-0.5 md:mb-1 transition-all duration-150 group-hover:scale-110 overflow-visible">
                   {option.iconType === 'image' ? (
                     <img 
                       src={option.icon as string}
                       alt={option.title}
                       className={`${
                         option.title === "AI TAN"
-                          ? "w-[35px] h-[35px] md:w-[100px] md:h-[100px]"
+                          ? "w-[52px] h-[52px] md:w-[130px] md:h-[130px]"
                           : option.title === "רכישת חבילה"
-                          ? "w-[30px] h-[30px] md:w-[90px] md:h-[90px]"
+                          ? "w-[48px] h-[48px] md:w-[120px] md:h-[120px]"
                           : option.title === "רכישת ברונזרים"
-                          ? "w-[28px] h-[28px] md:w-[85px] md:h-[85px]"
+                          ? "w-[45px] h-[45px] md:w-[115px] md:h-[115px]"
                           : option.title === "לקוח חדש - הרשמה"
-                          ? "w-[25px] h-[25px] md:w-[75px] md:h-[75px]"
-                          : "w-[30px] h-[30px] md:w-[90px] md:h-[90px]"
+                          ? "w-[42px] h-[42px] md:w-[110px] md:h-[110px]"
+                          : "w-[48px] h-[48px] md:w-[120px] md:h-[120px]"
                       } object-contain ${
                         option.title === "AI TAN"
                           ? "group-hover:drop-shadow-[0_0_30px_rgb(59,130,246)]"
@@ -291,12 +291,12 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                       }}
                     />
                   ) : option.iconType === 'component' ? (
-                    <div className="scale-[0.4] md:scale-[0.9] flex items-center justify-center">
-                      <option.icon size={120} className="max-w-[50px] md:max-w-[120px] max-h-[50px] md:max-h-[120px]" />
+                    <div className="scale-[0.55] md:scale-[1.1] flex items-center justify-center">
+                      <option.icon size={120} className="max-w-[55px] md:max-w-[135px] max-h-[55px] md:max-h-[135px]" />
                     </div>
                   ) : option.icon && !option.isFunction && (
                     <option.icon 
-                      className="w-[30px] h-[30px] md:w-[70px] md:h-[70px] text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                      className="w-[48px] h-[48px] md:w-[120px] md:h-[120px] text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                   )}
