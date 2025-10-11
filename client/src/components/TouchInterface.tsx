@@ -17,7 +17,7 @@ import cosmeticsIcon from '@assets/עיצוב ללא שם (31)_1759413948155.png
 import storeIcon from '@assets/freepik__online-store-shopping-bag-variation-a-3d-shopping-__47713_1759413103497.png';
 import selfServiceIcon from '@assets/עיצוב ללא שם (32)_1759414540774.png';
 import newCustomerIcon from '@assets/עיצוב ללא שם (4)_1760090011932.png';
-import selfServiceButtonVideo from '@assets/עיצוב ללא שם (12)_1760131498749.mp4';
+import { SelfServiceButton3D } from './SelfServiceButton3D';
 
 interface TouchInterfaceProps {
   onServiceSelect?: (service: string) => void;
@@ -251,47 +251,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Self Service Button */}
-        <div className="mt-10 md:mt-16">
-        <button
-          data-testid="button-ai-tan-face-recognition"
-          className="
-            group relative
-            flex flex-col items-center justify-center
-            text-xl font-bold
-          "
-          onClick={() => navigate('/self-service')}
-        >
-          <div className="relative">
-            <video 
-              src={selfServiceButtonVideo} 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              className="w-32 h-32 md:w-40 md:h-40 object-contain"
-            />
-          </div>
-          
-          <div className="text-center mt-0.5" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-            <div 
-              className="text-sm md:text-base font-semibold"
-              style={{
-                color: 'rgb(236, 72, 153)'
-              }}
-            >
-              מעבר לשירות עצמי
-            </div>
-            <div 
-              className="text-sm md:text-base font-semibold"
-              style={{
-                color: 'rgb(236, 72, 153)'
-              }}
-            >
-              24/7
-            </div>
-          </div>
-        </button>
-        </div>
+        <SelfServiceButton3D onClick={() => navigate('/self-service')} />
         
         {/* Add floating and smooth animations */}
         <style>{`
