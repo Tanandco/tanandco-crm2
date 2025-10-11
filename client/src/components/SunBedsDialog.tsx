@@ -449,6 +449,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               </div>
             )}
           </div>
+          </div>
         </div>
       </div>
 
