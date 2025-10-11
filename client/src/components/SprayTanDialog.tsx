@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import sprayTanImage from '@assets/שיזוף בהתזה (1920 x 1080 פיקסל) (2)_1760223839174.png';
 
 interface SprayTanDialogProps {
   open: boolean;
@@ -11,120 +12,129 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-7xl bg-gradient-to-b from-gray-900 to-black border border-pink-500/30 rounded-lg p-4 md:p-8 max-h-[95vh] overflow-y-auto">
+      <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border border-pink-500/30 rounded-lg p-4 md:p-8 max-h-[95vh] overflow-y-auto">
         
         {/* כפתור חזרה */}
         <Button 
           onClick={() => onOpenChange(false)} 
           variant="outline" 
           size="icon" 
-          className="absolute top-4 left-4 md:left-6 border-pink-500/60 hover:border-pink-500 z-10"
+          className="absolute top-4 left-4 md:left-6 border-pink-500/60 hover:border-pink-500 z-10 h-8 w-8"
           data-testid="button-back-spray-tan"
         >
           <ArrowLeft className="w-5 h-5" />
         </Button>
 
-        {/* כותרת עליונה באנגלית */}
-        <div className="text-center mb-4 md:mb-6">
-          <h1 className="text-2xl md:text-4xl font-bold" style={{ 
+        {/* כותרת עליונה */}
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4" style={{ 
             color: '#d12fc6',
-            textShadow: '0 0 20px rgba(209, 47, 198, 0.6)'
+            textShadow: '0 0 30px rgba(209, 47, 198, 0.8)',
+            fontFamily: 'Varela Round, sans-serif'
           }}>
-            SPRAY TAN
+            השיזוף המושלם והבטוח במרכז התדה
           </h1>
-          <p className="text-pink-400 text-sm md:text-base mt-1">KEEP IT SAFE</p>
+          
+          {/* טקסט הסבר */}
+          <p className="text-xs md:text-sm text-gray-300 leading-relaxed max-w-5xl mx-auto" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+            שיזוף בהתזה הוא למעשה תהליך קוסמטי מהיר ובטוח ליצירת גוון שיזוף באופן מלאכותי, ללא צורך בחשיפה לשמש או לקרינת UV מזיקה. הוא מבוסס על תומצית סוכר טבעי (DHA) שצובע את שכבת העור העליונה, ומספק תוצאה אחידה ומזהירה.
+          </p>
         </div>
 
-        {/* כותרת עברית מרכזית */}
-        <h2 className="text-xl md:text-3xl font-bold text-center text-white mb-3 md:mb-4" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-          השיזוף המושלם והבטוח במרכז התדה
-        </h2>
-
-        {/* טקסט הסבר */}
-        <p className="text-xs md:text-sm text-gray-300 text-center mb-6 md:mb-8 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-          שיזוף בהתזה הוא למעשה תהליך קוסמטי מהיר ובטוח ליצירת גוון שיזוף באופן מלאכותי, ללא צורך בחשיפה לשמש או לקרינת UV מזיקה. הוא מבוסס על תמצית סוכר המעלית, הפועמים הנוצא אודלה ומזהרת.
-        </p>
-
-        {/* 4 שדות מרכזיים - Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6">
+        {/* 5 כפתורי מחירון */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-6 md:mb-8 max-w-6xl mx-auto">
+          <Button
+            variant="outline"
+            className="bg-black/60 border-2 border-pink-500/50 hover:border-pink-500 h-auto p-3 md:p-4 flex-col"
+            data-testid="price-body-only"
+          >
+            <div className="text-pink-400 text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>גוף בלבד</div>
+            <div className="text-white text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif' }}>170 ש״ח</div>
+          </Button>
           
-          {/* שדה 1 - מחירון (ימין למעלה) */}
-          <div className="border-2 border-pink-500/60 rounded-lg p-4 md:p-6 bg-black/40" 
-               style={{ boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }}>
-            <h3 className="text-lg md:text-xl font-bold text-pink-400 text-center mb-4" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              מחירון
-            </h3>
-            <ul className="space-y-2 text-sm md:text-base text-gray-200" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              <li className="flex justify-between">
-                <span>גופה בלבד - 170 ש״ח</span>
-                <span className="text-pink-400">•</span>
-              </li>
-              <li className="flex justify-between">
-                <span>גוף ופנים - 450 ש״ח</span>
-                <span className="text-pink-400">•</span>
-              </li>
-              <li className="flex justify-between">
-                <span>גוף + זרועות - 300 ש״ח</span>
-                <span className="text-pink-400">•</span>
-              </li>
-              <li className="flex justify-between">
-                <span>גוף + רגליים - 340 ש״ח</span>
-                <span className="text-pink-400">•</span>
-              </li>
-              <li className="flex justify-between">
-                <span>VIP גוף מלא - 350 ש״ח</span>
-                <span className="text-pink-400">•</span>
-              </li>
-            </ul>
-          </div>
+          <Button
+            variant="outline"
+            className="bg-black/60 border-2 border-pink-500/50 hover:border-pink-500 h-auto p-3 md:p-4 flex-col"
+            data-testid="price-body-face"
+          >
+            <div className="text-pink-400 text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>גוף + פנים</div>
+            <div className="text-white text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif' }}>450 ש״ח</div>
+          </Button>
+          
+          <Button
+            variant="outline"
+            className="bg-black/60 border-2 border-pink-500/50 hover:border-pink-500 h-auto p-3 md:p-4 flex-col"
+            data-testid="price-body-arms"
+          >
+            <div className="text-pink-400 text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>גוף + זרועות</div>
+            <div className="text-white text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif' }}>300 ש״ח</div>
+          </Button>
+          
+          <Button
+            variant="outline"
+            className="bg-black/60 border-2 border-pink-500/50 hover:border-pink-500 h-auto p-3 md:p-4 flex-col"
+            data-testid="price-body-legs"
+          >
+            <div className="text-pink-400 text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>גוף + רגליים</div>
+            <div className="text-white text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif' }}>340 ש״ח</div>
+          </Button>
+          
+          <Button
+            variant="outline"
+            className="bg-black/60 border-2 border-pink-500/50 hover:border-pink-500 h-auto p-3 md:p-4 flex-col col-span-2 md:col-span-1"
+            data-testid="price-vip-full"
+          >
+            <div className="text-pink-400 text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif' }}>VIP גוף מלא</div>
+            <div className="text-white text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif' }}>350 ש״ח</div>
+          </Button>
+        </div>
 
-          {/* שדה 2 - לוח זמני פעילות (שמאל למעלה) */}
-          <div className="border-2 border-pink-500/60 rounded-lg p-4 md:p-6 bg-black/40" 
-               style={{ boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }}>
-            <h3 className="text-lg md:text-xl font-bold text-pink-400 text-center mb-4" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              זמני פעילות
+        {/* 3 בלוקים עיקריים */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
+          
+          {/* בלוק שמאלי - אזהרות והוראות */}
+          <div className="bg-gradient-to-b from-blue-950/40 to-blue-900/20 border-2 border-blue-400/50 rounded-lg p-4 md:p-6" style={{ boxShadow: '0 0 30px rgba(59, 130, 246, 0.3)' }} data-testid="block-warnings">
+            <h3 className="text-lg md:text-xl font-bold text-center mb-4" style={{ 
+              color: '#3b82f6',
+              fontFamily: 'Varela Round, sans-serif'
+            }}>
+              אזהרות והוראות חשובות
             </h3>
-            <div className="text-sm md:text-base text-gray-200 space-y-3" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              <p>ימי ראשון עד חמישי: 09:00-21:00</p>
-              <p>יום שישי: 09:00-16:00</p>
-              <p>שבת: סגור</p>
-              <p className="text-pink-400 mt-4">מומלץ לקבוע תור מראש</p>
+            <div className="text-xs md:text-sm text-gray-200 leading-relaxed space-y-3" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+              <p>לפני ביצוע התזה: מומלץ לעשות פילינג עדין 24 שעות לפני, להימנע מקרמים שמנוניים ביום הטיפול ולהגיע עם לבוש רפוי וכהה. בנוסף, להימנע מכל טיפול שיער ביום הטיפול.</p>
+              <p>אחרי ההתזה: אסור - לקלח או לטבוע תוך 6-8 שעות לפחות, להזיע (כגון פעילות ספורטיבית), לשים בושם, קרמים וכל חומר כימי על העור ולהימנע מפעילות מאומצת.</p>
+              <p>טיפול והחזקה: להימנע משמשייה ומשטף מים שופע, ולשמור על לחות העור באמצעות קרמים מיוחדים לשיזוף בהתזה כדי להאריך את תוצאת השיזוף.</p>
             </div>
           </div>
 
-          {/* שדה 3 - מידע על התהליך (ימין למטה) */}
-          <div className="border-2 border-pink-500/60 rounded-lg p-4 md:p-6 bg-black/40" 
-               style={{ boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }}>
-            <h3 className="text-lg md:text-xl font-bold text-pink-400 text-center mb-4" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              מידע חשוב
+          {/* בלוק אמצעי - מתי מומלץ */}
+          <div className="bg-gradient-to-b from-pink-950/40 to-pink-900/20 border-2 border-pink-400/50 rounded-lg p-4 md:p-6" style={{ boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }} data-testid="block-when-recommended">
+            <h3 className="text-lg md:text-xl font-bold text-center mb-4" style={{ 
+              color: '#ec4899',
+              fontFamily: 'Varela Round, sans-serif'
+            }}>
+              מתי מומלץ לעשות שיזוף בהתזה?
             </h3>
-            <ul className="space-y-2 text-xs md:text-sm text-gray-200" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              <li>• התוצאה מופיעה תוך 4-6 שעות</li>
-              <li>• נמשך עד 7-10 ימים</li>
-              <li>• מומלץ להימנע ממקלחת 8 שעות</li>
-              <li>• טבעי ובטוח לחלוטין</li>
-              <li>• ללא חשיפה לקרינת UV</li>
-            </ul>
+            <div className="text-xs md:text-sm text-gray-200 leading-relaxed space-y-3" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+              <p>לקראת אירוע מיוחד: זהו הפתרון האידיאלי למי שרוצה להופיע זוהר ואחיד במיוחד לפני חתונה, יום הולדת, חופשה או כל אירוע חשוב. ניתן להשיג גוון כל שהוא בכל עונה.</p>
+              <p>חלופה לשיזוף בשמש: מומלץ לאנשים בעלי עור רגיש, לאלו שמעדיפים להימנע מחשיפה לשמש או מקרינת UV בגלל החשש לנזק לעור, או לאנשים אשר שיזוף טבעי אינו מתאים להם.</p>
+              <p>תיקון אזורים לא אחידים: התזה עוזרת להעלים פסים, כתמים או אזורים לא מושלמים מהשיזוף הקיים, ומעניקה מראה חלק ואחיד בזמן קצר.</p>
+            </div>
           </div>
 
-          {/* שדה 4 - לוח זמינות (שמאל למטה) */}
-          <div className="border-2 border-pink-500/60 rounded-lg p-4 md:p-6 bg-black/40" 
-               style={{ boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)' }}>
-            <h3 className="text-lg md:text-xl font-bold text-pink-400 text-center mb-4" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-              הזמן תור
+          {/* בלוק ימני - מתי להימנע */}
+          <div className="bg-gradient-to-b from-purple-950/40 to-purple-900/20 border-2 border-purple-400/50 rounded-lg p-4 md:p-6" style={{ boxShadow: '0 0 30px rgba(168, 85, 247, 0.3)' }} data-testid="block-when-avoid">
+            <h3 className="text-lg md:text-xl font-bold text-center mb-4" style={{ 
+              color: '#a855f7',
+              fontFamily: 'Varela Round, sans-serif'
+            }}>
+              מתי להימנע משיזוף בהתזה?
             </h3>
-            <div className="grid grid-cols-7 gap-1 md:gap-2 mb-4">
-              {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28].map((day) => (
-                <button 
-                  key={day}
-                  className="aspect-square flex items-center justify-center text-xs md:text-sm border border-pink-500/40 rounded hover:bg-pink-500/20 transition-colors"
-                  data-testid={`button-day-${day}`}
-                >
-                  {day}
-                </button>
-              ))}
+            <div className="text-xs md:text-sm text-gray-200 leading-relaxed space-y-3" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+              <p>עור פצוע או מגורה: יש להימנע מהתזה אם יש פצעים פתוחים, כוויות שמש, פריחה, אקנה דלקתי או כל מצב בו העור אינו שלם ובריא.</p>
+              <p>הריון והנקה: למרות שטופל על בסיס DHA נחשב בטוח באופן כללי, מומלץ להתייעץ עם רופא לפני ביצוע הטיפול בתקופת הריון או הנקה.</p>
+              <p>רגישות או אלרגיה: אם יש היסטוריה של אלרגיה לקוסמטיקה, ריחות או לחומרים כימיים, מומלץ לבצע מבחן על שטח קטן ביממה לפני הטיפול המלא, או להימנע ממנו לחלוטין.</p>
             </div>
-            <p className="text-xs text-center text-gray-400">לחץ על התאריך הרצוי</p>
           </div>
 
         </div>
