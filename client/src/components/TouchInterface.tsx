@@ -115,7 +115,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-2 md:py-6 flex flex-col items-center flex-1 overflow-y-auto">
         {/* Top Bar - Hamburger Menu */}
-        <div className="flex gap-2 mb-2 md:mb-3 w-full justify-start items-center">
+        <div className="flex gap-2 mb-2 md:mb-3 w-full justify-center items-center">
           {/* Hamburger Menu */}
           <button
             className="
