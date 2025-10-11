@@ -339,31 +339,29 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           <div className="w-[68px] md:w-[170px]" dir="rtl">
             <div className="relative">
               <div className="absolute inset-0 bg-black rounded-md" />
-              <div className="relative h-[95px] w-[68px] md:h-[160px] md:w-[170px] bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-pink-500/60 hover:border-2 hover:border-pink-500 rounded-md backdrop-blur-sm grid grid-rows-[60px_1fr] md:grid-rows-[115px_1fr] overflow-hidden"
+              <div className="relative h-[95px] w-[68px] md:h-[160px] md:w-[170px] bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-pink-500/60 hover:border-2 hover:border-pink-500 rounded-md backdrop-blur-sm overflow-hidden"
                 style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)' }}
               >
-                {/* Icon row */}
-                <div className="flex items-center justify-center">
+                {/* Input covering entire field */}
+                <input
+                  type="text"
+                  placeholder="חיפוש לקוח"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setSelectedCustomerId(null);
+                  }}
+                  className="absolute inset-0 w-full h-full bg-transparent border-0 text-[8px] md:text-sm font-medium text-white placeholder:text-gray-400 text-center focus:outline-none focus:ring-0 font-hebrew pt-[60px] md:pt-[115px]"
+                  data-testid="input-search-existing-customer"
+                />
+                
+                {/* Icon overlay - pointer events none */}
+                <div className="absolute top-0 left-0 right-0 h-[60px] md:h-[115px] flex items-center justify-center pointer-events-none">
                   <img 
                     src={searchIconImage}
                     alt="search"
                     className="w-4/5 h-4/5 object-contain" 
                     style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))' }}
-                  />
-                </div>
-                
-                {/* Text row */}
-                <div className="flex items-center justify-center px-0.5 md:px-1">
-                  <input
-                    type="text"
-                    placeholder="חיפוש לקוח"
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setSelectedCustomerId(null);
-                    }}
-                    className="w-full bg-transparent border-0 text-[8px] md:text-sm font-medium text-white placeholder:text-gray-400 text-center focus:outline-none focus:ring-0 font-hebrew"
-                    data-testid="input-search-existing-customer"
                   />
                 </div>
               </div>
