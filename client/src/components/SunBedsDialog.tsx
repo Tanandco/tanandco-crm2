@@ -272,9 +272,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                       alt={option.title}
                       className={`${
                         option.title === "AI TAN"
-                          ? "w-[64px] h-[64px] md:w-[145px] md:h-[145px]"
+                          ? "w-[66px] h-[66px] md:w-[145px] md:h-[145px]"
                           : option.title === "רכישת חבילה"
-                          ? "w-[62px] h-[62px] md:w-[135px] md:h-[135px]"
+                          ? "w-[64px] h-[64px] md:w-[135px] md:h-[135px]"
                           : option.title === "רכישת ברונזרים"
                           ? "w-[54px] h-[54px] md:w-[130px] md:h-[130px]"
                           : option.title === "לקוח חדש - הרשמה"
