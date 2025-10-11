@@ -266,7 +266,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                     data-testid={(option as any).testId || `action-tile-${index}`}
                   >
                 {/* Icon container with fixed height */}
-                <div className="flex items-center justify-center min-h-[80px] md:min-h-[135px] mb-0 transition-all duration-150 group-hover:scale-110 overflow-visible">
+                <div className="flex items-center justify-center h-[80px] md:min-h-[135px] mb-0 transition-all duration-150 group-hover:scale-110 overflow-visible">
                   {option.iconType === 'image' ? (
                     <img 
                       src={option.icon as string}
@@ -323,7 +323,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               <img 
                 src={searchIconImage}
                 alt="search"
-                className="absolute left-1 top-[15px] md:left-1/2 md:-translate-x-1/2 md:top-[32px] w-[45px] h-[45px] md:w-20 md:h-20 object-contain pointer-events-none z-10" 
+                className="absolute left-1 top-[25px] md:left-1/2 md:-translate-x-1/2 md:top-[32px] w-[45px] h-[45px] md:w-20 md:h-20 object-contain pointer-events-none z-10" 
                 style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))' }}
               />
               <Input
