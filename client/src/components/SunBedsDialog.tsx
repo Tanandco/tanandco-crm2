@@ -21,6 +21,51 @@ interface SunBedsDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+// ActionTile Component for consistent mobile sizing
+interface ActionTileProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  isBlue?: boolean;
+  className?: string;
+  testId?: string;
+}
+
+function ActionTile({ children, onClick, isBlue = false, className = "", testId }: ActionTileProps) {
+  return (
+    <div className="relative">
+      <div className="absolute inset-0 bg-black rounded-md" />
+      <button
+        onClick={onClick}
+        className={`
+          group relative h-[95px] w-[68px] md:h-[160px] md:w-[170px]
+          bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+          border hover:border-2
+          rounded-md backdrop-blur-sm
+          grid grid-rows-[60px_1fr] md:grid-rows-[115px_1fr]
+          transition-all duration-150 ease-in-out
+          hover-elevate active-elevate-2
+          overflow-hidden
+          ${className}
+        `}
+        style={{
+          borderColor: isBlue ? 'rgba(59, 130, 246, 0.6)' : 'rgba(236, 72, 153, 0.6)',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.borderColor = isBlue ? 'rgba(59, 130, 246, 1)' : 'rgba(236, 72, 153, 1)'}
+        onMouseLeave={(e) => e.currentTarget.style.borderColor = isBlue ? 'rgba(59, 130, 246, 0.6)' : 'rgba(236, 72, 153, 0.6)'}
+        data-testid={testId}
+      >
+        {children}
+        
+        {/* Ripple effect */}
+        <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
+          <div className={`absolute inset-0 bg-gradient-radial ${isBlue ? "from-blue-400/20" : "from-pink-400/20"} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps) {
   const [, navigate] = useLocation();
   const { toast } = useToast();
@@ -241,80 +286,49 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
             {/* Service Buttons */}
             <div className="flex gap-1.5 md:gap-2 justify-center flex-nowrap animate-scale-in">
               {tanningOptions.map((option, index) => (
-                <div key={index} className="relative">
-                  {/* Solid black background */}
-                  <div className="absolute inset-0 bg-black rounded-md" />
+                <ActionTile
+                  key={index}
+                  onClick={option.onClick}
+                  isBlue={option.title === "AI TAN"}
+                  testId={(option as any).testId || `action-tile-${index}`}
+                >
+                  {/* Icon row */}
+                  <div className="flex items-center justify-center transition-all duration-150 group-hover:scale-105">
+                    {option.iconType === 'image' ? (
+                      <img 
+                        src={option.icon as string}
+                        alt={option.title}
+                        className={`w-full h-full object-contain ${
+                          option.title === "AI TAN"
+                            ? "group-hover:drop-shadow-[0_0_30px_rgb(59,130,246)]"
+                            : "group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                        }`}
+                        style={{
+                          filter: option.title === "AI TAN"
+                            ? 'contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgb(59, 130, 246)) drop-shadow(0 0 35px rgba(59, 130, 246, 0.8))'
+                            : 'contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
+                        }}
+                      />
+                    ) : option.iconType === 'component' ? (
+                      <div className="scale-[0.65] md:scale-[1.2] flex items-center justify-center">
+                        <option.icon size={120} />
+                      </div>
+                    ) : option.icon && !option.isFunction && (
+                      <option.icon 
+                        className="w-full h-full text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                      />
+                    )}
+                  </div>
                   
-                  <button
-                    onClick={option.onClick}
-                    className="
-                      group relative h-[95px] w-[68px] md:h-[160px] md:w-[170px]
-                      bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                      border hover:border-2
-                      rounded-md backdrop-blur-sm
-                      flex flex-col items-center justify-center
-                      transition-all duration-150 ease-in-out
-                      hover-elevate active-elevate-2
-                      overflow-visible
-                    "
-                    style={{
-                      borderColor: option.title === "AI TAN" ? 'rgba(59, 130, 246, 0.6)' : 'rgba(236, 72, 153, 0.6)',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = option.title === "AI TAN" ? 'rgba(59, 130, 246, 1)' : 'rgba(236, 72, 153, 1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = option.title === "AI TAN" ? 'rgba(59, 130, 246, 0.6)' : 'rgba(236, 72, 153, 0.6)'}
-                    data-testid={(option as any).testId || `action-tile-${index}`}
-                  >
-                {/* Icon container with fixed height */}
-                <div className="flex items-center justify-center h-[80px] md:min-h-[135px] mb-0 transition-all duration-150 group-hover:scale-110 overflow-visible">
-                  {option.iconType === 'image' ? (
-                    <img 
-                      src={option.icon as string}
-                      alt={option.title}
-                      className={`${
-                        option.title === "AI TAN"
-                          ? "!w-[120px] !h-[120px] md:!w-[145px] md:!h-[145px]"
-                          : option.title === "רכישת חבילה"
-                          ? "!w-[118px] !h-[118px] md:!w-[135px] md:!h-[135px]"
-                          : option.title === "רכישת ברונזרים"
-                          ? "!w-[54px] !h-[54px] md:!w-[130px] md:!h-[130px]"
-                          : option.title === "לקוח חדש - הרשמה"
-                          ? "!w-[52px] !h-[52px] md:!w-[125px] md:!h-[125px]"
-                          : "!w-[56px] !h-[56px] md:!w-[135px] md:!h-[135px]"
-                      } object-contain ${
-                        option.title === "AI TAN"
-                          ? "group-hover:drop-shadow-[0_0_30px_rgb(59,130,246)]"
-                          : "group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                      }`}
-                      style={{
-                        filter: option.title === "AI TAN"
-                          ? 'contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgb(59, 130, 246)) drop-shadow(0 0 35px rgba(59, 130, 246, 0.8))'
-                          : 'contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))'
-                      }}
-                    />
-                  ) : option.iconType === 'component' ? (
-                    <div className="scale-[0.65] md:scale-[1.2] flex items-center justify-center">
-                      <option.icon size={120} className="max-w-[62px] md:max-w-[145px] max-h-[62px] md:max-h-[145px]" />
-                    </div>
-                  ) : option.icon && !option.isFunction && (
-                    <option.icon 
-                      className="w-[56px] h-[56px] md:w-[135px] md:h-[135px] text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                    />
-                  )}
-                </div>
-                {/* Text - aligned consistently */}
-                <span className="block text-[8px] md:text-sm font-medium text-white text-center font-hebrew px-0.5 md:px-1 leading-tight -mt-0.5">
-                  {option.title}
-                </span>
-                
-                {/* Ripple effect */}
-                <div className="absolute inset-0 rounded-md overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-radial ${option.title === "AI TAN" ? "from-blue-400/20" : "from-pink-400/20"} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                </div>
-              </button>
-              </div>
-            ))}
+                  {/* Text row */}
+                  <div className="flex items-center justify-center px-0.5 md:px-1">
+                    <span className="text-[8px] md:text-sm font-medium text-white text-center font-hebrew leading-tight">
+                      {option.title}
+                    </span>
+                  </div>
+                </ActionTile>
+              ))}
           </div>
 
           {/* Customer Search Bar - Same size as buttons */}
