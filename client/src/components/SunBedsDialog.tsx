@@ -334,26 +334,35 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           {/* Customer Search Bar - Same size as buttons */}
           <div className="w-[68px] md:w-[170px]" dir="rtl">
             <div className="relative">
-              <img 
-                src={searchIconImage}
-                alt="search"
-                className="absolute left-1 top-[25px] md:left-1/2 md:-translate-x-1/2 md:top-[32px] w-[45px] h-[45px] md:w-20 md:h-20 object-contain pointer-events-none z-10" 
-                style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))' }}
-              />
-              <Input
-                type="text"
-                placeholder="חיפוש לקוח"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setSelectedCustomerId(null);
-                }}
-                className="pr-1 pl-2 md:pr-3 md:pl-3 h-[95px] md:h-[160px] text-[8px] md:text-sm bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border hover:border-2 border-pink-500/60 hover:border-pink-500 focus:border-pink-500 text-white placeholder:text-gray-400 text-left md:text-center backdrop-blur-md rounded-md transition-all duration-200 pt-[80px] md:pt-[135px]"
-                style={{
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                }}
-                data-testid="input-search-existing-customer"
-              />
+              <div className="absolute inset-0 bg-black rounded-md" />
+              <div className="relative h-[95px] w-[68px] md:h-[160px] md:w-[170px] bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-pink-500/60 hover:border-2 hover:border-pink-500 rounded-md backdrop-blur-sm grid grid-rows-[60px_1fr] md:grid-rows-[115px_1fr] overflow-hidden"
+                style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)' }}
+              >
+                {/* Icon row */}
+                <div className="flex items-center justify-center">
+                  <img 
+                    src={searchIconImage}
+                    alt="search"
+                    className="w-full h-full object-contain" 
+                    style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))' }}
+                  />
+                </div>
+                
+                {/* Text row */}
+                <div className="flex items-center justify-center px-0.5 md:px-1">
+                  <input
+                    type="text"
+                    placeholder="חיפוש לקוח"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setSelectedCustomerId(null);
+                    }}
+                    className="w-full bg-transparent border-0 text-[8px] md:text-sm text-white placeholder:text-gray-400 text-center focus:outline-none focus:ring-0 font-hebrew"
+                    data-testid="input-search-existing-customer"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Search Results */}
