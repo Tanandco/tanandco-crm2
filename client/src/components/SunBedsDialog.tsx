@@ -247,16 +247,16 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   
                   <button
                     onClick={option.onClick}
-                    className="
+                    className={`
                       group relative h-[95px] w-[68px] md:h-[160px] md:w-[170px]
-                      bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                      ${option.title === "AI TAN" ? "bg-red-500" : "bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90"}
                       border hover:border-2
                       rounded-md backdrop-blur-sm
                       flex flex-col items-center justify-center
                       transition-all duration-150 ease-in-out
                       hover-elevate active-elevate-2
                       overflow-visible
-                    "
+                    `}
                     style={{
                       borderColor: 'rgba(236, 72, 153, 0.6)',
                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
