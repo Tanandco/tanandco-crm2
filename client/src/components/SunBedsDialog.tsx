@@ -245,34 +245,36 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
         </Button>
 
         {/* Service Fields - All in one row on desktop, two rows on mobile */}
-        <div className="w-full max-w-6xl mx-auto pl-14 pr-6 md:px-4 space-y-2 mt-6 md:mt-0">
-          {/* Service Buttons */}
-          <div className="grid grid-cols-2 md:flex gap-2 justify-center md:flex-nowrap animate-scale-in max-w-[228px] md:max-w-none mx-auto">
-            {tanningOptions.map((option, index) => (
-              <div key={index} className="relative">
-                {/* Solid black background */}
-                <div className="absolute inset-0 bg-black rounded-md" />
-                
-                <button
-                  onClick={option.onClick}
-                  className="
-                    group relative h-[100px] w-[110px] md:h-[145px] md:w-[150px]
-                    bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                    border hover:border-2
-                    rounded-md backdrop-blur-sm
-                    flex flex-col items-center justify-center
-                    transition-all duration-150 ease-in-out
-                    hover-elevate active-elevate-2
-                    overflow-visible
-                  "
-                  style={{
-                    borderColor: 'rgba(236, 72, 153, 0.6)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
-                  data-testid={(option as any).testId || `action-tile-${index}`}
-                >
+        <div className="w-full max-w-6xl mx-auto space-y-2 mt-6 md:mt-0">
+          {/* Container for buttons and search - separate layouts for mobile and desktop */}
+          <div className="md:flex md:gap-2 md:justify-center md:items-start">
+            {/* Service Buttons */}
+            <div className="grid grid-cols-2 md:flex gap-2 justify-center md:flex-nowrap animate-scale-in max-w-[228px] md:max-w-none mx-auto pl-14 pr-6 md:pl-0 md:pr-0">
+              {tanningOptions.map((option, index) => (
+                <div key={index} className="relative">
+                  {/* Solid black background */}
+                  <div className="absolute inset-0 bg-black rounded-md" />
+                  
+                  <button
+                    onClick={option.onClick}
+                    className="
+                      group relative h-[100px] w-[110px] md:h-[145px] md:w-[150px]
+                      bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
+                      border hover:border-2
+                      rounded-md backdrop-blur-sm
+                      flex flex-col items-center justify-center
+                      transition-all duration-150 ease-in-out
+                      hover-elevate active-elevate-2
+                      overflow-visible
+                    "
+                    style={{
+                      borderColor: 'rgba(236, 72, 153, 0.6)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
+                    data-testid={(option as any).testId || `action-tile-${index}`}
+                  >
                 <div className="flex items-center justify-center mb-1 md:mb-2 transition-all duration-150 group-hover:scale-110 overflow-visible">
                   {option.iconType === 'image' ? (
                     <img 
@@ -280,14 +282,14 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                       alt={option.title}
                       className={`${
                         option.title === "AI TAN"
-                          ? "w-[60px] h-[60px] md:w-[80px] md:h-[80px]"
+                          ? "w-[60px] h-[60px] md:w-[100px] md:h-[100px]"
                           : option.title === "רכישת חבילה"
-                          ? "w-[50px] h-[50px] md:w-[70px] md:h-[70px]"
+                          ? "w-[50px] h-[50px] md:w-[90px] md:h-[90px]"
                           : option.title === "רכישת ברונזרים"
-                          ? "w-[45px] h-[45px] md:w-[65px] md:h-[65px]"
+                          ? "w-[45px] h-[45px] md:w-[85px] md:h-[85px]"
                           : option.title === "לקוח חדש - הרשמה"
-                          ? "w-[40px] h-[40px] md:w-[60px] md:h-[60px]"
-                          : "w-[50px] h-[50px] md:w-[70px] md:h-[70px]"
+                          ? "w-[40px] h-[40px] md:w-[75px] md:h-[75px]"
+                          : "w-[50px] h-[50px] md:w-[90px] md:h-[90px]"
                       } object-contain ${
                         option.title === "AI TAN"
                           ? "group-hover:drop-shadow-[0_0_30px_rgb(59,130,246)]"
@@ -325,9 +327,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           </div>
 
           {/* Customer Search Bar - Moved below buttons */}
-          <div className="w-[188px] md:w-[308px] mx-auto" dir="rtl">
+          <div className="w-[188px] md:w-[150px] mx-auto" dir="rtl">
             <div className="relative">
-              <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-pink-500" 
+              <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-6 md:h-6 text-pink-500" 
                 style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))' }}
               />
               <Input
@@ -338,9 +340,9 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   setSearchQuery(e.target.value);
                   setSelectedCustomerId(null);
                 }}
-                className="pr-10 pl-3 h-10 text-sm bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 hover:border-pink-500 focus:border-pink-500 text-white placeholder:text-gray-400 text-right backdrop-blur-md rounded-lg transition-all duration-200"
+                className="pr-10 pl-3 h-10 md:h-[145px] text-sm bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border md:border-2 border-pink-500/60 hover:border-pink-500 focus:border-pink-500 text-white placeholder:text-gray-400 text-right backdrop-blur-md rounded-lg transition-all duration-200"
                 style={{
-                  boxShadow: '0 0 20px rgba(236, 72, 153, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.3)'
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                 }}
                 data-testid="input-search-existing-customer"
               />
@@ -521,7 +523,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           data-testid="button-alin-chatbot"
           style={{ filter: 'contrast(1.15) brightness(1.05) drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }}
         >
-          <Alin className="scale-[1.05] md:scale-[1.35] max-w-[120px] max-h-[120px] md:max-w-[150px] md:max-h-[150px]" />
+          <Alin className="scale-[1.05] md:scale-[1.1] max-w-[120px] max-h-[120px] md:max-w-[140px] md:max-h-[140px]" />
         </button>
       </div>
 
