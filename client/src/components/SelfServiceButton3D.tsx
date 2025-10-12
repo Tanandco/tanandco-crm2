@@ -25,6 +25,12 @@ export const SelfServiceButton3D = ({
           }}
         />
         
+        {/* ניתוק בפינה ימנית עליונה */}
+        <div className="absolute top-0 right-3 w-3 h-[3px] bg-black/90" />
+        
+        {/* ניתוק בפינה שמאלית תחתונה */}
+        <div className="absolute bottom-0 left-3 w-3 h-[3px] bg-black/90" />
+        
         {/* רקע שחור פנימי */}
         <div className="absolute inset-0 bg-black/90 rounded-md" />
 
