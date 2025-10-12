@@ -5,6 +5,7 @@ import { NewClientDialog } from "@/components/NewClientDialog";
 import CustomerSearchDialog from "@/components/CustomerSearchDialog";
 import { PurchaseOverlay } from "@/components/PurchaseOverlay";
 import ManicureDialog from "@/components/ManicureDialog";
+import EyebrowsDialog from "@/components/EyebrowsDialog";
 import searchIcon from '@assets/3_1759474572534.png';
 import packageIcon from '@assets/member-card-icon.png';
 import newCustomerIcon from '@assets/Dהורדותfreepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717.png_1759805942437.png';
@@ -19,6 +20,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
   const [showCustomerSearch, setShowCustomerSearch] = useState(false);
   const [showPurchaseOverlay, setShowPurchaseOverlay] = useState(false);
   const [showManicureDialog, setShowManicureDialog] = useState(false);
+  const [showEyebrowsDialog, setShowEyebrowsDialog] = useState(false);
 
   if (!open) return null;
 
@@ -31,7 +33,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       title: "אומנות גבות",
       icon: Droplet,
       onClick: () => {
-        console.log('Eyebrow art service');
+        setShowEyebrowsDialog(true);
       }
     },
     {
@@ -175,6 +177,12 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       <ManicureDialog
         open={showManicureDialog}
         onOpenChange={setShowManicureDialog}
+      />
+
+      {/* Eyebrows Dialog */}
+      <EyebrowsDialog
+        open={showEyebrowsDialog}
+        onOpenChange={setShowEyebrowsDialog}
       />
     </div>
   );
