@@ -234,21 +234,21 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                   fontFamily: 'Varela Round, sans-serif'
                 }}
                 onClick={() => {
-                  const text = `🌟 הנחיות שיזוף בהתזה - Tan & Co 🌟
+                  const text = `הנחיות שיזוף בהתזה - Tan & Co
 
-📋 לפני הטיפול:
+לפני הטיפול:
 • קלחת סבון פילינג/גרגירים יום לפני
 • גילוח במידת הצורך 24 שעות לפני
 • אין למרוח שמן/קרם/דאודורנט ביום הטיפול
 • הגיעו בבגדים קלילים, רחבים, כהים וכפכפים
 
-✨ אחרי הטיפול:
+אחרי הטיפול:
 • המתנה 4 שעות
 • הימנעו מהזעה ומגע מים עד למקלחת הראשונה
 • שטפו עם מים זורמים ללא סבון/קירצוף
 • התנגבו בטפיחות
 
-💫 תחזוקה:
+תחזוקה:
 • הגוון הסופי יתפתח למחרת
 • הימנעו מפילינג/ליפה במהלך השבוע
 • המרחו פעמיים ביום בחמאת גוף איכותית`;
@@ -305,7 +305,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         <DialogContent className="max-w-md bg-gradient-to-b from-gray-900 to-black border-2" style={{ borderColor: '#2c2c2c' }}>
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center" style={{ color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}>
-              חבילת הכלה המושלמת 💍
+              חבילת הכלה המושלמת
             </DialogTitle>
             <DialogDescription className="sr-only">
               פרטים מלאים על חבילת הכלה לשיזוף בהתזה
@@ -313,45 +313,30 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </DialogHeader>
           
           <div className="space-y-3 text-xs md:text-sm" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
-            <div className="flex items-start gap-2">
-              <span className="text-lg">✨</span>
-              <div>
-                <strong>כולל טסט מלא</strong> - 14 יום לפני האירוע
-              </div>
+            <div>
+              <strong>כולל טסט מלא</strong> - 14 יום לפני האירוע
             </div>
             
-            <div className="flex items-start gap-2">
-              <span className="text-lg">💫</span>
-              <div>
-                <strong>טיפול נוסף</strong> - 24-48 שעות לפני האירוע
-              </div>
+            <div>
+              <strong>טיפול נוסף</strong> - 24-48 שעות לפני האירוע
             </div>
             
-            <div className="flex items-start gap-2">
-              <span className="text-lg">📅</span>
-              <div>
-                <strong>עדיפות ביומן</strong> - הזמנת תור קדימה
-              </div>
+            <div>
+              <strong>עדיפות ביומן</strong> - הזמנת תור קדימה
             </div>
             
-            <div className="flex items-start gap-2">
-              <span className="text-lg">🕐</span>
-              <div>
-                <strong>גמישות בשעות</strong> - גם מחוץ לשעות העבודה הרגילות
-              </div>
+            <div>
+              <strong>גמישות בשעות</strong> - גם מחוץ לשעות העבודה הרגילות
             </div>
             
-            <div className="flex items-start gap-2">
-              <span className="text-lg">🏠</span>
-              <div>
-                <strong>אפשרות טיפול עד הבית</strong> - בתוספת מחיר
-              </div>
+            <div>
+              <strong>אפשרות טיפול עד הבית</strong> - בתוספת מחיר
             </div>
           </div>
           
           <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: 'rgba(224, 100, 213, 0.1)', borderColor: '#e064d5', borderWidth: '1px' }}>
             <p className="text-center text-sm font-bold" style={{ color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}>
-              ✨ היום הכי חשוב שלך מגיע רק פעם אחת - תהיי בטוחה שאת נראית מושלמת! ✨
+              היום הכי חשוב שלך מגיע רק פעם אחת - תהיי בטוחה שאת נראית מושלמת!
             </p>
           </div>
         </DialogContent>
