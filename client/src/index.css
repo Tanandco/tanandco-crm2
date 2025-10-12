@@ -479,4 +479,38 @@
     background: rgba(44, 44, 44, 0.15);
     animation: glow-rotate 2s linear infinite;
   }
+
+  /* אפקט זרימה למסגרת */
+  @keyframes border-flow {
+    0% {
+      border-image: linear-gradient(90deg, 
+        rgba(224, 100, 213, 0.3) 0%, 
+        rgba(224, 100, 213, 1) 25%, 
+        rgba(255, 255, 255, 1) 50%, 
+        rgba(224, 100, 213, 1) 75%, 
+        rgba(224, 100, 213, 0.3) 100%
+      ) 1;
+    }
+    100% {
+      border-image: linear-gradient(90deg, 
+        rgba(224, 100, 213, 1) 0%, 
+        rgba(255, 255, 255, 1) 25%, 
+        rgba(224, 100, 213, 1) 50%, 
+        rgba(224, 100, 213, 0.3) 75%, 
+        rgba(224, 100, 213, 0.3) 100%
+      ) 1;
+    }
+  }
+
+  .flowing-border {
+    border: 2px solid;
+    border-image: linear-gradient(90deg, 
+      rgba(224, 100, 213, 0.3) 0%, 
+      rgba(224, 100, 213, 1) 25%, 
+      rgba(255, 255, 255, 1) 50%, 
+      rgba(224, 100, 213, 1) 75%, 
+      rgba(224, 100, 213, 0.3) 100%
+    ) 1;
+    animation: border-flow 3s linear infinite;
+  }
 }
