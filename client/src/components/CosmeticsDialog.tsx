@@ -25,9 +25,15 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
     onClick: () => void;
   }> = [
     {
-      title: "שירות מיידי",
+      title: "אומנות גבות",
       onClick: () => {
-        console.log('Start immediate service');
+        console.log('Eyebrow art service');
+      }
+    },
+    {
+      title: "מניקור ג'ל",
+      onClick: () => {
+        console.log('Gel manicure service');
       }
     }
   ];
