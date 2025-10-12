@@ -40,26 +40,30 @@ export default function RivkaManicureDialog({ open, onOpenChange }: RivkaManicur
         {/* Right Section - Services & Gallery (גדול) */}
         <div className="w-full md:w-2/3 h-2/3 md:h-full bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col">
           <div className="space-y-3 flex-1 flex flex-col">
-            {/* שירותים */}
+            {/* מחירון */}
             <div className="space-y-2">
-              <h3 className="text-base md:text-lg font-bold text-white text-center">השירותים שלנו</h3>
+              <h3 className="text-base md:text-lg font-bold text-white text-center">מחירון</h3>
               <div className="space-y-1">
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">מניקור ג'ל קלאסי</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">מניקור + עיצוב מיוחד</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">פדיקור ג'ל מפנק</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">טיפול SPA מלא לידיים ורגליים</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
+                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs">לק ג'ל / מבנה אנטומי</span>
+                  <span className="text-pink-400 font-bold text-sm">₪150</span>
+                </div>
+                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs">בנייה (ג'ל / אקריל / פוליג'ל)</span>
+                  <span className="text-pink-400 font-bold text-sm">₪350</span>
+                </div>
+                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs">מילוי</span>
+                  <span className="text-pink-400 font-bold text-sm">₪220</span>
+                </div>
+                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs">פדיקור ג'ל</span>
+                  <span className="text-pink-400 font-bold text-sm">₪150</span>
+                </div>
+                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs">תוספת: פרנץ', אבקה, קישוט</span>
+                  <span className="text-pink-400 font-bold text-sm">₪20</span>
+                </div>
               </div>
             </div>
 
