@@ -48,9 +48,9 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             variant="outline"
             className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
             style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-body-only"
+            data-testid="price-single"
           >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>גוף בלבד</div>
+            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>טיפול בודד</div>
             <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>170 ש״ח</div>
           </Button>
           
@@ -58,9 +58,9 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             variant="outline"
             className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
             style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-body-face"
+            data-testid="price-package-3"
           >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>גוף + פנים</div>
+            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 3 טיפולים</div>
             <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>450 ש״ח</div>
           </Button>
           
@@ -68,19 +68,19 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             variant="outline"
             className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
             style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-body-arms"
+            data-testid="price-package-6"
           >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>גוף + זרועות</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>300 ש״ח</div>
+            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 6 טיפולים</div>
+            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>800 ש״ח</div>
           </Button>
           
           <Button
             variant="outline"
             className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
             style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-body-legs"
+            data-testid="price-bride"
           >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>גוף + רגליים</div>
+            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
             <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
           </Button>
           
@@ -88,9 +88,9 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             variant="outline"
             className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col col-span-2 md:col-span-1"
             style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-vip-full"
+            data-testid="price-home-service"
           >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>VIP גוף מלא</div>
+            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>שירות עד הבית</div>
             <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>350 ש״ח</div>
           </Button>
         </div>
