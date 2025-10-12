@@ -8,90 +8,65 @@ export const SelfServiceButton3D = ({
   className = "" 
 }: SelfServiceButton3DProps) => {
   return (
-    <div className={`w-full max-w-xs mx-auto mt-10 md:mt-16 ${className}`}>
+    <div className={`w-full max-w-md mx-auto mt-10 md:mt-16 ${className}`}>
       <button
         onClick={onClick}
-        className="relative w-full h-6 md:h-8 rounded-lg bg-gradient-to-r from-gray-900/90 to-black/90 border-2 border-pink-500 backdrop-blur-sm shadow-xl touch-target transition-all duration-500 active:scale-95 hover:scale-105 group overflow-hidden"
-        style={{
-          backdropFilter: 'blur(20px)',
-          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.95))',
-          boxShadow: '0 20px 60px -15px rgba(236, 72, 153, 0.6), 0 0 50px rgba(139, 92, 246, 0.4)'
-        }}
+        className="relative w-full h-12 md:h-14 rounded-md backdrop-blur-sm touch-target transition-all duration-300 active:scale-98 hover:scale-[1.02] group overflow-hidden"
         data-testid="button-self-service-3d"
       >
-        {/* טבעת זוהרת מסתובבת */}
+        {/* מסגרת גרדיאנטית זורמת */}
         <div 
-          className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 opacity-75 blur-sm"
+          className="absolute -inset-1 rounded-md opacity-90"
           style={{
-            animation: 'spin 4s linear infinite'
+            background: 'linear-gradient(90deg, rgb(59, 130, 246), #ec4899, rgb(59, 130, 246))',
+            backgroundSize: '200% 100%',
+            animation: 'gradientFlow 3s ease infinite',
+            filter: 'blur(8px)'
           }}
         />
 
-        {/* רקע פנימי */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-black/95 to-gray-900/95 rounded-lg" />
-
-        {/* תוכן הכפתור */}
-        <div className="relative h-full flex items-center justify-center gap-1 px-1">
-          {/* כדור מסתובב משמאל */}
-          <div className="w-4 h-4 md:w-5 md:h-5 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full blur-sm animate-pulse" />
-            <div 
-              className="relative w-full h-full rounded-full bg-gradient-to-br from-pink-500 to-purple-600"
-              style={{
-                animation: 'spin 3s linear infinite',
-                boxShadow: '0 0 8px rgba(236, 72, 153, 0.6), inset 0 0 5px rgba(139, 92, 246, 0.4)'
-              }}
-            >
-              <div className="absolute inset-0.5 rounded-full bg-gradient-to-tl from-pink-400/50 to-purple-500/50 backdrop-blur-sm" />
-            </div>
-          </div>
-
-          {/* טקסט */}
-          <div className="flex-1 text-center">
-            <div className="flex items-center justify-center gap-0.5">
-              <div className="w-0.5 h-0.5 bg-pink-500 rounded-full animate-ping" />
-              <h2 className="text-[10px] md:text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 drop-shadow-lg animate-pulse" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-                מעבר לשירות עצמי
-              </h2>
-              <div 
-                className="w-0.5 h-0.5 bg-purple-500 rounded-full animate-ping"
-                style={{ animationDelay: '0.5s' }}
-              />
-            </div>
-          </div>
-
-          {/* כדור מסתובב מימין */}
-          <div className="w-4 h-4 md:w-5 md:h-5 relative">
-            <div 
-              className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full blur-sm animate-pulse" 
-              style={{ animationDelay: '1s' }} 
-            />
-            <div 
-              className="relative w-full h-full rounded-full bg-gradient-to-br from-purple-500 to-cyan-600"
-              style={{
-                animation: 'spin 3s linear infinite reverse',
-                boxShadow: '0 0 8px rgba(139, 92, 246, 0.6), inset 0 0 5px rgba(34, 211, 238, 0.4)'
-              }}
-            >
-              <div className="absolute inset-0.5 rounded-full bg-gradient-to-tl from-purple-400/50 to-cyan-500/50 backdrop-blur-sm" />
-            </div>
-          </div>
+        {/* רקע הכפתור - חצי כחול חצי ורוד */}
+        <div className="absolute inset-0 rounded-md overflow-hidden">
+          {/* חצי שמאלי - כחול ניאון */}
+          <div className="absolute left-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-blue-500 to-blue-400" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(96, 165, 250) 100%)',
+                 boxShadow: 'inset 0 0 30px rgba(59, 130, 246, 0.6)'
+               }} 
+          />
+          {/* חצי ימני - ורוד ניאון */}
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-pink-500 to-pink-400" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(244, 114, 182) 100%)',
+                 boxShadow: 'inset 0 0 30px rgba(236, 72, 153, 0.6)'
+               }} 
+          />
+          
+          {/* קו מפריד מרכזי עם זוהר */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/60" 
+               style={{ boxShadow: '0 0 20px rgba(255, 255, 255, 0.8)' }} 
+          />
         </div>
 
-        {/* חלקיקים זוהרים */}
-        <div className="absolute top-1 left-1/4 w-0.5 h-0.5 bg-pink-400 rounded-full animate-ping opacity-60" />
-        <div className="absolute bottom-1 right-1/4 w-0.5 h-0.5 bg-purple-400 rounded-full animate-ping opacity-60" style={{ animationDelay: '0.3s' }} />
-        <div className="absolute top-1/2 left-2 w-0.5 h-0.5 bg-cyan-400 rounded-full animate-ping opacity-60" style={{ animationDelay: '0.6s' }} />
-        <div className="absolute top-1/3 right-3 w-0.5 h-0.5 bg-pink-400 rounded-full animate-ping opacity-60" style={{ animationDelay: '0.9s' }} />
+        {/* תוכן הכפתור */}
+        <div className="relative h-full flex items-center justify-center px-4">
+          <h2 className="text-base md:text-lg font-extrabold text-white drop-shadow-2xl" 
+              style={{ 
+                fontFamily: 'Varela Round, sans-serif',
+                textShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5)'
+              }}>
+            מעבר לשירות עצמי
+          </h2>
+        </div>
 
-        {/* אפקט hover זוהר */}
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/0 via-purple-500/0 to-cyan-500/0 group-hover:from-pink-500/10 group-hover:via-purple-500/10 group-hover:to-cyan-500/10 transition-all duration-500 rounded-lg" />
+        {/* אפקט hover נוסף */}
+        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300 rounded-md" />
       </button>
 
       {/* הודעת מצב מתחת לכפתור */}
-      <div className="mt-1 flex items-center justify-center gap-0.5 text-white/50 text-[8px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif' }}>
-        <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse" />
-        <span>מערכת פעילה • מוכנה לשירות</span>
+      <div className="mt-2 flex items-center justify-center gap-1 text-white/50 text-[10px] md:text-xs" style={{ fontFamily: 'Varela Round, sans-serif' }}>
+        <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+        <span>24/7 • שירות עצמי זמין</span>
       </div>
     </div>
   );
