@@ -44,24 +44,24 @@ export default function RivkaManicureDialog({ open, onOpenChange }: RivkaManicur
             <div className="space-y-2">
               <h3 className="text-base md:text-lg font-bold text-white text-center">מחירון</h3>
               <div className="space-y-1">
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">לק ג'ל / מבנה אנטומי</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">לק ג'ל / מבנה אנטומי</span>
                   <span className="text-pink-400 font-bold text-sm">₪150</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">בנייה (ג'ל / אקריל / פוליג'ל)</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">בנייה (ג'ל / אקריל / פוליג'ל)</span>
                   <span className="text-pink-400 font-bold text-sm">₪350</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">מילוי</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">מילוי</span>
                   <span className="text-pink-400 font-bold text-sm">₪220</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">פדיקור ג'ל</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">פדיקור ג'ל</span>
                   <span className="text-pink-400 font-bold text-sm">₪150</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">תוספת: פרנץ', אבקה, קישוט</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">תוספת: פרנץ', אבקה, קישוט</span>
                   <span className="text-pink-400 font-bold text-sm">₪20</span>
                 </div>
               </div>

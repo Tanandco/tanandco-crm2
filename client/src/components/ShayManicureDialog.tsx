@@ -44,20 +44,20 @@ export default function ShayManicureDialog({ open, onOpenChange }: ShayManicureD
             <div className="space-y-2">
               <h3 className="text-base md:text-lg font-bold text-white text-center">מחירון</h3>
               <div className="space-y-1">
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">לק ג'ל מבנה אנטומי</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">לק ג'ל מבנה אנטומי</span>
                   <span className="text-pink-400 font-bold text-sm">₪180</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">השלמת ציפורן פר ציפורן</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">השלמת ציפורן פר ציפורן</span>
                   <span className="text-pink-400 font-bold text-sm">₪10</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">בנייה חדשה בג'ל</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">בנייה חדשה בג'ל</span>
                   <span className="text-pink-400 font-bold text-sm">₪300</span>
                 </div>
-                <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20">
-                  <span className="text-white text-xs">תוספת פרנץ' או ציור</span>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">תוספת פרנץ' או ציור</span>
                   <span className="text-pink-400 font-bold text-sm">₪20</span>
                 </div>
               </div>
