@@ -935,13 +935,34 @@ export function registerRoutes(app: express.Application) {
     }
   });
 
-  // Get customer memberships
+  // Get customer memberships with usage history
   app.get('/api/customers/:id/memberships', async (req, res) => {
     try {
+      const { db } = await import('./db');
+      const { sessionUsage } = await import('@shared/schema');
+      const { eq, desc } = await import('drizzle-orm');
+      
       const memberships = await storage.getMembershipsByCustomer(req.params.id);
+      
+      // Get usage history for each membership
+      const membershipsWithHistory = await Promise.all(
+        memberships.map(async (membership) => {
+          const usageHistory = await db
+            .select()
+            .from(sessionUsage)
+            .where(eq(sessionUsage.membershipId, membership.id))
+            .orderBy(desc(sessionUsage.createdAt));
+          
+          return {
+            ...membership,
+            usageHistory
+          };
+        })
+      );
+      
       res.json({
         success: true,
-        data: memberships
+        data: membershipsWithHistory
       });
     } catch (error: any) {
       console.error('Get customer memberships failed:', error);

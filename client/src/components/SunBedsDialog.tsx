@@ -518,64 +518,79 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               )}
 
               {selectedCustomerId && memberships.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-pink-500/30 space-y-2">
+                <div className="mt-6 pt-6 border-t border-pink-500/30 space-y-3">
                   {memberships.map((membership: any) => {
                     const totalPurchased = membership.total_purchased || membership.totalPurchased || 10;
                     const used = totalPurchased - membership.balance;
+                    const usageHistory = membership.usageHistory || [];
                     
                     return (
                       <div
                         key={membership.id}
-                        className="flex items-center gap-3 p-2 bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-pink-500/30 rounded-lg"
+                        className="p-3 bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-pink-500/30 rounded-lg"
                       >
-                        <span className="text-white font-semibold text-sm whitespace-nowrap">{getMembershipTypeLabel(membership.membership_type)}</span>
-                        <div className="flex gap-1 flex-1">
-                          {Array.from({ length: totalPurchased }).map((_, index) => (
-                            <div
-                              key={index}
-                              className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-all ${
-                                index >= (totalPurchased - used)
-                                  ? 'bg-gray-700/40 text-gray-500' 
-                                  : 'bg-pink-500/40 text-pink-300'
-                              }`}
-                            >
-                              {index + 1}
-                            </div>
-                          ))}
-                        </div>
-                        <Button
-                          onClick={async () => {
-                            try {
-                              const response = await fetch(`/api/memberships/${membership.id}/use`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                              });
-                              if (!response.ok) {
-                                const error = await response.json();
-                                throw new Error(error.error || 'Failed to mark usage');
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-white font-semibold text-sm whitespace-nowrap">{getMembershipTypeLabel(membership.membership_type)}</span>
+                          <Button
+                            onClick={async () => {
+                              try {
+                                const response = await fetch(`/api/memberships/${membership.id}/use`, {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                });
+                                if (!response.ok) {
+                                  const error = await response.json();
+                                  throw new Error(error.error || 'Failed to mark usage');
+                                }
+                                toast({
+                                  title: '✅ סומן',
+                                  description: `כניסה ${used + 1}`,
+                                  duration: 2000,
+                                });
+                                queryClient.invalidateQueries({ queryKey: ['/api/customers', selectedCustomerId, 'memberships'] });
+                              } catch (error: any) {
+                                toast({
+                                  title: '❌ שגיאה',
+                                  description: error.message || 'נכשל',
+                                  variant: 'destructive',
+                                  duration: 3000,
+                                });
                               }
-                              toast({
-                                title: '✅ סומן',
-                                description: `כניסה ${used + 1}`,
-                                duration: 2000,
-                              });
-                              queryClient.invalidateQueries({ queryKey: ['/api/customers', selectedCustomerId, 'memberships'] });
-                            } catch (error: any) {
-                              toast({
-                                title: '❌ שגיאה',
-                                description: error.message || 'נכשל',
-                                variant: 'destructive',
-                                duration: 3000,
-                              });
-                            }
-                          }}
-                          disabled={membership.balance === 0}
-                          size="sm"
-                          className="bg-pink-500/20 hover:bg-pink-500/30 text-white text-xs disabled:opacity-50"
-                          data-testid={`button-mark-usage-${membership.id}`}
-                        >
-                          ✓ סמן
-                        </Button>
+                            }}
+                            disabled={membership.balance === 0}
+                            size="sm"
+                            className="mr-auto bg-pink-500/20 hover:bg-pink-500/30 text-white text-xs disabled:opacity-50"
+                            data-testid={`button-mark-usage-${membership.id}`}
+                          >
+                            ✓ סמן
+                          </Button>
+                        </div>
+                        <div className="flex gap-1">
+                          {Array.from({ length: totalPurchased }).map((_, index) => {
+                            const isPunched = index >= (totalPurchased - used);
+                            const usageIndex = isPunched ? ((totalPurchased - 1) - index) : -1;
+                            const usage = usageIndex >= 0 && usageHistory[usageIndex] ? usageHistory[usageIndex] : null;
+                            
+                            return (
+                              <div key={index} className="flex flex-col items-center">
+                                <div
+                                  className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-all ${
+                                    isPunched
+                                      ? 'bg-gray-700/40 text-gray-500' 
+                                      : 'bg-pink-500/40 text-pink-300'
+                                  }`}
+                                >
+                                  {index + 1}
+                                </div>
+                                {usage && (
+                                  <span className="text-[8px] text-gray-400 mt-0.5 whitespace-nowrap">
+                                    {new Date(usage.createdAt).toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' })}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     );
                   })}
