@@ -454,18 +454,101 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
             <div className="space-y-4">
               {/* Search Bar */}
               <div className="relative">
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-pink-400" 
+                  style={{ filter: 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.6))' }}
+                />
                 <Input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="חפש לקוח לפי שם, טלפון או אימייל..."
                   className="pr-10 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 text-white placeholder:text-gray-500 backdrop-blur-sm h-14 text-lg"
                   data-testid="input-quick-search"
                 />
               </div>
 
-              {/* Placeholder for future implementation */}
-              <div className="text-center py-12 text-gray-400">
-                <p>חיפוש לקוח יתווסף בהמשך...</p>
-              </div>
+              {/* Search Results */}
+              {isSearching && (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto"></div>
+                  <p className="text-gray-400 mt-4">מחפש לקוחות...</p>
+                </div>
+              )}
+
+              {!isSearching && searchQuery.length >= 2 && customers.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-400">לא נמצאו לקוחות התואמים לחיפוש</p>
+                </div>
+              )}
+
+              {!isSearching && customers.length > 0 && (
+                <div className="space-y-3 max-h-[50vh] overflow-y-auto">
+                  {customers.map((customer: any) => (
+                    <div
+                      key={customer.id}
+                      onClick={() => setSelectedCustomerId(customer.id)}
+                      className="p-4 bg-gradient-to-br from-gray-800/60 to-black/60 border border-pink-500/30 rounded-lg cursor-pointer hover:border-pink-500/60 transition-all duration-200"
+                      style={{
+                        boxShadow: selectedCustomerId === customer.id 
+                          ? '0 0 20px rgba(236, 72, 153, 0.4)' 
+                          : 'none'
+                      }}
+                      data-testid={`customer-result-${customer.id}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <User className="w-4 h-4 text-pink-400" />
+                            <span className="text-white font-semibold">{customer.first_name} {customer.last_name}</span>
+                          </div>
+                          {customer.phone && (
+                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                              <Phone className="w-3 h-3" />
+                              <span>{customer.phone}</span>
+                            </div>
+                          )}
+                        </div>
+                        {selectedCustomerId === customer.id && (
+                          <div className="text-pink-400 text-sm">✓ נבחר</div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {selectedCustomerId && memberships.length > 0 && (
+                <div className="mt-6 pt-6 border-t border-pink-500/30">
+                  <h3 className="text-lg font-semibold text-white mb-3">חבילות פעילות:</h3>
+                  <div className="space-y-2">
+                    {memberships.map((membership: any) => (
+                      <div
+                        key={membership.id}
+                        className="p-3 bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-pink-500/30 rounded-lg"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-white font-medium">{getMembershipTypeLabel(membership.membership_type)}</p>
+                            <p className="text-sm text-gray-400">נותרו: {membership.balance} שימושים</p>
+                          </div>
+                          {membership.expires_at && (
+                            <div className="text-xs text-gray-500">
+                              <Calendar className="w-3 h-3 inline ml-1" />
+                              {new Date(membership.expires_at).toLocaleDateString('he-IL')}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {searchQuery.length < 2 && (
+                <div className="text-center py-12 text-gray-400">
+                  <Search className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                  <p>הקלד לפחות 2 תווים לחיפוש</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
