@@ -23,22 +23,22 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg pt-0 px-3 pb-3 md:pt-0 md:px-6 md:pb-6 max-h-[98vh] overflow-y-auto scrollbar-hide" style={{ borderColor: '#2c2c2c' }}>
         
         {/* תמונת רקע - רגליים בחלק העליון */}
-        <div className="absolute top-0 right-0 bottom-0 w-[300px] md:w-[650px] pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 right-0 bottom-0 w-[150px] md:w-[650px] pointer-events-none z-0 overflow-hidden">
           <img 
             src={tannedLegs} 
             alt="" 
             className="w-full h-full object-cover object-top"
-            style={{ opacity: 0.4 }}
+            style={{ opacity: 0.3 }}
           />
         </div>
 
         {/* תמונת מכשיר התזה - צד שמאלי למטה */}
-        <div className="absolute bottom-0 left-0 w-[350px] md:w-[500px] h-[350px] md:h-[500px] pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-[180px] md:w-[500px] h-[180px] md:h-[500px] pointer-events-none -z-10 overflow-hidden">
           <img 
             src={sprayGun} 
             alt="" 
             className="w-full h-full object-contain"
-            style={{ opacity: 0.4 }}
+            style={{ opacity: 0.3 }}
           />
         </div>
         
