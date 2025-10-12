@@ -269,10 +269,10 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto mb-6 md:mb-10">
           
           {/* בלוק ראשון - הנחיות לפני ואחרי טיפול */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-guidelines">
-            <div className="flex items-center justify-between mb-2">
+          <div className="border-2 rounded-lg p-3 md:p-4" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-guidelines">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex-1"></div>
-              <h3 className="text-sm md:text-lg font-bold text-center flex-1 whitespace-nowrap" style={{ 
+              <h3 className="text-base md:text-xl font-bold text-center flex-1 whitespace-nowrap" style={{ 
                 color: '#e064d5',
                 fontFamily: 'Varela Round, sans-serif'
               }}>
@@ -310,7 +310,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                 </svg>
               </button>
             </div>
-            <div className="text-[10px] md:text-xs leading-tight space-y-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+            <div className="text-xs md:text-sm leading-relaxed space-y-2" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
               <p><strong>לפני הטיפול:</strong> קלחת סבון פילינג/גרגירים יום לפני. גילוח במידת הצורך 24 שעות לפני. אין למרוח שמן/קרם/דאודורנט ביום הטיפול. הגיעו בבגדים קלילים, רחבים, כהים וכפכפים.</p>
               <p><strong>אחרי הטיפול:</strong> המתנה 4 שעות. הימנעו מהזעה ומגע מים עד למקלחת הראשונה. שטפו עם מים זורמים ללא סבון/קירצוף. התנגבו בטפיחות.</p>
               <p><strong>תחזוקה:</strong> הגוון הסופי יתפתח למחרת. הימנעו מפילינג/ליפה במהלך השבוע. המרחו פעמיים ביום בחמאת גוף איכותית לשימור תוצאת השיזוף.</p>
@@ -318,14 +318,14 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </div>
 
           {/* בלוק אמצעי - עמידות והתאמה אישית */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-durability">
-            <h3 className="text-sm md:text-lg font-bold text-center mb-2" style={{ 
+          <div className="border-2 rounded-lg p-3 md:p-4" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-durability">
+            <h3 className="text-base md:text-xl font-bold text-center mb-3" style={{ 
               color: '#e064d5',
               fontFamily: 'Varela Round, sans-serif'
             }}>
               עמידות והתאמה אישית
             </h3>
-            <div className="text-[10px] md:text-xs leading-tight space-y-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+            <div className="text-xs md:text-sm leading-relaxed space-y-2" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
               <p><strong>עמידות:</strong> השיזוף מחזיק 5-10 ימים, תלוי בסוג העור והטיפול. דהייה הדרגתית ואחידה בדומה לשיזוף טבעי.</p>
               <p><strong>התאמה אישית:</strong> התאמה לפי גוון עור טבעי ולאירועים ספציפיים. עבודה עם המותגים המובילים בעולם - תמיסות איכותיות, טבעיות, ללא פראבנים, עם רכיבי לחות וויטמינים.</p>
               <p><strong>מיתוסים:</strong> עם תכשירים איכותיים התוצאה טבעית ואחידה, ללא כתמים או גוון כתום. תכשירים מודרניים פתרו את בעיית הריח האופייני.</p>
@@ -333,14 +333,14 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </div>
 
           {/* בלוק שלישי - יתרונות והסתרת פגמים */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-benefits">
-            <h3 className="text-sm md:text-lg font-bold text-center mb-2" style={{ 
+          <div className="border-2 rounded-lg p-3 md:p-4" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-benefits">
+            <h3 className="text-base md:text-xl font-bold text-center mb-3" style={{ 
               color: '#e064d5',
               fontFamily: 'Varela Round, sans-serif'
             }}>
               יתרונות והסתרת פגמים
             </h3>
-            <div className="text-[10px] md:text-xs leading-tight space-y-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+            <div className="text-xs md:text-sm leading-relaxed space-y-2" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
               <p><strong>אלטרנטיבה בריאה:</strong> אלטרנטיבה מעולה לשיזוף בשמש, ללא סיכונים בריאותיים. מתאים לכל סוגי העור, כולל בהירי עור שעלולים להיכוות בשמש.</p>
               <p><strong>הסתרת פגמים:</strong> טשטוש קל של צלקות, ורידים, סימני מתיחה או אקנה על ידי יצירת גוון אחיד. מראה בריא, זוהר וחטוב באופן מיידי.</p>
               <p><strong>תיאום:</strong> יש לתאם את הטיפול יום/יומיים לפני השיזוף הרצוי לקבלת התוצאה האופטימלית.</p>
