@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { ArrowLeft, Calendar, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -410,6 +410,24 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               </p>
             </div>
           </div>
+        </div>
+
+        {/* כפתור חיפוש לקוח קיים */}
+        <div className="relative z-[50] mt-6 md:mt-8 flex justify-center">
+          <Button
+            variant="outline"
+            className="h-12 md:h-14 px-6 md:px-8 text-sm md:text-base font-bold"
+            style={{
+              borderColor: '#e064d5',
+              color: '#e064d5',
+              backgroundColor: 'rgba(224, 100, 213, 0.1)',
+              fontFamily: 'Varela Round, sans-serif'
+            }}
+            data-testid="button-search-customer-spray-tan"
+          >
+            <Search className="w-5 h-5 md:w-6 md:h-6 ml-2" />
+            חיפוש לקוח קיים
+          </Button>
         </div>
 
       </div>
