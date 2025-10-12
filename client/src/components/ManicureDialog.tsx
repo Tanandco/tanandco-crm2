@@ -86,7 +86,7 @@ export default function ManicureDialog({ open, onOpenChange }: ManicureDialogPro
             {/* Bio */}
             <div className="bg-black/40 rounded-lg p-2 border border-pink-500/30">
               <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
-                💅 מומחית למניקור ג'ל מושלם • ✨ 8 שנות ניסיון • 🎨 עיצובים ייחודיים
+                מומחית למניקור ג'ל מושלם • 8 שנות ניסיון • עיצובים ייחודיים
               </p>
             </div>
 
@@ -178,7 +178,7 @@ export default function ManicureDialog({ open, onOpenChange }: ManicureDialogPro
             {/* Bio */}
             <div className="bg-black/40 rounded-lg p-2 border border-pink-500/30">
               <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
-                💅 מעצבת ציפורניים מובילה • ✨ עיצובים מיוחדים • 🌟 10 שנות ניסיון
+                מעצבת ציפורניים מובילה • עיצובים מיוחדים • 10 שנות ניסיון
               </p>
             </div>
 

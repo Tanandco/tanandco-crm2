@@ -59,7 +59,7 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
           {/* Bio */}
           <div className="bg-black/40 rounded-lg p-3 border border-pink-500/30">
             <p className="text-gray-300 text-sm md:text-base text-center leading-relaxed">
-              ⭐ Elite Eyebrows Studio • 💫 עיצוב גבות טבעיות/צביעה • ✨ מיקרובליידינג בשיטת השיערה
+              Elite Eyebrows Studio • עיצוב גבות טבעיות/צביעה • מיקרובליידינג בשיטת השיערה
             </p>
           </div>
 
@@ -68,19 +68,19 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
             <h3 className="text-lg md:text-xl font-bold text-white text-center">השירותים שלנו</h3>
             <div className="space-y-2">
               <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-3 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                <span className="text-white text-sm">⭐ הרמת ריסים</span>
+                <span className="text-white text-sm">הרמת ריסים</span>
                 <span className="text-pink-400 font-bold text-base">הזמן עכשיו</span>
               </button>
               <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-3 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                <span className="text-white text-sm">⭐ הרמת גבות</span>
+                <span className="text-white text-sm">הרמת גבות</span>
                 <span className="text-pink-400 font-bold text-base">הזמן עכשיו</span>
               </button>
               <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-3 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                <span className="text-white text-sm">💫⭐ סטודיו לגבות - עיצוב גבות טבעיות</span>
+                <span className="text-white text-sm">סטודיו לגבות - עיצוב גבות טבעיות</span>
                 <span className="text-pink-400 font-bold text-base">הזמן עכשיו</span>
               </button>
               <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-3 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                <span className="text-white text-sm">💄✨ Microblading - מיקרובליידינג בשיטת השיערה</span>
+                <span className="text-white text-sm">Microblading - מיקרובליידינג בשיטת השיערה</span>
                 <span className="text-pink-400 font-bold text-base">הזמן עכשיו</span>
               </button>
             </div>
