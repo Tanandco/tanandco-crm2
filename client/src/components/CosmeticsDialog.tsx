@@ -98,7 +98,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                 <button
                   onClick={action.onClick}
                   className="
-                    group relative h-[220px] w-[400px] md:h-[320px] md:w-[500px]
+                    group relative h-[110px] w-[200px] md:h-[160px] md:w-[250px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
                     border hover:border-2
                     rounded-md backdrop-blur-sm
@@ -116,7 +116,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                   data-testid={`cosmetics-action-${index}`}
                 >
                   <div className="px-4 text-center">
-                    <p className="text-white text-2xl md:text-4xl font-bold leading-tight font-hebrew">
+                    <p className="text-white text-lg md:text-2xl font-bold leading-tight font-hebrew">
                       {action.title}
                     </p>
                   </div>
