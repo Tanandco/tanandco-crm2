@@ -433,7 +433,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
               onClick={() => setShowQuickSearch(false)} 
               variant="outline" 
               size="icon" 
-              className="absolute top-12 right-12 border-white/60 hover:border-white bg-gradient-to-br from-white/20 to-gray-200/20 hover:from-white/30 hover:to-gray-200/30 transition-all duration-300"
+              className="absolute -top-6 -left-6 border-white/60 hover:border-white bg-gradient-to-br from-white/20 to-gray-200/20 hover:from-white/30 hover:to-gray-200/30 transition-all duration-300"
               style={{ 
                 boxShadow: '0 0 20px rgba(255, 255, 255, 0.4)',
               }}
