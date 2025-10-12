@@ -23,7 +23,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg p-3 md:p-6 max-h-[98vh] overflow-y-auto" style={{ borderColor: '#2c2c2c' }}>
         
         {/* תמונת רקע - רגליים בחלק העליון */}
-        <div className="absolute top-0 right-0 w-[250px] md:w-[350px] h-[300px] md:h-[400px] pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[350px] md:w-[500px] h-[400px] md:h-[550px] pointer-events-none z-0 overflow-hidden">
           <img 
             src={tannedLegs} 
             alt="" 
