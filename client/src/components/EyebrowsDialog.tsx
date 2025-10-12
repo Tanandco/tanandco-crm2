@@ -37,38 +37,7 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
       {/* Content - Split into two sections */}
       <div className="relative w-full h-[90vh] max-w-7xl flex flex-col md:flex-row gap-4">
         
-        {/* Right Section - Bio & Details (קטן) */}
-        <div className="w-full md:w-1/3 h-1/3 md:h-full bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col">
-          <div className="space-y-4 flex-1 flex flex-col justify-center">
-            {/* Header with Instagram */}
-            <div className="text-center space-y-2">
-              <div className="flex items-center justify-center gap-2">
-                <Sparkles className="w-6 h-6 text-pink-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
-                <h2 className="text-xl md:text-3xl font-bold text-white font-varela">
-                  Elit Eyebrows
-                </h2>
-              </div>
-              <a 
-                href="https://instagram.com/elit.eyebrows" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors text-xs"
-              >
-                <Instagram className="w-4 h-4" />
-                <span>@elit.eyebrows</span>
-              </a>
-            </div>
-
-            {/* Bio */}
-            <div className="bg-black/40 rounded-lg p-3 border border-pink-500/30">
-              <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
-                Elite Eyebrows Studio • עיצוב גבות טבעיות/צביעה • מיקרובליידינג בשיטת השיערה
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Left Section - Services & Gallery (גדול) */}
+        {/* Right Section - Services & Gallery (גדול) */}
         <div className="w-full md:w-2/3 h-2/3 md:h-full bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col">
           <div className="space-y-3 flex-1 flex flex-col">
             {/* שירותים */}
@@ -135,6 +104,37 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
             >
               קביעת תור
             </button>
+          </div>
+        </div>
+
+        {/* Left Section - Bio & Details (קטן) */}
+        <div className="w-full md:w-1/3 h-1/3 md:h-full bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col">
+          <div className="space-y-4 flex-1 flex flex-col justify-center">
+            {/* Header with Instagram */}
+            <div className="text-center space-y-2">
+              <div className="flex items-center justify-center gap-2">
+                <Sparkles className="w-6 h-6 text-pink-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
+                <h2 className="text-xl md:text-3xl font-bold text-white font-varela">
+                  Elit Eyebrows
+                </h2>
+              </div>
+              <a 
+                href="https://instagram.com/elit.eyebrows" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors text-xs"
+              >
+                <Instagram className="w-4 h-4" />
+                <span>@elit.eyebrows</span>
+              </a>
+            </div>
+
+            {/* Bio */}
+            <div className="bg-black/40 rounded-lg p-3 border border-pink-500/30">
+              <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
+                Elite Eyebrows Studio • עיצוב גבות טבעיות/צביעה • מיקרובליידינג בשיטת השיערה
+              </p>
+            </div>
           </div>
         </div>
 
