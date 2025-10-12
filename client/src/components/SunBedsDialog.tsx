@@ -155,12 +155,14 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
     onClick: () => void;
   }> = [
     {
-      icon: blueAlinGif,
+      icon: searchIconImage,
       iconType: 'image' as const,
-      title: "AI TAN",
+      title: "חיפוש לקוח קיים",
+      mobileTitle: "חיפוש לקוח\nקיים",
       isFunction: false,
+      testId: "button-search-customer",
       onClick: () => {
-        navigate('/ai-tan');
+        // TODO: Open search dialog
       }
     },
     {
@@ -192,6 +194,15 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       testId: "button-purchase-overlay",
       onClick: () => {
         setShowPricingOverlay(true);
+      }
+    },
+    {
+      icon: blueAlinGif,
+      iconType: 'image' as const,
+      title: "AI TAN",
+      isFunction: false,
+      onClick: () => {
+        navigate('/ai-tan');
       }
     }
   ];
@@ -303,6 +314,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                           ? "w-[105%] h-[105%] group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                           : option.title === "לקוח חדש - הרשמה"
                           ? "w-[85%] h-[85%] group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                          : option.title === "חיפוש לקוח קיים"
+                          ? "w-[90%] h-[90%] group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                           : "w-full h-full group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                       }`}
                       style={{
@@ -333,18 +346,6 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
             ))}
           </div>
 
-          {/* Customer Search Button - Simple row */}
-          <div className="w-full max-w-md mx-auto mt-4 px-2 md:px-0 flex justify-center">
-            <Button
-              variant="outline"
-              className="h-12 md:h-14 px-6 md:px-8 text-sm md:text-base font-bold border-pink-500/60 hover:border-pink-500 text-white bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 backdrop-blur-sm"
-              style={{ boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)' }}
-              data-testid="button-search-existing-customer"
-            >
-              <Search className="w-5 h-5 md:w-6 md:h-6 ml-2 text-pink-500" />
-              חיפוש לקוח קיים
-            </Button>
-          </div>
         </div>
       </div>
 
