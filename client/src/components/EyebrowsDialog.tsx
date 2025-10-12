@@ -34,34 +34,37 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
         </Button>
       </div>
 
-      {/* Content */}
-      <div className="relative w-full max-w-2xl h-[90vh] bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col">
-        <div className="space-y-3 flex-1 flex flex-col">
-          {/* Header with Instagram */}
-          <div className="text-center space-y-2">
-            <div className="flex items-center justify-center gap-2">
-              <Sparkles className="w-8 h-8 text-pink-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
-              <h2 className="text-2xl md:text-4xl font-bold text-white font-varela">
-                Elit Eyebrows
-              </h2>
-            </div>
-            <a 
-              href="https://instagram.com/elit.eyebrows" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors text-sm"
-            >
-              <Instagram className="w-5 h-5" />
-              <span>@elit.eyebrows</span>
-            </a>
+      {/* Header with Instagram - Outside the box */}
+      <div className="relative w-full max-w-2xl space-y-4">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2">
+            <Sparkles className="w-8 h-8 text-pink-500 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 1))' }} />
+            <h2 className="text-2xl md:text-4xl font-bold text-white font-varela">
+              Elit Eyebrows
+            </h2>
           </div>
+          <a 
+            href="https://instagram.com/elit.eyebrows" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors text-sm"
+          >
+            <Instagram className="w-5 h-5" />
+            <span>@elit.eyebrows</span>
+          </a>
+        </div>
 
-          {/* Bio */}
-          <div className="bg-black/40 rounded-lg p-3 border border-pink-500/30">
-            <p className="text-gray-300 text-sm md:text-base text-center leading-relaxed">
-              Elite Eyebrows Studio • עיצוב גבות טבעיות/צביעה • מיקרובליידינג בשיטת השיערה
-            </p>
-          </div>
+        {/* Bio */}
+        <div className="bg-black/40 rounded-lg p-3 border border-pink-500/30 backdrop-blur-sm">
+          <p className="text-gray-300 text-sm md:text-base text-center leading-relaxed">
+            Elite Eyebrows Studio • עיצוב גבות טבעיות/צביעה • מיקרובליידינג בשיטת השיערה
+          </p>
+        </div>
+
+        {/* Content Box */}
+        <div className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4 flex flex-col h-[60vh]">
+          <div className="space-y-3 flex-1 flex flex-col">
 
           {/* שירותים */}
           <div className="space-y-2">
@@ -127,6 +130,7 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
           >
             קביעת תור
           </button>
+          </div>
         </div>
       </div>
     </div>
