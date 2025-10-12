@@ -236,7 +236,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       {/* Popular Badge */}
                       {pkg.popular && (
                         <div 
-                          className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse bg-primary text-primary-foreground"
+                          className="absolute -top-2 left-2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse bg-primary text-primary-foreground"
                           style={{
                             filter: 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
                             boxShadow: '0 0 20px hsl(var(--primary) / 0.6)'
@@ -380,7 +380,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                     >
                       {pkg.popular && (
                         <div 
-                          className={`absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse ${
+                          className={`absolute -top-2 left-2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse ${
                             pkg.id === 'home-package' 
                               ? 'bg-cyan-500 text-white' 
                               : 'bg-primary text-primary-foreground'
@@ -520,17 +520,25 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       onClick={() => handleSelectPackage(pkg.id)}
                       data-testid={`package-card-${pkg.id}`}
                     >
-                      {/* Popular Badge */}
+                      {/* Popular/HOT Badge */}
                       {pkg.popular && (
                         <div 
-                          className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse bg-primary text-primary-foreground"
+                          className={`absolute -top-2 left-2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse ${
+                            pkg.id === 'most-profitable' 
+                              ? 'bg-red-500 text-white' 
+                              : 'bg-primary text-primary-foreground'
+                          }`}
                           style={{
-                            filter: 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
-                            boxShadow: '0 0 20px hsl(var(--primary) / 0.6)'
+                            filter: pkg.id === 'most-profitable'
+                              ? 'drop-shadow(0 0 10px rgb(239, 68, 68)) drop-shadow(0 0 20px rgb(239, 68, 68))'
+                              : 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
+                            boxShadow: pkg.id === 'most-profitable'
+                              ? '0 0 20px rgb(239, 68, 68, 0.8)'
+                              : '0 0 20px hsl(var(--primary) / 0.6)'
                           }}
                         >
                           <Sparkles className="w-4 h-4" />
-                          פופולרי
+                          {pkg.id === 'most-profitable' ? 'HOT' : 'פופולרי'}
                         </div>
                       )}
 
@@ -652,7 +660,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                       {/* Popular Badge */}
                       {pkg.popular && (
                         <div 
-                          className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse bg-primary text-primary-foreground"
+                          className="absolute -top-2 left-2 px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse bg-primary text-primary-foreground"
                           style={{
                             filter: 'drop-shadow(0 0 10px hsl(var(--primary))) drop-shadow(0 0 20px hsl(var(--primary)))',
                             boxShadow: '0 0 20px hsl(var(--primary) / 0.6)'
@@ -771,7 +779,7 @@ export function PurchaseOverlay({ open, onClose }: PurchaseOverlayProps) {
                   >
                     {/* New Badge */}
                     <div 
-                      className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
+                      className="absolute -top-2 left-2 bg-purple-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg animate-pulse"
                       style={{
                         filter: 'drop-shadow(0 0 10px rgba(147, 51, 234, 0.8)) drop-shadow(0 0 20px rgba(147, 51, 234, 0.6))',
                         boxShadow: '0 0 20px rgba(147, 51, 234, 0.8)'

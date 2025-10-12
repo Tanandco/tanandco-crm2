@@ -85,7 +85,8 @@ export const packagesCatalog: Record<string, Package> = {
     currency: "ILS",
     cardcomItemCode: "BEST",
     hasBronzer: true,
-    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף']
+    benefits: ['תוקף 12 חודשים', 'ניתן לשיתוף'],
+    popular: true
   },
   "monthly-unlimited": {
     id: "monthly-unlimited",
