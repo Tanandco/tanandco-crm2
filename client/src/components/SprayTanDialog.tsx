@@ -38,7 +38,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             src={sprayGun} 
             alt="" 
             className="w-full h-full object-contain rotate-180 md:rotate-0"
-            style={{ opacity: 0.3 }}
+            style={{ opacity: 0.7 }}
           />
         </div>
         
