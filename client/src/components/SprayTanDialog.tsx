@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import sprayTanImage from '@assets/שיזוף בהתזה (1920 x 1080 פיקסל) (2)_1760223839174.png';
 import tannedLegs from '@assets/שירות עצמי 247 (1)_1760232661723.png';
+import sprayGun from '@assets/שירות עצמי 247 (3)_1760233088090.png';
 import { useState } from 'react';
 
 interface SprayTanDialogProps {
@@ -21,10 +22,20 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-2 md:p-4">
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg p-3 md:p-6 max-h-[98vh] overflow-y-auto" style={{ borderColor: '#2c2c2c' }}>
         
-        {/* תמונת רקע לכל אורך העמוד */}
+        {/* תמונת רקע לכל אורך העמוד - רגליים */}
         <div className="absolute top-0 right-0 w-[250px] md:w-[350px] h-full pointer-events-none z-0 overflow-hidden">
           <img 
             src={tannedLegs} 
+            alt="" 
+            className="w-full h-full object-contain"
+            style={{ opacity: 0.4 }}
+          />
+        </div>
+
+        {/* תמונת מכשיר התזה - צד שמאלי למעלה */}
+        <div className="absolute top-0 left-0 w-[180px] md:w-[250px] h-[180px] md:h-[250px] pointer-events-none z-0 overflow-hidden">
+          <img 
+            src={sprayGun} 
             alt="" 
             className="w-full h-full object-contain"
             style={{ opacity: 0.4 }}
