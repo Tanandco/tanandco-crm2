@@ -37,7 +37,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       }
     },
     {
-      title: "מניקור ג'ל",
+      title: "מניקור ג'ל & פדיקור ג'ל",
       icon: Droplet,
       onClick: () => {
         setShowManicureDialog(true);
