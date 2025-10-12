@@ -1089,6 +1089,137 @@ export function registerRoutes(app: express.Application) {
     }
   });
 
+  // Unmark/cancel specific membership usage
+  app.delete('/api/session-usage/:usageId', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { sessionUsage, memberships } = await import('@shared/schema');
+      const { eq } = await import('drizzle-orm');
+      
+      const usageId = req.params.usageId;
+      
+      // Get the usage record
+      const [usage] = await db
+        .select()
+        .from(sessionUsage)
+        .where(eq(sessionUsage.id, usageId))
+        .limit(1);
+
+      if (!usage) {
+        return res.status(404).json({
+          success: false,
+          error: 'שימוש לא נמצא'
+        });
+      }
+
+      // Get membership to verify and update balance
+      const [membership] = await db
+        .select()
+        .from(memberships)
+        .where(eq(memberships.id, usage.membershipId))
+        .limit(1);
+
+      if (!membership) {
+        return res.status(404).json({
+          success: false,
+          error: 'חבילה לא נמצאה'
+        });
+      }
+
+      // Delete the specific usage record
+      await db
+        .delete(sessionUsage)
+        .where(eq(sessionUsage.id, usageId));
+
+      // Restore the balance
+      const newBalance = membership.balance + usage.sessionsUsed;
+      await db
+        .update(memberships)
+        .set({ 
+          balance: newBalance,
+          updatedAt: new Date()
+        })
+        .where(eq(memberships.id, usage.membershipId));
+
+      res.json({
+        success: true,
+        data: {
+          newBalance,
+          deletedUsageId: usageId,
+          membershipId: usage.membershipId,
+          message: 'סימון בוטל בהצלחה'
+        }
+      });
+    } catch (error: any) {
+      console.error('Delete session usage error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'שגיאה בביטול הסימון',
+        details: error.message
+      });
+    }
+  });
+
+  // Update session usage date
+  app.patch('/api/session-usage/:id', async (req, res) => {
+    try {
+      const { db } = await import('./db');
+      const { sessionUsage } = await import('@shared/schema');
+      const { eq } = await import('drizzle-orm');
+      const { z } = await import('zod');
+      
+      const usageId = req.params.id;
+      const { date } = z.object({
+        date: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$|^\d{4}-\d{2}-\d{2}$/)
+      }).parse(req.body);
+
+      // Get the usage record
+      const [usage] = await db
+        .select()
+        .from(sessionUsage)
+        .where(eq(sessionUsage.id, usageId))
+        .limit(1);
+
+      if (!usage) {
+        return res.status(404).json({
+          success: false,
+          error: 'שימוש לא נמצא'
+        });
+      }
+
+      // Parse and validate date
+      const updatedDate = new Date(date);
+      if (isNaN(updatedDate.getTime())) {
+        return res.status(400).json({
+          success: false,
+          error: 'תאריך לא תקין'
+        });
+      }
+
+      // Update the usage record
+      const [updated] = await db
+        .update(sessionUsage)
+        .set({ createdAt: updatedDate })
+        .where(eq(sessionUsage.id, usageId))
+        .returning();
+
+      res.json({
+        success: true,
+        data: {
+          usage: updated,
+          message: 'תאריך עודכן בהצלחה'
+        }
+      });
+    } catch (error: any) {
+      console.error('Update session usage date error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'שגיאה בעדכון התאריך',
+        details: error.message
+      });
+    }
+  });
+
   // Integrate with BioStar face recognition for customer identification
   app.post('/api/customers/identify-by-face', async (req, res) => {
     try {

@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, X, Lightbulb, Search, User, Phone, Calendar } from 'lucide-react';
+import { ArrowLeft, X, Lightbulb, Search, User, Phone, Calendar, Edit, Trash2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
-import { queryClient } from '@/lib/queryClient';
+import { queryClient, apiRequest } from '@/lib/queryClient';
 import Alin from "@/components/Alin";
 import { NewClientDialog } from "@/components/NewClientDialog";
 import { PurchaseOverlay } from "@/components/PurchaseOverlay";
 import ZenCarousel from "@/components/ZenCarousel";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import bronzerIcon from '@assets/4_1759474624696.png';
 import packageIcon from '@assets/member-card-icon.png';
 import newCustomerIcon from '@assets/עיצוב ללא שם (4)_1760090011932.png';
@@ -77,6 +78,8 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
   const [typedText, setTypedText] = useState("");
+  const [editingUsageId, setEditingUsageId] = useState<string | null>(null);
+  const [editingDate, setEditingDate] = useState<string>('');
   
   const fullText = "היי אני אלין , אני פה לעזור לכם בכל שלב בכל שעה , מבטיחה לא לחפור";
   
@@ -590,7 +593,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                             const usage = usageIndex >= 0 && usageHistory[usageIndex] ? usageHistory[usageIndex] : null;
                             
                             return (
-                              <div key={index} className="flex flex-col items-center">
+                              <div key={index} className="flex flex-col items-center group/slot relative">
                                 <div
                                   className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-all ${
                                     isPunched
@@ -599,6 +602,54 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                                   }`}
                                 >
                                   {index + 1}
+                                  
+                                  {/* Edit/Delete buttons - only show on hover for punched slots */}
+                                  {isPunched && usage && (
+                                    <div className="absolute -top-1 -right-1 opacity-0 group-hover/slot:opacity-100 transition-opacity flex gap-0.5 z-10">
+                                      <button
+                                        onClick={async () => {
+                                          const date = new Date(usage.createdAt);
+                                          setEditingUsageId(usage.id);
+                                          setEditingDate(date.toISOString().split('T')[0]);
+                                        }}
+                                        className="w-3 h-3 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center"
+                                        title="ערוך תאריך"
+                                        data-testid={`button-edit-usage-${usage.id}`}
+                                      >
+                                        <Edit className="w-1.5 h-1.5 text-white" />
+                                      </button>
+                                      <button
+                                        onClick={async () => {
+                                          if (!confirm('האם אתה בטוח שברצונך לבטל סימון זה?')) return;
+                                          
+                                          try {
+                                            await apiRequest('DELETE', `/api/session-usage/${usage.id}`);
+                                            // Force refetch to get updated data
+                                            await queryClient.refetchQueries({ 
+                                              queryKey: ['/api/customers', selectedCustomerId, 'memberships']
+                                            });
+                                            toast({
+                                              title: '✅ בוטל',
+                                              description: 'הסימון בוטל בהצלחה',
+                                              duration: 2000,
+                                            });
+                                          } catch (error: any) {
+                                            toast({
+                                              title: '❌ שגיאה',
+                                              description: error.message || 'נכשל',
+                                              variant: 'destructive',
+                                              duration: 3000,
+                                            });
+                                          }
+                                        }}
+                                        className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center"
+                                        title="בטל סימון"
+                                        data-testid={`button-delete-usage-${usage.id}`}
+                                      >
+                                        <X className="w-1.5 h-1.5 text-white" />
+                                      </button>
+                                    </div>
+                                  )}
                                 </div>
                                 {usage && (
                                   <span className="text-[8px] text-gray-400 mt-0.5 whitespace-nowrap">
@@ -625,6 +676,70 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           </div>
         </div>
       )}
+
+      {/* Edit Date Dialog */}
+      <Dialog open={!!editingUsageId} onOpenChange={(open) => !open && setEditingUsageId(null)}>
+        <DialogContent className="bg-gradient-to-br from-gray-900/95 to-black/95 border-pink-500/30" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="text-white text-center" style={{ textShadow: '0 0 20px rgba(236, 72, 153, 0.6)' }}>
+              עריכת תאריך כניסה
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label className="text-sm text-gray-300">תאריך</label>
+              <Input
+                type="date"
+                value={editingDate}
+                onChange={(e) => setEditingDate(e.target.value)}
+                className="bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 text-white"
+                data-testid="input-edit-date"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setEditingUsageId(null)}
+                variant="outline"
+                className="flex-1 border-gray-500/30 text-gray-300 hover:bg-gray-700/50"
+                data-testid="button-cancel-edit"
+              >
+                ביטול
+              </Button>
+              <Button
+                onClick={async () => {
+                  if (!editingUsageId || !editingDate) return;
+                  
+                  try {
+                    await apiRequest('PATCH', `/api/session-usage/${editingUsageId}`, { date: editingDate });
+                    // Force refetch to get updated data
+                    await queryClient.refetchQueries({ 
+                      queryKey: ['/api/customers', selectedCustomerId, 'memberships']
+                    });
+                    toast({
+                      title: '✅ עודכן',
+                      description: 'התאריך עודכן בהצלחה',
+                      duration: 2000,
+                    });
+                    setEditingUsageId(null);
+                    setEditingDate('');
+                  } catch (error: any) {
+                    toast({
+                      title: '❌ שגיאה',
+                      description: error.message || 'נכשל',
+                      variant: 'destructive',
+                      duration: 3000,
+                    });
+                  }
+                }}
+                className="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                data-testid="button-save-edit"
+              >
+                שמור
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
     </div>
   );
