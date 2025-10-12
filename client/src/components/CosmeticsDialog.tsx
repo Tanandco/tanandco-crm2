@@ -124,12 +124,12 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={`cosmetics-action-${index}`}
                 >
-                  <div className="px-4 text-center space-y-4">
+                  <div className="px-4 text-center space-y-3">
                     <action.icon 
-                      className="w-16 h-16 md:w-20 md:h-20 mx-auto text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                      className="w-10 h-10 md:w-12 md:h-12 mx-auto text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                       style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
-                    <p className="text-white text-3xl md:text-4xl font-bold leading-tight font-hebrew">
+                    <p className="text-white text-xl md:text-2xl font-bold leading-tight font-hebrew">
                       {action.title}
                     </p>
                   </div>
