@@ -22,11 +22,11 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg p-3 md:p-6 max-h-[98vh] overflow-y-auto" style={{ borderColor: '#2c2c2c' }}>
         
         {/* תמונת רקע לכל אורך העמוד */}
-        <div className="absolute top-0 right-0 w-[200px] md:w-[300px] h-full pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[250px] md:w-[350px] h-full pointer-events-none z-0 overflow-hidden">
           <img 
             src={tannedLegs} 
             alt="" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             style={{ opacity: 0.4 }}
           />
         </div>
