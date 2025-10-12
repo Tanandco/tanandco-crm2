@@ -266,10 +266,10 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </div>
 
         {/* 3 בלוקים עיקריים */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-6 md:mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto mb-6 md:mb-10">
           
           {/* בלוק ראשון - הנחיות לפני ואחרי טיפול */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)' }} data-testid="block-guidelines">
+          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-guidelines">
             <div className="flex items-center justify-between mb-2">
               <div className="flex-1"></div>
               <h3 className="text-sm md:text-lg font-bold text-center flex-1 whitespace-nowrap" style={{ 
@@ -318,7 +318,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </div>
 
           {/* בלוק אמצעי - עמידות והתאמה אישית */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)' }} data-testid="block-durability">
+          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-durability">
             <h3 className="text-sm md:text-lg font-bold text-center mb-2" style={{ 
               color: '#e064d5',
               fontFamily: 'Varela Round, sans-serif'
@@ -333,7 +333,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </div>
 
           {/* בלוק שלישי - יתרונות והסתרת פגמים */}
-          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)' }} data-testid="block-benefits">
+          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#e064d5', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 0 20px rgba(224, 100, 213, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8)' }} data-testid="block-benefits">
             <h3 className="text-sm md:text-lg font-bold text-center mb-2" style={{ 
               color: '#e064d5',
               fontFamily: 'Varela Round, sans-serif'
