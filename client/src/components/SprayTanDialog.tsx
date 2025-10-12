@@ -121,41 +121,41 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </div>
 
         {/* לוח שנה/יומן לבחירת תאריך */}
-        <div className="mb-6 md:mb-8 max-w-4xl mx-auto">
-          <h3 className="text-xl md:text-2xl font-bold text-center mb-4" style={{ 
+        <div className="mb-6 md:mb-8 max-w-6xl mx-auto">
+          <h3 className="text-base md:text-lg font-bold text-center mb-2" style={{ 
             color: '#e064d5',
             fontFamily: 'Varela Round, sans-serif',
             textShadow: '0 0 10px rgba(224, 100, 213, 0.5)'
           }}>
             בחרו תאריך לטיפול
           </h3>
-          <div className="border-2 rounded-lg p-4 md:p-6" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+          <div className="border-2 rounded-lg p-2 md:p-3" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
             {/* כותרת חודש */}
-            <div className="flex items-center justify-between mb-4">
-              <Button variant="ghost" size="icon" style={{ color: '#e064d5' }} data-testid="prev-month">
-                <span className="text-xl">‹</span>
+            <div className="flex items-center justify-between mb-2">
+              <Button variant="ghost" className="h-6 w-6 p-0" style={{ color: '#e064d5' }} data-testid="prev-month">
+                <span className="text-lg">‹</span>
               </Button>
-              <h4 className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+              <h4 className="text-sm md:text-base font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
                 אוקטובר 2025
               </h4>
-              <Button variant="ghost" size="icon" style={{ color: '#e064d5' }} data-testid="next-month">
-                <span className="text-xl">›</span>
+              <Button variant="ghost" className="h-6 w-6 p-0" style={{ color: '#e064d5' }} data-testid="next-month">
+                <span className="text-lg">›</span>
               </Button>
             </div>
 
             {/* ימי שבוע */}
-            <div className="grid grid-cols-7 gap-1 mb-2">
+            <div className="grid grid-cols-7 gap-0.5 mb-1">
               {['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'].map(day => (
-                <div key={day} className="text-center text-xs md:text-sm font-bold p-2" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+                <div key={day} className="text-center text-[10px] md:text-xs font-bold p-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
                   {day}
                 </div>
               ))}
             </div>
 
             {/* תאריכים */}
-            <div className="grid grid-cols-7 gap-1">
+            <div className="grid grid-cols-7 gap-0.5">
               {Array.from({ length: 35 }, (_, i) => {
-                const day = i - 2; // התחל מיום 1
+                const day = i - 2;
                 const isValid = day > 0 && day <= 31;
                 const isWeekend = (i % 7 === 5 || i % 7 === 6);
                 
@@ -163,12 +163,12 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
                   <Button
                     key={i}
                     variant="ghost"
-                    className="h-10 md:h-12 p-1"
+                    className="h-7 md:h-8 p-0 text-[10px] md:text-xs"
                     disabled={!isValid || isWeekend}
                     style={{ 
                       color: isValid && !isWeekend ? '#e064d5' : '#666',
                       fontFamily: 'Varela Round, sans-serif',
-                      borderRadius: '8px',
+                      borderRadius: '4px',
                       backgroundColor: isValid && !isWeekend ? 'rgba(224, 100, 213, 0.1)' : 'transparent'
                     }}
                     data-testid={`calendar-day-${day}`}
@@ -180,7 +180,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             </div>
 
             {/* הערה */}
-            <p className="text-xs md:text-sm text-center mt-4" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.7 }}>
+            <p className="text-[9px] md:text-[10px] text-center mt-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.7 }}>
               ימי שישי ושבת - סגור
             </p>
           </div>
