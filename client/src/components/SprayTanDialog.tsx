@@ -42,57 +42,105 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </p>
         </div>
 
-        {/* 5 כפתורי מחירון */}
+        {/* 5 כפתורי מחירון עם כפתורי הזמנה */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-6 md:mb-8 max-w-6xl mx-auto">
-          <Button
-            variant="outline"
-            className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
-            style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-single"
-          >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>טיפול בודד</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>170 ש״ח</div>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>טיפול בודד</div>
+              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>170 ש״ח</div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-2 hover:border-[#2c2c2c] w-full"
+              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
+              data-testid="book-single"
+            >
+              הזמן עכשיו
+            </Button>
+          </div>
           
-          <Button
-            variant="outline"
-            className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
-            style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-package-3"
-          >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 3 טיפולים</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>450 ש״ח</div>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 3 טיפולים</div>
+              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>450 ש״ח</div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-2 hover:border-[#2c2c2c] w-full"
+              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
+              data-testid="book-package-3"
+            >
+              הזמן עכשיו
+            </Button>
+          </div>
           
-          <Button
-            variant="outline"
-            className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
-            style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-package-6"
-          >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 6 טיפולים</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>800 ש״ח</div>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה 6 טיפולים</div>
+              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>800 ש״ח</div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-2 hover:border-[#2c2c2c] w-full"
+              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
+              data-testid="book-package-6"
+            >
+              הזמן עכשיו
+            </Button>
+          </div>
           
-          <Button
-            variant="outline"
-            className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col"
-            style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-bride"
-          >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
+              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-2 hover:border-[#2c2c2c] w-full"
+              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
+              data-testid="book-bride"
+            >
+              הזמן עכשיו
+            </Button>
+          </div>
           
-          <Button
-            variant="outline"
-            className="border-2 hover:border-[#2c2c2c] h-auto p-3 md:p-4 flex-col col-span-2 md:col-span-1"
-            style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}
-            data-testid="price-home-service"
-          >
-            <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>שירות עד הבית</div>
-            <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>350 ש״ח</div>
-          </Button>
+          <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
+            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>שירות עד הבית</div>
+              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>350 ש״ח</div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-2 hover:border-[#2c2c2c] w-full"
+              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
+              data-testid="book-home-service"
+            >
+              הזמן עכשיו
+            </Button>
+          </div>
+        </div>
+
+        {/* יומן זמנים אנכי */}
+        <div className="mb-6 md:mb-8 max-w-6xl mx-auto">
+          <h3 className="text-xl md:text-2xl font-bold text-center mb-4" style={{ 
+            color: '#e064d5',
+            fontFamily: 'Varela Round, sans-serif',
+            textShadow: '0 0 10px rgba(224, 100, 213, 0.5)'
+          }}>
+            יומן זמנים פתוח
+          </h3>
+          <div className="border-2 rounded-lg p-4 md:p-6 space-y-3" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
+            {['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'].map((day, index) => (
+              <div key={day} className="flex items-center justify-between border-b pb-2" style={{ borderColor: '#2c2c2c' }}>
+                <span className="text-sm md:text-base font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+                  {day}
+                </span>
+                <span className="text-sm md:text-base" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+                  {index === 5 ? 'סגור' : index === 6 ? '09:00 - 14:00' : '09:00 - 20:00'}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* 3 בלוקים עיקריים */}
