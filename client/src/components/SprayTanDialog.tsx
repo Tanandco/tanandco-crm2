@@ -94,18 +94,18 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </div>
           
           <div className="flex flex-col gap-2">
-            <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
-              <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
-              <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
+            <div className="border-2 rounded-lg p-2 md:p-2.5 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)' }}>
+              <div className="text-[10px] md:text-xs mb-0.5" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
+              <div className="text-sm md:text-base font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
               <button 
-                className="flex items-center gap-1 mt-1 cursor-pointer hover:opacity-100 transition-opacity"
+                className="flex items-center gap-1 mt-0.5 cursor-pointer hover:opacity-100 transition-opacity"
                 onClick={() => setBrideInfoOpen(true)}
                 style={{ opacity: 0.8 }}
               >
-                <span className="text-[8px] md:text-[9px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+                <span className="text-[7px] md:text-[8px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
                   טסט מלא + טיפול לפני אירוע
                 </span>
-                <svg className="w-2.5 h-2.5" fill="none" stroke="#e064d5" strokeWidth="2" viewBox="0 0 24 24">
+                <svg className="w-2 h-2" fill="none" stroke="#e064d5" strokeWidth="2" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10"/>
                   <line x1="12" y1="16" x2="12" y2="12"/>
                   <circle cx="12" cy="8" r="0.5" fill="#e064d5"/>
