@@ -21,38 +21,10 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
   if (!open) return null;
 
   const cosmeticsActions: Array<{
-    icon: string | any;
-    iconType: 'image' | 'component' | 'lucide';
     title: string;
     onClick: () => void;
   }> = [
     {
-      icon: newCustomerIcon,
-      iconType: 'image' as const,
-      title: "לקוח חדש - הרשמה",
-      onClick: () => {
-        setShowNewClientDialog(true);
-      }
-    },
-    {
-      icon: searchIcon,
-      iconType: 'image' as const,
-      title: "חיפוש לקוח קיים",
-      onClick: () => {
-        setShowCustomerSearch(true);
-      }
-    },
-    {
-      icon: packageIcon,
-      iconType: 'image' as const,
-      title: "רכישת חבילה",
-      onClick: () => {
-        setShowPurchaseOverlay(true);
-      }
-    },
-    {
-      icon: Star,
-      iconType: 'lucide' as const,
       title: "שירות מיידי",
       onClick: () => {
         console.log('Start immediate service');
@@ -126,11 +98,11 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                 <button
                   onClick={action.onClick}
                   className="
-                    group relative h-[110px] w-[100px] md:h-[160px] md:w-[150px]
+                    group relative h-[220px] w-[400px] md:h-[320px] md:w-[500px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
                     border hover:border-2
                     rounded-md backdrop-blur-sm
-                    flex flex-col items-center justify-between pb-4
+                    flex items-center justify-center
                     transition-all duration-150 ease-in-out
                     hover-elevate active-elevate-2
                     overflow-visible
@@ -143,29 +115,11 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                   onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={`cosmetics-action-${index}`}
                 >
-                  <div className="flex-1 flex items-center justify-center transition-all duration-150 group-hover:scale-110">
-                    {action.iconType === 'image' ? (
-                      <img 
-                        src={action.icon as string}
-                        alt={action.title}
-                        className="w-24 h-24 object-contain group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                      />
-                    ) : action.iconType === 'lucide' ? (
-                      <action.icon 
-                        className="w-20 h-20 text-pink-500 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                      />
-                    ) : null}
+                  <div className="px-4 text-center">
+                    <p className="text-white text-2xl md:text-4xl font-bold leading-tight font-hebrew">
+                      {action.title}
+                    </p>
                   </div>
-                  
-                  {action.title && (
-                    <div className="px-2 text-center">
-                      <p className="text-white text-xs font-semibold leading-tight font-hebrew">
-                        {action.title}
-                      </p>
-                    </div>
-                  )}
 
                   {/* Ripple effect container */}
                   <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
