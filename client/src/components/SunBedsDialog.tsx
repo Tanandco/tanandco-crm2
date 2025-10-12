@@ -486,7 +486,10 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
                   {customers.map((customer: any) => (
                     <div
                       key={customer.id}
-                      onClick={() => setSelectedCustomerId(customer.id)}
+                      onClick={() => {
+                        setSelectedCustomerId(customer.id);
+                        setSearchQuery('');
+                      }}
                       className="p-4 bg-gradient-to-br from-gray-800/60 to-black/60 border border-pink-500/30 rounded-lg cursor-pointer hover:border-pink-500/60 transition-all duration-200"
                       style={{
                         boxShadow: selectedCustomerId === customer.id 
