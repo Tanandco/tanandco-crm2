@@ -33,8 +33,8 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </Button>
 
         {/* כותרת עליונה */}
-        <div className="text-center mb-3 md:mb-4">
-          <h1 className="text-lg md:text-2xl font-bold mb-2" style={{ 
+        <div className="text-center mb-2 md:mb-3 mt-1">
+          <h1 className="text-lg md:text-2xl font-bold mb-1" style={{ 
             color: '#e064d5',
             textShadow: '0 0 20px rgba(224, 100, 213, 0.6)',
             fontFamily: 'Varela Round, sans-serif'
