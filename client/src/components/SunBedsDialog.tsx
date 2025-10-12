@@ -428,7 +428,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       {/* Quick Search Overlay */}
       {showQuickSearch && (
         <div className="fixed inset-0 z-[60] bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950 backdrop-blur-sm flex items-center justify-center p-4" dir="rtl">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900/95 to-black/95 rounded-lg border-2 border-pink-500/30 p-6">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900/95 to-black/95 rounded-lg flowing-border p-6">
             <Button 
               onClick={() => setShowQuickSearch(false)} 
               variant="outline" 
