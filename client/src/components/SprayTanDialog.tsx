@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import sprayTanImage from '@assets/שיזוף בהתזה (1920 x 1080 פיקסל) (2)_1760223839174.png';
+import tannedLegs from '@assets/שירות עצמי 247 (1)_1760232661723.png';
 import { useState } from 'react';
 
 interface SprayTanDialogProps {
@@ -20,6 +21,16 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-2 md:p-4">
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg p-3 md:p-6 max-h-[98vh] overflow-y-auto" style={{ borderColor: '#2c2c2c' }}>
         
+        {/* תמונת רקע בפינה הימנית */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 pointer-events-none z-0 overflow-hidden rounded-tr-lg">
+          <img 
+            src={tannedLegs} 
+            alt="" 
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.4 }}
+          />
+        </div>
+        
         {/* כפתור חזרה */}
         <Button 
           onClick={() => onOpenChange(false)} 
@@ -33,7 +44,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </Button>
 
         {/* כותרת עליונה */}
-        <div className="text-center mb-1 md:mb-1.5 -mt-4 md:-mt-6">
+        <div className="relative z-10 text-center mb-1 md:mb-1.5 -mt-4 md:-mt-6">
           <h1 className="text-lg md:text-2xl font-bold mb-0.5" style={{ 
             color: '#e064d5',
             textShadow: '0 0 20px rgba(224, 100, 213, 0.6)',
