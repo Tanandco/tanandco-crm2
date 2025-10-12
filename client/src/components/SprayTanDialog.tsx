@@ -1,6 +1,8 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import sprayTanImage from '@assets/שיזוף בהתזה (1920 x 1080 פיקסל) (2)_1760223839174.png';
+import { useState } from 'react';
 
 interface SprayTanDialogProps {
   open: boolean;
@@ -8,6 +10,8 @@ interface SprayTanDialogProps {
 }
 
 export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogProps) {
+  const [brideInfoOpen, setBrideInfoOpen] = useState(false);
+  
   if (!open) return null;
 
   return (
@@ -93,16 +97,20 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             <div className="border-2 rounded-lg p-3 md:p-4 flex flex-col items-center" style={{ borderColor: '#2c2c2c', backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)' }}>
               <div className="text-xs md:text-sm mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילה לכלה</div>
               <div className="text-lg md:text-xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340 ש״ח</div>
-              <div className="flex items-center gap-1 mt-1">
-                <span className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.8 }}>
+              <button 
+                className="flex items-center gap-1 mt-1 cursor-pointer hover:opacity-100 transition-opacity"
+                onClick={() => setBrideInfoOpen(true)}
+                style={{ opacity: 0.8 }}
+              >
+                <span className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
                   טסט מלא + טיפול לפני אירוע
                 </span>
-                <svg className="w-3 h-3" fill="none" stroke="#e064d5" strokeWidth="2" viewBox="0 0 24 24" style={{ opacity: 0.8 }}>
+                <svg className="w-3 h-3" fill="none" stroke="#e064d5" strokeWidth="2" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10"/>
                   <line x1="12" y1="16" x2="12" y2="12"/>
                   <circle cx="12" cy="8" r="0.5" fill="#e064d5"/>
                 </svg>
-              </div>
+              </button>
             </div>
             <Button
               variant="outline"
@@ -291,6 +299,70 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </div>
 
       </div>
+      
+      {/* Dialog מידע על חבילת הכלה */}
+      <Dialog open={brideInfoOpen} onOpenChange={setBrideInfoOpen}>
+        <DialogContent className="max-w-md bg-gradient-to-b from-gray-900 to-black border-2" style={{ borderColor: '#2c2c2c' }}>
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-center" style={{ color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}>
+              חבילת הכלה המושלמת 💍
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              פרטים מלאים על חבילת הכלה לשיזוף בהתזה
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-3 text-xs md:text-sm" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+            <div className="flex items-start gap-2">
+              <span className="text-lg">✨</span>
+              <div>
+                <strong>כולל טסט מלא</strong> - 14 יום לפני האירוע
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-2">
+              <span className="text-lg">💫</span>
+              <div>
+                <strong>טיפול נוסף</strong> - 24-48 שעות לפני האירוע
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-2">
+              <span className="text-lg">📅</span>
+              <div>
+                <strong>עדיפות ביומן</strong> - הזמנת תור קדימה
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-2">
+              <span className="text-lg">🕐</span>
+              <div>
+                <strong>גמישות בשעות</strong> - גם מחוץ לשעות העבודה הרגילות
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-2">
+              <span className="text-lg">🏠</span>
+              <div>
+                <strong>אפשרות טיפול עד הבית</strong> - בתוספת מחיר
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-2">
+              <span className="text-lg">👨‍⚕️</span>
+              <div>
+                <strong>נעשה על ידי עלים</strong> - בעל ניסיון של 11 שנה בתעשיית השיזוף ומעל ל-2 שנה בתעשיית הביוטק
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: 'rgba(224, 100, 213, 0.1)', borderColor: '#e064d5', borderWidth: '1px' }}>
+            <p className="text-center text-sm font-bold" style={{ color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}>
+              ✨ היום הכי חשוב שלך מגיע רק פעם אחת - תהיי בטוחה שאת נראית מושלמת! ✨
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
