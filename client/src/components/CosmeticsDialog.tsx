@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { NewClientDialog } from "@/components/NewClientDialog";
 import CustomerSearchDialog from "@/components/CustomerSearchDialog";
 import { PurchaseOverlay } from "@/components/PurchaseOverlay";
+import ManicureDialog from "@/components/ManicureDialog";
 import searchIcon from '@assets/3_1759474572534.png';
 import packageIcon from '@assets/member-card-icon.png';
 import newCustomerIcon from '@assets/Dהורדותfreepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717.png_1759805942437.png';
@@ -17,6 +18,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
   const [showNewClientDialog, setShowNewClientDialog] = useState(false);
   const [showCustomerSearch, setShowCustomerSearch] = useState(false);
   const [showPurchaseOverlay, setShowPurchaseOverlay] = useState(false);
+  const [showManicureDialog, setShowManicureDialog] = useState(false);
 
   if (!open) return null;
 
@@ -36,7 +38,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       title: "מניקור ג'ל",
       icon: Droplet,
       onClick: () => {
-        console.log('Gel manicure service');
+        setShowManicureDialog(true);
       }
     }
   ];
@@ -168,6 +170,12 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
           onClose={() => setShowPurchaseOverlay(false)}
         />
       )}
+
+      {/* Manicure Dialog */}
+      <ManicureDialog
+        open={showManicureDialog}
+        onOpenChange={setShowManicureDialog}
+      />
     </div>
   );
 }
