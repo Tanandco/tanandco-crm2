@@ -72,6 +72,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
   const [showPricingOverlay, setShowPricingOverlay] = useState(false);
   const [showNewClientDialog, setShowNewClientDialog] = useState(false);
   const [showProductCarousel, setShowProductCarousel] = useState(false);
+  const [showQuickSearch, setShowQuickSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
   const [typedText, setTypedText] = useState("");
@@ -162,7 +163,7 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
       isFunction: false,
       testId: "button-search-customer",
       onClick: () => {
-        // TODO: Open search dialog
+        setShowQuickSearch(true);
       }
     },
     {
@@ -423,6 +424,49 @@ export default function SunBedsDialog({ open, onOpenChange }: SunBedsDialogProps
           <Alin className="scale-[1.05] md:scale-[1.1] max-w-[120px] max-h-[120px] md:max-w-[140px] md:max-h-[140px]" />
         </button>
       </div>
+
+      {/* Quick Search Overlay */}
+      {showQuickSearch && (
+        <div className="fixed inset-0 z-[60] bg-gradient-to-br from-slate-950 via-purple-950/30 to-slate-950 backdrop-blur-sm flex items-center justify-center p-4" dir="rtl">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900/95 to-black/95 rounded-lg border-2 border-pink-500/30 p-6">
+            <Button 
+              onClick={() => setShowQuickSearch(false)} 
+              variant="outline" 
+              size="icon" 
+              className="absolute top-4 left-4 bg-white/10 border-white/20 text-white hover:bg-white/20"
+              data-testid="button-close-quick-search"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+            
+            <h1 
+              className="text-2xl md:text-3xl font-bold text-white text-center mb-6"
+              style={{
+                textShadow: '0 0 20px rgba(236, 72, 153, 0.6)',
+              }}
+            >
+              חיפוש מהיר - סימון כרטיסיה
+            </h1>
+
+            <div className="space-y-4">
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                  placeholder="חפש לקוח לפי שם, טלפון או אימייל..."
+                  className="pr-10 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-pink-500/30 text-white placeholder:text-gray-500 backdrop-blur-sm h-14 text-lg"
+                  data-testid="input-quick-search"
+                />
+              </div>
+
+              {/* Placeholder for future implementation */}
+              <div className="text-center py-12 text-gray-400">
+                <p>חיפוש לקוח יתווסף בהמשך...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
