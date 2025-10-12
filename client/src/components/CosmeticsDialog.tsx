@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { NewClientDialog } from "@/components/NewClientDialog";
 import CustomerSearchDialog from "@/components/CustomerSearchDialog";
 import { PurchaseOverlay } from "@/components/PurchaseOverlay";
-import ManicureDialog from "@/components/ManicureDialog";
 import EyebrowsDialog from "@/components/EyebrowsDialog";
+import RivkaManicureDialog from "@/components/RivkaManicureDialog";
+import ShayManicureDialog from "@/components/ShayManicureDialog";
 import searchIcon from '@assets/3_1759474572534.png';
 import packageIcon from '@assets/member-card-icon.png';
 import newCustomerIcon from '@assets/Dהורדותfreepik__spray-tan-variation-b-modern-flatbadge-3d-spray-gu__47717.png_1759805942437.png';
@@ -19,8 +20,9 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
   const [showNewClientDialog, setShowNewClientDialog] = useState(false);
   const [showCustomerSearch, setShowCustomerSearch] = useState(false);
   const [showPurchaseOverlay, setShowPurchaseOverlay] = useState(false);
-  const [showManicureDialog, setShowManicureDialog] = useState(false);
   const [showEyebrowsDialog, setShowEyebrowsDialog] = useState(false);
+  const [showRivkaDialog, setShowRivkaDialog] = useState(false);
+  const [showShayDialog, setShowShayDialog] = useState(false);
 
   if (!open) return null;
 
@@ -44,7 +46,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       byLine: "BY רבקה סולטן",
       icon: Droplet,
       onClick: () => {
-        setShowManicureDialog(true);
+        setShowRivkaDialog(true);
       }
     },
     {
@@ -52,7 +54,7 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
       byLine: "BY שי לניאדו",
       icon: Droplet,
       onClick: () => {
-        setShowManicureDialog(true);
+        setShowShayDialog(true);
       }
     }
   ];
@@ -164,16 +166,22 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
         />
       )}
 
-      {/* Manicure Dialog */}
-      <ManicureDialog
-        open={showManicureDialog}
-        onOpenChange={setShowManicureDialog}
-      />
-
       {/* Eyebrows Dialog */}
       <EyebrowsDialog
         open={showEyebrowsDialog}
         onOpenChange={setShowEyebrowsDialog}
+      />
+
+      {/* Rivka Manicure Dialog */}
+      <RivkaManicureDialog
+        open={showRivkaDialog}
+        onOpenChange={setShowRivkaDialog}
+      />
+
+      {/* Shay Manicure Dialog */}
+      <ShayManicureDialog
+        open={showShayDialog}
+        onOpenChange={setShowShayDialog}
       />
     </div>
   );
