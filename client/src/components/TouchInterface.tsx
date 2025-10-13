@@ -245,7 +245,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               title={service.title}
               icon={service.icon}
               onClick={() => handleServiceClick(service.id)}
-              borderColor={service.id === 'ai-tan' ? 'blue' : 'pink'}
+              borderColor="pink"
             />
           ))}
         </div>
