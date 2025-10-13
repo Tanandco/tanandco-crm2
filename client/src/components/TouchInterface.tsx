@@ -211,7 +211,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Service Cards - 3 in mobile (2 rows), 6 in desktop */}
-        <div className="grid grid-cols-3 md:flex gap-1.5 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto">
+        <div className="grid grid-cols-3 md:flex gap-1.5 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto mt-4 md:mt-6">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
