@@ -70,8 +70,8 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </p>
         </div>
 
-        {/* 6 כפתורי מחירון - 3 בכל שורה */}
-        <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6 max-w-4xl mx-auto mt-8 md:mt-12">
+        {/* 5 כפתורי מחירון בשורה אחת */}
+        <div className="grid grid-cols-5 gap-2 md:gap-3 mb-4 md:mb-6 max-w-6xl mx-auto mt-8 md:mt-12">
           <div className="flex flex-col gap-2">
             <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
               <div className="text-[10px] md:text-xs mb-1 text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>טיפול בודד</div>
@@ -158,21 +158,6 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               data-testid="book-home-service"
             >
               הזמן עכשיו
-            </Button>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
-              <div className="text-sm md:text-lg font-bold text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>בקרוב</div>
-            </div>
-            <Button
-              variant="outline"
-              className="hidden md:flex border hover:border-[#2c2c2c] w-full opacity-50"
-              disabled
-              style={{ borderColor: '#e064d5', backgroundColor: 'rgba(224, 100, 213, 0.1)', color: '#e064d5', fontFamily: 'Varela Round, sans-serif' }}
-              data-testid="book-coming-soon"
-            >
-              בקרוב
             </Button>
           </div>
         </div>
