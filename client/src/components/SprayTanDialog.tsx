@@ -23,7 +23,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
       <div className="relative w-full max-w-[95vw] bg-gradient-to-b from-gray-900 to-black border-2 rounded-lg pt-0 px-3 pb-3 md:pt-0 md:px-6 md:pb-6 max-h-[98vh] overflow-y-auto scrollbar-hide overflow-x-visible" style={{ borderColor: '#2c2c2c' }}>
         
         {/* תמונת רקע - רגליים בחלק העליון */}
-        <div className="absolute top-0 right-0 w-[200px] md:w-[350px] h-full pointer-events-none z-[1]">
+        <div className="absolute top-0 right-0 w-[200px] md:w-[350px] h-full pointer-events-none z-[5]">
           <img 
             src={tannedLegs} 
             alt="" 
@@ -33,7 +33,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </div>
 
         {/* תמונת מכשיר התזה */}
-        <div className="absolute top-[620px] -right-16 md:top-[750px] md:right-auto md:left-0 w-[180px] md:w-[500px] h-[180px] md:h-[500px] pointer-events-none z-0">
+        <div className="absolute top-[620px] -right-16 md:top-[750px] md:right-auto md:left-0 w-[180px] md:w-[500px] h-[180px] md:h-[500px] pointer-events-none z-[3]">
           <img 
             src={sprayGun} 
             alt="" 
@@ -55,7 +55,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         </Button>
 
         {/* כותרת עליונה */}
-        <div className="relative z-[50] text-center mb-2 md:mb-3">
+        <div className="relative z-[10] text-center mb-2 md:mb-3">
           <h1 className="text-lg md:text-2xl font-bold mb-3 md:mb-4" style={{ 
             color: '#e064d5',
             textShadow: '0 0 20px rgba(224, 100, 213, 0.6)',
