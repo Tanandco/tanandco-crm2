@@ -109,7 +109,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
   return (
     <div 
-      className="h-screen bg-black text-white font-hebrew relative overflow-hidden flex pt-16"
+      className="h-screen bg-black text-white font-hebrew relative overflow-hidden flex pt-14"
       data-testid="touch-interface"
     >
       {/* Main Content */}
