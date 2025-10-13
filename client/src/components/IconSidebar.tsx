@@ -121,7 +121,7 @@ export default function IconSidebar() {
 
   return (
     <div 
-      className="fixed left-0 top-0 h-screen w-16 backdrop-blur-lg border-r z-50 flex flex-col items-center py-6 gap-4"
+      className="fixed left-0 top-0 w-screen h-16 backdrop-blur-lg border-b z-50 flex flex-row items-center justify-center px-6 gap-4"
       style={{
         background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.85), rgba(31, 41, 55, 0.95))',
         borderColor: 'rgba(59, 130, 246, 0.4)',
@@ -166,13 +166,13 @@ export default function IconSidebar() {
               />
               
               {/* Tooltip */}
-              <div className={`absolute left-full ml-3 px-3 py-1.5 bg-slate-900/95 backdrop-blur-sm border ${item.tooltipBorder} rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap`}>
+              <div className={`absolute top-full mt-3 px-3 py-1.5 bg-slate-900/95 backdrop-blur-sm border ${item.tooltipBorder} rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap`}>
                 <span className={`text-sm ${item.tooltipText}`}>{item.label}</span>
               </div>
 
               {/* Active indicator */}
               {isActive && (
-                <div className={`absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 ${item.indicator} rounded-r-full`} />
+                <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-8 ${item.indicator} rounded-b-full`} />
               )}
             </button>
           </Link>

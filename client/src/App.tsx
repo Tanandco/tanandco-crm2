@@ -42,6 +42,9 @@ import NavigationBarExample from "@/components/examples/NavigationBar";
 import StatusDisplayExample from "@/components/examples/StatusDisplay";
 import TouchInterfaceExample from "@/components/examples/TouchInterface";
 
+// Import IconSidebar
+import IconSidebar from "@/components/IconSidebar";
+
 function Router() {
   return (
     <Switch>
@@ -94,6 +97,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen bg-slate-900 text-white" dir="rtl">
+          <IconSidebar />
           <Router />
         </div>
         <Toaster />

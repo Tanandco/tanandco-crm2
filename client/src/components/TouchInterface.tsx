@@ -109,42 +109,11 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
   return (
     <div 
-      className="h-screen bg-black text-white font-hebrew relative overflow-hidden flex"
+      className="h-screen bg-black text-white font-hebrew relative overflow-hidden flex pt-16"
       data-testid="touch-interface"
     >
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-0 md:py-0.5 flex flex-col items-center flex-1 overflow-y-auto">
-        {/* Top Bar - Hamburger Menu */}
-        <div className="flex gap-2 mb-0 md:mb-0.5 w-full justify-start items-center">
-          {/* Hamburger Menu */}
-          <button
-            className="
-              group relative w-9 h-9 md:w-10 md:h-10
-              bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-              border
-              rounded-md backdrop-blur-sm
-              flex items-center justify-center
-              transition-all duration-300 ease-in-out
-              hover-elevate active-elevate-2
-            "
-            style={{
-              borderColor: 'rgba(59, 130, 246, 0.6)',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.6)'}
-            onClick={() => setMenuOpen(!menuOpen)}
-            data-testid="button-menu"
-          >
-            <Menu 
-              className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300"
-              size={20}
-              style={{
-                filter: 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.8))'
-              }}
-            />
-          </button>
-        </div>
 
         {/* Action Buttons - Above Logo */}
         <div className="flex gap-2 md:gap-3 mt-16 md:mt-20 mb-0 justify-center">
