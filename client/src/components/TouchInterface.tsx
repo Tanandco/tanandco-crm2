@@ -206,7 +206,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
         </div>
 
         {/* Logo */}
-        <div className="transform -translate-y-6 -mb-6 md:-translate-y-3 md:-mb-3">
+        <div className="transform -translate-y-6 md:-translate-y-3">
           <Logo className="scale-[0.6] md:scale-90" showGlow={true} showUnderline={true} />
         </div>
 
