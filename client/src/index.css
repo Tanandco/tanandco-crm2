@@ -25,6 +25,10 @@
   }
 }
 
+.animate-gradient-flow {
+  animation: gradientFlow 3s ease-in-out infinite;
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
   opacity: 0;
