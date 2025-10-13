@@ -8,10 +8,10 @@ interface LogoProps {
 import logoImage from '@assets/747d9dd7-e351-4ae7-804f-3dc6fc6b94b0_1759166689888.png';
 
 const SIZE_CLASSES = {
-  small: 'h-8',
-  medium: 'h-12',
-  header: 'h-16',
-  large: 'h-24 md:h-32 lg:h-40',
+  small: 'h-12',
+  medium: 'h-20',
+  header: 'h-28',
+  large: 'h-40 md:h-52 lg:h-64',
 };
 
 export default function Logo({ className = "", showGlow = true, showUnderline = true, size = 'large' }: LogoProps) {
@@ -34,7 +34,7 @@ export default function Logo({ className = "", showGlow = true, showUnderline = 
       </div>
       {showUnderline && (
         <div 
-          className="w-64 md:w-80 h-0.5 mt-0.5 rounded-full opacity-60"
+          className="w-96 md:w-[30rem] h-0.5 mt-0.5 rounded-full opacity-60"
           style={{
             background: 'linear-gradient(to right, transparent, rgba(236, 72, 153, 0.6), rgba(147, 51, 234, 0.5), transparent)',
             boxShadow: '0 0 10px rgba(236, 72, 153, 0.4), 0 0 20px rgba(147, 51, 234, 0.3)'
