@@ -121,7 +121,7 @@ export default function IconSidebar() {
 
   return (
     <div 
-      className="fixed left-0 top-0 w-screen h-16 backdrop-blur-lg border-b z-50 flex flex-row items-center justify-center px-6 gap-4"
+      className="fixed left-0 top-0 w-screen h-16 backdrop-blur-lg border-b z-50 flex flex-row items-center justify-center px-2 md:px-6 gap-2 md:gap-4"
       style={{
         background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(0, 0, 0, 0.85), rgba(31, 41, 55, 0.95))',
         borderColor: 'rgba(59, 130, 246, 0.4)',
@@ -142,7 +142,7 @@ export default function IconSidebar() {
             <button
               data-testid={item.testId}
               className={`
-                relative w-12 h-12 rounded-xl flex items-center justify-center
+                relative w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center
                 transition-all duration-300 group
                 ${isActive 
                   ? `${item.activeBg} border ${item.activeBorder}` 
@@ -151,7 +151,7 @@ export default function IconSidebar() {
               `}
             >
               <Icon 
-                className={`w-6 h-6 transition-colors ${item.iconColor}`}
+                className={`w-4 h-4 md:w-6 md:h-6 transition-colors ${item.iconColor}`}
                 style={{
                   filter: `drop-shadow(0 0 12px ${item.iconColor.includes('amber') ? 'rgba(236, 72, 153, 1)' : 
                                                  item.iconColor.includes('green') ? 'rgba(34, 197, 94, 1)' :
