@@ -220,6 +220,22 @@ export default function Shop() {
                 animation: flow-gradient-cat 4s linear infinite;
                 opacity: 0.7;
               }
+              
+              .flowing-text-cat {
+                background: linear-gradient(
+                  135deg,
+                  rgba(236, 72, 153, 1),
+                  rgba(168, 85, 247, 0.8),
+                  rgba(139, 92, 246, 1),
+                  rgba(236, 72, 153, 0.8),
+                  rgba(168, 85, 247, 1)
+                );
+                background-size: 200% 200%;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: flow-gradient-cat 3s linear infinite;
+              }
             `}</style>
             <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-3">
               {['שיזוף', 'קוסמטיקה', 'אביזרים', 'טיפוח שיער', 'תכשיטים', 'מוצרים ירוקים'].map((category) => (
@@ -233,10 +249,7 @@ export default function Shop() {
                   data-testid={`category-${category}`}
                 >
                   <span 
-                    className="text-[10px] md:text-base font-semibold text-center text-pink-400"
-                    style={{
-                      textShadow: '0 0 20px rgba(236, 72, 153, 0.8), 0 0 30px rgba(236, 72, 153, 0.6)'
-                    }}
+                    className="text-[10px] md:text-base font-semibold text-center flowing-text-cat"
                   >
                     {category}
                   </span>
