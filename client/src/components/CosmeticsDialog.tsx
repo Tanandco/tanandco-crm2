@@ -146,11 +146,8 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                 >
                   <div className="px-4 text-center space-y-1 md:space-y-2">
                     <action.icon 
-                      className="w-8 h-8 md:w-12 md:h-12 mx-auto"
-                      style={{ 
-                        color: 'rgba(31, 41, 55, 0.9)',
-                        filter: 'drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.9)) drop-shadow(-2px -2px 3px rgba(80, 80, 80, 0.3))'
-                      }}
+                      className="w-8 h-8 md:w-12 md:h-12 mx-auto text-pink-400"
+                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
                     />
                     <p className="text-white text-base md:text-2xl font-bold leading-tight font-hebrew">
                       {action.title}
