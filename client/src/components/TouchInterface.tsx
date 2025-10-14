@@ -120,6 +120,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           <div className="flex gap-2 md:gap-3 mt-1 md:mt-6 mb-0 justify-center">
           <button
             className="
+              top-action-btn
               group relative w-9 h-9 md:w-10 md:h-10
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border
@@ -148,6 +149,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
 
           <button
             className="
+              top-action-btn
               group relative w-9 h-9 md:w-10 md:h-10
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border
@@ -176,6 +178,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           
           <button
             className="
+              top-action-btn
               group relative w-9 h-9 md:w-10 md:h-10
               bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
               border
@@ -253,6 +256,19 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
               opacity: 1;
               filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.5));
             }
+          }
+          
+          @keyframes border-glow {
+            0%, 100% { 
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(236, 72, 153, 0.4);
+            }
+            50% { 
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 25px rgba(236, 72, 153, 0.8), 0 0 35px rgba(236, 72, 153, 0.5);
+            }
+          }
+          
+          .top-action-btn {
+            animation: border-glow 2s ease-in-out infinite;
           }
         `}</style>
       </div>
