@@ -210,8 +210,8 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           <Logo className="scale-[0.6] md:scale-90" showGlow={true} showUnderline={true} />
         </div>
 
-        {/* Service Cards - 3 in mobile (2 rows), 6 in desktop */}
-        <div className="grid grid-cols-3 md:flex gap-1.5 md:gap-3 justify-center md:flex-wrap max-w-5xl w-full md:w-auto">
+        {/* Service Cards - All on same row */}
+        <div className="flex gap-1.5 md:gap-3 justify-center flex-wrap max-w-5xl w-full md:w-auto">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
