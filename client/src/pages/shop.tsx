@@ -164,11 +164,11 @@ export default function Shop() {
       </div>
 
       {/* Hero Logo Section */}
-      <div className="relative pt-12 md:pt-8 pb-2 md:pb-3">
+      <div className="relative pt-6 md:pt-8 pb-0 md:pb-3">
         <div className="container mx-auto px-2 md:px-4">
           {/* Centered Logo with Neon Glow - Responsive size */}
-          <div className="flex justify-center mb-2 md:mb-3">
-            <div className="relative p-1 md:p-2">
+          <div className="flex justify-center mb-0 md:mb-3">
+            <div className="relative p-0 md:p-2">
               {/* Outer Glow Background */}
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-pink-600 to-pink-500 blur-[100px] opacity-40 animate-pulse"></div>
               
@@ -183,8 +183,8 @@ export default function Shop() {
           </div>
 
           {/* Categories Section - Below Logo */}
-          <div className="mt-2 md:mt-4">
-            <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-1.5 md:gap-3">
+          <div className="mt-0 md:mt-4">
+            <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-3">
               {['שיזוף', 'קוסמטיקה', 'אביזרים', 'טיפוח שיער', 'תכשיטים', 'מוצרים ירוקים'].map((category) => (
                 <Button
                   key={category}
