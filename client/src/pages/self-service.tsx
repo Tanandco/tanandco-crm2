@@ -333,10 +333,10 @@ export default function SelfService() {
           </div>
         </div>
 
-        {/* SERVICE CARDS */}
+        {/* SERVICE CARDS - Mobile: 2 rows, Desktop: 1 row */}
         <section id="services" className="relative py-2 pb-6 flex-shrink-0 mt-2 md:mt-4">
           <div className="max-w-6xl mx-auto px-3 text-center">
-            <div className="flex gap-1.5 md:gap-3 justify-center flex-wrap max-w-5xl mx-auto">
+            <div className="flex gap-1.5 md:gap-3 justify-center flex-wrap md:flex-nowrap max-w-5xl mx-auto">
               {services.map((service) => (
                 <ServiceCard
                   key={service.id}
