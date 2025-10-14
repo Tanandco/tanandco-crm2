@@ -169,11 +169,11 @@ export default function Shop() {
       </div>
 
       {/* Hero Logo Section */}
-      <div className="relative pt-0 pb-6">
-        <div className="container mx-auto px-4">
+      <div className="relative pt-0 pb-3">
+        <div className="container mx-auto px-3 md:px-4">
           {/* Centered Logo with Neon Glow - Responsive size */}
-          <div className="flex justify-center mb-6">
-            <div className="relative p-4">
+          <div className="flex justify-center mb-3">
+            <div className="relative p-2">
               {/* Outer Glow Background */}
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-pink-600 to-pink-500 blur-[100px] opacity-40 animate-pulse"></div>
               
@@ -188,14 +188,14 @@ export default function Shop() {
           </div>
 
           {/* Categories Section - Below Logo */}
-          <div className="mt-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">קטגוריות פופולריות</h3>
-            <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
+          <div className="mt-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">קטגוריות פופולריות</h3>
+            <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
               {['שיזוף', 'קוסמטיקה', 'אביזרים', 'טיפוח שיער', 'תכשיטים', 'מוצרים ירוקים'].map((category) => (
                 <Button
                   key={category}
                   variant="outline"
-                  className="h-16 md:h-24 text-xs md:text-lg border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 px-1 md:px-4"
+                  className="h-14 md:h-20 text-xs md:text-base border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 px-1 md:px-3"
                   data-testid={`category-${category}`}
                 >
                   {category}
@@ -205,22 +205,22 @@ export default function Shop() {
           </div>
 
           {/* Carousel Title */}
-          <h2 className="text-lg md:text-2xl font-semibold text-center mt-8 md:mt-12 mb-3 md:mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-lg md:text-2xl font-semibold text-center mt-4 md:mt-6 mb-2 md:mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
             ברונזרים למיטות שיזוף
           </h2>
         </div>
       </div>
 
       {/* Bed Bronzers Carousel */}
-      <section className="relative pb-8">
-        <div className="container mx-auto px-4">
+      <section className="relative pb-4">
+        <div className="container mx-auto px-3 md:px-4">
           {bedBronzerProducts.length > 0 ? (
             <ZenCarousel 
               products={bedBronzerProducts} 
               onAddToCart={handleAddToCart}
             />
           ) : (
-            <div className="text-center py-12">
+            <div className="text-center py-8">
               <Package className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
               <p className="text-muted-foreground">אין ברונזרים זמינים</p>
             </div>
@@ -235,31 +235,31 @@ export default function Shop() {
 
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-3 md:px-4 py-4 md:py-6">
         {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-8 md:mt-20 mb-8 md:mb-12">
-          <div className="text-center p-4 md:p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-              <Package className="w-6 h-6 md:w-8 md:h-8 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mt-4 md:mt-8 mb-4 md:mb-8">
+          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+            <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+              <Package className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-lg md:text-xl font-bold mb-1 md:mb-2">משלוח מהיר</h4>
-            <p className="text-muted-foreground text-sm md:text-base">משלוח עד הבית תוך 2-3 ימי עסקים</p>
+            <h4 className="text-base md:text-lg font-bold mb-1">משלוח מהיר</h4>
+            <p className="text-muted-foreground text-xs md:text-sm">משלוח עד הבית תוך 2-3 ימי עסקים</p>
           </div>
 
-          <div className="text-center p-4 md:p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-              <RefreshCw className="w-6 h-6 md:w-8 md:h-8 text-white" />
+          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+            <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+              <RefreshCw className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-lg md:text-xl font-bold mb-1 md:mb-2">החזרות בחינם</h4>
-            <p className="text-muted-foreground text-sm md:text-base">החזרה ללא עלות תוך 30 יום</p>
+            <h4 className="text-base md:text-lg font-bold mb-1">החזרות בחינם</h4>
+            <p className="text-muted-foreground text-xs md:text-sm">החזרה ללא עלות תוך 30 יום</p>
           </div>
 
-          <div className="text-center p-4 md:p-6 rounded-lg bg-slate-900/50 border border-pink-500/20">
-            <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
-              <Package className="w-6 h-6 md:w-8 md:h-8 text-white" />
+          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+            <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+              <Package className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-lg md:text-xl font-bold mb-1 md:mb-2">איכות מעולה</h4>
-            <p className="text-muted-foreground text-sm md:text-base">מוצרים מקוריים בלבד</p>
+            <h4 className="text-base md:text-lg font-bold mb-1">איכות מעולה</h4>
+            <p className="text-muted-foreground text-xs md:text-sm">מוצרים מקוריים בלבד</p>
           </div>
         </div>
       </main>
