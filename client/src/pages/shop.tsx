@@ -290,30 +290,83 @@ export default function Shop() {
 
       {/* Main Content */}
       <main className="container mx-auto px-3 md:px-4 py-4 md:py-6">
+        <style>{`
+          @keyframes flow-gradient-features {
+            0% {
+              background-position: 0% 0%;
+            }
+            100% {
+              background-position: 200% 200%;
+            }
+          }
+          
+          .flowing-border-features {
+            position: relative;
+          }
+          
+          .flowing-border-features::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 0.5rem;
+            padding: 2px;
+            background: linear-gradient(
+              135deg,
+              rgba(236, 72, 153, 0.8),
+              rgba(168, 85, 247, 0.6),
+              rgba(139, 92, 246, 0.8),
+              rgba(236, 72, 153, 0.6),
+              rgba(168, 85, 247, 0.8)
+            );
+            background-size: 200% 200%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            animation: flow-gradient-features 4s linear infinite;
+            opacity: 0.7;
+          }
+          
+          .flowing-text-features {
+            background: linear-gradient(
+              135deg,
+              rgba(236, 72, 153, 1),
+              rgba(168, 85, 247, 0.8),
+              rgba(139, 92, 246, 1),
+              rgba(236, 72, 153, 0.8),
+              rgba(168, 85, 247, 1)
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: flow-gradient-features 3s linear infinite;
+          }
+        `}</style>
         {/* Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mt-4 md:mt-8 mb-4 md:mb-8">
-          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+          <div className="text-center p-3 md:p-4 rounded-lg flowing-border-features" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
             <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
               <Package className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-base md:text-lg font-bold mb-1">משלוח מהיר</h4>
-            <p className="text-muted-foreground text-xs md:text-sm">משלוח עד הבית תוך 2-3 ימי עסקים</p>
+            <h4 className="text-base md:text-lg font-bold mb-1 flowing-text-features">משלוח מהיר</h4>
+            <p className="text-pink-400/80 text-xs md:text-sm">משלוח עד הבית תוך 2-3 ימי עסקים</p>
           </div>
 
-          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+          <div className="text-center p-3 md:p-4 rounded-lg flowing-border-features" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
             <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
               <RefreshCw className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-base md:text-lg font-bold mb-1">החזרות בחינם</h4>
-            <p className="text-muted-foreground text-xs md:text-sm">החזרה ללא עלות תוך 30 יום</p>
+            <h4 className="text-base md:text-lg font-bold mb-1 flowing-text-features">החזרות בחינם</h4>
+            <p className="text-pink-400/80 text-xs md:text-sm">החזרה ללא עלות תוך 30 יום</p>
           </div>
 
-          <div className="text-center p-3 md:p-4 rounded-lg bg-slate-900/50 border border-pink-500/20">
+          <div className="text-center p-3 md:p-4 rounded-lg flowing-border-features" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
             <div className="w-10 h-10 md:w-14 md:h-14 mx-auto mb-2 md:mb-3 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
               <Package className="w-5 h-5 md:w-7 md:h-7 text-white" />
             </div>
-            <h4 className="text-base md:text-lg font-bold mb-1">איכות מעולה</h4>
-            <p className="text-muted-foreground text-xs md:text-sm">מוצרים מקוריים בלבד</p>
+            <h4 className="text-base md:text-lg font-bold mb-1 flowing-text-features">איכות מעולה</h4>
+            <p className="text-pink-400/80 text-xs md:text-sm">מוצרים מקוריים בלבד</p>
           </div>
         </div>
       </main>
