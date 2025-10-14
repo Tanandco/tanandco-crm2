@@ -296,7 +296,7 @@ export default function SelfService() {
                   <div className="flex-1 flex items-center justify-center">
                     <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">מיטות שיזוף</div>
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מיטות שיזוף</div>
                 </div>
               </button>
 
@@ -310,7 +310,7 @@ export default function SelfService() {
                   <div className="flex-1 flex items-center justify-center">
                     <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[70px] max-h-[70px] md:max-w-[125px] md:max-h-[125px] neon-glow object-contain" />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">שיזוף בהתזה</div>
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">שיזוף בהתזה</div>
                 </div>
               </button>
 
@@ -324,7 +324,7 @@ export default function SelfService() {
                   <div className="flex-1 flex items-center justify-center">
                     <img src={hairSalonIcon} alt="מספרה" className="max-w-[80px] max-h-[80px] md:max-w-[140px] md:max-h-[140px] neon-glow object-contain" />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">מספרה</div>
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מספרה</div>
                 </div>
               </a>
 
@@ -338,7 +338,7 @@ export default function SelfService() {
                   <div className="flex-1 flex items-center justify-center">
                     <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[75px] max-h-[75px] md:max-w-[135px] md:max-h-[135px] neon-glow object-contain" />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">קוסמטיקה</div>
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">קוסמטיקה</div>
                 </div>
               </button>
 
@@ -352,7 +352,7 @@ export default function SelfService() {
                   <div className="flex-1 flex items-center justify-center">
                     <img src={storeIcon} alt="החנות שלכם" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight">החנות שלכם</div>
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">החנות שלכם</div>
                 </div>
               </a>
 
@@ -371,7 +371,7 @@ export default function SelfService() {
                       style={{ filter: 'drop-shadow(0 0 20px rgb(59, 130, 246)) contrast(1.15) brightness(1.05)' }}
                     />
                   </div>
-                  <div className="text-[10px] md:text-sm font-bold tracking-tight leading-tight text-[rgb(59,130,246)] drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]">
+                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight text-[rgb(59,130,246)] drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]">
                     AI TAN
                   </div>
                 </div>
