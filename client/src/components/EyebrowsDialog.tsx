@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { ArrowLeft, Sparkles, Instagram, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import useEmblaCarousel from 'embla-carousel-react';
+import img1 from '@assets/IMG_9288_1760435215183.png';
+import img2 from '@assets/IMG_9289_1760435215183.png';
+import img3 from '@assets/image_1760435246985.png';
+import img4 from '@assets/IMG_9291_1760435215183.jpeg';
+import img5 from '@assets/IMG_9292_1760435215183.jpeg';
+import img6 from '@assets/IMG_9293_1760435215183.jpeg';
 
 interface EyebrowsDialogProps {
   open: boolean;
@@ -110,24 +116,40 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
           {/* שירותים */}
           <div className="w-full md:w-1/2 bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border border-pink-500/60 rounded-lg p-4 flowing-border">
             <div className="space-y-2">
-              <h3 className="text-base md:text-lg font-bold text-white text-center">השירותים שלנו</h3>
+              <h3 className="text-base md:text-lg font-bold text-white text-center">מחירון</h3>
               <div className="space-y-1">
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">הרמת ריסים</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">הרמת גבות</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">סטודיו לגבות - עיצוב גבות טבעיות</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
-                <button className="w-full flex justify-between items-center bg-black/40 rounded-lg p-2 border border-pink-500/20 hover:border-pink-500/60 transition-colors">
-                  <span className="text-white text-xs">Microblading - מיקרובליידינג בשיטת השיערה</span>
-                  <span className="text-pink-400 font-bold text-sm">הזמן עכשיו</span>
-                </button>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Eyebrows & Upper Lip</span>
+                  <span className="text-pink-400 font-bold text-sm">₪100</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Eyebrows & Tint</span>
+                  <span className="text-pink-400 font-bold text-sm">₪120</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Upper Lip</span>
+                  <span className="text-pink-400 font-bold text-sm">₪50</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Tint</span>
+                  <span className="text-pink-400 font-bold text-sm">₪50</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Browlift</span>
+                  <span className="text-pink-400 font-bold text-sm">₪250</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Lashlift</span>
+                  <span className="text-pink-400 font-bold text-sm">₪280</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Browlift + Lashlift</span>
+                  <span className="text-pink-400 font-bold text-sm">₪450</span>
+                </div>
+                <div className="flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-pink-500/20">
+                  <span className="text-white text-xs flex-1">Microblading</span>
+                  <span className="text-pink-400 font-bold text-sm">₪1500</span>
+                </div>
               </div>
             </div>
           </div>
@@ -141,42 +163,42 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
                   <div className="flex gap-2 h-full">
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/IMG_9288_1760435215183.png" 
+                        src={img1} 
                         alt="עבודת גבות 1"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
                     </div>
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/IMG_9289_1760435215183.png" 
+                        src={img2} 
                         alt="עבודת גבות 2"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
                     </div>
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/image_1760435246985.png" 
+                        src={img3} 
                         alt="מחירון"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
                     </div>
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/IMG_9291_1760435215183.jpeg" 
+                        src={img4} 
                         alt="עבודת גבות 3"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
                     </div>
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/IMG_9292_1760435215183.jpeg" 
+                        src={img5} 
                         alt="עבודת גבות 4"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
                     </div>
                     <div className="flex-[0_0_33%] min-w-0">
                       <img 
-                        src="/attached_assets/IMG_9293_1760435215183.jpeg" 
+                        src={img6} 
                         alt="עבודת גבות 5"
                         className="aspect-square object-cover rounded-lg border border-pink-500/30"
                       />
