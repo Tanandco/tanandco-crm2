@@ -146,39 +146,25 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
             </Button>
           </div>
 
-          {/* חבילת כלה מורחבת */}
+          {/* חבילת כלה VIP */}
           <div className="flex flex-col gap-2">
-            <div className="flowing-border rounded-lg p-3 md:p-4 min-h-[140px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
-              {/* כותרת */}
-              <div className="text-xs md:text-sm mb-3 text-center font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילת כלה VIP</div>
-              
-              {/* תוכן מחולק לשני צדדים */}
-              <div className="flex gap-3 md:gap-4 items-start">
-                {/* צד ימין - מחיר */}
-                <div className="flex-shrink-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#e064d5]/20 to-transparent rounded-lg p-2 md:p-3 border border-[#e064d5]/30">
-                  <div className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340</div>
-                  <div className="text-xs md:text-sm" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>₪</div>
-                </div>
-                
-                {/* צד שמאל - מידע מפורט */}
-                <div className="flex-1 space-y-1 md:space-y-1.5">
-                  <div className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.95 }}>
-                    ✓ טסט מלא - 14 יום לפני אירוע
-                  </div>
-                  <div className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.95 }}>
-                    ✓ טיפול נוסף - 24-48 שעות לפני
-                  </div>
-                  <div className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.95 }}>
-                    ✓ עדיפות ביומן + גמישות בשעות
-                  </div>
-                  <div className="text-[9px] md:text-[10px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.95 }}>
-                    ✓ אופציה לטיפול עד הבית
-                  </div>
-                  <div className="text-[7px] md:text-[8px] pt-1 border-t border-[#e064d5]/20" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.7 }}>
-                    11 שנה בתעשיית השיזוף | 2+ שנה ביוטכנולוגיה
-                  </div>
-                </div>
-              </div>
+            <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-[10px] md:text-xs mb-1 text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>חבילת כלה VIP</div>
+              <div className="text-sm md:text-base font-bold text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>340₪</div>
+              <button 
+                className="flex items-center gap-1 cursor-pointer hover:opacity-100 transition-opacity mt-1"
+                onClick={() => setBrideInfoOpen(true)}
+                style={{ opacity: 0.8 }}
+              >
+                <span className="text-[7px] md:text-[8px]" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>
+                  טסט + טיפול + עדיפות ביומן
+                </span>
+                <svg className="w-2 h-2" fill="none" stroke="#e064d5" strokeWidth="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="16" x2="12" y2="12"/>
+                  <circle cx="12" cy="8" r="0.5" fill="#e064d5"/>
+                </svg>
+              </button>
             </div>
             <Button
               variant="outline"
