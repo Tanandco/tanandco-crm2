@@ -77,8 +77,8 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
           </p>
         </div>
 
-        {/* שורה ראשונה - 3 שדות */}
-        <div className="grid grid-cols-3 gap-2 md:gap-3 mb-3 md:mb-4 max-w-4xl mx-auto mt-6 md:mt-8">
+        {/* 4 שדות זהים - 2 שורות */}
+        <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-4 max-w-4xl mx-auto mt-6 md:mt-8">
           <div className="flex flex-col gap-2">
             <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
               <div className="text-[10px] md:text-xs mb-1 text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>טיפול בודד</div>
@@ -123,11 +123,7 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               הזמן עכשיו
             </Button>
           </div>
-        </div>
 
-        {/* שורה שנייה - 2 שדות מורחבים */}
-        <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-6 max-w-4xl mx-auto">
-          {/* VIP עד הבית */}
           <div className="flex flex-col gap-2">
             <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
               <div className="text-[10px] md:text-xs mb-1 text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>VIP עד הבית</div>
@@ -142,7 +138,10 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
               הזמן עכשיו
             </Button>
           </div>
+        </div>
 
+        {/* שדה חמישי - חבילת כלה במקום הנותר */}
+        <div className="max-w-4xl mx-auto mb-4 md:mb-6">
           {/* חבילת כלה - הכי גדול */}
           <div className="flex flex-col gap-2">
             <div className="flowing-border rounded-lg p-3 md:p-4" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
