@@ -228,11 +228,16 @@ export default function Shop() {
                   className="flowing-border-cat rounded-lg p-2 md:p-3 flex items-center justify-center h-12 md:h-20 cursor-pointer hover:opacity-90 transition-opacity"
                   style={{ 
                     backgroundColor: 'rgba(44, 44, 44, 0.15)', 
-                    boxShadow: '0 0 20px rgba(236, 72, 153, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8), inset 0 2px 6px rgba(0, 0, 0, 0.8)' 
+                    boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' 
                   }}
                   data-testid={`category-${category}`}
                 >
-                  <span className="text-[10px] md:text-base font-semibold text-center text-pink-400">
+                  <span 
+                    className="text-[10px] md:text-base font-semibold text-center text-pink-400"
+                    style={{
+                      textShadow: '0 0 20px rgba(236, 72, 153, 0.8), 0 0 30px rgba(236, 72, 153, 0.6)'
+                    }}
+                  >
                     {category}
                   </span>
                 </div>
