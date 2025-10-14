@@ -149,10 +149,12 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                   data-testid={`cosmetics-action-${index}`}
                 >
                   <div className="px-4 text-center space-y-1 md:space-y-2">
-                    <action.icon 
-                      className="w-8 h-8 md:w-12 md:h-12 mx-auto text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
-                      style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
-                    />
+                    <div className="inline-block p-3 md:p-4 rounded-full mx-auto" style={{ boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.6)' }}>
+                      <action.icon 
+                        className="w-8 h-8 md:w-12 md:h-12 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
+                        style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
+                      />
+                    </div>
                     <p className="text-white text-base md:text-2xl font-bold leading-tight font-hebrew">
                       {action.title}
                     </p>
