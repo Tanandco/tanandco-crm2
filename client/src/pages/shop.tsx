@@ -138,7 +138,7 @@ export default function Shop() {
           className="border-pink-500/30 hover:border-pink-500/50 hover:bg-pink-500/10 h-9 w-9 md:h-10 md:w-10 bg-transparent md:backdrop-blur-lg md:bg-slate-950/80 pointer-events-auto"
           data-testid="button-back"
         >
-          <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+          <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
         </Button>
         <div className="flex gap-1.5 md:gap-2 pointer-events-auto">
           <Button 
@@ -147,7 +147,7 @@ export default function Shop() {
             className="border-pink-500/50 hover:border-pink-500 h-9 w-9 md:h-10 md:w-10 bg-transparent md:backdrop-blur-lg md:bg-slate-950/80"
             data-testid="button-search"
           >
-            <Search className="w-4 h-4 md:w-5 md:h-5" />
+            <Search className="w-3 h-3 md:w-4 md:h-4" />
           </Button>
           
           <Link href="/face-registration">
@@ -156,7 +156,7 @@ export default function Shop() {
               className="border-pink-500/50 hover:border-pink-500 h-9 md:h-10 bg-transparent md:backdrop-blur-lg md:bg-slate-950/80 px-2 md:px-4"
               data-testid="button-register"
             >
-              <UserPlus className="w-4 h-4 md:w-5 md:h-5 ml-1 md:ml-2" />
+              <UserPlus className="w-3 h-3 md:w-4 md:h-4 ml-1 md:ml-2" />
               <span className="hidden sm:inline">הרשמה</span>
             </Button>
           </Link>
