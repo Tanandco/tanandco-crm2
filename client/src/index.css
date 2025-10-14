@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar for all browsers */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

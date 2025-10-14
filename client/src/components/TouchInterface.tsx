@@ -116,7 +116,7 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
       data-testid="touch-interface"
     >
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-0 md:py-0.5 flex flex-col items-center flex-1 overflow-y-auto">
+      <div className="relative z-10 mx-auto max-w-[1280px] w-full px-2 md:px-6 py-0 md:py-0.5 flex flex-col items-center flex-1 overflow-hidden">
 
         {/* Action Buttons - Above Logo */}
         <div className="transform translate-y-0 md:translate-y-0">
