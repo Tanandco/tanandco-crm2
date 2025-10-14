@@ -15,6 +15,42 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+      <style>{`
+        @keyframes flow-gradient-border {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 200% 200%;
+          }
+        }
+        
+        .flowing-border {
+          position: relative;
+        }
+        
+        .flowing-border::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 0.5rem;
+          padding: 2px;
+          background: linear-gradient(
+            135deg,
+            rgba(236, 72, 153, 0.8),
+            rgba(168, 85, 247, 0.6),
+            rgba(139, 92, 246, 0.8),
+            rgba(236, 72, 153, 0.6),
+            rgba(168, 85, 247, 0.8)
+          );
+          background-size: 200% 200%;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: flow-gradient-border 3s linear infinite;
+          pointer-events: none;
+        }
+      `}</style>
       {/* Pink/Purple Gradient Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-pink-500/30 via-pink-500/20 to-black opacity-90 backdrop-blur-sm" />
@@ -35,10 +71,10 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
       </div>
 
       {/* Content - New layout: Header -> Services/Gallery -> Book Button */}
-      <div className="relative w-full h-[90vh] max-w-7xl flex flex-col gap-4">
+      <div className="relative w-full h-[90vh] max-w-7xl flex flex-col gap-4 overflow-y-auto">
         
         {/* Header Section - Name & Bio */}
-        <div className="w-full bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4">
+        <div className="w-full bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-pink-500/60 rounded-lg p-4 flowing-border">
           <div className="space-y-3">
             {/* Header with Instagram */}
             <div className="text-center space-y-2">
@@ -72,7 +108,7 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
         <div className="flex-1 flex flex-col md:flex-row gap-4">
           
           {/* שירותים */}
-          <div className="w-full md:w-1/2 bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4">
+          <div className="w-full md:w-1/2 bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border border-pink-500/60 rounded-lg p-4 flowing-border">
             <div className="space-y-2">
               <h3 className="text-base md:text-lg font-bold text-white text-center">השירותים שלנו</h3>
               <div className="space-y-1">
@@ -97,7 +133,7 @@ export default function EyebrowsDialog({ open, onOpenChange }: EyebrowsDialogPro
           </div>
 
           {/* גלריה */}
-          <div className="w-full md:w-1/2 bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border-2 border-pink-500/60 rounded-lg p-4">
+          <div className="w-full md:w-1/2 bg-gradient-to-br from-pink-900/30 via-black/80 to-gray-800/90 border border-pink-500/60 rounded-lg p-4 flowing-border">
             <div className="space-y-2 h-full flex flex-col">
               <h3 className="text-base md:text-lg font-bold text-white text-center">גלריה</h3>
               <div className="relative flex-1">
