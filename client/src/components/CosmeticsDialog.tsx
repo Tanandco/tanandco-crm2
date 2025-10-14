@@ -132,24 +132,20 @@ export default function CosmeticsDialog({ open, onOpenChange }: CosmeticsDialogP
                   className="
                     group relative h-[120px] w-full md:h-[280px] md:w-[450px]
                     bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90
-                    border hover:border-2
+                    border-0
                     rounded-md backdrop-blur-sm
                     flex items-center justify-center
                     transition-all duration-150 ease-in-out
                     hover-elevate active-elevate-2
-                    overflow-visible
                     flowing-border-cosmetics
                   "
                   style={{
-                    borderColor: 'rgba(236, 72, 153, 0.6)',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)'}
                   data-testid={`cosmetics-action-${index}`}
                 >
                   <div className="px-4 text-center space-y-1 md:space-y-2">
-                    <div className="inline-block p-3 md:p-4 rounded-full mx-auto" style={{ boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.6)' }}>
+                    <div className="inline-block p-3 md:p-4 rounded-full mx-auto bg-black/40" style={{ boxShadow: 'inset 0 4px 12px rgba(0, 0, 0, 0.8), inset 0 -2px 6px rgba(255, 255, 255, 0.1)' }}>
                       <action.icon 
                         className="w-8 h-8 md:w-12 md:h-12 text-pink-400 group-hover:drop-shadow-[0_0_30px_rgba(236,72,153,1)]"
                         style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.8))' }}
