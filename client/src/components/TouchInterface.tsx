@@ -229,13 +229,12 @@ export default function TouchInterface({ onServiceSelect, onNavigate }: TouchInt
           ))}
         </div>
 
-        {/* Self Service Button + Sol Side by Side */}
-        <div className="mt-4 md:mt-6 w-full max-w-6xl flex items-center justify-center gap-4 px-3">
-          {/* Self Service Button */}
-          <SelfServiceButton3D onClick={() => navigate('/self-service')} />
+        {/* Self Service Button */}
+        <SelfServiceButton3D onClick={() => navigate('/self-service')} />
 
-          {/* Sol Chatbot - Next to Self Service */}
-          <div className="flex items-center gap-1">
+        {/* Sol Chatbot - Below Self Service */}
+        <div className="mt-4 md:mt-6 w-full max-w-6xl">
+          <div className="flex items-center gap-1 px-3">
             <button
               onClick={() => setChatOpen(true)}
               className="relative shrink-0 group animate-bounce-slow hover:scale-110 transition-transform"
