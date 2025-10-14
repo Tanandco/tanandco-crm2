@@ -129,11 +129,11 @@ export default function SprayTanDialog({ open, onOpenChange }: SprayTanDialogPro
         <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6 max-w-4xl mx-auto">
           {/* VIP עד הבית */}
           <div className="flex flex-col gap-2">
-            <div className="flowing-border rounded-lg p-3 md:p-4 flex flex-col items-center justify-center min-h-[140px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
-              <div className="text-xs md:text-sm mb-2 text-center font-bold" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>VIP עד הבית</div>
-              <div className="text-base md:text-lg font-bold text-center mb-1" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>350₪</div>
-              <div className="text-[9px] md:text-[10px] text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.8 }}>
-                + 200₪ לכל לקוח נוסף
+            <div className="flowing-border rounded-lg p-2 md:p-2.5 flex flex-col items-center justify-center h-[100px] md:h-[110px]" style={{ backgroundColor: 'rgba(44, 44, 44, 0.15)', boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' }}>
+              <div className="text-[10px] md:text-xs mb-1 text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>VIP עד הבית</div>
+              <div className="text-sm md:text-base font-bold text-center mb-0.5" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5' }}>350₪</div>
+              <div className="text-[8px] md:text-[9px] text-center" style={{ fontFamily: 'Varela Round, sans-serif', color: '#e064d5', opacity: 0.7 }}>
+                + 200₪ לקוח נוסף
               </div>
             </div>
             <Button
