@@ -293,7 +293,7 @@ export default function SelfService() {
                 data-testid="card-sun-beds"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
                   </div>
                   <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מיטות שיזוף</div>
@@ -307,7 +307,7 @@ export default function SelfService() {
                 data-testid="card-spray-tan"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[70px] max-h-[70px] md:max-w-[125px] md:max-h-[125px] neon-glow object-contain" />
                   </div>
                   <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">שיזוף בהתזה</div>
@@ -321,7 +321,7 @@ export default function SelfService() {
                 data-testid="card-hair-salon"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img src={hairSalonIcon} alt="מספרה" className="max-w-[80px] max-h-[80px] md:max-w-[140px] md:max-h-[140px] neon-glow object-contain" />
                   </div>
                   <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מספרה</div>
@@ -335,7 +335,7 @@ export default function SelfService() {
                 data-testid="card-cosmetics"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[75px] max-h-[75px] md:max-w-[135px] md:max-h-[135px] neon-glow object-contain" />
                   </div>
                   <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">קוסמטיקה</div>
@@ -349,7 +349,7 @@ export default function SelfService() {
                 data-testid="card-store"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img src={storeIcon} alt="החנות שלכם" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
                   </div>
                   <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">החנות שלכם</div>
@@ -363,7 +363,7 @@ export default function SelfService() {
                 data-testid="card-ai-tan"
               >
                 <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="flex-1 flex items-center justify-center">
+                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
                     <img 
                       src={blueAlinGif} 
                       alt="AI TAN" 
