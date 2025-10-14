@@ -3,6 +3,7 @@ import { useLocation } from 'wouter';
 import { Home, Settings } from 'lucide-react';
 import Logo from '@/components/Logo';
 import Alin from '@/components/Alin';
+import ServiceCard from '@/components/ServiceCard';
 import SunBedsDialog from '@/components/SunBedsDialog';
 import SprayTanDialog from '@/components/SprayTanDialog';
 import HairSalonDialog from '@/components/HairSalonDialog';
@@ -64,6 +65,55 @@ export default function SelfService() {
   const handlePasswordSuccess = () => {
     setPasswordDialogOpen(false);
     navigate('/');
+  };
+
+  const services = [
+    { 
+      title: 'AI TAN', 
+      icon: <Alin size={95} className="max-w-[95px] max-h-[95px] md:max-w-[125px] md:max-h-[125px]" />, 
+      id: 'ai-tan' 
+    },
+    { 
+      title: 'מיטות שיזוף', 
+      icon: <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[70px] max-h-[70px] md:max-w-[115px] md:max-h-[115px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
+      id: 'sun-beds' 
+    },
+    { 
+      title: 'שיזוף בהתזה', 
+      icon: <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[70px] max-h-[70px] md:max-w-[115px] md:max-h-[115px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
+      id: 'spray-tan' 
+    },
+    { 
+      title: 'מספרה', 
+      icon: <img src={hairSalonIcon} alt="מספרה" className="max-w-[70px] max-h-[70px] md:max-w-[115px] md:max-h-[115px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
+      id: 'hair-salon' 
+    },
+    { 
+      title: 'קוסמטיקה', 
+      icon: <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[70px] max-h-[70px] md:max-w-[115px] md:max-h-[115px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
+      id: 'cosmetics' 
+    },
+    { 
+      title: 'החנות שלכם', 
+      icon: <img src={storeIcon} alt="החנות שלכם" className="max-w-[70px] max-h-[70px] md:max-w-[115px] md:max-h-[115px] object-contain" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.8))' }} />, 
+      id: 'your-store' 
+    },
+  ];
+
+  const handleServiceClick = (serviceId: string) => {
+    if (serviceId === 'ai-tan') {
+      navigate('/ai-tan');
+    } else if (serviceId === 'your-store') {
+      navigate('/shop');
+    } else if (serviceId === 'hair-salon') {
+      navigate('/hair-studio');
+    } else if (serviceId === 'sun-beds') {
+      setSunBedsOpen(true);
+    } else if (serviceId === 'spray-tan') {
+      setSprayTanOpen(true);
+    } else if (serviceId === 'cosmetics') {
+      setCosmeticsOpen(true);
+    }
   };
 
   return (
@@ -285,97 +335,16 @@ export default function SelfService() {
         {/* SERVICE CARDS */}
         <section id="services" className="relative py-2 pb-6 flex-shrink-0 mt-2 md:mt-4">
           <div className="max-w-6xl mx-auto px-3 text-center">
-            <div className="grid grid-cols-3 md:flex gap-1.5 md:gap-2 justify-center md:flex-wrap max-w-5xl mx-auto">
-              {/* Sun Beds */}
-              <button
-                onClick={() => setSunBedsOpen(true)}
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-0"
-                data-testid="card-sun-beds"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img src={tanningBedIcon} alt="מיטות שיזוף" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מיטות שיזוף</div>
-                </div>
-              </button>
-
-              {/* Spray Tan */}
-              <button
-                onClick={() => setSprayTanOpen(true)}
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-100"
-                data-testid="card-spray-tan"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img src={sprayTanIcon} alt="שיזוף בהתזה" className="max-w-[70px] max-h-[70px] md:max-w-[125px] md:max-h-[125px] neon-glow object-contain" />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">שיזוף בהתזה</div>
-                </div>
-              </button>
-
-              {/* Hair Salon */}
-              <a
-                href="/hair-studio"
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-200"
-                data-testid="card-hair-salon"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img src={hairSalonIcon} alt="מספרה" className="max-w-[80px] max-h-[80px] md:max-w-[140px] md:max-h-[140px] neon-glow object-contain" />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">מספרה</div>
-                </div>
-              </a>
-
-              {/* Cosmetics */}
-              <button
-                onClick={() => setCosmeticsOpen(true)}
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-300"
-                data-testid="card-cosmetics"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img src={cosmeticsIcon} alt="קוסמטיקה" className="max-w-[75px] max-h-[75px] md:max-w-[135px] md:max-h-[135px] neon-glow object-contain" />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">קוסמטיקה</div>
-                </div>
-              </button>
-
-              {/* Store */}
-              <a
-                href="/shop"
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(236,72,153,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm flex items-center justify-center text-center animate-fade-in-up delay-400"
-                data-testid="card-store"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img src={storeIcon} alt="החנות שלכם" className="max-w-[60px] max-h-[60px] md:max-w-[115px] md:max-h-[115px] neon-glow object-contain" />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight">החנות שלכם</div>
-                </div>
-              </a>
-
-              {/* AI TAN (Alin) */}
-              <a
-                href="/ai-tan"
-                className="h-[100px] w-full md:h-[180px] md:w-[160px] rounded-xl p-1.5 md:p-3 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 border border-[hsla(var(--primary)/0.6)] hover:border-[hsl(var(--primary))] text-[hsl(var(--cardText))] shadow-[0_8px_20px_rgba(0,0,0,.4)] hover:shadow-[0_8px_20px_rgba(0,0,0,.45),0_0_60px_rgba(59,130,246,.3)] transition-all duration-150 ease-in-out hover:scale-105 active:scale-100 backdrop-blur-sm animate-fade-in-up delay-500"
-                data-testid="card-ai-tan"
-              >
-                <div className="h-full w-full flex flex-col items-center justify-between text-center py-2">
-                  <div className="h-[70px] md:h-[140px] flex items-center justify-center">
-                    <img 
-                      src={blueAlinGif} 
-                      alt="AI TAN" 
-                      className="max-w-[95px] max-h-[95px] md:max-w-[155px] md:max-h-[155px] object-contain"
-                      style={{ filter: 'drop-shadow(0 0 20px rgb(59, 130, 246)) contrast(1.15) brightness(1.05)' }}
-                    />
-                  </div>
-                  <div className="h-[14px] md:h-[20px] flex items-center justify-center text-[10px] md:text-sm font-bold tracking-tight leading-tight text-[rgb(59,130,246)] drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]">
-                    AI TAN
-                  </div>
-                </div>
-              </a>
+            <div className="flex gap-1.5 md:gap-3 justify-center flex-wrap max-w-5xl mx-auto">
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  title={service.title}
+                  icon={service.icon}
+                  onClick={() => handleServiceClick(service.id)}
+                  borderColor="pink"
+                />
+              ))}
             </div>
           </div>
         </section>
