@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, Instagram, Facebook, Upload, Image as ImageIcon } from 'lucide-react';
+import { CheckCircle2, Instagram, Facebook, Upload, Image as ImageIcon, Play } from 'lucide-react';
 
 export default function SocialDemo() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // Start with 0 for intro screen
   const [selectedPage, setSelectedPage] = useState('');
   const [postText, setPostText] = useState('');
   const [selectedImage, setSelectedImage] = useState('');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
 
   const pages = [
     { id: '1', name: 'Tan & Co - תאן אנד קו', platform: 'Instagram', followers: '12.5K' },
@@ -42,6 +43,62 @@ export default function SocialDemo() {
     }, 2000);
   };
 
+  const startAutoDemo = () => {
+    setIsAutoPlaying(true);
+    
+    // Step 1: Show page selection
+    setTimeout(() => {
+      setStep(1);
+    }, 500);
+
+    // Step 2: Auto-select first page
+    setTimeout(() => {
+      setSelectedPage('1');
+    }, 2000);
+
+    // Step 3: Move to image selection
+    setTimeout(() => {
+      setStep(2);
+    }, 3500);
+
+    // Step 4: Auto-select first image
+    setTimeout(() => {
+      setSelectedImage(sampleImages[0].url);
+    }, 5000);
+
+    // Step 5: Move to text input
+    setTimeout(() => {
+      setStep(3);
+    }, 6500);
+
+    // Step 6: Auto-type text
+    setTimeout(() => {
+      const text = 'תוצאה מדהימה של Browlift ב-Tan & Co! ✨\n#BeautyResults #TanAndCo';
+      let currentText = '';
+      let charIndex = 0;
+      
+      const typeInterval = setInterval(() => {
+        if (charIndex < text.length) {
+          currentText += text[charIndex];
+          setPostText(currentText);
+          charIndex++;
+        } else {
+          clearInterval(typeInterval);
+        }
+      }, 80);
+    }, 8000);
+
+    // Step 7: Move to publishing
+    setTimeout(() => {
+      setStep(4);
+    }, 12000);
+
+    // Step 8: Show success
+    setTimeout(() => {
+      setStep(5);
+    }, 14000);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-900/20 via-black to-purple-900/20 p-4 flex items-center justify-center">
       <div className="w-full max-w-2xl">
@@ -52,6 +109,44 @@ export default function SocialDemo() {
           </h1>
           <p className="text-gray-400">שתף תוצאות מדהימות לרשתות החברתיות</p>
         </div>
+
+        {/* Step 0: Intro Screen */}
+        {step === 0 && (
+          <Card className="bg-black/40 border-pink-500/30 backdrop-blur-sm">
+            <CardContent className="py-12">
+              <div className="text-center space-y-6">
+                <Instagram className="w-24 h-24 text-pink-400 mx-auto" />
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-bold text-white">הדמיה אוטומטית</h2>
+                  <p className="text-lg text-gray-400">
+                    הדמיה של שיתוף תוצאות ללקוחות
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    (pages_show_list permission demo)
+                  </p>
+                </div>
+                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700 text-right space-y-3">
+                  <p className="text-white text-sm">💡 <strong>איך להשתמש:</strong></p>
+                  <ol className="text-gray-400 text-sm space-y-2 list-decimal list-inside">
+                    <li>פתח Loom או כלי הקלטת מסך אחר</li>
+                    <li>התחל הקלטה של המסך</li>
+                    <li>לחץ על הכפתור למטה</li>
+                    <li>ההדמיה תרוץ אוטומטית במשך 15 שניות</li>
+                    <li>עצור הקלטה ושמור את הסרטון</li>
+                  </ol>
+                </div>
+                <Button
+                  onClick={startAutoDemo}
+                  className="w-full bg-pink-500 hover:bg-pink-600 text-white text-xl py-6"
+                  data-testid="button-start-demo"
+                >
+                  <Play className="w-6 h-6 ml-2" />
+                  התחל הדמיה אוטומטית
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Step 1: Select Page */}
         {step === 1 && (
