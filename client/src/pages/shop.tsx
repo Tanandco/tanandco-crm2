@@ -184,16 +184,58 @@ export default function Shop() {
 
           {/* Categories Section - Below Logo */}
           <div className="mt-0 md:mt-4">
+            <style>{`
+              @keyframes flow-gradient-cat {
+                0% {
+                  background-position: 0% 0%;
+                }
+                100% {
+                  background-position: 200% 200%;
+                }
+              }
+              
+              .flowing-border-cat {
+                position: relative;
+              }
+              
+              .flowing-border-cat::before {
+                content: '';
+                position: absolute;
+                inset: -2px;
+                border-radius: 0.5rem;
+                padding: 2px;
+                background: linear-gradient(
+                  135deg,
+                  rgba(236, 72, 153, 0.8),
+                  rgba(168, 85, 247, 0.6),
+                  rgba(139, 92, 246, 0.8),
+                  rgba(236, 72, 153, 0.6),
+                  rgba(168, 85, 247, 0.8)
+                );
+                background-size: 200% 200%;
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                z-index: -1;
+                animation: flow-gradient-cat 4s linear infinite;
+                opacity: 0.7;
+              }
+            `}</style>
             <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-3">
               {['שיזוף', 'קוסמטיקה', 'אביזרים', 'טיפוח שיער', 'תכשיטים', 'מוצרים ירוקים'].map((category) => (
-                <Button
+                <div
                   key={category}
-                  variant="outline"
-                  className="h-12 md:h-20 text-[10px] md:text-base border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 px-0.5 md:px-3"
+                  className="flowing-border-cat rounded-lg p-2 md:p-3 flex items-center justify-center h-12 md:h-20 cursor-pointer hover:opacity-90 transition-opacity"
+                  style={{ 
+                    backgroundColor: 'rgba(44, 44, 44, 0.15)', 
+                    boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.8)' 
+                  }}
                   data-testid={`category-${category}`}
                 >
-                  {category}
-                </Button>
+                  <span className="text-[10px] md:text-base font-semibold text-center text-pink-400">
+                    {category}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
